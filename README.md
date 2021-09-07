@@ -19,8 +19,8 @@ export PATH="$(yarn global bin):$PATH"
 
 then restart your terminal.
 
-
 Run:
+
 ```
 yarn
 ```
@@ -28,7 +28,9 @@ yarn
 to install all dependencies.
 
 ## Run
+
 To run the app, run:
+
 ```
 yarn start
 ```
