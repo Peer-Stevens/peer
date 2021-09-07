@@ -34,3 +34,17 @@ To run the app, run:
 ```
 yarn start
 ```
+
+## Lint
+
+To lint the app for formatting, run:
+
+```
+yarn run lint
+```
+
+To find out if the above command would change anything, run:
+
+```
+yarn run lint-check
+```
