@@ -19,8 +19,8 @@ export PATH="$(yarn global bin):$PATH"
 
 then restart your terminal.
 
-
 Run:
+
 ```
 yarn
 ```
@@ -28,7 +28,23 @@ yarn
 to install all dependencies.
 
 ## Run
+
 To run the app, run:
+
 ```
 yarn start
+```
+
+## Lint
+
+To lint the app for formatting, run:
+
+```
+yarn run lint
+```
+
+To find out if the above command would change anything, run:
+
+```
+yarn run lint-check
 ```
