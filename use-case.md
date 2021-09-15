@@ -12,17 +12,17 @@ A user with the app installed running in the background of their device walks pa
 
 A user opens the app (some time after the first time). A map of the area surrounding the user is displayed, and notable locations have a pin that can be selected. Upon selecting a pin, a box is drawn over the map that contains the name of the location, a description of the location (from Google/Apple maps), that location's address, and an overall accessibility score from 0-5. Below these fields are a set of buttons labeled:
 
-- Rate use of braille
-- Rate font size on signs
-- Rate staff helpfulness
-- Rate openness of space
+-   Rate use of braille
+-   Rate font size on signs
+-   Rate staff helpfulness
+-   Rate openness of space
 
-The first time that any of these buttons are tapped, a description of the meaning of the button is read aloud. 
+The first time that any of these buttons are tapped, a description of the meaning of the button is read aloud.
 
-- "Rate use of braille: Please speak aloud a number from 0-5 representing how well this facility makes use of braille. Say anything else to dismiss."
-- "Rate font size on signs: Please speak aloud a number from 0-5 representing if the font size on signs was large enough for those with vision problems. Say anything else to dismiss."
-- "Rate staff helpfulness: Please speak aloud a number from 0-5 representing how well staff were willing to accomodate you for your vision problems when asked. Say anything else to dismiss."
-- "Rate openness of space: Please speak aloud a number from 0-5 representing how many landmarks, furniture, or other objects were available for you to touch to navigate the facility. Say anything else to dismiss."
+-   "Rate use of braille: Please speak aloud a number from 0-5 representing how well this facility makes use of braille. Say anything else to dismiss."
+-   "Rate font size on signs: Please speak aloud a number from 0-5 representing if the font size on signs was large enough for those with vision problems. Say anything else to dismiss."
+-   "Rate staff helpfulness: Please speak aloud a number from 0-5 representing how well staff were willing to accomodate you for your vision problems when asked. Say anything else to dismiss."
+-   "Rate openness of space: Please speak aloud a number from 0-5 representing how many landmarks, furniture, or other objects were available for you to touch to navigate the facility. Say anything else to dismiss."
 
 After these descriptions have been read aloud the first time, the prompt will become more brief:
 
@@ -38,8 +38,8 @@ Tapping anywhere besides the box containing the location description will dismis
 
 There is a button at the top right of the map view. Pressing this button opens a box with a small list of options:
 
-- Native voice-over settings
-- Notification settings
+-   Native voice-over settings
+-   Notification settings
 
 Pressing "native voice-over settings" will take the user to a view where there is a setting with a switch to enable or disable the native voice-over (not the one provided by an OS screen reader). There is another option to change the text speed to a slower or faster speed.
 
