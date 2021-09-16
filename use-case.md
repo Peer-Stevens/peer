@@ -34,6 +34,9 @@ Users may tap these "rating buttons" any number of times after leaving a rating 
 
 Tapping anywhere besides the box containing the location description will dismiss the box and return the user to the map view.
 
+Before being read the prompt, the system will let the user know if they have already given a rating. "Previous rating: 4"..._Continues with the script_
+If the user has not already given a rating, they will hear "No previous rating given"
+
 ## Settings Use Case
 
 There is a button at the top right of the map view. Pressing this button opens a box with a small list of options:
