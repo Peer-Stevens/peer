@@ -6,7 +6,15 @@ The first time the user opens the app, they are read aloud an info box that appe
 
 ## Strolling Use Case
 
-There is a "Take a stroll" button on the main view, and a small button besides it reveals a box that is drawn over the main view with a "filter list" of categories with checkmarks. When the user selects the "Take a stroll" button on the main view of the app, they enter a "strolling" state. During the "strolling" state, the user walks past a location that has a high score based on prior reviews given on the app. A push notification appears on the user's device that is read aloud stating that the location that they have just walked by is highly accessible, and which direction it was given their heading (on their left, right, etc.) Only the highly accessibly locations that fall under the categories selected in the filter list are recommended via notifictioan the rest are ignored. There is a setting available to disable these notifications from each OS's respective notifications menu.
+There is a "Take a stroll" button on the main view, and a small button besides it reveals a box that is drawn over the main view with a "filter list" of categories with checkmarks. When the user selects the "Take a stroll" button on the main view of the app, they enter a "strolling" state. During the "strolling" state, the user walks past a location that has a high score based on prior reviews given on the app.
+
+If the user has the app open still:
+An in-app notification is drawn at the top of the screen and is read aloud.
+
+If the user has the app running in the background and a different app open, or has the phone locked:
+A push notification is sent instead.
+
+The notification that appears on the user's device is read aloud stating that the location that they have just walked by is highly accessible, and which direction it was given their heading (on their left, right, etc.) Only the highly accessibly locations that fall under the categories selected in the filter list are recommended via notifictioan the rest are ignored. There is a setting available to disable these notifications from each OS's respective notifications menu.
 
 ## General Facility Rating Use Case
 
