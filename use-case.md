@@ -10,7 +10,7 @@ There is a "Take a stroll" button on the main view, and a small button besides i
 
 ## General Facility Rating Use Case
 
-A user opens the app (some time after the first time). A map of the area surrounding the user is displayed, and notable locations have a pin that can be selected.  These pins are read aloud to the user if the built-in audio cues are enabled. Upon selecting a pin, a box is drawn over the map that contains the name of the location, a description of the location (from Google/Apple maps), that location's address, and an overall accessibility score from 0-5. Below these fields are a set of buttons labeled:
+A user opens the app (some time after the first time). A map of the area surrounding the user is displayed, and notable locations have a pin that can be selected. These pins are read aloud to the user if the built-in audio cues are enabled. Upon selecting a pin, a box is drawn over the map that contains the name of the location, a description of the location (from Google/Apple maps), that location's address, and an overall accessibility score from 0-5. Below these fields are a set of buttons labeled:
 
 -   Rate use of braille
 -   Rate font size on signs
