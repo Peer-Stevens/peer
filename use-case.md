@@ -6,7 +6,7 @@ The first time the user opens the app, they are read aloud an info box that appe
 
 ## Strolling Use Case
 
-There is a "Take a stroll" button on the main view, and a small button besides it reveals a box that is drawn over the main view with a "filter list" of categories with checkmarks. When the user selects the "Take a stroll" button on the main view of the app, they enter a "strolling" state. During the "strolling" state, the user walks past a location that has a high score based on prior reviews given on the app. 
+There is a "Take a stroll" button on the main view, and a small button besides it reveals a box that is drawn over the main view with a "filter list" of categories with checkmarks. When the user selects the "Take a stroll" button on the main view of the app, they enter a "strolling" state. During the "strolling" state, the user walks past a location that has a high score based on prior reviews given on the app.
 
 If the user has the app open still:
 An in-app notification is drawn at the top of the screen and is read aloud.
