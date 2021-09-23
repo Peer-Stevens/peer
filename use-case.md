@@ -4,13 +4,13 @@
 
 The first time the user opens the app, they are read aloud an info box that appears on-screen explaining to them that the app includes built-in audio cues but advises the user to turn on their screen reader/voice over functionality. If the user agrees, they are automatically taken to the option on their respective operating system, and the built-in audio cues are disabled. If the user declines, the built-in audio cues remain enabled.
 
-## Notification Use Case
+## Strolling Use Case
 
-A user with the app installed running in the background of their device walks past a location that has a high score based on prior reviews given on the app. A push notification appears on the user's device that is read aloud stating that the location that they have just walked by is highly accessible, and which direction it was given their heading (on their left, right, etc.) There is a setting available to disable these notifications from each OS's respective notifications menu.
+There is a "Take a stroll" button on the main view, and a small button besides it reveals a box that is drawn over the main view with a "filter list" of categories with checkmarks. When the user selects the "Take a stroll" button on the main view of the app, they enter a "strolling" state. During the "strolling" state, the user walks past a location that has a high score based on prior reviews given on the app. A push notification appears on the user's device that is read aloud stating that the location that they have just walked by is highly accessible, and which direction it was given their heading (on their left, right, etc.) Only the highly accessibly locations that fall under the categories selected in the filter list are recommended via notifictioan the rest are ignored. There is a setting available to disable these notifications from each OS's respective notifications menu.
 
 ## General Facility Rating Use Case
 
-A user opens the app (some time after the first time). A map of the area surrounding the user is displayed, and notable locations have a pin that can be selected. Upon selecting a pin, a box is drawn over the map that contains the name of the location, a description of the location (from Google/Apple maps), that location's address, and an overall accessibility score from 0-5. Below these fields are a set of buttons labeled:
+A user opens the app (some time after the first time). A map of the area surrounding the user is displayed, and notable locations have a pin that can be selected.  These pins are read aloud to the user if the built-in audio cues are enabled. Upon selecting a pin, a box is drawn over the map that contains the name of the location, a description of the location (from Google/Apple maps), that location's address, and an overall accessibility score from 0-5. Below these fields are a set of buttons labeled:
 
 -   Rate use of braille
 -   Rate font size on signs
@@ -36,6 +36,10 @@ Tapping anywhere besides the box containing the location description will dismis
 
 Before being read the prompt, the system will let the user know if they have already given a rating. "Previous rating: 4"..._Continues with the script_
 If the user has not already given a rating, they will hear "No previous rating given"
+
+## Search Bar Use Case
+
+At the top of the screen of the main view, there is a search bar visible. When the user enters text into the search bar, a box is drawn over the main view that contains a list of locations with matching names with the nearest at the top and the farthest at the bottom. This rest is read aloud. If the user selects one of the locations, the list stops being rendered, the map pans over to the selected location, and the box described in "General Facility Rating Use Case" is shown. This use case then proceeds from as "General Facility Rating Use Case".
 
 ## Settings Use Case
 
