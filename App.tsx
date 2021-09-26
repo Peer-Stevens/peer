@@ -3,9 +3,7 @@ import { StyleSheet } from "react-native";
 import MainView from "./components/MainView";
 
 export default function App() {
-	return (
-		<MainView></MainView>
-	);
+	return <MainView></MainView>;
 }
 
 const styles = StyleSheet.create({
