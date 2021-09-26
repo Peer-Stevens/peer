@@ -3,6 +3,7 @@
 	"scripts": {
 		"start": "expo start",
 		"android": "expo start --android",
+		"prepare": "husky install",
 		"ios": "expo start --ios",
 		"web": "expo start --web",
 		"eject": "expo eject",
@@ -27,6 +28,7 @@
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-plugin-prettier": "^4.0.0",
 		"eslint-plugin-react": "^7.25.1",
+		"husky": "^7.0.2",
 		"prettier": "^2.3.2",
 		"typescript": "~4.0.0"
 	},
