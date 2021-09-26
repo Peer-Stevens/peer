@@ -18,4 +18,4 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: yarn
       - name: Run all test suites
-      - run: yarn jest
+      - run: yarn test
