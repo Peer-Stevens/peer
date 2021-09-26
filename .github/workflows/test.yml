@@ -3,7 +3,7 @@ name: CI Lint
 on: [pull_request]
 
 jobs:
-  lint:
+  test:
     runs-on: ubuntu-latest
     env:
       CI: true
