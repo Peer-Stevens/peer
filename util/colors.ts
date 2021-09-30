@@ -1,0 +1,4 @@
+const PRIMARY_COLOR = "#ed530b"
+const PRIMARY_DARK = "#a53a08"
+
+export {PRIMARY_COLOR, PRIMARY_DARK}
