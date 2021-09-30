@@ -1,12 +1,8 @@
 import React, { useState } from "react";
 import { Pressable, StyleSheet, View, Text } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 import { PRIMARY_COLOR, PRIMARY_LIGHT, TEXT_COLOR } from "../../util/colors";
-
-// All assets that can possibly be loaded into a button will
-// need to be initialized here. require cannot be passed
-// a dynamic value
-import FilterIcon from "../../assets/filter-icon.svg";
 
 export interface ButtonProps {
 	text?: string;
@@ -49,8 +45,8 @@ const Button = ({ image, text, accessibilityLabel, onPress, style }: ButtonProps
 
 	if (image !== undefined) {
 		switch (image) {
-			case "filter-icon.svg":
-				display = <FilterIcon width={40} height={40} color={PRIMARY_LIGHT} />;
+			case "chevron":
+				display = <Icon name="chevron-up" color={PRIMARY_LIGHT} size={30} />;
 				break;
 			default:
 				throw new Error("passed image file name is not available for this component");

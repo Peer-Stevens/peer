@@ -25,7 +25,7 @@ const StrollButton = (): JSX.Element => {
 					setIsShowingFilters(!isShowingFilters);
 				}}
 				accessibilityLabel="Show filters"
-				image="filter-icon.svg"
+				image="chevron"
 			/>
 		</View>
 	);
