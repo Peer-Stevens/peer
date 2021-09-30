@@ -14,6 +14,7 @@ const StrollButton = (): JSX.Element => {
 	return (
 		<View style={styles.buttonGroup}>
 			<Peer.Button
+				style={styles.strollBtn}
 				onPress={onPressStartStrolling}
 				accessibilityLabel="Take a stroll"
 				text="Take a stroll"
@@ -41,6 +42,9 @@ const styles = StyleSheet.create({
 	filterBtn: {
 		borderLeftWidth: StyleSheet.hairlineWidth,
 		borderLeftColor: DISABLED_COLOR,
+		height: "100%",
+	},
+	strollBtn: {
 		height: "100%",
 	},
 });
