@@ -3,12 +3,14 @@
 	"scripts": {
 		"start": "expo start",
 		"android": "expo start --android",
+		"prepare": "husky install",
 		"ios": "expo start --ios",
 		"web": "expo start --web",
 		"eject": "expo eject",
 		"test": "jest",
 		"lint": "eslint --config .eslintrc.js --fix . && prettier --config prettier.config.js --write \"**/*.{js,jsx,json,ts,tsx,md,mdx,css,html,yml,yaml,scss}\"",
-		"lint-check": "eslint --config .eslintrc.js . && prettier --config prettier.config.js --check \"**/*.{js,jsx,json,ts,tsx,md,mdx,css,html,yml,yaml,scss}\""
+		"lint-check": "eslint --config .eslintrc.js . && prettier --config prettier.config.js --check \"**/*.{js,jsx,json,ts,tsx,md,mdx,css,html,yml,yaml,scss}\"",
+		"lint-staged": "pretty-quick --staged && lint-staged"
 	},
 	"dependencies": {
 		"expo": "~42.0.1",
@@ -17,6 +19,7 @@
 		"react-dom": "16.13.1",
 		"react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
 		"react-native-maps": "0.28.0",
+		"react-native-vector-icons": "^8.1.0",
 		"react-native-web": "~0.13.12"
 	},
 	"devDependencies": {
@@ -25,6 +28,7 @@
 		"@types/react": "~16.9.35",
 		"@types/react-native": "^0.65.0",
 		"@types/react-test-renderer": "^17.0.1",
+		"@types/react-native-vector-icons": "^6.4.9",
 		"@typescript-eslint/eslint-plugin": "^4.31.0",
 		"@typescript-eslint/parser": "^4.31.0",
 		"babel-jest": "^27.2.2",
@@ -35,6 +39,9 @@
 		"jest-expo": "^42.1.0",
 		"prettier": "^2.3.2",
 		"react-test-renderer": "^17.0.2",
+		"husky": "^7.0.2",
+		"lint-staged": "^11.1.2",
+		"pretty-quick": "^3.1.1",
 		"typescript": "~4.0.0"
 	},
 	"jest": {
