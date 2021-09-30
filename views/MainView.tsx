@@ -7,7 +7,7 @@ const MainView = (): JSX.Element => {
 	return (
 		<View style={styles.container}>
 			<MapView style={styles.map} />
-			<StrollButton/>
+			<StrollButton />
 		</View>
 	);
 };
