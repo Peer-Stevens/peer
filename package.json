@@ -12,8 +12,10 @@
 	"dependencies": {
 		"axios": "^0.21.4",
 		"expo": "~42.0.1",
+		"expo-cli": "^4.12.0",
 		"expo-location": "~12.1.2",
 		"expo-status-bar": "~1.0.4",
+		"global": "^4.4.0",
 		"react": "16.13.1",
 		"react-dom": "16.13.1",
 		"react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
@@ -21,6 +23,7 @@
 	},
 	"devDependencies": {
 		"@babel/core": "^7.9.0",
+		"@googlemaps/google-maps-services-js": "^3.2.3",
 		"@types/react": "~16.9.35",
 		"@types/react-native": "^0.65.0",
 		"@typescript-eslint/eslint-plugin": "^4.31.0",
@@ -30,6 +33,7 @@
 		"eslint-plugin-prettier": "^4.0.0",
 		"eslint-plugin-react": "^7.25.1",
 		"prettier": "^2.3.2",
+		"react-native-dotenv": "^3.2.0",
 		"typescript": "~4.0.0"
 	},
 	"private": true
