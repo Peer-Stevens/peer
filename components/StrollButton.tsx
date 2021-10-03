@@ -4,13 +4,16 @@ import { DISABLED_COLOR } from "../util/colors";
 
 import * as Peer from "./Peer/lib";
 
+export interface StrollButtonProps {
+	isShowingFilters : boolean
+	setIsShowingFilters: React.Dispatch<React.SetStateAction<boolean>>
+}
+
 const onPressStartStrolling = (): void => {
 	//TODO: change state to strolling
 };
 
-const StrollButton = (): JSX.Element => {
-	const [isShowingFilters, setIsShowingFilters] = useState<boolean>(false);
-
+const StrollButton = ({isShowingFilters, setIsShowingFilters}: StrollButtonProps): JSX.Element => {
 	return (
 		<View style={styles.buttonGroup}>
 			<Peer.Button
@@ -25,7 +28,7 @@ const StrollButton = (): JSX.Element => {
 					setIsShowingFilters(!isShowingFilters);
 				}}
 				accessibilityLabel="Show filters"
-				image="chevron"
+				image={isShowingFilters ? "chevron-down" : "chevron-up"}
 			/>
 		</View>
 	);
