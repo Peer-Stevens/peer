@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Peer from "./Peer/lib";
 
 export interface FilterBoxProps {
@@ -8,7 +8,8 @@ export interface FilterBoxProps {
 	// https://reactnative.dev/docs/stylesheet#compose
 }
 
-const FilterBox = ({style}: FilterBoxProps): JSX.Element => {
+const FilterBox = ({ style }: FilterBoxProps): JSX.Element => {
+	const [groceryStore, setGroceryStore] = useState<boolean>(false);
 	const categories = [
 		//FIXME: use actual categories and not placeholders
 		"Grocery stores",
@@ -23,8 +24,10 @@ const FilterBox = ({style}: FilterBoxProps): JSX.Element => {
 						text={category}
 						key={index}
 						accessibilityLabel={`Filter out type ${category}`}
-						value={false}
-						onValueChange={() => {}} //FIXME: this does nothing
+						value={groceryStore}
+						onValueChange={() => {
+							setGroceryStore(!groceryStore);
+						}} //FIXME: all boxes depend on one value
 					/>
 				);
 			})}

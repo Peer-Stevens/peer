@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, View } from "react-native";
 import { DISABLED_COLOR } from "../util/colors";
 
 import * as Peer from "./Peer/lib";
 
 export interface StrollButtonProps {
-	isShowingFilters : boolean
-	setIsShowingFilters: React.Dispatch<React.SetStateAction<boolean>>
+	isShowingFilters: boolean;
+	setIsShowingFilters: React.Dispatch<React.SetStateAction<boolean>>;
 	//eslint-disable-next-line @typescript-eslint/ban-types
 	style?: object; // may be unsafe, but this is the type provided
 	// by Stylesheet documentation:
@@ -17,7 +17,11 @@ const onPressStartStrolling = (): void => {
 	//TODO: change state to strolling
 };
 
-const StrollButton = ({isShowingFilters, setIsShowingFilters, style}: StrollButtonProps): JSX.Element => {
+const StrollButton = ({
+	isShowingFilters,
+	setIsShowingFilters,
+	style,
+}: StrollButtonProps): JSX.Element => {
 	return (
 		<View style={StyleSheet.compose(styles.buttonGroup, style)}>
 			<Peer.Button

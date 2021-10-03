@@ -6,12 +6,16 @@ import StrollButton from "../components/StrollButton";
 
 const MainView = (): JSX.Element => {
 	const [isShowingFilters, setIsShowingFilters] = useState<boolean>(false);
-	
+
 	return (
 		<View style={styles.container}>
 			<MapView style={styles.map} />
-			<StrollButton isShowingFilters={isShowingFilters} setIsShowingFilters={setIsShowingFilters}/>
-			{isShowingFilters ? <FilterBox/> : null}
+			<StrollButton
+				isShowingFilters={isShowingFilters}
+				setIsShowingFilters={setIsShowingFilters}
+				style={styles.buttonGroup}
+			/>
+			{isShowingFilters ? <FilterBox /> : null}
 		</View>
 	);
 };
@@ -27,6 +31,11 @@ const styles = StyleSheet.create({
 		width: Dimensions.get("window").width,
 		height: Dimensions.get("window").height,
 	},
+	buttonGroup: {
+		position: "absolute",
+		bottom: 75,
+	},
+	filterBox: {},
 });
 
 export default MainView;
