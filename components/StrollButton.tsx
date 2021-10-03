@@ -19,7 +19,7 @@ const onPressStartStrolling = (): void => {
 
 const StrollButton = ({isShowingFilters, setIsShowingFilters, style}: StrollButtonProps): JSX.Element => {
 	return (
-		<View style={style}>
+		<View style={StyleSheet.compose(styles.buttonGroup, style)}>
 			<Peer.Button
 				style={styles.strollBtn}
 				onPress={onPressStartStrolling}
@@ -39,6 +39,11 @@ const StrollButton = ({isShowingFilters, setIsShowingFilters, style}: StrollButt
 };
 
 const styles = StyleSheet.create({
+	buttonGroup: {
+		display: "flex",
+		flexDirection: "row",
+		alignItems: "center",
+	},
 	filterBtn: {
 		borderLeftWidth: StyleSheet.hairlineWidth,
 		borderLeftColor: DISABLED_COLOR,
