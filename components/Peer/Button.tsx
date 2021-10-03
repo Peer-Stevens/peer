@@ -44,13 +44,7 @@ const Button = ({ image, text, accessibilityLabel, onPress, style }: ButtonProps
 	}
 
 	if (image !== undefined) {
-		switch (image) {
-			case "chevron":
-				display = <Icon name="chevron-up" color={PRIMARY_LIGHT} size={30} />;
-				break;
-			default:
-				throw new Error("passed image file name is not available for this component");
-		}
+		display = <Icon name={image} color={PRIMARY_LIGHT} size={30} />;
 	}
 
 	return (
