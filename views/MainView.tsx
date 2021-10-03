@@ -11,7 +11,7 @@ const MainView = (): JSX.Element => {
 		<View style={styles.container}>
 			<MapView style={styles.map} />
 			<View style={styles.buttonFilterGroup}>
-				{isShowingFilters ? <FilterBox/> : null}
+				{isShowingFilters ? <FilterBox /> : null}
 				<StrollButton
 					isShowingFilters={isShowingFilters}
 					setIsShowingFilters={setIsShowingFilters}
@@ -34,8 +34,8 @@ const styles = StyleSheet.create({
 	},
 	buttonFilterGroup: {
 		position: "absolute",
-		bottom: 75
-	}
+		bottom: 75,
+	},
 });
 
 export default MainView;
