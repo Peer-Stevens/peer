@@ -1,11 +1,10 @@
 import React, { useState } from "react";
+import  { StyleSheet } from "react-native"
+import type { StyleProp } from "react-native"
 import * as Peer from "./Peer/lib";
 
 export interface FilterBoxProps {
-	//eslint-disable-next-line @typescript-eslint/ban-types
-	style?: object; // may be unsafe, but this is the type provided
-	// by Stylesheet documentation:
-	// https://reactnative.dev/docs/stylesheet#compose
+	style?: StyleProp<any>;
 }
 
 const FilterBox = ({ style }: FilterBoxProps): JSX.Element => {
@@ -17,10 +16,11 @@ const FilterBox = ({ style }: FilterBoxProps): JSX.Element => {
 		"Museum",
 	];
 	return (
-		<Peer.Box accessibilityLabel="List of filters" style={style}>
+		<Peer.Box accessibilityLabel="List of filters" style={StyleSheet.compose(styles.container, style)}>
 			{categories.map((category: string, index: number) => {
 				return (
 					<Peer.CheckBox
+						style={styles.checkBox}
 						text={category}
 						key={index}
 						accessibilityLabel={`Filter out type ${category}`}
@@ -34,5 +34,14 @@ const FilterBox = ({ style }: FilterBoxProps): JSX.Element => {
 		</Peer.Box>
 	);
 };
+
+const styles = StyleSheet.create({
+	container: {
+		padding: 10
+	},
+	checkBox: {
+		margin: 5
+	}
+})
 
 export default FilterBox;

@@ -1,12 +1,13 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
+import type {StyleProp} from "react-native"
 import { PRIMARY_COLOR, TEXT_COLOR } from "../../util/colors";
 
 export interface BoxProps {
 	children?: JSX.Element | JSX.Element[] | null;
 	accessibilityLabel: string;
 	//eslint-disable-next-line @typescript-eslint/ban-types
-	style?: object; // may be unsafe, but this is the type provided
+	style?: StyleProp<any>; // may be unsafe, but this is the type provided
 	// by Stylesheet documentation:
 	// https://reactnative.dev/docs/stylesheet#compose
 }

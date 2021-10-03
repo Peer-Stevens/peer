@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import type { StyleProp } from "react-native"
 import * as CB from "@react-native-community/checkbox";
 import { TEXT_COLOR } from "../../util/colors";
 
@@ -8,6 +9,7 @@ export interface CheckBoxProps {
 	onValueChange: VoidFunction;
 	text: string;
 	accessibilityLabel: string;
+	style: StyleProp<any>;
 }
 
 const CheckBox = ({
@@ -15,9 +17,10 @@ const CheckBox = ({
 	onValueChange,
 	text,
 	accessibilityLabel,
+	style
 }: CheckBoxProps): JSX.Element => {
 	return (
-		<View style={styles.container} accessibilityLabel={accessibilityLabel}>
+		<View style={StyleSheet.compose(styles.container, style)} accessibilityLabel={accessibilityLabel}>
 			<CB.default value={value} onValueChange={onValueChange} />
 			<Text style={styles.text}>{text}</Text>
 		</View>
