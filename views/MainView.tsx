@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Dimensions, View } from "react-native";
 import MapView from "react-native-maps";
+import FilterBox from "../components/FilterBox";
 import StrollButton from "../components/StrollButton";
 
 const MainView = (): JSX.Element => {
+	const [isShowingFilters, setIsShowingFilters] = useState<boolean>(false);
+	
 	return (
 		<View style={styles.container}>
 			<MapView style={styles.map} />
-			<StrollButton />
+			<StrollButton isShowingFilters={isShowingFilters} setIsShowingFilters={setIsShowingFilters}/>
+			{isShowingFilters ? <FilterBox/> : null}
 		</View>
 	);
 };
