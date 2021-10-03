@@ -25,6 +25,7 @@
 	},
 	"devDependencies": {
 		"@babel/core": "^7.9.0",
+		"@testing-library/react-native": "^7.2.0",
 		"@types/jest": "^27.0.2",
 		"@types/react": "~16.9.35",
 		"@types/react-native": "^0.65.0",
@@ -46,10 +47,20 @@
 		"typescript": "~4.0.0"
 	},
 	"jest": {
-		"preset": "jest-expo",
+		"projects": [
+			{
+				"preset": "jest-expo/ios"
+			},
+			{
+				"preset": "jest-expo/android"
+			}
+		],
 		"transformIgnorePatterns": [
 			"node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|@sentry/.*)"
 		]
+	},
+	"lint-staged": {
+		"*.{ts,js}": "eslint --cache --fix"
 	},
 	"private": true
 }
