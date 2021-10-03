@@ -1,9 +1,9 @@
 import React from "react"
 import {View, StyleSheet} from "react-native"
-import { PRIMARY_COLOR } from "../../util/colors"
+import { PRIMARY_COLOR, TEXT_COLOR } from "../../util/colors"
 
 export interface BoxProps {
-    children?: JSX.Element | null
+    children?: JSX.Element | JSX.Element[] | null
     accessibilityLabel: string
     //eslint-disable-next-line @typescript-eslint/ban-types
 	style?: object; // may be unsafe, but this is the type provided
@@ -21,7 +21,8 @@ const Box = ({children, accessibilityLabel, style} : BoxProps): JSX.Element => {
 
 const styles = StyleSheet.create({
     box: {
-        backgroundColor: PRIMARY_COLOR
+        backgroundColor: PRIMARY_COLOR,
+        color: TEXT_COLOR
     }
 })
 
