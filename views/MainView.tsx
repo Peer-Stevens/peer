@@ -10,12 +10,13 @@ const MainView = (): JSX.Element => {
 	return (
 		<View style={styles.container}>
 			<MapView style={styles.map} />
-			<StrollButton
-				isShowingFilters={isShowingFilters}
-				setIsShowingFilters={setIsShowingFilters}
-				style={styles.buttonGroup}
-			/>
-			{isShowingFilters ? <FilterBox /> : null}
+			<View style={styles.buttonFilterGroup}>
+				{isShowingFilters ? <FilterBox/> : null}
+				<StrollButton
+					isShowingFilters={isShowingFilters}
+					setIsShowingFilters={setIsShowingFilters}
+				/>
+			</View>
 		</View>
 	);
 };
@@ -31,11 +32,10 @@ const styles = StyleSheet.create({
 		width: Dimensions.get("window").width,
 		height: Dimensions.get("window").height,
 	},
-	buttonGroup: {
+	buttonFilterGroup: {
 		position: "absolute",
-		bottom: 75,
-	},
-	filterBox: {},
+		bottom: 75
+	}
 });
 
 export default MainView;
