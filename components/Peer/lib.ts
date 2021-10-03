@@ -1,4 +1,5 @@
 import Button from "./Button";
 import Box from "./Box";
+import CheckBox from "./CheckBox";
 
-export { Box, Button };
+export { Box, Button, CheckBox };
