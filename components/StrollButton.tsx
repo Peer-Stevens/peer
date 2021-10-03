@@ -7,15 +7,19 @@ import * as Peer from "./Peer/lib";
 export interface StrollButtonProps {
 	isShowingFilters : boolean
 	setIsShowingFilters: React.Dispatch<React.SetStateAction<boolean>>
+	//eslint-disable-next-line @typescript-eslint/ban-types
+	style?: object; // may be unsafe, but this is the type provided
+	// by Stylesheet documentation:
+	// https://reactnative.dev/docs/stylesheet#compose
 }
 
 const onPressStartStrolling = (): void => {
 	//TODO: change state to strolling
 };
 
-const StrollButton = ({isShowingFilters, setIsShowingFilters}: StrollButtonProps): JSX.Element => {
+const StrollButton = ({isShowingFilters, setIsShowingFilters, style}: StrollButtonProps): JSX.Element => {
 	return (
-		<View style={styles.buttonGroup}>
+		<View style={style}>
 			<Peer.Button
 				style={styles.strollBtn}
 				onPress={onPressStartStrolling}
@@ -35,13 +39,6 @@ const StrollButton = ({isShowingFilters, setIsShowingFilters}: StrollButtonProps
 };
 
 const styles = StyleSheet.create({
-	buttonGroup: {
-		display: "flex",
-		flexDirection: "row",
-		alignItems: "center",
-		position: "absolute",
-		bottom: 75,
-	},
 	filterBtn: {
 		borderLeftWidth: StyleSheet.hairlineWidth,
 		borderLeftColor: DISABLED_COLOR,
