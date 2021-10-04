@@ -1,22 +1,6 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { NearbyPlaces } from "./src/NearbyPlaces/NearbyPlaces";
+import MainView from "./src/views/MainView";
 
-export default function App() {
-	return (
-		<View style={styles.container}>
-			<NearbyPlaces />
-			<StatusBar style="auto" />
-		</View>
-	);
+export default function App(): JSX.Element {
+	return <MainView />;
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: "#fff",
-		alignItems: "center",
-		justifyContent: "center",
-	},
-});

@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 import { useLocation } from "./useLocation";
 import Location from "expo-location";
 import axios from "axios";
 import { SERVER_BASE_URL } from "@env";
 import type { Place } from "@googlemaps/google-maps-services-js";
 
-export const NearbyPlaces = () => {
+export const NearbyPlaces = ({ onStopStrolling }: { onStopStrolling: () => void }): JSX.Element => {
 	const { location } = useLocation();
 	const [nearbyPlaces, setNearbyPlaces] = React.useState<Place[]>();
 
@@ -26,13 +26,15 @@ export const NearbyPlaces = () => {
 
 	if (nearbyPlaces && nearbyPlaces.length > 0) {
 		return (
-			<Text>
-				You are walking by{" "}
-				{nearbyPlaces
-					.map(place => place.name)
-					.slice(0, 3)
-					.join(", ")}
-			</Text>
+			<View>
+				<Text>
+					You are walking by{" "}
+					{nearbyPlaces
+						.map(place => place.name)
+						.slice(0, 3)
+						.join(", ")}
+				</Text>
+			</View>
 		);
-	} else return null;
+	} else return <Text>Loading...</Text>;
 };
