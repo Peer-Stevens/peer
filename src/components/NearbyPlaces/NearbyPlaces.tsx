@@ -5,8 +5,9 @@ import Location from "expo-location";
 import axios from "axios";
 import { SERVER_BASE_URL } from "@env";
 import type { Place } from "@googlemaps/google-maps-services-js";
+import { Button } from "../Button";
 
-export const NearbyPlaces = ({ onStopStrolling }: { onStopStrolling: () => void }): JSX.Element => {
+export const NearbyPlaces = ({ stopStrolling }: { stopStrolling: () => void }): JSX.Element => {
 	const { location } = useLocation();
 	const [nearbyPlaces, setNearbyPlaces] = React.useState<Place[]>();
 
@@ -27,6 +28,11 @@ export const NearbyPlaces = ({ onStopStrolling }: { onStopStrolling: () => void 
 	if (nearbyPlaces && nearbyPlaces.length > 0) {
 		return (
 			<View>
+				<View>
+					<Button onPress={stopStrolling} accessibilityLabel="Stop this stroll">
+						<Text>Stop This Stroll</Text>
+					</Button>
+				</View>
 				<Text>
 					You are walking by{" "}
 					{nearbyPlaces

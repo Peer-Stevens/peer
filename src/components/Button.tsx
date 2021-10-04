@@ -13,17 +13,19 @@ export interface ButtonProps {
 	style?: object; // may be unsafe, but this is the type provided
 	// by Stylesheet documentation:
 	// https://reactnative.dev/docs/stylesheet#compose
+	children?: JSX.Element;
 }
 
 /**
  * Peer-styled button element.
  */
 export const Button = ({
-	image,
 	text,
+	image,
 	accessibilityLabel,
 	onPress,
 	style,
+	children,
 }: ButtonProps): JSX.Element => {
 	const [color, setColor] = useState<string>(PRIMARY_COLOR);
 
@@ -39,7 +41,7 @@ export const Button = ({
 		},
 	});
 
-	// chooses one to display, favoring bottom most prop
+	// chooses one to display, favoring top most prop
 
 	let display: JSX.Element | null = null;
 
@@ -47,9 +49,7 @@ export const Button = ({
 		display = (
 			<Text style={{ fontWeight: "bold", color: TEXT_COLOR, fontSize: 30 }}>{text}</Text>
 		);
-	}
-
-	if (image !== undefined) {
+	} else if (image !== undefined) {
 		switch (image) {
 			case "chevron":
 				display = <Icon name="chevron-up" color={PRIMARY_LIGHT} size={30} />;
@@ -57,6 +57,8 @@ export const Button = ({
 			default:
 				throw new Error("passed image file name is not available for this component");
 		}
+	} else if (children !== undefined) {
+		display = children;
 	}
 
 	return (

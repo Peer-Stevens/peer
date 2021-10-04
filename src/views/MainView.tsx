@@ -13,7 +13,7 @@ const MainView = (): JSX.Element => {
 	if (isStrolling) {
 		return (
 			<View style={styles.container}>
-				<NearbyPlaces />
+				<NearbyPlaces stopStrolling={toggleIsStrolling} />
 			</View>
 		);
 	} else
