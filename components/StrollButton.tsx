@@ -35,7 +35,7 @@ const StrollButton = ({
 				onPress={() => {
 					setIsShowingFilters(!isShowingFilters);
 				}}
-				accessibilityLabel="Show filters"
+				accessibilityLabel={isShowingFilters ? "Hide filters" : "Show filters"}
 				image={isShowingFilters ? "chevron-down" : "chevron-up"}
 			/>
 		</View>
