@@ -7,29 +7,32 @@ import StrollButton from "../components/StrollButton";
 const MainView = (): JSX.Element => {
 	return (
 		<View style={styles.container}>
-			{/* <MapView style={styles.map} /> */}
-			{/* <View style={{ display: "flex", flexDirection: "column" }}> */}
-			<MapView style={styles.map} />
+			<View style={{ flex: 1 }}>
+				<MapView style={styles.map} />
+				{/* Why isn't strollbutton not centered??? */}
+				<StrollButton />
+			</View>
 			<NearbyList />
-			{/* </View> */}
-			<StrollButton />
 		</View>
 	);
 };
 
 const styles = StyleSheet.create({
 	container: {
-		display: "flex",
-		backgroundColor: "#fff",
-		// alignItems: "center",
-		// justifyContent: "center",
+		flex: 1,
 		flexDirection: "column",
+		backgroundColor: "#fff",
+		alignItems: "center",
+		justifyContent: "center",
 	},
 	map: {
+		flex: 1,
 		width: Dimensions.get("window").width,
-		// height: Dimensions.get("window").height,
-		// flex: 1,
+		height: Dimensions.get("window").height,
 	},
+	// list: {
+	// 	flex: 1,
+	// },
 });
 
 export default MainView;

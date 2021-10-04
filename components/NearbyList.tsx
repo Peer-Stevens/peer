@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, Text, ScrollView } from "react-native";
 
 export interface NearbyListProps {
 	style?: any;
@@ -7,9 +7,25 @@ export interface NearbyListProps {
 
 const NearbyList = ({ style }: NearbyListProps): JSX.Element => {
 	return (
-		<View style={StyleSheet.compose(styles.container, style)}>
+		<ScrollView style={StyleSheet.compose(styles.container, style)}>
+			{/* I added this many for testing purposes....delete this later.... */}
 			<Text style={styles.text}>Hi</Text>
-		</View>
+			<Text style={styles.text}>Hi</Text>
+			<Text style={styles.text}>Hi</Text>
+			<Text style={styles.text}>Hi</Text>
+			<Text style={styles.text}>Hi</Text>
+			<Text style={styles.text}>Hi</Text>
+			<Text style={styles.text}>Hi</Text>
+			<Text style={styles.text}>Hi</Text>
+			<Text style={styles.text}>Hi</Text>
+			<Text style={styles.text}>Hi</Text>
+			<Text style={styles.text}>Hi</Text>
+			<Text style={styles.text}>Hi</Text>
+			<Text style={styles.text}>Hi</Text>
+			<Text style={styles.text}>Hi</Text>
+			<Text style={styles.text}>Hi</Text>
+			<Text style={styles.text}>Hi</Text>
+		</ScrollView>
 	);
 };
 
@@ -17,11 +33,9 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: "#fff",
-		// textAlignVertical: "top",
 	},
 	text: {
 		backgroundColor: "#fff",
-		// textAlignVertical: "bottom",
 		textAlign: "center",
 		fontSize: 30,
 	},
