@@ -26,7 +26,9 @@ const CheckBox = ({
 			accessibilityLabel={accessibilityLabel}
 		>
 			<CB.default value={value} onValueChange={onValueChange} />
-			<Text style={styles.text} accessibilityLabel={accessibilityLabel}>{text}</Text>
+			<Text style={styles.text} accessibilityLabel={accessibilityLabel}>
+				{text}
+			</Text>
 		</View>
 	);
 };
