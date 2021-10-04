@@ -26,12 +26,19 @@ module.exports = {
 	overrides: [
 		{
 			files: ["*.ts", "*.tsx"],
-			extends: ["plugin:@typescript-eslint/recommended-requiring-type-checking"],
+			//extends: ["plugin:@typescript-eslint/recommended-requiring-type-checking"],
 			parserOptions: {
 				project: ["./tsconfig.json"],
 			},
 			rules: {
 				"@typescript-eslint/switch-exhaustiveness-check": "error",
+				"@typescript-eslint/no-floating-promises": [
+					"error",
+					{
+						ignoreVoid: true, // this is the default
+						ignoreIIFE: true, // this is different from the default
+					},
+				],
 			},
 		},
 	],
@@ -54,18 +61,11 @@ module.exports = {
 		"@typescript-eslint/no-var-requires": "error",
 		"@typescript-eslint/adjacent-overload-signatures": "error",
 		"@typescript-eslint/no-extra-semi": "off",
-		"@typescript-eslint/no-floating-promises": [
-			"error", 
+		"prettier/prettier": [
+			"error",
 			{
-				ignoreVoid: true, // this is the default
-				ignoreIIFE: true // this is different from the default
-			}
+				endOfLine: "auto",
+			},
 		],
-		'prettier/prettier': [
-			'error',
-			{
-			  'endOfLine': 'auto',
-			}
-		  ]
 	},
 };
