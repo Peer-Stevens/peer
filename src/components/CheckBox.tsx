@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import type { StyleProp } from "react-native";
 import * as CB from "@react-native-community/checkbox";
-import { TEXT_COLOR } from "../../util/colors";
+import { TEXT_COLOR } from "../util/colors";
 
 export interface CheckBoxProps {
 	value: boolean;

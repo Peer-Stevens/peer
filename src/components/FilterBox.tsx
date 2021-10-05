@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import type { StyleProp } from "react-native";
-import * as Peer from "./Peer/lib";
 import { DISABLED_COLOR } from "../util/colors";
+import Box from "./Box";
+import CheckBox from "./CheckBox";
 
 export interface FilterBoxProps {
 	//eslint-disable-next-line @typescript-eslint/ban-types
@@ -22,13 +23,13 @@ const FilterBox = ({ style }: FilterBoxProps): JSX.Element => {
 	});
 
 	return (
-		<Peer.Box
+		<Box
 			accessibilityLabel="List of filters"
 			style={StyleSheet.compose(styles.container, style)}
 		>
 			{categoriesState.map(({ name, value, set }, index: number) => {
 				return (
-					<Peer.CheckBox
+					<CheckBox
 						style={styles.checkBox}
 						text={name}
 						key={index}
@@ -40,7 +41,7 @@ const FilterBox = ({ style }: FilterBoxProps): JSX.Element => {
 					/>
 				);
 			})}
-		</Peer.Box>
+		</Box>
 	);
 };
 

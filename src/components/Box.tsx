@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import type { StyleProp } from "react-native";
-import { PRIMARY_COLOR, TEXT_COLOR } from "../../util/colors";
+import { PRIMARY_COLOR, TEXT_COLOR } from "../util/colors";
 
 export interface BoxProps {
 	children?: JSX.Element | JSX.Element[] | null;
