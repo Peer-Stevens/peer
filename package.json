@@ -18,6 +18,7 @@
 		"react-dom": "16.13.1",
 		"react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
 		"react-native-maps": "0.28.0",
+		"react-native-table-component": "^1.2.1",
 		"react-native-vector-icons": "^8.1.0",
 		"react-native-web": "~0.13.12"
 	},
@@ -25,6 +26,7 @@
 		"@babel/core": "^7.9.0",
 		"@types/react": "~16.9.35",
 		"@types/react-native": "^0.65.0",
+		"@types/react-native-table-component": "^1.2.1",
 		"@types/react-native-vector-icons": "^6.4.9",
 		"@typescript-eslint/eslint-plugin": "^4.31.0",
 		"@typescript-eslint/parser": "^4.31.0",
