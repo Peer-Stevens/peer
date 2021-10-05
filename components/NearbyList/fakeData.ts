@@ -17,7 +17,7 @@ export const fakeData: Array<data> = [
 		avg: 4,
 	},
 	{
-		place: "Starbuck",
+		place: "Starbucks",
 		braille: 1,
 		openess: 1,
 		readability: 1,

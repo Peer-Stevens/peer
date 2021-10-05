@@ -1,12 +1,12 @@
 import React from "react";
-import {StyleSheet, Dimensions, ScrollView, View} from "react-native";
-import {fakeData} from "./fakeData";
-import type {data} from "./fakeData";
-import {Table, Row, Rows} from "react-native-table-component";
+import { StyleSheet, Dimensions, ScrollView, View } from "react-native";
+import { fakeData } from "./fakeData";
+import type { data } from "./fakeData";
+import { Table, Row, Rows } from "react-native-table-component";
 // https://github.com/Gil2015/react-native-table-component for structuring the data neatly
 
 const NearbyList = (): JSX.Element => {
-	const tableData: any = [];
+	const tableData: Array<any> = [];
 
 	if (fakeData) {
 		fakeData.forEach((elem: data) => {
@@ -16,12 +16,12 @@ const NearbyList = (): JSX.Element => {
 
 	return (
 		<View style={styles.container}>
-			<Table borderStyle={{borderWidth: 15, borderColor: "#fff"}}>
+			<Table borderStyle={{ borderWidth: 15, borderColor: "#fff" }}>
 				<Row data={["Nearby Place", "Average Rating"]} textStyle={styles.title} />
 				<ScrollView>
 					<Rows
 						data={tableData}
-						style={{borderWidth: 15, borderColor: "#fff"}}
+						style={{ borderWidth: 15, borderColor: "#fff" }}
 						textStyle={styles.text}
 					/>
 				</ScrollView>

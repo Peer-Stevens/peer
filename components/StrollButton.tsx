@@ -1,6 +1,6 @@
-import React, {useState} from "react";
-import {StyleSheet, View} from "react-native";
-import {DISABLED_COLOR} from "../util/colors";
+import React, { useState } from "react";
+import { StyleSheet, View } from "react-native";
+import { DISABLED_COLOR } from "../util/colors";
 
 import * as Peer from "./Peer/lib";
 
