@@ -4,6 +4,7 @@ export interface data {
 	openess: Number;
 	readability: Number;
 	helpfulness: Number;
+	avg: Number;
 }
 
 export let fakeData: Array<data> = [
@@ -13,6 +14,7 @@ export let fakeData: Array<data> = [
 		openess: 2,
 		readability: 4,
 		helpfulness: 5,
+		avg: 4,
 	},
 	{
 		place: "Starbuck",
@@ -20,6 +22,7 @@ export let fakeData: Array<data> = [
 		openess: 1,
 		readability: 1,
 		helpfulness: 5,
+		avg: 2,
 	},
 	{
 		place: "Pizza Hut",
@@ -27,6 +30,7 @@ export let fakeData: Array<data> = [
 		openess: 3,
 		readability: 4,
 		helpfulness: 2,
+		avg: 3
 	},
 	{
 		place: "McDonalds",
@@ -34,6 +38,7 @@ export let fakeData: Array<data> = [
 		openess: 5,
 		readability: 5,
 		helpfulness: 5,
+		avg: 5,
 	},
 	{
 		place: "Midtown",
@@ -41,6 +46,7 @@ export let fakeData: Array<data> = [
 		openess: 4,
 		readability: 4,
 		helpfulness: 4,
+		avg: 4,
 	},
 	{
 		place: "Burger King",
@@ -48,6 +54,7 @@ export let fakeData: Array<data> = [
 		openess: 1,
 		readability: 1,
 		helpfulness: 1,
+		avg: 1,
 	},
 	{
 		place: "Gio's",
@@ -55,6 +62,7 @@ export let fakeData: Array<data> = [
 		openess: 2,
 		readability: 4,
 		helpfulness: 5,
+		avg: 4,
 	},
 	{
 		place: "Julio's Chicken",
@@ -62,6 +70,7 @@ export let fakeData: Array<data> = [
 		openess: 1,
 		readability: 1,
 		helpfulness: 5,
+		avg: 2,
 	},
 	{
 		place: "Andrew's Tea Shop",
@@ -69,6 +78,7 @@ export let fakeData: Array<data> = [
 		openess: 3,
 		readability: 4,
 		helpfulness: 2,
+		avg: 3
 	},
 	{
 		place: "David's Cookies",
@@ -76,6 +86,7 @@ export let fakeData: Array<data> = [
 		openess: 2,
 		readability: 4,
 		helpfulness: 5,
+		avg: 4,
 	},
 	{
 		place: "Alexis's Ale",
@@ -83,6 +94,7 @@ export let fakeData: Array<data> = [
 		openess: 1,
 		readability: 1,
 		helpfulness: 5,
+		avg: 2,
 	},
 	{
 		place: "Eleni's Eggplants",
@@ -90,5 +102,6 @@ export let fakeData: Array<data> = [
 		openess: 3,
 		readability: 4,
 		helpfulness: 2,
+		avg: 3,
 	},
 ];

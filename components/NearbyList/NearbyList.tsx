@@ -1,39 +1,35 @@
 import React from "react";
-import {StyleSheet, Dimensions, Text, ScrollView} from "react-native";
+import {StyleSheet, Dimensions, ScrollView, View} from "react-native";
 import {fakeData} from "./fakeData";
 import type {data} from "./fakeData";
 import {Table, Row, Rows} from "react-native-table-component";
 // https://github.com/Gil2015/react-native-table-component for structuring the data neatly
 
-export interface NearbyListProps {
-	style?: any;
-}
-
-const NearbyList = ({style}: NearbyListProps): JSX.Element => {
+const NearbyList = (): JSX.Element => {
 	let tableData: any = [];
 
 	if (fakeData) {
 		fakeData.forEach((elem: data) => {
 			tableData.push([
 				elem.place,
-				elem.braille,
-				elem.openess,
-				elem.readability,
-				elem.helpfulness,
+				elem.avg,
 			]);
 		});
 	}
 
 	return (
-		<ScrollView style={StyleSheet.compose(styles.container, style)}>
+		<View style={styles.container}>
 			<Table borderStyle={{borderWidth: 15, borderColor: "#fff"}}>
 				<Row
-					data={["Nearby Place", "Braille", "Openess", "Readability", "Helpfulness"]}
+					data={["Nearby Place","Average Rating"]}
 					textStyle={styles.title}
 				/>
-				<Rows data={tableData} textStyle={styles.text} />
+				<ScrollView >
+					<Rows data={tableData} style={{borderWidth: 15, borderColor: "#fff"}} textStyle={styles.text} />
+				</ScrollView>
 			</Table>
-		</ScrollView>
+		</View>
+		
 	);
 };
 
@@ -47,12 +43,13 @@ const styles = StyleSheet.create({
 	title: {
 		backgroundColor: "#fff",
 		textAlign: "center",
-		fontSize: 15,
+		fontSize: 30,
+		fontWeight: "bold",
 	},
 	text: {
 		backgroundColor: "#fff",
 		textAlign: "center",
-		fontSize: 12,
+		fontSize: 25,
 	},
 });
 
