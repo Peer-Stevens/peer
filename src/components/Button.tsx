@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Pressable, StyleSheet, View, Text } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-import { PRIMARY_COLOR, PRIMARY_LIGHT, TEXT_COLOR } from "../../util/colors";
+import { PRIMARY_COLOR, PRIMARY_LIGHT, TEXT_COLOR } from "../util/colors";
 
 export interface ButtonProps {
 	text?: string;
@@ -18,7 +18,14 @@ export interface ButtonProps {
 /**
  * Peer-styled button element.
  */
-const Button = ({ image, text, accessibilityLabel, onPress, style }: ButtonProps): JSX.Element => {
+export const Button: React.FC<ButtonProps> = ({
+	text,
+	image,
+	accessibilityLabel,
+	onPress,
+	style,
+	children,
+}) => {
 	const [color, setColor] = useState<string>(PRIMARY_COLOR);
 
 	const styles = StyleSheet.create({
@@ -33,17 +40,15 @@ const Button = ({ image, text, accessibilityLabel, onPress, style }: ButtonProps
 		},
 	});
 
-	// chooses one to display, favoring bottom most prop
+	// chooses one to display, favoring top most prop
 
-	let display: JSX.Element | null = null;
+	let display: React.ReactNode;
 
-	if (text !== undefined) {
+	if (text) {
 		display = (
 			<Text style={{ fontWeight: "bold", color: TEXT_COLOR, fontSize: 30 }}>{text}</Text>
 		);
-	}
-
-	if (image !== undefined) {
+	} else if (image) {
 		switch (image) {
 			case "chevron":
 				display = <Icon name="chevron-up" color={PRIMARY_LIGHT} size={30} />;
@@ -51,6 +56,8 @@ const Button = ({ image, text, accessibilityLabel, onPress, style }: ButtonProps
 			default:
 				throw new Error("passed image file name is not available for this component");
 		}
+	} else if (children) {
+		display = children;
 	}
 
 	return (
@@ -68,5 +75,3 @@ const Button = ({ image, text, accessibilityLabel, onPress, style }: ButtonProps
 		</Pressable>
 	);
 };
-
-export default Button;

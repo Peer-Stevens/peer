@@ -2,24 +2,20 @@ import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { DISABLED_COLOR } from "../util/colors";
 
-import * as Peer from "./Peer/lib";
+import { Button } from "./Button";
 
-const onPressStartStrolling = (): void => {
-	//TODO: change state to strolling
-};
-
-const StrollButton = (): JSX.Element => {
+const StrollButton: React.FC<{ onStartStrolling: () => void }> = ({ onStartStrolling }) => {
 	const [isShowingFilters, setIsShowingFilters] = useState<boolean>(false);
 
 	return (
 		<View style={styles.buttonGroup}>
-			<Peer.Button
+			<Button
 				style={styles.strollBtn}
-				onPress={onPressStartStrolling}
+				onPress={onStartStrolling}
 				accessibilityLabel="Take a stroll"
 				text="Take a stroll"
 			/>
-			<Peer.Button
+			<Button
 				style={styles.filterBtn}
 				onPress={() => {
 					setIsShowingFilters(!isShowingFilters);
