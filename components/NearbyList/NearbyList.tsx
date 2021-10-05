@@ -6,30 +6,27 @@ import {Table, Row, Rows} from "react-native-table-component";
 // https://github.com/Gil2015/react-native-table-component for structuring the data neatly
 
 const NearbyList = (): JSX.Element => {
-	let tableData: any = [];
+	const tableData: any = [];
 
 	if (fakeData) {
 		fakeData.forEach((elem: data) => {
-			tableData.push([
-				elem.place,
-				elem.avg,
-			]);
+			tableData.push([elem.place, elem.avg]);
 		});
 	}
 
 	return (
 		<View style={styles.container}>
 			<Table borderStyle={{borderWidth: 15, borderColor: "#fff"}}>
-				<Row
-					data={["Nearby Place","Average Rating"]}
-					textStyle={styles.title}
-				/>
-				<ScrollView >
-					<Rows data={tableData} style={{borderWidth: 15, borderColor: "#fff"}} textStyle={styles.text} />
+				<Row data={["Nearby Place", "Average Rating"]} textStyle={styles.title} />
+				<ScrollView>
+					<Rows
+						data={tableData}
+						style={{borderWidth: 15, borderColor: "#fff"}}
+						textStyle={styles.text}
+					/>
 				</ScrollView>
 			</Table>
 		</View>
-		
 	);
 };
 

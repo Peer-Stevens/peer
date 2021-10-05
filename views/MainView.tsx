@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, Dimensions, View} from "react-native";
+import { StyleSheet, Dimensions, View } from "react-native";
 import MapView from "react-native-maps";
 import NearbyList from "../components/NearbyList/NearbyList";
 import StrollButton from "../components/StrollButton";
@@ -7,7 +7,7 @@ import StrollButton from "../components/StrollButton";
 const MainView = (): JSX.Element => {
 	return (
 		<View style={styles.container}>
-			<View style={{flex: 1}}>
+			<View style={{ flex: 1 }}>
 				<MapView style={styles.map} />
 				<StrollButton />
 			</View>

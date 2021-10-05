@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { StyleSheet, Dimensions, View } from "react-native";
-import { DISABLED_COLOR } from "../util/colors";
+import React, {useState} from "react";
+import {StyleSheet, View} from "react-native";
+import {DISABLED_COLOR} from "../util/colors";
 
 import * as Peer from "./Peer/lib";
 
@@ -12,7 +12,7 @@ const StrollButton = (): JSX.Element => {
 	const [isShowingFilters, setIsShowingFilters] = useState<boolean>(false);
 
 	return (
-		<View style = {styles.container}>
+		<View style={styles.container}>
 			<View style={styles.buttonGroup}>
 				<Peer.Button
 					style={styles.strollBtn}

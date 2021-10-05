@@ -1,13 +1,13 @@
 export interface data {
-	place: String;
-	braille: Number;
-	openess: Number;
-	readability: Number;
-	helpfulness: Number;
-	avg: Number;
+	place: string;
+	braille: number;
+	openess: number;
+	readability: number;
+	helpfulness: number;
+	avg: number;
 }
 
-export let fakeData: Array<data> = [
+export const fakeData: Array<data> = [
 	{
 		place: "Chipotle",
 		braille: 5,
@@ -30,7 +30,7 @@ export let fakeData: Array<data> = [
 		openess: 3,
 		readability: 4,
 		helpfulness: 2,
-		avg: 3
+		avg: 3,
 	},
 	{
 		place: "McDonalds",
@@ -78,7 +78,7 @@ export let fakeData: Array<data> = [
 		openess: 3,
 		readability: 4,
 		helpfulness: 2,
-		avg: 3
+		avg: 3,
 	},
 	{
 		place: "David's Cookies",
