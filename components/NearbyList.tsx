@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, ScrollView } from "react-native";
+import { StyleSheet, Dimensions, Text, ScrollView } from "react-native";
 
 export interface NearbyListProps {
 	style?: any;
@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: "#fff",
+		width: Dimensions.get("window").width,
 	},
 	text: {
 		backgroundColor: "#fff",
