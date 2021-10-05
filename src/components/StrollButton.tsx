@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
-import { DISABLED_COLOR } from "../../util/colors";
+import { DISABLED_COLOR } from "../util/colors";
 
 import { Button } from "./Button";
 
-const StrollButton = ({ onStartStrolling }: { onStartStrolling: () => void }): JSX.Element => {
+const StrollButton: React.FC<{ onStartStrolling: () => void }> = ({ onStartStrolling }) => {
 	const [isShowingFilters, setIsShowingFilters] = useState<boolean>(false);
 
 	return (

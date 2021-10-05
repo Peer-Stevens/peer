@@ -7,7 +7,7 @@ import { SERVER_BASE_URL } from "@env";
 import type { Place } from "@googlemaps/google-maps-services-js";
 import { Button } from "../Button";
 
-export const NearbyPlaces = ({ stopStrolling }: { stopStrolling: () => void }): JSX.Element => {
+export const NearbyPlaces: React.FC<{ stopStrolling: () => void }> = ({ stopStrolling }) => {
 	const { location } = useLocation();
 	const [nearbyPlaces, setNearbyPlaces] = React.useState<Place[]>();
 

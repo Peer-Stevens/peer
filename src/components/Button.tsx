@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Pressable, StyleSheet, View, Text } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-import { PRIMARY_COLOR, PRIMARY_LIGHT, TEXT_COLOR } from "../../util/colors";
+import { PRIMARY_COLOR, PRIMARY_LIGHT, TEXT_COLOR } from "../util/colors";
 
 export interface ButtonProps {
 	text?: string;
@@ -13,20 +13,19 @@ export interface ButtonProps {
 	style?: object; // may be unsafe, but this is the type provided
 	// by Stylesheet documentation:
 	// https://reactnative.dev/docs/stylesheet#compose
-	children?: JSX.Element;
 }
 
 /**
  * Peer-styled button element.
  */
-export const Button = ({
+export const Button: React.FC<ButtonProps> = ({
 	text,
 	image,
 	accessibilityLabel,
 	onPress,
 	style,
 	children,
-}: ButtonProps): JSX.Element => {
+}) => {
 	const [color, setColor] = useState<string>(PRIMARY_COLOR);
 
 	const styles = StyleSheet.create({
@@ -43,13 +42,13 @@ export const Button = ({
 
 	// chooses one to display, favoring top most prop
 
-	let display: JSX.Element | null = null;
+	let display: React.ReactNode;
 
-	if (text !== undefined) {
+	if (text) {
 		display = (
 			<Text style={{ fontWeight: "bold", color: TEXT_COLOR, fontSize: 30 }}>{text}</Text>
 		);
-	} else if (image !== undefined) {
+	} else if (image) {
 		switch (image) {
 			case "chevron":
 				display = <Icon name="chevron-up" color={PRIMARY_LIGHT} size={30} />;
@@ -57,7 +56,7 @@ export const Button = ({
 			default:
 				throw new Error("passed image file name is not available for this component");
 		}
-	} else if (children !== undefined) {
+	} else if (children) {
 		display = children;
 	}
 
