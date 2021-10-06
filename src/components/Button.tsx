@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import { Pressable, StyleSheet, View, Text } from "react-native";
+import type { StyleProp } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 import { PRIMARY_COLOR, PRIMARY_LIGHT, TEXT_COLOR } from "../util/colors";
 
 export interface ButtonProps {
 	text?: string;
-	image?: string;
+	iconName?: string;
 	accessibilityLabel: string; // not optional for this project.
 	onPress: VoidFunction;
 	//eslint-disable-next-line @typescript-eslint/ban-types
-	style?: object; // may be unsafe, but this is the type provided
-	// by Stylesheet documentation:
-	// https://reactnative.dev/docs/stylesheet#compose
+	style?: StyleProp<object>; // TODO: update generic from "object"
 }
 
 /**
@@ -20,7 +19,7 @@ export interface ButtonProps {
  */
 export const Button: React.FC<ButtonProps> = ({
 	text,
-	image,
+	iconName: image,
 	accessibilityLabel,
 	onPress,
 	style,
@@ -49,13 +48,7 @@ export const Button: React.FC<ButtonProps> = ({
 			<Text style={{ fontWeight: "bold", color: TEXT_COLOR, fontSize: 30 }}>{text}</Text>
 		);
 	} else if (image) {
-		switch (image) {
-			case "chevron":
-				display = <Icon name="chevron-up" color={PRIMARY_LIGHT} size={30} />;
-				break;
-			default:
-				throw new Error("passed image file name is not available for this component");
-		}
+		display = <Icon name={image} color={PRIMARY_LIGHT} size={30} />;
 	} else if (children) {
 		display = children;
 	}

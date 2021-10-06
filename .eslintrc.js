@@ -42,7 +42,7 @@ module.exports = {
 			},
 		},
 	],
-	// Do NOT use any eslint ruels that affect code formatting because prettier handles that.
+	// Do NOT use any eslint rules that affect code formatting because prettier handles that.
 	rules: {
 		"no-console": "error",
 		"no-debugger": "error",
