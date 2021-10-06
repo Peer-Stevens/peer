@@ -35,7 +35,7 @@ const StrollButton: React.FC<StrollButtonProps> = ({
 					setIsShowingFilters(!isShowingFilters);
 				}}
 				accessibilityLabel={isShowingFilters ? "Hide filters" : "Show filters"}
-				image={isShowingFilters ? "chevron-down" : "chevron-up"}
+				iconName={isShowingFilters ? "chevron-down" : "chevron-up"}
 			/>
 		</View>
 	);

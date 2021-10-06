@@ -7,7 +7,7 @@ import { PRIMARY_COLOR, PRIMARY_LIGHT, TEXT_COLOR } from "../util/colors";
 
 export interface ButtonProps {
 	text?: string;
-	image?: string;
+	iconName?: string;
 	accessibilityLabel: string; // not optional for this project.
 	onPress: VoidFunction;
 	//eslint-disable-next-line @typescript-eslint/ban-types
@@ -19,7 +19,7 @@ export interface ButtonProps {
  */
 export const Button: React.FC<ButtonProps> = ({
 	text,
-	image,
+	iconName: image,
 	accessibilityLabel,
 	onPress,
 	style,
