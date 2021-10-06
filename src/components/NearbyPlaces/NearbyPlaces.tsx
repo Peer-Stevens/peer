@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
-import { Dimensions, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { useLocation } from "./useLocation";
 import Location from "expo-location";
 import axios from "axios";
 import { SERVER_BASE_URL } from "@env";
 import type { Place } from "@googlemaps/google-maps-services-js";
 import { Button } from "../Button";
-// import { TEXT_COLOR } from "../../util/colors";
 
 export const NearbyPlaces: React.FC<{ stopStrolling: () => void }> = ({ stopStrolling }) => {
 	const { location } = useLocation();
