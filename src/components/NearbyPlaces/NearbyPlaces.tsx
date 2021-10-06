@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import { Text, View } from "react-native";
+import { Dimensions, Text, View } from "react-native";
 import { useLocation } from "./useLocation";
 import Location from "expo-location";
 import axios from "axios";
 import { SERVER_BASE_URL } from "@env";
 import type { Place } from "@googlemaps/google-maps-services-js";
 import { Button } from "../Button";
-import { TEXT_COLOR } from "../../util/colors";
+// import { TEXT_COLOR } from "../../util/colors";
 
 export const NearbyPlaces: React.FC<{ stopStrolling: () => void }> = ({ stopStrolling }) => {
 	const { location } = useLocation();
@@ -27,31 +27,29 @@ export const NearbyPlaces: React.FC<{ stopStrolling: () => void }> = ({ stopStro
 	}, [location]);
 
 	return (
-		<View>
-			<View>
-				<Button
-					onPress={stopStrolling}
-					accessibilityLabel="Stop this stroll"
-					style={{
-						color: TEXT_COLOR,
-						backgroundColor: "PRIMARY_COLOR",
-						fontWeight: "bold",
-					}}
-				>
-					<Text>Stop This Stroll</Text>
-				</Button>
-			</View>
+		<View style={{ width: "90%" }}>
 			{nearbyPlaces && nearbyPlaces.length > 0 ? (
-				<Text>
-					You are walking by{" "}
-					{nearbyPlaces
-						.map(place => place.name)
-						.slice(0, 3)
-						.join(", ")}
-				</Text>
+				<>
+					<Text style={{ fontSize: 25 }}>You are walking by </Text>
+					{nearbyPlaces.slice(0, 3).map(place => (
+						<Text
+							key={place.name}
+							style={{ fontSize: 25, fontWeight: "bold", lineHeight: 45 }}
+						>
+							{"\u2022"} {place.name}
+						</Text>
+					))}
+				</>
 			) : (
 				<Text>Loading...</Text>
 			)}
+			<View style={{ marginBottom: 15 }}>
+				<Button
+					onPress={stopStrolling}
+					accessibilityLabel="Stop this stroll"
+					text="Stop this stroll"
+				/>
+			</View>
 		</View>
 	);
 };

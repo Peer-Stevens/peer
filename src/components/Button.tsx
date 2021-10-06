@@ -37,6 +37,8 @@ export const Button: React.FC<ButtonProps> = ({
 			paddingHorizontal: 15,
 			paddingVertical: 10,
 			backgroundColor: color,
+			borderWidth: 3,
+			borderColor: textColor,
 		},
 	});
 
@@ -66,7 +68,7 @@ export const Button: React.FC<ButtonProps> = ({
 			}}
 			onPressOut={() => {
 				setColor(PRIMARY_COLOR);
-				setTextColor(TEXT_COLOR)
+				setTextColor(TEXT_COLOR);
 			}}
 			style={StyleSheet.compose(styles.button, style)}
 			accessibilityLabel={accessibilityLabel}
