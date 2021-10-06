@@ -6,6 +6,7 @@ import axios from "axios";
 import { SERVER_BASE_URL } from "@env";
 import type { Place } from "@googlemaps/google-maps-services-js";
 import { Button } from "../Button";
+import { TEXT_COLOR } from "../../util/colors";
 
 export const NearbyPlaces: React.FC<{ stopStrolling: () => void }> = ({ stopStrolling }) => {
 	const { location } = useLocation();
@@ -25,14 +26,22 @@ export const NearbyPlaces: React.FC<{ stopStrolling: () => void }> = ({ stopStro
 		}
 	}, [location]);
 
-	if (nearbyPlaces && nearbyPlaces.length > 0) {
-		return (
+	return (
+		<View>
 			<View>
-				<View>
-					<Button onPress={stopStrolling} accessibilityLabel="Stop this stroll">
-						<Text>Stop This Stroll</Text>
-					</Button>
-				</View>
+				<Button
+					onPress={stopStrolling}
+					accessibilityLabel="Stop this stroll"
+					style={{
+						color: TEXT_COLOR,
+						backgroundColor: "PRIMARY_COLOR",
+						fontWeight: "bold",
+					}}
+				>
+					<Text>Stop This Stroll</Text>
+				</Button>
+			</View>
+			{nearbyPlaces && nearbyPlaces.length > 0 ? (
 				<Text>
 					You are walking by{" "}
 					{nearbyPlaces
@@ -40,7 +49,9 @@ export const NearbyPlaces: React.FC<{ stopStrolling: () => void }> = ({ stopStro
 						.slice(0, 3)
 						.join(", ")}
 				</Text>
-			</View>
-		);
-	} else return <Text>Loading...</Text>;
+			) : (
+				<Text>Loading...</Text>
+			)}
+		</View>
+	);
 };
