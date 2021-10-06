@@ -24,7 +24,8 @@ const FilterBox : React.FC<FilterBoxProps> = ({ style }: FilterBoxProps) => {
 
 	return (
 		<Box
-			accessibilityLabel="List of filters"
+			accessibilityLabel="A vertical list of filters"
+			accessibilityHint="A vertical list of checkboxes which allow you to select filters"
 			style={StyleSheet.compose(styles.container, style)}
 		>
 			{categoriesState.map(({ name, value, set }, index: number) => {
