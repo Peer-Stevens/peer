@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import type { StyleProp } from "react-native";
-import * as CB from "@react-native-community/checkbox";
+import CB from "@react-native-community/checkbox";
 import { TEXT_COLOR } from "../util/colors";
 
 export interface CheckBoxProps {
@@ -25,7 +25,7 @@ export const CheckBox : React.FC<CheckBoxProps> = ({
 			style={StyleSheet.compose(styles.container, style)}
 			accessibilityLabel={accessibilityLabel}
 		>
-			<CB.default value={value} onValueChange={onValueChange} />
+			<CB value={value} onValueChange={onValueChange} />
 			<Text style={styles.text} accessibilityLabel={accessibilityLabel}>
 				{text}
 			</Text>
