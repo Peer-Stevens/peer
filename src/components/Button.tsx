@@ -11,9 +11,7 @@ export interface ButtonProps {
 	accessibilityLabel: string; // not optional for this project.
 	onPress: VoidFunction;
 	//eslint-disable-next-line @typescript-eslint/ban-types
-	style?: StyleProp<object>; // may be unsafe, but this is the type provided
-	// by Stylesheet documentation:
-	// https://reactnative.dev/docs/stylesheet#compose
+	style?: StyleProp<object>; // TODO: update generic from "object"
 }
 
 /**

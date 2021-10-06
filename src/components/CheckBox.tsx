@@ -10,16 +10,16 @@ export interface CheckBoxProps {
 	text: string;
 	accessibilityLabel: string;
 	//eslint-disable-next-line @typescript-eslint/ban-types
-	style: StyleProp<object>;
+	style: StyleProp<object>; // TODO: update generic from "object"
 }
 
-const CheckBox = ({
+export const CheckBox : React.FC<CheckBoxProps> = ({
 	value,
 	onValueChange,
 	text,
 	accessibilityLabel,
 	style,
-}: CheckBoxProps): JSX.Element => {
+}): JSX.Element => {
 	return (
 		<View
 			style={StyleSheet.compose(styles.container, style)}
