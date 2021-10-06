@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet } from "react-native";
 import type { StyleProp } from "react-native";
 import { DISABLED_COLOR } from "../util/colors";
@@ -9,18 +9,27 @@ export interface FilterBoxProps {
 	//eslint-disable-next-line @typescript-eslint/ban-types
 	style?: StyleProp<object>; // TODO: update generic from "object"
 }
+interface CategoryState {
+	name: string;
+	selected: boolean;
+}
 
-const FilterBox : React.FC<FilterBoxProps> = ({ style }: FilterBoxProps) => {
-	const categories = [
-		//FIXME: use actual categories and not placeholders
-		"Grocery stores",
-		"Parks",
-		"Museum",
-	];
-	const categoriesState = categories.map(category => {
-		const [value, set] = useState<boolean>(false);
-		return { name: category, value: value, set: set };
-	});
+const FilterBox: React.FC<FilterBoxProps> = ({ style }: FilterBoxProps) => {
+	const [categoriesMap, setCategoriesMap] = useState<Record<string, CategoryState>>({});
+	let categories: Array<string> = [];
+	useEffect(() => {
+		categories = [
+			//FIXME: fetch actual categories and not placeholders
+			"Grocery stores",
+			"Parks",
+			"Museum",
+		];
+		const generatedCategoriesMap: Record<string, CategoryState> = {};
+		categories.forEach(
+			category => (generatedCategoriesMap[category] = { name: category, selected: false })
+		);
+		setCategoriesMap(generatedCategoriesMap);
+	}, []);
 
 	return (
 		<Box
@@ -28,16 +37,18 @@ const FilterBox : React.FC<FilterBoxProps> = ({ style }: FilterBoxProps) => {
 			accessibilityHint="A vertical list of checkboxes which allow you to select filters"
 			style={StyleSheet.compose(styles.container, style)}
 		>
-			{categoriesState.map(({ name, value, set }, index: number) => {
+			{categories.map((name, index: number) => {
 				return (
 					<CheckBox
 						style={styles.checkBox}
 						text={name}
 						key={index}
-						accessibilityLabel={`Filter out type ${name}`}
-						value={value}
+						accessibilityLabel={`Filter out ${name}s`}
+						value={categoriesMap[name].selected}
 						onValueChange={() => {
-							set(!value);
+							const newMap = categoriesMap;
+							newMap[name].selected = !newMap[name].selected;
+							setCategoriesMap(newMap);
 						}}
 					/>
 				);

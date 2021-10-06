@@ -10,9 +10,18 @@ export interface BoxProps {
 	style?: StyleProp<object>; // TODO: update generic from "object"
 }
 
-export const Box : React.FC<BoxProps> = ({ accessibilityLabel, accessibilityHint, style, children }) => {
+export const Box: React.FC<BoxProps> = ({
+	accessibilityLabel,
+	accessibilityHint,
+	style,
+	children,
+}) => {
 	return (
-		<View accessibilityLabel={accessibilityLabel} accessibilityHint={accessibilityHint} style={StyleSheet.compose(styles.box, style)}>
+		<View
+			accessibilityLabel={accessibilityLabel}
+			accessibilityHint={accessibilityHint}
+			style={StyleSheet.compose(styles.box, style)}
+		>
 			{children}
 		</View>
 	);
