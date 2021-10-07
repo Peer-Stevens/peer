@@ -8,10 +8,10 @@ export interface PlaceCardProps {
 
 const PlaceCard: React.FC<PlaceCardProps> = ({ place, avg }: PlaceCardProps) => {
 	return (
-		<View style={styles.container}>
-			<View>
-				<Text style={styles.details}>{place}</Text>
-				<Text style={styles.details}>{avg}</Text>
+		<View style={styles.card}>
+			<View >
+				<Text style={styles.cardContent}>{place}</Text>
+				<Text style={styles.cardContent}>{avg}</Text>
 			</View>
 			{/* <View style= {styles.image}>
                 <Image />
@@ -21,13 +21,14 @@ const PlaceCard: React.FC<PlaceCardProps> = ({ place, avg }: PlaceCardProps) => 
 };
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: "#fff",
-		width: Dimensions.get("window").width,
-		height: Dimensions.get("window").height / 4,
+	card: {
+		backgroundColor: "black",
+		width: Dimensions.get("window").width/2,
+		height: Dimensions.get("window").height / 6,
+		borderWidth: 5,
+		borderColor: "red",
 	},
-	details: {
+	cardContent: {
 		backgroundColor: "#fff",
 		fontSize: 30,
 	},

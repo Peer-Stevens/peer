@@ -1,16 +1,20 @@
 import React from "react";
-import { StyleSheet, Dimensions, View, Text } from "react-native";
+import { StyleSheet, Dimensions, View, Text, ScrollView } from "react-native";
 import { fakeData } from "./fakeData";
 import type { data } from "./fakeData";
 import PlaceCard from "./PlaceCard";
 
 const NearbyList = (): JSX.Element => {
-	const cardList = fakeData.map((elem: data) => {
-		return <PlaceCard place={elem.place} avg={elem.avg} />;
+	const cardList = fakeData.map((elem: data, index: number) => {
+		return <PlaceCard key={index} place={elem.place} avg={elem.avg} />;
 	});
 
 	if (fakeData) {
-		return <View>{cardList}</View>;
+		return <View style= {styles.container}>
+			<ScrollView>
+					{cardList}
+					</ScrollView>
+				</View>;
 	} else {
 		return <Text>Sorry, no data</Text>;
 	}
@@ -33,7 +37,7 @@ const NearbyList = (): JSX.Element => {
 	// 			</ScrollView>
 	// 		</Table>
 	// 	</View>
-	//);
+	// );
 };
 
 const styles = StyleSheet.create({
@@ -42,6 +46,7 @@ const styles = StyleSheet.create({
 		backgroundColor: "#fff",
 		width: Dimensions.get("window").width,
 		height: Dimensions.get("window").height,
+		borderColor: "black",
 	},
 	// title: {
 	// 	backgroundColor: "#fff",
