@@ -1613,15 +1613,6 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.4.tgz"
   integrity sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ==
 
-"@types/react-native-table-component@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.npmjs.org/@types/react-native-table-component/-/react-native-table-component-1.2.1.tgz"
-  integrity sha512-gM5Uc5Vgeq4S33nXCB9bQRpEtD5yvtlh1ph6PIWZyvC0ybi4ZFe4Os7fGxWJvHAMObPXwT41nQu40aaq1tca4A==
-  dependencies:
-    "@types/react" "*"
-    "@types/react-native" "*"
-    csstype "^3.0.3"
-
 "@types/react-native-vector-icons@^6.4.9":
   version "6.4.9"
   resolved "https://registry.yarnpkg.com/@types/react-native-vector-icons/-/react-native-vector-icons-6.4.9.tgz"
@@ -2709,7 +2700,7 @@ css-in-js-utils@^2.0.0:
     hyphenate-style-name "^1.0.2"
     isobject "^3.0.1"
 
-csstype@^3.0.2, csstype@^3.0.3:
+csstype@^3.0.2:
   version "3.0.8"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.0.8.tgz"
   integrity sha512-jXKhWqXPmlUeoQnF/EhTtTl4C9SnrxSH/jZUih3jmO6lBKr99rP3/+FmrMj4EFpOXzMtXHAZkd3x0E6h6Fgflw==
@@ -5756,11 +5747,6 @@ react-native-safe-area-context@3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-3.2.0.tgz"
   integrity sha512-k2Nty4PwSnrg9HwrYeeE+EYqViYJoOFwEy9LxL5RIRfoqxAq/uQXNGwpUg2/u4gnKpBbEPa9eRh15KKMe/VHkA==
-
-react-native-table-component@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/react-native-table-component/-/react-native-table-component-1.2.1.tgz"
-  integrity sha512-sapwO0bONfQtpWg3GVMwP5D3lGEJlxPB3c7fb0soXBynvCa+SBktacVZ9OmYJnIbRJ3uW5pS4tzNc8GmE+UScw==
 
 react-native-vector-icons@^8.1.0:
   version "8.1.0"

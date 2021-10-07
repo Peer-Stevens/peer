@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Dimensions, View } from "react-native";
+import { StyleSheet, Dimensions, View, ScrollView } from "react-native";
 import MapView from "react-native-maps";
 import NearbyList from "../components/NearbyList/NearbyList";
 import StrollButton from "../components/StrollButton";
@@ -11,7 +11,9 @@ const MainView = (): JSX.Element => {
 				<MapView style={styles.map} />
 				<StrollButton />
 			</View>
-			<NearbyList />
+			<ScrollView style={styles.scrollView}>
+				<NearbyList />
+			</ScrollView>
 		</View>
 	);
 };
@@ -25,6 +27,11 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 	},
 	map: {
+		flex: 1,
+		width: Dimensions.get("window").width,
+		height: Dimensions.get("window").height,
+	},
+	scrollView: {
 		flex: 1,
 		width: Dimensions.get("window").width,
 		height: Dimensions.get("window").height,

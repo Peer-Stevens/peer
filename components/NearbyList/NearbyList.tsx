@@ -1,44 +1,19 @@
 import React from "react";
-import { StyleSheet, Dimensions, ScrollView, View, Text} from "react-native";
+import { StyleSheet, Dimensions, View, Text } from "react-native";
 import { fakeData } from "./fakeData";
 import type { data } from "./fakeData";
-import { Table, Row, Rows } from "react-native-table-component";
-import PlaceCard, { PlaceCardProps } from "./PlaceCard";
-// https://github.com/Gil2015/react-native-table-component for structuring the data neatly
+import PlaceCard from "./PlaceCard";
 
-// export interface NearbyListProps{
-	
-// }
-const NearbyList = () : JSX.Element => {
-	//const allPlaces: Array<any> = [];
-
-	// const yoloData: Array<> = [];
-
-	// fakeData.forEach((elem: data) => {
-	// 	yoloData.push(<PlaceCard place={elem.place} avg={elem.avg} />)
-	// })
-
-	// const dataList = () => {
-	// 	fakeData.forEach((elem: data) => {
-	// 		return <PlaceCard place={elem.place} avg={elem.avg} />
-	// 	})
-	// }
+const NearbyList = (): JSX.Element => {
+	const cardList = fakeData.map((elem: data) => {
+		return <PlaceCard place={elem.place} avg={elem.avg} />;
+	});
 
 	if (fakeData) {
-		return (<ScrollView>
-			{() => {fakeData.forEach((elem: data) => {
-			<PlaceCard place={elem.place} avg={elem.avg} />
-		})}}
-			{/* {() =>{ fakeData.forEach((elem: data) => {
-			<PlaceCard place={elem.place} avg={elem.avg} />
-		})}} */}
-		</ScrollView>
-		)
+		return <View>{cardList}</View>;
+	} else {
+		return <Text>Sorry, no data</Text>;
 	}
-	else {
-		return (<Text>Sorry, no data</Text>);
-	}
-	
 
 	// return (
 	// 	<View>
@@ -68,17 +43,17 @@ const styles = StyleSheet.create({
 		width: Dimensions.get("window").width,
 		height: Dimensions.get("window").height,
 	},
-	title: {
-		backgroundColor: "#fff",
-		textAlign: "center",
-		fontSize: 30,
-		fontWeight: "bold",
-	},
-	text: {
-		backgroundColor: "#fff",
-		textAlign: "center",
-		fontSize: 25,
-	},
+	// title: {
+	// 	backgroundColor: "#fff",
+	// 	textAlign: "center",
+	// 	fontSize: 30,
+	// 	fontWeight: "bold",
+	// },
+	// text: {
+	// 	backgroundColor: "#fff",
+	// 	textAlign: "center",
+	// 	fontSize: 25,
+	// },
 });
 
 export default NearbyList;
