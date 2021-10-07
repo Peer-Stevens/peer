@@ -3,7 +3,7 @@ import { Pressable, StyleSheet, View, Text } from "react-native";
 import type { StyleProp } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-import { PRIMARY_COLOR, PRIMARY_LIGHT, TEXT_COLOR } from "../util/colors";
+import { PRIMARY_COLOR, TEXT_COLOR } from "../util/colors";
 
 export interface ButtonProps {
 	text?: string;
@@ -26,6 +26,7 @@ export const Button: React.FC<ButtonProps> = ({
 	children,
 }) => {
 	const [color, setColor] = useState<string>(PRIMARY_COLOR);
+	const [textColor, setTextColor] = useState<string>(TEXT_COLOR);
 
 	const styles = StyleSheet.create({
 		button: {
@@ -36,6 +37,8 @@ export const Button: React.FC<ButtonProps> = ({
 			paddingHorizontal: 15,
 			paddingVertical: 10,
 			backgroundColor: color,
+			borderWidth: 3,
+			borderColor: textColor,
 		},
 	});
 
@@ -45,10 +48,10 @@ export const Button: React.FC<ButtonProps> = ({
 
 	if (text) {
 		display = (
-			<Text style={{ fontWeight: "bold", color: TEXT_COLOR, fontSize: 30 }}>{text}</Text>
+			<Text style={{ fontWeight: "bold", color: textColor, fontSize: 30 }}>{text}</Text>
 		);
 	} else if (image) {
-		display = <Icon name={image} color={PRIMARY_LIGHT} size={30} />;
+		display = <Icon name={image} color={textColor} size={30} />;
 	} else if (children) {
 		display = children;
 	}
@@ -59,8 +62,14 @@ export const Button: React.FC<ButtonProps> = ({
 				onPress();
 				setColor(PRIMARY_COLOR);
 			}}
-			onPressIn={() => setColor(PRIMARY_LIGHT)}
-			onPressOut={() => setColor(PRIMARY_COLOR)}
+			onPressIn={() => {
+				setColor(TEXT_COLOR);
+				setTextColor(PRIMARY_COLOR);
+			}}
+			onPressOut={() => {
+				setColor(PRIMARY_COLOR);
+				setTextColor(TEXT_COLOR);
+			}}
 			style={StyleSheet.compose(styles.button, style)}
 			accessibilityLabel={accessibilityLabel}
 		>

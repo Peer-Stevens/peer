@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import type { StyleProp } from "react-native";
-import { DISABLED_COLOR } from "../util/colors";
+import { TEXT_COLOR } from "../util/colors";
 
 import { Button } from "./Button";
 
@@ -48,11 +48,16 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 	},
 	filterBtn: {
-		borderLeftWidth: StyleSheet.hairlineWidth,
-		borderLeftColor: DISABLED_COLOR,
+		borderWidth: 3,
+		borderColor: TEXT_COLOR,
+		color: TEXT_COLOR,
+		borderLeftWidth: 3,
 		height: "100%",
 	},
 	strollBtn: {
+		borderWidth: 3,
+		borderColor: TEXT_COLOR,
+		borderRightWidth: 0,
 		height: "100%",
 	},
 });

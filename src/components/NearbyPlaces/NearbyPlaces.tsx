@@ -25,22 +25,30 @@ export const NearbyPlaces: React.FC<{ stopStrolling: () => void }> = ({ stopStro
 		}
 	}, [location]);
 
-	if (nearbyPlaces && nearbyPlaces.length > 0) {
-		return (
-			<View>
-				<View>
-					<Button onPress={stopStrolling} accessibilityLabel="Stop this stroll">
-						<Text>Stop This Stroll</Text>
-					</Button>
-				</View>
-				<Text>
-					You are walking by{" "}
-					{nearbyPlaces
-						.map(place => place.name)
-						.slice(0, 3)
-						.join(", ")}
-				</Text>
+	return (
+		<View style={{ width: "90%" }}>
+			{nearbyPlaces && nearbyPlaces.length > 0 ? (
+				<>
+					<Text style={{ fontSize: 25 }}>You are walking by </Text>
+					{nearbyPlaces.slice(0, 3).map(place => (
+						<Text
+							key={place.name}
+							style={{ fontSize: 25, fontWeight: "bold", lineHeight: 45 }}
+						>
+							{"\u2022"} {place.name}
+						</Text>
+					))}
+				</>
+			) : (
+				<Text>Loading...</Text>
+			)}
+			<View style={{ marginBottom: 15 }}>
+				<Button
+					onPress={stopStrolling}
+					accessibilityLabel="Stop this stroll"
+					text="Stop this stroll"
+				/>
 			</View>
-		);
-	} else return <Text>Loading...</Text>;
+		</View>
+	);
 };
