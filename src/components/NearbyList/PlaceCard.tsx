@@ -13,7 +13,7 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 	place,
 	avg,
 	address,
-	img,
+	//img,
 	accessabilityLabel,
 }: PlaceCardProps) => {
 	return (
