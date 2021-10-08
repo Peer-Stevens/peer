@@ -5,6 +5,8 @@ export interface data {
 	readability: number;
 	helpfulness: number;
 	avg: number;
+	address: string;
+	img: string;
 }
 
 export const fakeData: Array<data> = [
@@ -15,6 +17,8 @@ export const fakeData: Array<data> = [
 		readability: 4,
 		helpfulness: 5,
 		avg: 4,
+		address: "15 Brown Ave",
+		img: "../../assets/restaurant.jpg",
 	},
 	{
 		place: "Starbucks",
@@ -23,6 +27,8 @@ export const fakeData: Array<data> = [
 		readability: 1,
 		helpfulness: 5,
 		avg: 2,
+		address: "34 Northern Ave",
+		img: "../../assets/restaurant.jpg",
 	},
 	{
 		place: "Pizza Hut",
@@ -31,6 +37,8 @@ export const fakeData: Array<data> = [
 		readability: 4,
 		helpfulness: 2,
 		avg: 3,
+		address: "18 Happy Place",
+		img: "../../assets/restaurant.jpg",
 	},
 	{
 		place: "McDonalds",
@@ -39,6 +47,8 @@ export const fakeData: Array<data> = [
 		readability: 5,
 		helpfulness: 5,
 		avg: 5,
+		address: "3 Great St",
+		img: "../../assets/restaurant.jpg",
 	},
 	{
 		place: "Midtown",
@@ -47,6 +57,8 @@ export const fakeData: Array<data> = [
 		readability: 4,
 		helpfulness: 4,
 		avg: 4,
+		address: "44 Lake Ave",
+		img: "../../assets/restaurant.jpg",
 	},
 	{
 		place: "Burger King",
@@ -55,6 +67,8 @@ export const fakeData: Array<data> = [
 		readability: 1,
 		helpfulness: 1,
 		avg: 1,
+		address: "23 James St",
+		img: "../../assets/restaurant.jpg",
 	},
 	{
 		place: "Gio's",
@@ -63,6 +77,8 @@ export const fakeData: Array<data> = [
 		readability: 4,
 		helpfulness: 5,
 		avg: 4,
+		address: "8 Bryant Pl",
+		img: "../../assets/restaurant.jpg",
 	},
 	{
 		place: "Julio's Chicken",
@@ -71,6 +87,8 @@ export const fakeData: Array<data> = [
 		readability: 1,
 		helpfulness: 5,
 		avg: 2,
+		address: "2 Manchester Ave",
+		img: "../../assets/restaurant.jpg",
 	},
 	{
 		place: "Andrew's Tea Shop",
@@ -79,6 +97,8 @@ export const fakeData: Array<data> = [
 		readability: 4,
 		helpfulness: 2,
 		avg: 3,
+		address: "19 Hogwarts Ave",
+		img: "../../assets/restaurant.jpg",
 	},
 	{
 		place: "David's Cookies",
@@ -87,6 +107,8 @@ export const fakeData: Array<data> = [
 		readability: 4,
 		helpfulness: 5,
 		avg: 4,
+		address: "10 Sesame St",
+		img: "../../assets/restaurant.jpg",
 	},
 	{
 		place: "Alexis's Ale",
@@ -95,6 +117,8 @@ export const fakeData: Array<data> = [
 		readability: 1,
 		helpfulness: 5,
 		avg: 2,
+		address: "5 Jones Ave",
+		img: "../../assets/restaurant.jpg",
 	},
 	{
 		place: "Eleni's Eggplants",
@@ -103,5 +127,7 @@ export const fakeData: Array<data> = [
 		readability: 4,
 		helpfulness: 2,
 		avg: 3,
+		address: "11 Great Pl",
+		img: "../../assets/restaurant.jpg",
 	},
 ];

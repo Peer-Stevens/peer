@@ -1,5 +1,5 @@
 import React from "react";
-import MainView from "./views/MainView";
+import MainView from "./src/views/MainView";
 
 export default function App(): JSX.Element {
 	return <MainView />;
