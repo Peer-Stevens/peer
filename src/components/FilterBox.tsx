@@ -1,67 +1,69 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet } from "react-native";
+import { FlatList, SafeAreaView, StyleSheet } from "react-native";
 import type { StyleProp } from "react-native";
-import { DISABLED_COLOR } from "../util/colors";
+import { PRIMARY_COLOR } from "../util/colors";
 import { Box } from "./Box";
 import CheckBox from "./CheckBox";
+import { PlaceType1 } from "@googlemaps/google-maps-services-js";
 
+const capitalizeEveryWord = (str: string) => {
+	let new_string = str;
+  	new_string = new_string.replace(/\b[a-z]/g, char => char.toUpperCase())
+	new_string = new_string.replace(/_/g, char => " ")
+  	return new_string
+}
 export interface FilterBoxProps {
+	filterSelected: Record<string, boolean>
+	setFilterSelected: React.Dispatch<React.SetStateAction<Record<string, boolean>>>
 	//eslint-disable-next-line @typescript-eslint/ban-types
 	style?: StyleProp<object>; // TODO: update generic from "object"
 }
-interface CategoryState {
-	name: string;
-	selected: boolean;
-}
 
-const FilterBox: React.FC<FilterBoxProps> = ({ style }: FilterBoxProps) => {
-	const [categoriesMap, setCategoriesMap] = useState<Record<string, CategoryState>>({});
-	let categories: Array<string> = [];
-	useEffect(() => {
-		categories = [
-			//FIXME: fetch actual categories and not placeholders
-			"Grocery stores",
-			"Parks",
-			"Museum",
-		];
-		const generatedCategoriesMap: Record<string, CategoryState> = {};
-		categories.forEach(
-			category => (generatedCategoriesMap[category] = { name: category, selected: false })
-		);
-		setCategoriesMap(generatedCategoriesMap);
-	}, []);
+const FilterBox: React.FC<FilterBoxProps> = ({ filterSelected, setFilterSelected, style }: FilterBoxProps) => {
+	let places : Array<string> = []
+	for (const value in PlaceType1) {
+		places.push(value);
+	}
+	interface RenderItemParams {
+		item: string
+		index: number
+	}
+
+	const renderItem = ({item} : RenderItemParams) => {
+		return (
+			<CheckBox
+				style={styles.checkBox}
+				text={capitalizeEveryWord(item)}
+				accessibilityLabel={`Filter out ${item}s`}
+				value={filterSelected[item]}
+				onValueChange={(newBool: boolean) => {
+					const newMap = filterSelected
+					newMap[item] = newBool
+					setFilterSelected(newMap)
+				}}
+			/>
+		)
+	} 
 
 	return (
-		<Box
-			accessibilityLabel="A vertical list of filters"
-			accessibilityHint="A vertical list of checkboxes which allow you to select filters"
-			style={StyleSheet.compose(styles.container, style)}
-		>
-			{categories.map((name, index: number) => {
-				return (
-					<CheckBox
-						style={styles.checkBox}
-						text={name}
-						key={index}
-						accessibilityLabel={`Filter out ${name}s`}
-						value={categoriesMap[name].selected}
-						onValueChange={() => {
-							const newMap = categoriesMap;
-							newMap[name].selected = !newMap[name].selected;
-							setCategoriesMap(newMap);
-						}}
-					/>
-				);
-			})}
-		</Box>
+		<SafeAreaView style={styles.container}>
+			<Box
+				accessibilityLabel="A vertical list of filters"
+				accessibilityHint="A vertical list of checkboxes which allow you to select filters"
+				style={style}
+			>
+				<FlatList
+					data={places}
+					renderItem={renderItem}
+					keyExtractor={(item) => item}/>
+			</Box>
+		</SafeAreaView>
 	);
 };
 
 const styles = StyleSheet.create({
 	container: {
-		padding: 10,
-		borderBottomColor: DISABLED_COLOR,
-		borderBottomWidth: 1,
+		height: 275
 	},
 	checkBox: {
 		margin: 5,
