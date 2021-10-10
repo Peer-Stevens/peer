@@ -9,6 +9,8 @@ export interface FilterCheckBoxState {
     name: string
     checked: boolean
 }
+
+// see: https://developers.google.com/maps/documentation/places/web-service/supported_types#table1
 const defaultFilterState: Array<FilterCheckBoxState> = [
     {name: "accounting", checked: false},
     {name: "airport", checked: false},
