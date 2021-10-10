@@ -7,32 +7,31 @@ import { NearbyPlaces } from "../components/NearbyPlaces/NearbyPlaces";
 import StrollButton from "../components/StrollButton";
 
 export interface FilterCheckBoxState {
-    name: string
-    checked: boolean
+	name: string;
+	checked: boolean;
 }
 
 // see: https://developers.google.com/maps/documentation/places/web-service/supported_types#table1
-let defaultFilterState: Array<FilterCheckBoxState> = []
+const defaultFilterState: Array<FilterCheckBoxState> = [];
 for (const place in PlaceType1) {
-    defaultFilterState.push(
-        {
-            name: place,
-            checked: false,
-        }
-    )
+	defaultFilterState.push({
+		name: place,
+		checked: false,
+	});
 }
 
 const MainView = (): JSX.Element => {
 	const [isStrolling, setIsStrolling] = useState(false);
 	const [isShowingFilters, setIsShowingFilters] = useState<boolean>(false);
-	const [filterSelected, setFilterSelected] = useState<Array<FilterCheckBoxState>>(defaultFilterState);
+	const [filterSelected, setFilterSelected] =
+		useState<Array<FilterCheckBoxState>>(defaultFilterState);
 
-    const createAndSetFilterSelected = (index: number, value: boolean) => {
-        let newFilterSelected : Array<FilterCheckBoxState> = []
-        filterSelected.map(item => newFilterSelected.push(item))
-        newFilterSelected[index].checked = value
-        setFilterSelected(newFilterSelected)
-    }
+	const createAndSetFilterSelected = (index: number, value: boolean) => {
+		const newFilterSelected: Array<FilterCheckBoxState> = [];
+		filterSelected.map(item => newFilterSelected.push(item));
+		newFilterSelected[index].checked = value;
+		setFilterSelected(newFilterSelected);
+	};
 
 	const toggleIsStrolling = () => {
 		setIsStrolling(!isStrolling);
@@ -49,10 +48,12 @@ const MainView = (): JSX.Element => {
 			<View style={styles.container}>
 				<MapView style={styles.map} />
 				<View style={styles.buttonFilterGroup}>
-					{isShowingFilters ? <FilterBox 
-						filterSelected={filterSelected}
-						createAndSetFilterSelected={createAndSetFilterSelected}
-						/> : null}
+					{isShowingFilters ? (
+						<FilterBox
+							filterSelected={filterSelected}
+							createAndSetFilterSelected={createAndSetFilterSelected}
+						/>
+					) : null}
 					<StrollButton
 						onStartStrolling={toggleIsStrolling}
 						isShowingFilters={isShowingFilters}

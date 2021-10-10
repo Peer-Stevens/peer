@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { FlatList, SafeAreaView, StyleSheet } from "react-native";
 import type { StyleProp } from "react-native";
 import { Box } from "./Box";
@@ -8,28 +8,32 @@ import { FilterCheckBoxState } from "../views/MainView";
 
 const capitalizeEveryWord = (str: string) => {
 	let new_string = str;
-  	new_string = new_string.replace(/\b[a-z]/g, char => char.toUpperCase())
-	new_string = new_string.replace(/_/g, char => " ")
-  	return new_string
-}
+	new_string = new_string.replace(/\b[a-z]/g, char => char.toUpperCase());
+	new_string = new_string.replace(/_/g, () => " ");
+	return new_string;
+};
 export interface FilterBoxProps {
-	filterSelected: Array<FilterCheckBoxState>
-	createAndSetFilterSelected: (index: number, value: boolean) => void
+	filterSelected: Array<FilterCheckBoxState>;
+	createAndSetFilterSelected: (index: number, value: boolean) => void;
 	//eslint-disable-next-line @typescript-eslint/ban-types
 	style?: StyleProp<object>; // TODO: update generic from "object"
 }
 
-const FilterBox: React.FC<FilterBoxProps> = ({ filterSelected, createAndSetFilterSelected, style }: FilterBoxProps) => {
-	let places : Array<string> = []
+const FilterBox: React.FC<FilterBoxProps> = ({
+	filterSelected,
+	createAndSetFilterSelected,
+	style,
+}: FilterBoxProps) => {
+	const places: Array<string> = [];
 	for (const value in PlaceType1) {
 		places.push(value);
 	}
 	interface RenderItemParams {
-		item: string
-		index: number
+		item: string;
+		index: number;
 	}
 
-	const renderItem = ({item, index} : RenderItemParams) => {
+	const renderItem = ({ item, index }: RenderItemParams) => {
 		return (
 			<CheckBox
 				style={styles.checkBox}
@@ -37,11 +41,11 @@ const FilterBox: React.FC<FilterBoxProps> = ({ filterSelected, createAndSetFilte
 				accessibilityLabel={`Filter out ${item}s`}
 				value={filterSelected[index].checked}
 				onValueChange={(value: boolean) => {
-					createAndSetFilterSelected(index, value)
+					createAndSetFilterSelected(index, value);
 				}}
 			/>
-		)
-	} 
+		);
+	};
 
 	return (
 		<SafeAreaView style={styles.container}>
@@ -50,10 +54,7 @@ const FilterBox: React.FC<FilterBoxProps> = ({ filterSelected, createAndSetFilte
 				accessibilityHint="A vertical list of checkboxes which allow you to select filters"
 				style={style}
 			>
-				<FlatList
-					data={places}
-					renderItem={renderItem}
-					keyExtractor={(item) => item}/>
+				<FlatList data={places} renderItem={renderItem} keyExtractor={item => item} />
 			</Box>
 		</SafeAreaView>
 	);
@@ -61,7 +62,7 @@ const FilterBox: React.FC<FilterBoxProps> = ({ filterSelected, createAndSetFilte
 
 const styles = StyleSheet.create({
 	container: {
-		height: 275
+		height: 275,
 	},
 	checkBox: {
 		margin: 5,
