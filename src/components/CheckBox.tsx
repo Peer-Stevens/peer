@@ -6,7 +6,7 @@ import { TEXT_COLOR } from "../util/colors";
 
 export interface CheckBoxProps {
 	value: boolean;
-	onValueChange: VoidFunction;
+	onValueChange?: (value: boolean) => void;
 	text: string;
 	accessibilityLabel: string;
 	//eslint-disable-next-line @typescript-eslint/ban-types
@@ -46,4 +46,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default CheckBox;
+export default React.memo(CheckBox);
