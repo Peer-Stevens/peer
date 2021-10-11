@@ -12,7 +12,6 @@ export const NearbyPlaces: React.FC<{ stopStrolling: () => void }> = ({ stopStro
 	const [nearbyPlaces, setNearbyPlaces] = React.useState<Place[]>();
 
 	const getNearbyPlaces = async (location: Location.LocationObject) => {
-		
 		const result = await axios.get<{ places: Place[] }>(
 			`${SERVER_BASE_URL}/getNearbyPlaces?latitude=${location.coords.latitude}&longitude=${location.coords.longitude}`
 		);

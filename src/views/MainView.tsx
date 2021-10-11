@@ -4,7 +4,7 @@ import MapView from "react-native-maps";
 import FilterBox from "../components/FilterBox";
 import { NearbyPlaces } from "../components/NearbyPlaces/NearbyPlaces";
 import StrollButton from "../components/StrollButton";
-import NearbyList from "../components/NearbyList/NearbyList";
+import PlaceList from "../components/PlaceList/PlaceList";
 
 const MainView = (): JSX.Element => {
 	const [isStrolling, setIsStrolling] = useState(false);
@@ -33,7 +33,7 @@ const MainView = (): JSX.Element => {
 					/>
 				</View>
 				<ScrollView style={styles.scrollView}>
-					<NearbyList />
+					<PlaceList />
 				</ScrollView>
 			</View>
 		);

@@ -4,7 +4,7 @@ import { fakeData } from "./fakeData";
 import type { data } from "./fakeData";
 import PlaceCard from "./PlaceCard";
 
-const NearbyList = (): JSX.Element => {
+const PlaceList = (): JSX.Element => {
 	const cardList = fakeData.map((elem: data, index: number) => {
 		return (
 			<PlaceCard
@@ -35,4 +35,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default NearbyList;
+export default PlaceList;
