@@ -24,7 +24,7 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 				<View style={{ borderBottomColor: "black", borderBottomWidth: 2 }} />
 
 				<Text style={styles.cardContent}>{address}</Text>
-				<Text style={styles.cardContent}>Rating: {avg}</Text>
+				<Text style={styles.cardContent}>Rating: {avg}/5</Text>
 			</View>
 			<View
 				accessible={true}
