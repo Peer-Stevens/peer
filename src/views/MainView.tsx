@@ -1,10 +1,11 @@
 import { PlaceType1 } from "@googlemaps/google-maps-services-js";
 import React, { useState } from "react";
 import { StyleSheet, Dimensions, View } from "react-native";
-import MapView from "react-native-maps";
+import MapView, { Marker } from "react-native-maps";
 import FilterBox from "../components/FilterBox";
 import { NearbyPlaces } from "../components/NearbyPlaces/NearbyPlaces";
 import StrollButton from "../components/StrollButton";
+import { useLocation } from "../components/NearbyPlaces/useLocation";
 
 export interface FilterCheckBoxState {
 	name: string;
@@ -32,6 +33,7 @@ const MainView = (): JSX.Element => {
 		newFilterSelected[index].checked = value;
 		setFilterSelected(newFilterSelected);
 	};
+	const { location } = useLocation();
 
 	const toggleIsStrolling = () => {
 		setIsStrolling(!isStrolling);
@@ -46,7 +48,27 @@ const MainView = (): JSX.Element => {
 	} else
 		return (
 			<View style={styles.container}>
-				<MapView style={styles.map} />
+				{location ? (
+					<MapView
+						style={styles.map}
+						initialRegion={{
+							latitude: location?.coords.latitude,
+							longitude: location?.coords.longitude,
+							latitudeDelta: 0.0007,
+							longitudeDelta: 0.0007,
+						}}
+					>
+						{location ? (
+							<Marker
+								coordinate={{
+									latitude: location?.coords.latitude,
+									longitude: location?.coords.longitude,
+								}}
+								draggable={false}
+							/>
+						) : null}
+					</MapView>
+				) : null}
 				<View style={styles.buttonFilterGroup}>
 					{isShowingFilters ? (
 						<FilterBox
