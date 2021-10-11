@@ -31,7 +31,10 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 				accessibilityLabel={`Image of ${accessabilityLabel}`}
 				style={styles.imagePosition}
 			>
-				<Image style={styles.imageStyle} source={require("../../../assets/restaurant.jpg")} />
+				<Image
+					style={styles.imageStyle}
+					source={require("../../../assets/restaurant.jpg")}
+				/>
 			</View>
 		</View>
 	);

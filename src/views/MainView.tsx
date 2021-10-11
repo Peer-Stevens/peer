@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Dimensions, View, ScrollView} from "react-native";
+import { StyleSheet, Dimensions, View, ScrollView } from "react-native";
 import MapView from "react-native-maps";
 import FilterBox from "../components/FilterBox";
 import { NearbyPlaces } from "../components/NearbyPlaces/NearbyPlaces";
