@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { StyleSheet, Dimensions, View } from "react-native";
+import { StyleSheet, Dimensions, View, ScrollView } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import FilterBox from "../components/FilterBox";
 import { NearbyPlaces } from "../components/NearbyPlaces/NearbyPlaces";
 import StrollButton from "../components/StrollButton";
+import PlaceList from "../components/PlaceList/PlaceList";
 import { useLocation } from "../components/NearbyPlaces/useLocation";
 
 const MainView = (): JSX.Element => {
@@ -53,6 +54,9 @@ const MainView = (): JSX.Element => {
 						setIsShowingFilters={setIsShowingFilters}
 					/>
 				</View>
+				<ScrollView style={styles.scrollView}>
+					<PlaceList />
+				</ScrollView>
 			</View>
 		);
 };
@@ -60,17 +64,23 @@ const MainView = (): JSX.Element => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		flexDirection: "column",
 		backgroundColor: "#fff",
 		alignItems: "center",
 		justifyContent: "center",
 	},
 	map: {
+		flex: 1,
 		width: Dimensions.get("window").width,
 		height: Dimensions.get("window").height,
 	},
 	buttonFilterGroup: {
-		position: "absolute",
 		bottom: 75,
+	},
+	scrollView: {
+		flex: 1,
+		width: Dimensions.get("window").width,
+		height: Dimensions.get("window").height,
 	},
 });
 
