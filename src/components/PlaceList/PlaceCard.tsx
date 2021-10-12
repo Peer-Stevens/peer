@@ -33,6 +33,7 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 			>
 				<Image
 					style={styles.imageStyle}
+					/*eslint-disable-next-line @typescript-eslint/no-unsafe-assignment*/
 					source={require("../../../assets/restaurant.jpg")}
 				/>
 			</View>
