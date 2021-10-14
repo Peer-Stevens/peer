@@ -13,7 +13,7 @@ export interface CheckBoxProps {
 	style: StyleProp<object>; // TODO: update generic from "object"
 }
 
-export const CheckBox: React.FC<CheckBoxProps> = ({
+export const CheckBox : React.FC<CheckBoxProps> = ({
 	value,
 	onValueChange,
 	text,
