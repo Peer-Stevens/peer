@@ -1,6 +1,6 @@
 # Peer
 
-Day-to-day navigation app for the blind and visually impaired for iOS and Android.
+Explorative navigation app for the blind and visually impaired for iOS and Android.
 
 ## Setup
 
