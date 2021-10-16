@@ -6,7 +6,7 @@ declare module "*.svg" {
 }
 
 declare module "react-native-select-multiple" {
-	import React from "react"
+	import React from "react";
 	import SelectMultiple from "react-native-select-multiple";
 	const content: React.FC<SelectMultiple>;
 	export default content;
