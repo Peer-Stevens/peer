@@ -6,11 +6,11 @@ The first time the user opens the app, a prompt appears asking them to enable th
 
 - Sunlight sensitivty
 - Reads braille
-- Dislikes help from sighted strangers
+- Dislikes help from strangers
 
 The answers for these questions will be used to personalize their app experience. If the user selected that they have sunlight sensitivity, the app switches into dark mode after the user submits the identification. If the user selected that they read braille, they view an info box that advises the user to turn on their OS screen reader functionality. These self-identification options are also available in the settings.
 
-After this, the user is taken to the main view, which includes a list of recommended nearby places, a button to take a stroll, a map displaying their current location, and a settings button.
+After this, the user is taken to the main view, which includes a list of recommended nearby places, a button to take a stroll, a map displaying their current location, a settings button, and an authentication button.
 
 ## Strolling Use Case
 
@@ -22,15 +22,15 @@ The text appears in the aforementioned bulleted list.
 If the user has the app running in the background and a different app open, or has the phone locked:
 A push notification is sent instead.
 
-The notification that appears on the user's device states that the location that they have just walked by is highly accessible, and which direction it was given their heading (on their left, right, etc.) Only the highly accessibly locations that fall under the categories selected in the filter list are recommended via notifictioan the rest are ignored. There is a setting available to disable these notifications from each OS's respective notifications menu.
+The notification that appears on the user's device states that the location that they have just walked by is highly accessible, and which direction it was given their heading (on their left, right, etc.) Only the highly accessible locations that fall under the categories selected in the filter list are recommended via notification; the rest are ignored. There is a setting available to disable these notifications from each OS's respective notifications menu.
 
 ## Rating Use Case
 
-From the main view, a map of the area surrounding the user is displayed, and recommended locations have a pin that can be selected. Upon selecting a pin, the user is taken to a new view that contains the name of the location, a description of the location (from Google/Apple maps), that location's address, and an overall accessibility score from 0-5. Below these fields are a set of fields labeled:
+From the main view, a map of the area surrounding the user is displayed, and recommended locations have a pin that can be selected. Additionally, these places appear in a list underneath the map. Upon selecting a pin or list item, the user is taken to a new view that contains the name of the location, a description of the location (from Google/Apple maps), that location's address, and an overall accessibility score from 0-5. Below these fields are a set of fields labeled:
 
 -   Use of braille (if the user selected that they read braille)
 -   Font size on signs
--   Staff helpfulness  (if the user did not select that they dislike help from sighted strangers)
+-   Staff helpfulness  (if the user did not select that they dislike help from strangers)
 -   Navigability
 
 There is a "-" and "+" button to the left and right of the field, respectively.
@@ -44,7 +44,7 @@ When the field names are tapped while using a screen reader, a description of th
 
 If the user is signed in, tapping the "-"/"+" button for each field will decrease/increase the rating by some interval, and read aloud the new rating value when a screen reader is enabled. If the user is not authenticated and they tap one of these buttons, they are prompted to authenticate.
 
-Users may tap the "+" and "-" buttons again after leaving a rating to change their rating.
+Users may tap the "-" and "+" buttons again after leaving a rating to change their rating.
 
 When using a screen reader, if the user has not already given a rating, they will hear "No previous rating given" when pressing on the field name, after the description. If the user has given a rating, they will hear "Previous rating: [rating]" after the description.
 
@@ -54,10 +54,10 @@ Beneath all of the rating fields for a location is a comments section, labeled "
 
 ## Search Bar Use Case
 
-At the top of the screen of the main view, there is a search bar visible. When the user enters text into the search bar, the list of nearby places is replaced with a list of locations with matching names with the nearest at the top and the farthest at the bottom. This list is refreshed as they enter each letter, with no need to press a button to submit. If the user selects one of the locations, the map pans over to the selected location, and the box described in "General Facility Rating Use Case" is shown.
+At the top of the screen of the main view, there is a search bar visible. When the user enters text into the search bar, the list of nearby places is replaced with a list of locations with matching names with the nearest at the top and the farthest at the bottom. This list is refreshed as they enter each letter, with no need to press a button to submit. If the user selects one of the locations, the view described in "Rating Use Case" is shown.
 ## Settings Use Case
 
-There is a button at the top right of the main view. Pressing this button opens a box with a small list of options:
+There is a button at the top right of the main view. Pressing this button takes the user to a new view with a small list of options:
 
 -   Self-identification settings
 -   Notification settings
@@ -72,8 +72,8 @@ There is a button at the top right of the main view, underneath the button for t
 
 If the user does not have an account:
 
-The user can click the button labeled "Sign up". After clicking this button, they are taken to a view that contains three fields: one labeled "Email address", one emailed "Password", and the last labeled "Confirm password". After the user enters one of their email addresses and selects a password and enters it into the bottom two boxes, they are signed into the app successfully.
+The user can click the button labeled "Sign up". After clicking this button, they are taken to a view that contains three fields: one labeled "Email address", one labeled "Password", and the last labeled "Confirm password". After the user enters one of their email addresses and selects a password and enters it into the bottom two boxes, they are signed into the app successfully.
 
 If the user already has an account:
 
-After entering their username and selected password, the user can press the "Sign-in" button. After validating that their credentials exist and are correct,  they are successfully signed into the app.
+After entering their username and selected password, the user can press the "Sign-in" button. After the app validates that their credentials exist and are correct,  the user is successfully signed into the app.
