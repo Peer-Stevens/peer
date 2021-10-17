@@ -26,7 +26,7 @@ The notification that appears on the user's device states that the location that
 
 ## Rating Use Case
 
-From the main view, a map of the area surrounding the user is displayed, and recommended locations have a pin that can be selected. These pins are read aloud to the user if the built-in audio cues are enabled. Upon selecting a pin, the user is taken to a new view that contains the name of the location, a description of the location (from Google/Apple maps), that location's address, and an overall accessibility score from 0-5. Below these fields are a set of fields labeled:
+From the main view, a map of the area surrounding the user is displayed, and recommended locations have a pin that can be selected. Upon selecting a pin, the user is taken to a new view that contains the name of the location, a description of the location (from Google/Apple maps), that location's address, and an overall accessibility score from 0-5. Below these fields are a set of fields labeled:
 
 -   Use of braille (if the user selected that they read braille)
 -   Font size on signs
@@ -42,7 +42,7 @@ When the field names are tapped while using a screen reader, a description of th
 -   "Staff helpfulness: how well staff were willing to accomodate you for your vision problems"
 -   "Navigability: how many landmarks, furniture, or other objects were available for you to touch to navigate the facility"
 
-Tapping the "-"/"+" button for each field will decrease/increase the rating by some interval, and read aloud the new rating value when a screen reader is enabled. If the user is not authenticated and they tap one of these buttons, they are prompted to authenticate.
+If the user is signed in, tapping the "-"/"+" button for each field will decrease/increase the rating by some interval, and read aloud the new rating value when a screen reader is enabled. If the user is not authenticated and they tap one of these buttons, they are prompted to authenticate.
 
 Users may tap the "+" and "-" buttons again after leaving a rating to change their rating.
 
@@ -50,7 +50,7 @@ When using a screen reader, if the user has not already given a rating, they wil
 
 ### Comment Use Case
 
-Beneath all of the rating fields for a location is a comments section, labeled "Comments". Beneath this label is a text field where the user can enter some text, and beneath that is a button labeled "Submit". Beneath this button is a list of other users' comments, labeled with their name and their comment text.
+Beneath all of the rating fields for a location is a comments section, labeled "Comments". Beneath this label is a text field where the user can enter some text, and beneath that is a button labeled "Submit". Beneath this button is a list of other users' comments, labeled with their name and their comment text. When the user hits "Submit", if they are signed in, their comment is added for other users of the app to read. If they are not signed in when the user hits "Submit", they are prompted to authenticate.
 
 ## Search Bar Use Case
 
@@ -65,3 +65,15 @@ There is a button at the top right of the main view. Pressing this button opens 
 Pressing "self-identifcation settings" will take the user to the list of all of the experiences that they identify with concerning their disability, and toggle each one back on or off.
 
 Pressing "notification settings" will take the user to their OS settings where they can configure the push notifications for this app.
+
+## Authentication Use Case
+
+There is a button at the top right of the main view, underneath the button for the settings. Pressing this button takes the user to a new view where there are two text fields, one labeled "Email address" and one labeled "Password". Underneath these fields is a button labeled "Sign in" and another labeled "Sign up".
+
+If the user does not have an account:
+
+The user can click the button labeled "Sign up". After clicking this button, they are taken to a view that contains three fields: one labeled "Email address", one emailed "Password", and the last labeled "Confirm password". After the user enters one of their email addresses and selects a password and enters it into the bottom two boxes, they are signed into the app successfully.
+
+If the user already has an account:
+
+After entering their username and selected password, the user can press the "Sign-in" button. After validating that their credentials exist and are correct,  they are successfully signed into the app.
