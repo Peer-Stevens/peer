@@ -55,8 +55,7 @@ If the user has not already given a rating, they will hear "No previous rating g
 
 ## Search Bar Use Case
 
-At the top of the screen of the main view, there is a search bar visible. When the user enters text into the search bar, a box is drawn over the main view that contains a list of locations with matching names with the nearest at the top and the farthest at the bottom. This rest is read aloud. If the user selects one of the locations, the list stops being rendered, the map pans over to the selected location, and the box described in "General Facility Rating Use Case" is shown. This use case then proceeds from as "General Facility Rating Use Case".
-
+At the top of the screen of the main view, there is a search bar visible. When the user enters text into the search bar, the list of nearby places is replaced with a list of locations with matching names with the nearest at the top and the farthest at the bottom. This list is refreshed as they enter each letter, with no need to press a button to submit. If the user selects one of the locations, the map pans over to the selected location, and the box described in "General Facility Rating Use Case" is shown.
 ## Settings Use Case
 
 There is a button at the top right of the map view. Pressing this button opens a box with a small list of options:
