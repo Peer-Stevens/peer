@@ -24,34 +24,33 @@ A push notification is sent instead.
 
 The notification that appears on the user's device states that the location that they have just walked by is highly accessible, and which direction it was given their heading (on their left, right, etc.) Only the highly accessibly locations that fall under the categories selected in the filter list are recommended via notifictioan the rest are ignored. There is a setting available to disable these notifications from each OS's respective notifications menu.
 
-## General Facility Rating Use Case
+## Rating Use Case
 
-A user opens the app (some time after the first time). A map of the area surrounding the user is displayed, and notable locations have a pin that can be selected. These pins are read aloud to the user if the built-in audio cues are enabled. Upon selecting a pin, a box is drawn over the map that contains the name of the location, a description of the location (from Google/Apple maps), that location's address, and an overall accessibility score from 0-5. Below these fields are a set of buttons labeled:
+From the main view, a map of the area surrounding the user is displayed, and recommended locations have a pin that can be selected. These pins are read aloud to the user if the built-in audio cues are enabled. Upon selecting a pin, the user is taken to a new view that contains the name of the location, a description of the location (from Google/Apple maps), that location's address, and an overall accessibility score from 0-5. Below these fields are a set of fields labeled:
 
--   Rate use of braille
--   Rate font size on signs
--   Rate staff helpfulness
--   Rate openness of space
+-   Use of braille (if the user selected that they read braille)
+-   Font size on signs
+-   Staff helpfulness  (if the user did not select that they dislike help from sighted strangers)
+-   Navigability
 
-The first time that any of these buttons are tapped, a description of the meaning of the button is read aloud.
+There is a "-" and "+" button to the left and right of the field, respectively.
 
--   "Rate use of braille: Please speak aloud a number from 0-5 representing how well this facility makes use of braille. Say anything else to dismiss."
--   "Rate font size on signs: Please speak aloud a number from 0-5 representing if the font size on signs was large enough for those with vision problems. Say anything else to dismiss."
--   "Rate staff helpfulness: Please speak aloud a number from 0-5 representing how well staff were willing to accomodate you for your vision problems when asked. Say anything else to dismiss."
--   "Rate openness of space: Please speak aloud a number from 0-5 representing how many landmarks, furniture, or other objects were available for you to touch to navigate the facility. Say anything else to dismiss."
+When the field names are tapped while using a screen reader, a description of the button is read aloud.
 
-After these descriptions have been read aloud the first time, the prompt will become more brief:
+-   "Use of braille: how well this facility makes use of braille"
+-   "Font size on signs: font size on signs was large enough for those with low vision"
+-   "Staff helpfulness: how well staff were willing to accomodate you for your vision problems"
+-   "Navigability: how many landmarks, furniture, or other objects were available for you to touch to navigate the facility"
 
-> "[name of button]: Please speak aloud a number from 0-5. Say anything else to dismiss."
+Tapping the "-"/"+" button for each field will decrease/increase the rating by some interval, and read aloud the new rating value when a screen reader is enabled. If the user is not authenticated and they tap one of these buttons, they are prompted to authenticate.
 
-After this prompt has been read aloud, another audio cue will play indicating that the user's voice is being recorded. If the user speaks a number from 0-5, that rating is recorded and used to compute the accessibility score of the location selected. If the user speaks aloud anything besides a number from 0-5, the prompt is closed.
+Users may tap the "+" and "-" buttons again after leaving a rating to change their rating.
 
-Users may tap these "rating buttons" any number of times after leaving a rating to change their rating.
+When using a screen reader, if the user has not already given a rating, they will hear "No previous rating given" when pressing on the field name, after the description. If the user has given a rating, they will hear "Previous rating: [rating]" after the description.
 
-Tapping anywhere besides the box containing the location description will dismiss the box and return the user to the map view.
+### Comment Use Case
 
-Before being read the prompt, the system will let the user know if they have already given a rating. "Previous rating: 4"..._Continues with the script_
-If the user has not already given a rating, they will hear "No previous rating given"
+Beneath all of the rating fields for a location is a comments section, labeled "Comments". Beneath this label is a text field where the user can enter some text, and beneath that is a button labeled "Submit". Beneath this button is a list of other users' comments, labeled with their name and their comment text.
 
 ## Search Bar Use Case
 
