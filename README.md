@@ -1,6 +1,6 @@
 # Peer
 
-Day-to-day navigation app for the blind and visually impaired for iOS and Android.
+Explorative navigation app for the blind and visually impaired for iOS and Android.
 
 ## Setup
 
@@ -26,6 +26,13 @@ yarn
 ```
 
 to install all dependencies.
+
+Create a file called `.env`. In this file, ensure that the following environment variables
+have definitions:
+
+```ts
+SERVER_BASE_URL= // the server that the app connects to for location data
+```
 
 ## Run
 
