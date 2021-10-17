@@ -2,7 +2,15 @@
 
 ## First-time Open Use Case
 
-The first time the user opens the app, they are read aloud an info box that appears on-screen explaining to them that the app includes built-in audio cues but advises the user to turn on their screen reader/voice over functionality. If the user agrees, they are automatically taken to the option on their respective operating system, and the built-in audio cues are disabled. If the user declines, the built-in audio cues remain enabled.
+The first time the user opens the app, a prompt appears asking them to enable their location permissions. Then a box appears that asks them to identify their personal experience with their disability, including:
+
+- Sunlight sensitivty
+- Reads braille
+- Dislikes help from sighted strangers
+
+The answers for these questions will be used to personalize their app experience. If the user selected that they have sunlight sensitivity, the app switches into dark mode after the user submits the identification. If the user selected that they read braille, they view an info box that advises the user to turn on their OS screen reader functionality. These self-identification options are also available in the settings.
+
+After this, the user is taken to the main view, which includes a list of recommended nearby places, a button to take a stroll, a map displaying their current location, and a settings button.
 
 ## Strolling Use Case
 
