@@ -4,9 +4,9 @@
 
 The first time the user opens the app, a prompt appears asking them to enable their location permissions. Then a box appears that asks them to identify their personal experience with their disability, including:
 
-- Sunlight sensitivty
-- Reads braille
-- Dislikes help from strangers
+-   Sunlight sensitivty
+-   Reads braille
+-   Dislikes help from strangers
 
 The answers for these questions will be used to personalize their app experience. If the user selected that they have sunlight sensitivity, the app switches into dark mode after the user submits the identification. If the user selected that they read braille, they view an info box that advises the user to turn on their OS screen reader functionality. These self-identification options are also available in the settings.
 
@@ -30,7 +30,7 @@ From the main view, a map of the area surrounding the user is displayed, and rec
 
 -   Use of braille (if the user selected that they read braille)
 -   Font size on signs
--   Staff helpfulness  (if the user did not select that they dislike help from strangers)
+-   Staff helpfulness (if the user did not select that they dislike help from strangers)
 -   Navigability
 
 There is a "-" and "+" button to the left and right of the field, respectively.
@@ -55,6 +55,7 @@ Beneath all of the rating fields for a location is a comments section, labeled "
 ## Search Bar Use Case
 
 At the top of the screen of the main view, there is a search bar visible. When the user enters text into the search bar, the list of nearby places is replaced with a list of locations with matching names with the nearest at the top and the farthest at the bottom. This list is refreshed as they enter each letter, with no need to press a button to submit. If the user selects one of the locations, the view described in "Rating Use Case" is shown.
+
 ## Settings Use Case
 
 There is a button at the top right of the main view. Pressing this button takes the user to a new view with a small list of options:
@@ -76,4 +77,4 @@ The user can click the button labeled "Sign up". After clicking this button, the
 
 If the user already has an account:
 
-After entering their username and selected password, the user can press the "Sign-in" button. After the app validates that their credentials exist and are correct,  the user is successfully signed into the app.
+After entering their username and selected password, the user can press the "Sign-in" button. After the app validates that their credentials exist and are correct, the user is successfully signed into the app.
