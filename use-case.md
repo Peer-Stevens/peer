@@ -57,11 +57,11 @@ Beneath all of the rating fields for a location is a comments section, labeled "
 At the top of the screen of the main view, there is a search bar visible. When the user enters text into the search bar, the list of nearby places is replaced with a list of locations with matching names with the nearest at the top and the farthest at the bottom. This list is refreshed as they enter each letter, with no need to press a button to submit. If the user selects one of the locations, the map pans over to the selected location, and the box described in "General Facility Rating Use Case" is shown.
 ## Settings Use Case
 
-There is a button at the top right of the map view. Pressing this button opens a box with a small list of options:
+There is a button at the top right of the main view. Pressing this button opens a box with a small list of options:
 
--   Native voice-over settings
+-   Self-identification settings
 -   Notification settings
 
-Pressing "native voice-over settings" will take the user to a view where there is a setting with a switch to enable or disable the native voice-over (not the one provided by an OS screen reader). There is another option to change the text speed to a slower or faster speed.
+Pressing "self-identifcation settings" will take the user to the list of all of the experiences that they identify with concerning their disability, and toggle each one back on or off.
 
-Pressing "notification settings" will take the user to their OS settings where they can configure the notifications for this app.
+Pressing "notification settings" will take the user to their OS settings where they can configure the push notifications for this app.
