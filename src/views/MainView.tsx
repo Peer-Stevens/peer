@@ -1,4 +1,3 @@
-import { PlaceType1 } from "@googlemaps/google-maps-services-js";
 import React, { useState } from "react";
 import { StyleSheet, Dimensions, View, ScrollView } from "react-native";
 import MapView, { Marker } from "react-native-maps";
@@ -8,32 +7,9 @@ import StrollButton from "../components/StrollButton";
 import PlaceList from "../components/PlaceList/PlaceList";
 import { useLocation } from "../components/NearbyPlaces/useLocation";
 
-export interface FilterCheckBoxState {
-	name: string;
-	checked: boolean;
-}
-
-// see: https://developers.google.com/maps/documentation/places/web-service/supported_types#table1
-const defaultFilterState: Array<FilterCheckBoxState> = [];
-for (const place in PlaceType1) {
-	defaultFilterState.push({
-		name: place,
-		checked: false,
-	});
-}
-
 const MainView = (): JSX.Element => {
 	const [isStrolling, setIsStrolling] = useState(false);
 	const [isShowingFilters, setIsShowingFilters] = useState<boolean>(false);
-	const [filterSelected, setFilterSelected] =
-		useState<Array<FilterCheckBoxState>>(defaultFilterState);
-
-	const createAndSetFilterSelected = (index: number, value: boolean) => {
-		const newFilterSelected: Array<FilterCheckBoxState> = [];
-		filterSelected.map(item => newFilterSelected.push(item));
-		newFilterSelected[index].checked = value;
-		setFilterSelected(newFilterSelected);
-	};
 	const { location } = useLocation();
 
 	const toggleIsStrolling = () => {
@@ -72,10 +48,7 @@ const MainView = (): JSX.Element => {
 				) : null}
 				<View style={styles.buttonFilterGroup}>
 					{isShowingFilters ? (
-						<FilterBox
-							filterSelected={filterSelected}
-							createAndSetFilterSelected={createAndSetFilterSelected}
-						/>
+						<FilterBox/>
 					) : null}
 					<StrollButton
 						onStartStrolling={toggleIsStrolling}

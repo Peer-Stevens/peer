@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import type { StyleProp } from "react-native";
 import { Box } from "./Box";
-import { FilterCheckBoxState } from "../views/MainView";
 import placeTypes from "../util/placeTypes";
 import SelectMultiple from "react-native-select-multiple";
 import { TEXT_COLOR } from "../util/colors";
@@ -44,8 +43,6 @@ const FilterListItem: React.FC<FilterListItemProps> = React.memo(
 );
 FilterListItem.displayName = "FilterListItem";
 export interface FilterBoxProps {
-	filterSelected: Array<FilterCheckBoxState>;
-	createAndSetFilterSelected: (index: number, value: boolean) => void;
 	//eslint-disable-next-line @typescript-eslint/ban-types
 	style?: StyleProp<object>; // TODO: update generic from "object"
 }
