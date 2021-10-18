@@ -6,9 +6,19 @@ import placeTypes from "../util/placeTypes";
 import SelectMultiple from "react-native-select-multiple";
 import { TEXT_COLOR } from "../util/colors";
 
+/**
+ * Turns a snake case string into one that has the
+ * first word capitalized and all underscores replaced with
+ * spaces.
+ * 
+ * Example:
+ * snakeCaseToFirstWordCap("foo_bar") === "Foo bar"
+ * @param str a string
+ * @returns the reformatted string
+ */
 const snakeCaseToFirstWordCap = (str: string) => {
 	let new_string = str;
-	new_string = new_string.replace(/\b[a-z]/g, char => char.toUpperCase());
+	new_string = new_string[0].toLocaleUpperCase() + new_string.slice(1);
 	new_string = new_string.replace(/_/g, () => " ");
 	return new_string;
 };
