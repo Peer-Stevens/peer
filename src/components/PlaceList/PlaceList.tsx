@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, ScrollView } from "react-native";
+import { Text, ScrollView, Dimensions } from "react-native";
 import { fakeData } from "./fakeData";
 import type { data } from "./fakeData";
 import PlaceCard from "./PlaceCard";
@@ -20,19 +20,11 @@ const PlaceList = (): JSX.Element => {
 
 	if (fakeData) {
 		return (
-			<View style={styles.container}>
-				<ScrollView>{cardList}</ScrollView>
-			</View>
+			<ScrollView style={{maxHeight: (Dimensions.get("window").height / 2)}}>{cardList}</ScrollView>
 		);
 	} else {
 		return <Text>Sorry, no data</Text>;
 	}
 };
-
-const styles = StyleSheet.create({
-	container: {
-		alignItems: "center",
-	},
-});
 
 export default PlaceList;

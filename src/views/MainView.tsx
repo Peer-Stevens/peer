@@ -60,9 +60,7 @@ const MainView = (): JSX.Element => {
 						setIsShowingFilters={setIsShowingFilters}
 					/>
 				</View>
-				<ScrollView style={styles.scrollView}>
-					<PlaceList />
-				</ScrollView>
+				<PlaceList />
 			</View>
 		);
 };
@@ -78,7 +76,7 @@ const styles = StyleSheet.create({
 	map: {
 		flex: 1,
 		width: Dimensions.get("window").width,
-		height: Dimensions.get("window").height,
+		height: Dimensions.get("window").height / 2,
 	},
 	buttonFilterGroup: {
 		bottom: 400,
