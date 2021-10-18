@@ -2,6 +2,7 @@ import React from "react";
 import { cleanup, render, fireEvent } from "@testing-library/react-native";
 import TestRenderer from "react-test-renderer";
 import App from "../App";
+import placeTypes from "../src/util/placeTypes";
 
 // there will be errors if the tree is not unmounted after each test
 // https://callstack.github.io/react-native-testing-library/docs/api#cleanup
@@ -17,7 +18,7 @@ describe("Filter box tests", () => {
 	it("can be clicked on to show filters button", () => {
 		const { getByLabelText, getAllByText } = render(<App />);
 		fireEvent.press(getByLabelText("Show filters"));
-		expect(getAllByText("Accounting")).toHaveLength(1);
+		expect(getAllByText(placeTypes[0])).toHaveLength(1);
 	});
 
 	it("does not contain non-place names in the filters", () => {
@@ -30,6 +31,6 @@ describe("Filter box tests", () => {
 		const { getByLabelText, queryAllByText } = render(<App />);
 		fireEvent.press(getByLabelText("Show filters"));
 		fireEvent.press(getByLabelText("Hide filters"));
-		expect(queryAllByText("Accounting")).toHaveLength(0);
+		expect(queryAllByText(placeTypes[0])).toHaveLength(0);
 	});
 });

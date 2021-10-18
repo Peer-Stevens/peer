@@ -10,7 +10,7 @@ import { PlaceType1 } from "@googlemaps/google-maps-services-js";
  * @param str a string
  * @returns the reformatted string
  */
- const snakeCaseToFirstWordCap = (str: string) => {
+const snakeCaseToFirstWordCap = (str: string) => {
 	let new_string = str;
 	new_string = new_string[0].toLocaleUpperCase() + new_string.slice(1);
 	new_string = new_string.replace(/_/g, () => " ");
