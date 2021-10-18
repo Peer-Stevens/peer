@@ -79,9 +79,10 @@ const FilterBox: React.FC<FilterBoxProps> = ({ style }: FilterBoxProps) => {
 const styles = StyleSheet.create({
 	container: {
 		height: 275,
-	},
-	checkBox: {
-		margin: 5,
+		borderColor: TEXT_COLOR,
+		borderTopWidth: 3,
+		borderLeftWidth: 3,
+		borderRightWidth: 3,
 	},
 	text: {
 		color: TEXT_COLOR,
