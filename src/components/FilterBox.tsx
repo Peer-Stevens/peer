@@ -26,7 +26,7 @@ const FilterListItem: React.FC<FilterListItemProps> = React.memo(
 		const accessibilityHint = `Filter out ${label}s`;
 		return (
 			<View
-				style={StyleSheet.compose(styles.rlcontainer, style)}
+				style={styles.flitem}
 				accessibilityLabel={label}
 				accessibilityHint={accessibilityHint}
 			>
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
 		color: TEXT_COLOR,
 		fontWeight: "bold",
 	},
-	rlcontainer: {
+	flitem: {
 		display: "flex",
 		flexDirection: "row",
 		alignItems: "center",
