@@ -81,13 +81,9 @@ const styles = StyleSheet.create({
 		height: Dimensions.get("window").height,
 	},
 	buttonFilterGroup: {
-		bottom: 75,
-	},
-	scrollView: {
-		flex: 1,
-		width: Dimensions.get("window").width,
-		height: Dimensions.get("window").height,
-	},
+		bottom: 400,
+		position: "absolute"
+	}
 });
 
 export default MainView;
