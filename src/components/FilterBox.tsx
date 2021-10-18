@@ -22,7 +22,7 @@ interface FilterListItemProps {
 }
 
 const FilterListItem: React.FC<FilterListItemProps> = React.memo(
-	({ label, style }: FilterListItemProps) => {
+	({ label }: FilterListItemProps) => {
 		const accessibilityHint = `Filter out ${label}s`;
 		return (
 			<View
@@ -31,7 +31,9 @@ const FilterListItem: React.FC<FilterListItemProps> = React.memo(
 				accessibilityHint={accessibilityHint}
 			>
 				<Text
-					style={styles.text}
+					style={
+						label.length < 20 ? {fontSize: 20, ...styles.text}: {fontSize: 16, ...styles.text}
+					}
 					accessibilityLabel={label}
 					accessibilityHint={accessibilityHint}
 				>
