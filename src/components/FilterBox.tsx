@@ -6,14 +6,14 @@ import placeTypes from "../util/placeTypes";
 import SelectMultiple from "react-native-select-multiple";
 import { TEXT_COLOR } from "../util/colors";
 
-const capitalizeEveryWord = (str: string) => {
+const snakeCaseToFirstWordCap = (str: string) => {
 	let new_string = str;
 	new_string = new_string.replace(/\b[a-z]/g, char => char.toUpperCase());
 	new_string = new_string.replace(/_/g, () => " ");
 	return new_string;
 };
 
-const filters = placeTypes.map(capitalizeEveryWord);
+const filters = placeTypes.map(snakeCaseToFirstWordCap);
 
 interface FilterListItemProps {
 	label: string;
