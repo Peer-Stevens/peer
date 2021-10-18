@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import type { StyleProp } from "react-native";
 import { Box } from "./Box";
@@ -32,7 +32,9 @@ const FilterListItem: React.FC<FilterListItemProps> = React.memo(
 			>
 				<Text
 					style={
-						label.length < 20 ? {fontSize: 20, ...styles.text}: {fontSize: 16, ...styles.text}
+						label.length < 20
+							? { fontSize: 20, ...styles.text }
+							: { fontSize: 16, ...styles.text }
 					}
 					accessibilityLabel={label}
 					accessibilityHint={accessibilityHint}
@@ -51,7 +53,11 @@ export interface FilterBoxProps {
 	style?: StyleProp<object>; // TODO: update generic from "object"
 }
 
-const FilterBox: React.FC<FilterBoxProps> = ({ selectedFilters, setSelectedFilters, style }: FilterBoxProps) => {
+const FilterBox: React.FC<FilterBoxProps> = ({
+	selectedFilters,
+	setSelectedFilters,
+	style,
+}: FilterBoxProps) => {
 	const onSelectionsChange = (selectedFilters: Array<{ label: string; value: string }>) => {
 		const filterArray = selectedFilters.map(filterObj => filterObj.label);
 		setSelectedFilters(filterArray);

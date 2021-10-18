@@ -20,7 +20,9 @@ const PlaceList = (): JSX.Element => {
 
 	if (fakeData) {
 		return (
-			<ScrollView style={{maxHeight: (Dimensions.get("window").height / 2)}}>{cardList}</ScrollView>
+			<ScrollView style={{ maxHeight: Dimensions.get("window").height / 2 }}>
+				{cardList}
+			</ScrollView>
 		);
 	} else {
 		return <Text>Sorry, no data</Text>;

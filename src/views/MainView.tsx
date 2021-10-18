@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Dimensions, View, ScrollView } from "react-native";
+import { StyleSheet, Dimensions, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import FilterBox from "../components/FilterBox";
 import { NearbyPlaces } from "../components/NearbyPlaces/NearbyPlaces";
@@ -80,8 +80,8 @@ const styles = StyleSheet.create({
 	},
 	buttonFilterGroup: {
 		bottom: 400,
-		position: "absolute"
-	}
+		position: "absolute",
+	},
 });
 
 export default MainView;
