@@ -10,7 +10,7 @@ import { TEXT_COLOR } from "../util/colors";
  * Turns a snake case string into one that has the
  * first word capitalized and all underscores replaced with
  * spaces.
- * 
+ *
  * Example:
  * snakeCaseToFirstWordCap("foo_bar") === "Foo bar"
  * @param str a string
