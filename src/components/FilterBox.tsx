@@ -45,13 +45,13 @@ const FilterListItem: React.FC<FilterListItemProps> = React.memo(
 );
 FilterListItem.displayName = "FilterListItem";
 export interface FilterBoxProps {
+	selectedFilters: Array<string>;
+	setSelectedFilters: React.Dispatch<React.SetStateAction<Array<string>>>;
 	//eslint-disable-next-line @typescript-eslint/ban-types
 	style?: StyleProp<object>; // TODO: update generic from "object"
 }
 
-const FilterBox: React.FC<FilterBoxProps> = ({ style }: FilterBoxProps) => {
-	const [selectedFilters, setSelectedFilters] = useState<Array<string>>([]);
-
+const FilterBox: React.FC<FilterBoxProps> = ({ selectedFilters, setSelectedFilters, style }: FilterBoxProps) => {
 	const onSelectionsChange = (selectedFilters: Array<{ label: string; value: string }>) => {
 		const filterArray = selectedFilters.map(filterObj => filterObj.label);
 		setSelectedFilters(filterArray);

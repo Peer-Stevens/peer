@@ -10,6 +10,7 @@ import { useLocation } from "../components/NearbyPlaces/useLocation";
 const MainView = (): JSX.Element => {
 	const [isStrolling, setIsStrolling] = useState(false);
 	const [isShowingFilters, setIsShowingFilters] = useState<boolean>(false);
+	const [selectedFilters, setSelectedFilters] = useState<Array<string>>([]);
 	const { location } = useLocation();
 
 	const toggleIsStrolling = () => {
@@ -48,7 +49,10 @@ const MainView = (): JSX.Element => {
 				) : null}
 				<View style={styles.buttonFilterGroup}>
 					{isShowingFilters ? (
-						<FilterBox/>
+						<FilterBox
+							selectedFilters={selectedFilters}
+							setSelectedFilters={setSelectedFilters}
+						/>
 					) : null}
 					<StrollButton
 						onStartStrolling={toggleIsStrolling}
