@@ -1,10 +1,13 @@
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, LogBox } from "react-native";
 import type { StyleProp } from "react-native";
 import { Box } from "./Box";
 import placeTypes from "../util/placeTypes";
 import SelectMultiple from "react-native-select-multiple";
 import { TEXT_COLOR } from "../util/colors";
+
+// TODO: revise select multiple package to meet new React standards
+LogBox.ignoreLogs(["Warning: componentWillReceiveProps has been renamed,"]);
 interface FilterListItemProps {
 	label: string;
 	//eslint-disable-next-line @typescript-eslint/ban-types
