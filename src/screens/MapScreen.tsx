@@ -65,7 +65,8 @@ const styles = StyleSheet.create({
 		height: Dimensions.get("window").height,
 	},
 	buttonFilterGroup: {
-		bottom: 75,
+		bottom: Dimensions.get("window").height * 0.53,
+		position: "absolute",
 	},
 	scrollView: {
 		flex: 1,
