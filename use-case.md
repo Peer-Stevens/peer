@@ -8,7 +8,7 @@ The first time the user opens the app, a prompt appears asking them to enable th
 -   Reads braille
 -   Dislikes help from strangers
 
-The answers for these questions will be used to personalize their app experience. If the user selected that they have sunlight sensitivity, the app switches into dark mode after the user submits the identification. If the user selected that they read braille, they view an info box that advises the user to turn on their OS screen reader functionality. These self-identification options are also available in the settings.
+The answers for these questions will be used to personalize their app experience. If the user selected that they have screen brightness sensitivity, the app switches into dark mode after the user submits the identification. If the user selected that they read braille, they view an info box that advises the user to turn on their OS screen reader functionality. These self-identification options are also available in the settings.
 
 After this, the user is taken to the main view, which includes a list of recommended nearby places, a button to take a stroll, a map displaying their current location, a settings button, and an authentication button.
 
