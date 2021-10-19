@@ -7,49 +7,49 @@ import PlaceList from "../components/PlaceList/PlaceList";
 import StrollButton from "../components/StrollButton";
 
 export interface MapScreenProps {
-    toggleIsStrolling: () => void;
+	toggleIsStrolling: () => void;
 }
 
-const MapScreen : React.FC<MapScreenProps> = ({toggleIsStrolling}: MapScreenProps) => {
-    const [isShowingFilters, setIsShowingFilters] = useState<boolean>(false);
+const MapScreen: React.FC<MapScreenProps> = ({ toggleIsStrolling }: MapScreenProps) => {
+	const [isShowingFilters, setIsShowingFilters] = useState<boolean>(false);
 	const { location } = useLocation();
-    return (
-        <View style={styles.container}>
-            {location ? (
-                <MapView
-                    style={styles.map}
-                    initialRegion={{
-                        latitude: location?.coords.latitude,
-                        longitude: location?.coords.longitude,
-                        latitudeDelta: 0.0007,
-                        longitudeDelta: 0.0007,
-                    }}
-                >
-                    {location ? (
-                        <Marker
-                            coordinate={{
-                                latitude: location?.coords.latitude,
-                                longitude: location?.coords.longitude,
-                            }}
-                            draggable={false}
-                        />
-                    ) : null}
-                </MapView>
-            ) : null}
-            <View style={styles.buttonFilterGroup}>
-                {isShowingFilters ? <FilterBox /> : null}
-                <StrollButton
-                    onStartStrolling={toggleIsStrolling}
-                    isShowingFilters={isShowingFilters}
-                    setIsShowingFilters={setIsShowingFilters}
-                />
-            </View>
-            <ScrollView style={styles.scrollView}>
-                <PlaceList />
-            </ScrollView>
-        </View>
-    )
-}
+	return (
+		<View style={styles.container}>
+			{location ? (
+				<MapView
+					style={styles.map}
+					initialRegion={{
+						latitude: location?.coords.latitude,
+						longitude: location?.coords.longitude,
+						latitudeDelta: 0.0007,
+						longitudeDelta: 0.0007,
+					}}
+				>
+					{location ? (
+						<Marker
+							coordinate={{
+								latitude: location?.coords.latitude,
+								longitude: location?.coords.longitude,
+							}}
+							draggable={false}
+						/>
+					) : null}
+				</MapView>
+			) : null}
+			<View style={styles.buttonFilterGroup}>
+				{isShowingFilters ? <FilterBox /> : null}
+				<StrollButton
+					onStartStrolling={toggleIsStrolling}
+					isShowingFilters={isShowingFilters}
+					setIsShowingFilters={setIsShowingFilters}
+				/>
+			</View>
+			<ScrollView style={styles.scrollView}>
+				<PlaceList />
+			</ScrollView>
+		</View>
+	);
+};
 
 const styles = StyleSheet.create({
 	container: {

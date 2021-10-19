@@ -7,21 +7,17 @@ import MapScreen from "./MapScreen";
  * of the other screens are switched between.
  * @returns the main screen component
  */
-const MainScreen : React.FC = () => {
+const MainScreen: React.FC = () => {
 	const [isStrolling, setIsStrolling] = useState(false);
-	
+
 	const toggleIsStrolling = () => {
 		setIsStrolling(!isStrolling);
 	};
 
 	if (isStrolling) {
-		return (
-			<StrollScreen toggleIsStrolling={toggleIsStrolling}/>
-		);
+		return <StrollScreen toggleIsStrolling={toggleIsStrolling} />;
 	} else {
-		return (
-			<MapScreen toggleIsStrolling={toggleIsStrolling}/>
-		)
+		return <MapScreen toggleIsStrolling={toggleIsStrolling} />;
 	}
 };
 
