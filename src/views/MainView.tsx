@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Dimensions, View, ScrollView } from "react-native";
+import { StyleSheet, Dimensions, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import FilterBox from "../components/FilterBox";
 import { NearbyPlaces } from "../components/NearbyPlaces/NearbyPlaces";
@@ -10,6 +10,7 @@ import { useLocation } from "../components/NearbyPlaces/useLocation";
 const MainView = (): JSX.Element => {
 	const [isStrolling, setIsStrolling] = useState(false);
 	const [isShowingFilters, setIsShowingFilters] = useState<boolean>(false);
+	const [selectedFilters, setSelectedFilters] = useState<Array<string>>([]);
 	const { location } = useLocation();
 
 	const toggleIsStrolling = () => {
@@ -47,16 +48,19 @@ const MainView = (): JSX.Element => {
 					</MapView>
 				) : null}
 				<View style={styles.buttonFilterGroup}>
-					{isShowingFilters ? <FilterBox /> : null}
+					{isShowingFilters ? (
+						<FilterBox
+							selectedFilters={selectedFilters}
+							setSelectedFilters={setSelectedFilters}
+						/>
+					) : null}
 					<StrollButton
 						onStartStrolling={toggleIsStrolling}
 						isShowingFilters={isShowingFilters}
 						setIsShowingFilters={setIsShowingFilters}
 					/>
 				</View>
-				<ScrollView style={styles.scrollView}>
-					<PlaceList />
-				</ScrollView>
+				<PlaceList />
 			</View>
 		);
 };
@@ -72,15 +76,11 @@ const styles = StyleSheet.create({
 	map: {
 		flex: 1,
 		width: Dimensions.get("window").width,
-		height: Dimensions.get("window").height,
+		height: Dimensions.get("window").height / 2,
 	},
 	buttonFilterGroup: {
-		bottom: 75,
-	},
-	scrollView: {
-		flex: 1,
-		width: Dimensions.get("window").width,
-		height: Dimensions.get("window").height,
+		bottom: Dimensions.get("window").height * 0.53,
+		position: "absolute",
 	},
 });
 
