@@ -4,7 +4,7 @@
 
 The first time the user opens the app, a prompt appears asking them to enable their location permissions. Then a box appears that asks them to identify their personal experience with their disability, including:
 
--   Sunlight sensitivty
+-   Screen brightness sensitivity
 -   Reads braille
 -   Dislikes help from strangers
 
