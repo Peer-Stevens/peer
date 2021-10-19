@@ -12,6 +12,7 @@ export interface MapScreenProps {
 
 const MapScreen: React.FC<MapScreenProps> = ({ toggleIsStrolling }: MapScreenProps) => {
 	const [isShowingFilters, setIsShowingFilters] = useState<boolean>(false);
+	const [selectedFilters, setSelectedFilters] = useState<Array<string>>([]);
 	const { location } = useLocation();
 	return (
 		<View style={styles.container}>
@@ -37,7 +38,12 @@ const MapScreen: React.FC<MapScreenProps> = ({ toggleIsStrolling }: MapScreenPro
 				</MapView>
 			) : null}
 			<View style={styles.buttonFilterGroup}>
-				{isShowingFilters ? <FilterBox /> : null}
+				{isShowingFilters ? (
+					<FilterBox
+						selectedFilters={selectedFilters}
+						setSelectedFilters={setSelectedFilters}
+					/>
+				) : null}
 				<StrollButton
 					onStartStrolling={toggleIsStrolling}
 					isShowingFilters={isShowingFilters}
