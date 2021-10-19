@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
 		height: Dimensions.get("window").height / 2,
 	},
 	buttonFilterGroup: {
-		bottom: 400,
+		bottom: Dimensions.get("window").height * 0.53,
 		position: "absolute",
 	},
 });
