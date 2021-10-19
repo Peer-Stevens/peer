@@ -1,6 +1,6 @@
 import React from "react";
-import MainView from "./src/views/MainView";
+import MainScreen from "./src/screens/MainScreen";
 
 export default function App(): JSX.Element {
-	return <MainView />;
+	return <MainScreen />;
 }
