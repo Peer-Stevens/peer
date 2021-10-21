@@ -50,9 +50,7 @@ const MapScreen: React.FC<MapScreenProps> = ({ toggleIsStrolling }: MapScreenPro
 					setIsShowingFilters={setIsShowingFilters}
 				/>
 			</View>
-			<ScrollView style={styles.scrollView}>
-				<PlaceList />
-			</ScrollView>
+			<PlaceList />
 		</View>
 	);
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Dimensions, View, Text, Image } from "react-native";
+import { StyleSheet, Dimensions, View, Text, Image, PixelRatio } from "react-native";
 
 export interface PlaceCardProps {
 	place: string;
@@ -19,24 +19,20 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 	return (
 		<View style={styles.card}>
 			<View style={styles.alignText}>
-				<Text style={styles.title}>{place}</Text>
+				<Text adjustsFontSizeToFit={true} numberOfLines={2} style={styles.title}>{place}</Text>
 
-				<View style={{ borderBottomColor: "black", borderBottomWidth: 2 }} />
+				{/* <View style={{ borderBottomColor: "black", borderBottomWidth: 3 }} /> */}
 
-				<Text style={styles.cardContent}>{address}</Text>
-				<Text style={styles.cardContent}>Rating: {avg}/5</Text>
-			</View>
-			<View
+				<Text adjustsFontSizeToFit={true} numberOfLines={2} style={styles.cardContent}>{address}</Text>
+				<Text adjustsFontSizeToFit={true} numberOfLines={2} style={styles.cardContent}>Rating: {avg}/5</Text>
+			</View> 
+			<Image
 				accessible={true}
 				accessibilityLabel={`Image of ${accessabilityLabel}`}
-				style={styles.imagePosition}
-			>
-				<Image
-					style={styles.imageStyle}
-					/*eslint-disable-next-line @typescript-eslint/no-unsafe-assignment*/
-					source={require("../../../assets/restaurant.jpg")}
-				/>
-			</View>
+				style={styles.imageStyle}
+				/*eslint-disable-next-line @typescript-eslint/no-unsafe-assignment*/
+				source={require("../../../assets/restaurant.jpg")}
+			/>
 		</View>
 	);
 };
@@ -44,11 +40,10 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 const styles = StyleSheet.create({
 	card: {
 		flexDirection: "row",
-		width: Dimensions.get("window").width - 55,
-		height: Dimensions.get("window").height / 6,
+		width: (Dimensions.get("window").width) * 0.9,
+		height: (Dimensions.get("window").height) * 0.25,
 		borderWidth: 3,
 		borderColor: "black",
-		borderRadius: 20,
 		margin: 15,
 	},
 	title: {
@@ -61,17 +56,14 @@ const styles = StyleSheet.create({
 		borderRadius: 20,
 	},
 	imageStyle: {
-		height: Dimensions.get("window").height / 6,
-		width: Dimensions.get("window").width - 300,
-		borderTopRightRadius: 20,
-		borderBottomRightRadius: 20,
+		width: '40%',
+		height: '100%',
+		alignSelf: 'flex-end',
 	},
 	alignText: {
-		flex: 2,
-	},
-	imagePosition: {
 		flex: 1,
-		alignSelf: "center",
+		marginHorizontal: 5,
+		justifyContent: 'space-between'
 	},
 });
 
