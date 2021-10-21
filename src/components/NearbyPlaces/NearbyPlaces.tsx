@@ -1,29 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Text, View } from "react-native";
-import { useLocation } from "./useLocation";
-import Location from "expo-location";
-import axios from "axios";
-import { SERVER_BASE_URL } from "@env";
-import type { Place } from "@googlemaps/google-maps-services-js";
 import { Button } from "../Button";
+import { useNearbyPlaces } from "./useNearbyPlaces";
 
 export const NearbyPlaces: React.FC<{ stopStrolling: () => void }> = ({ stopStrolling }) => {
-	const { location } = useLocation();
-	const [nearbyPlaces, setNearbyPlaces] = React.useState<Place[]>();
-
-	const getNearbyPlaces = async (location: Location.LocationObject) => {
-		const result = await axios.get<{ places: Place[] }>(
-			`${SERVER_BASE_URL}/getNearbyPlaces?latitude=${location.coords.latitude}&longitude=${location.coords.longitude}`
-		);
-		setNearbyPlaces(result.data.places);
-	};
-
-	useEffect(() => {
-		// `void` here means "we don't need `await` because everything is handled in the function"
-		if (location && !nearbyPlaces) {
-			void getNearbyPlaces(location);
-		}
-	}, [location]);
+	const { nearbyPlaces } = useNearbyPlaces();
 
 	return (
 		<View style={{ width: "90%" }}>
