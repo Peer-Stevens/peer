@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
 		height: (Dimensions.get("window").height) * 0.25,
 		borderWidth: 3,
 		borderColor: "black",
-		margin: 15,
+		margin: 20,
 	},
 	title: {
 		fontWeight: "bold",
@@ -62,8 +62,8 @@ const styles = StyleSheet.create({
 	},
 	alignText: {
 		flex: 1,
-		marginHorizontal: 5,
-		justifyContent: 'space-between'
+		marginHorizontal: 10,
+		justifyContent: 'space-around'
 	},
 });
 
