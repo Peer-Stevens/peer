@@ -32,6 +32,7 @@ have definitions:
 
 ```ts
 SERVER_BASE_URL= // the server that the app connects to for location data
+PLACES_API_KEY=  // the api key for Google places
 ```
 
 ## Run
