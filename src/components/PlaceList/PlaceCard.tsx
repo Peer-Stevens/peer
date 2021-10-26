@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Dimensions, View, Text, Image, PixelRatio } from "react-native";
+import { StyleSheet, Dimensions, View, Text, Image } from "react-native";
 
 export interface PlaceCardProps {
 	place: string;
@@ -19,11 +19,17 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 	return (
 		<View style={styles.card}>
 			<View style={styles.alignText}>
-				<Text ellipsizeMode = "tail" numberOfLines={1} style={styles.title}>{place}</Text>
+				<Text ellipsizeMode="tail" numberOfLines={1} style={styles.title}>
+					{place}
+				</Text>
 
-				<Text ellipsizeMode = "tail" numberOfLines={1} style={styles.cardContent}>{address}</Text>
-				<Text adjustsFontSizeToFit={true} numberOfLines={2} style={styles.cardContent}>Rating: {avg}/5</Text>
-			</View> 
+				<Text ellipsizeMode="tail" numberOfLines={1} style={styles.cardContent}>
+					{address}
+				</Text>
+				<Text adjustsFontSizeToFit={true} numberOfLines={2} style={styles.cardContent}>
+					Rating: {avg}/5
+				</Text>
+			</View>
 			<Image
 				accessible={true}
 				accessibilityLabel={`Image of ${accessabilityLabel}`}
@@ -38,8 +44,8 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 const styles = StyleSheet.create({
 	card: {
 		flexDirection: "row",
-		width: (Dimensions.get("window").width) * 0.9,
-		height: (Dimensions.get("window").height) * 0.25,
+		width: Dimensions.get("window").width * 0.9,
+		height: Dimensions.get("window").height * 0.25,
 		borderWidth: 3,
 		borderColor: "black",
 		margin: 20,
@@ -54,14 +60,14 @@ const styles = StyleSheet.create({
 		borderRadius: 20,
 	},
 	imageStyle: {
-		width: '40%',
-		height: '100%',
-		alignSelf: 'flex-end',
+		width: "40%",
+		height: "100%",
+		alignSelf: "flex-end",
 	},
 	alignText: {
 		flex: 1,
 		marginHorizontal: 10,
-		justifyContent: 'space-around'
+		justifyContent: "space-around",
 	},
 });
 
