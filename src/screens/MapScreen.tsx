@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Dimensions, ScrollView, View, StyleSheet } from "react-native";
+import { Dimensions, View, StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import FilterBox from "../components/FilterBox";
 import { useLocation } from "../components/NearbyPlaces/useLocation";
@@ -50,9 +50,7 @@ const MapScreen: React.FC<MapScreenProps> = ({ toggleIsStrolling }: MapScreenPro
 					setIsShowingFilters={setIsShowingFilters}
 				/>
 			</View>
-			<ScrollView style={styles.scrollView}>
-				<PlaceList />
-			</ScrollView>
+			<PlaceList />
 		</View>
 	);
 };
