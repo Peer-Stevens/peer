@@ -21,7 +21,7 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 			<View style={styles.alignText}>
 				<Text ellipsizeMode = "tail" numberOfLines={1} style={styles.title}>{place}</Text>
 
-				<Text ellipsizeMode = "tail" numberOfLines={} style={styles.cardContent}>{address}</Text>
+				<Text ellipsizeMode = "tail" numberOfLines={1} style={styles.cardContent}>{address}</Text>
 				<Text adjustsFontSizeToFit={true} numberOfLines={2} style={styles.cardContent}>Rating: {avg}/5</Text>
 			</View> 
 			<Image
