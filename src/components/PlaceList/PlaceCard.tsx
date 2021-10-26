@@ -19,11 +19,9 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 	return (
 		<View style={styles.card}>
 			<View style={styles.alignText}>
-				<Text adjustsFontSizeToFit={true} numberOfLines={2} style={styles.title}>{place}</Text>
+				<Text ellipsizeMode = "tail" numberOfLines={1} style={styles.title}>{place}</Text>
 
-				{/* <View style={{ borderBottomColor: "black", borderBottomWidth: 3 }} /> */}
-
-				<Text adjustsFontSizeToFit={true} numberOfLines={2} style={styles.cardContent}>{address}</Text>
+				<Text ellipsizeMode = "tail" numberOfLines={1} style={styles.cardContent}>{address}</Text>
 				<Text adjustsFontSizeToFit={true} numberOfLines={2} style={styles.cardContent}>Rating: {avg}/5</Text>
 			</View> 
 			<Image
