@@ -1,21 +1,58 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Dimensions, View, Text, Image } from "react-native";
+import axios, { AxiosResponse } from "axios";
+import { PLACES_API_KEY } from "@env";
 
 export interface PlaceCardProps {
-	place: string;
+	place?: string;
 	avg: number;
-	address: string;
-	img: string;
-	accessabilityLabel: string;
+	address?: string;
+	img?: string;
+	accessabilityLabel?: string;
 }
 
 const PlaceCard: React.FC<PlaceCardProps> = ({
 	place,
 	avg,
 	address,
-	//img,
+	img,
 	accessabilityLabel,
 }: PlaceCardProps) => {
+	const [photoSrc, setPhotoSrc] = useState<string>("");
+
+	const getPhoto = async (img?: string) : Promise<string | undefined> => {
+		if (!img) return undefined;
+		const res : AxiosResponse<string> | undefined = await axios({
+			method: "GET",
+			url: "https://maps.googleapis.com/maps/api/place/photo",
+			params: {
+				photo_reference: img,
+				key: PLACES_API_KEY,
+				maxwidth: 400,
+			}
+		}).catch(() => {
+			return undefined;
+		})
+		if (!res) return undefined;
+		// document has moved, expected behavior
+		const parser = new DOMParser();
+		const doc = parser.parseFromString(res.data, "text/html");
+		const link = doc.getElementsByTagName("a")[0];
+		return link.href;
+	}
+
+	useEffect(() => {
+		(async () => {
+			// only set photo if empty
+			if (photoSrc === "") {
+				let newSrc = await getPhoto(img);
+				if (newSrc) {
+					setPhotoSrc(newSrc);
+				}
+			}
+		})();
+	})
+
 	return (
 		<View style={styles.card}>
 			<View style={styles.alignText}>
@@ -33,8 +70,7 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 			>
 				<Image
 					style={styles.imageStyle}
-					/*eslint-disable-next-line @typescript-eslint/no-unsafe-assignment*/
-					source={require("../../../assets/restaurant.jpg")}
+					source={photoSrc !== "" ? {uri: photoSrc} : require("../../../assets/qmark.png")}
 				/>
 			</View>
 		</View>
