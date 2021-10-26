@@ -1,31 +1,39 @@
 import React from "react";
 import { Text, ScrollView, Dimensions } from "react-native";
-import { fakeData } from "./fakeData";
-import type { data } from "./fakeData";
 import PlaceCard from "./PlaceCard";
+import type { Place } from "@googlemaps/google-maps-services-js";
+import { useNearbyPlaces } from "../NearbyPlaces/useNearbyPlaces";
 
 const PlaceList = (): JSX.Element => {
-	const cardList = fakeData.map((elem: data, index: number) => {
+	const { nearbyPlaces } = useNearbyPlaces();
+
+	let places: Place[] = [];
+	if (nearbyPlaces) {
+		places = nearbyPlaces.slice(0, 5); // only five to not use more resources than necessary
+	}
+
+	const cardList = places.map((value, index) => {
+		const photo = value.photos ? value.photos[0].photo_reference : undefined;
 		return (
 			<PlaceCard
 				key={index}
-				accessabilityLabel={elem.place}
-				place={elem.place}
-				avg={elem.avg}
-				address={elem.address}
-				img={elem.img}
+				accessabilityLabel={value.name}
+				place={value.name}
+				avg={0} // TODO: get average from our server
+				address={value.formatted_address}
+				img={photo}
 			/>
 		);
 	});
 
-	if (fakeData) {
+	if (nearbyPlaces) {
 		return (
 			<ScrollView style={{ maxHeight: Dimensions.get("window").height / 2 }}>
 				{cardList}
 			</ScrollView>
 		);
 	} else {
-		return <Text>Sorry, no data</Text>;
+		return <Text>Loading...</Text>;
 	}
 };
 
