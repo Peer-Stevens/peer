@@ -7,7 +7,7 @@ import { useNearbyPlaces } from "../NearbyPlaces/useNearbyPlaces";
 const PlaceList = (): JSX.Element => {
 	const { nearbyPlaces } = useNearbyPlaces();
 
-	let places: Place[] = []
+	let places: Place[] = [];
 	if (nearbyPlaces) {
 		places = nearbyPlaces.slice(0, 5); // only five to not use more resources than necessary
 	}
