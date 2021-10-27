@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { SERVER_BASE_URL } from "@env";
+import React from "react";
 import { StyleSheet, Dimensions, View, Text, Image } from "react-native";
-import axios, { AxiosResponse } from "axios";
-import { PLACES_API_KEY } from "@env";
-
 export interface PlaceCardProps {
 	place?: string;
 	avg: number;
 	address?: string;
-	img?: string;
+	photoref?: string;
 	accessabilityLabel?: string;
 }
 
@@ -15,44 +13,9 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 	place,
 	avg,
 	address,
-	img,
+	photoref,
 	accessabilityLabel,
 }: PlaceCardProps) => {
-	const [photoSrc, setPhotoSrc] = useState<string>("");
-
-	const getPhoto = async (img?: string): Promise<string | undefined> => {
-		if (!img) return undefined;
-		const res: AxiosResponse<string> | undefined = await axios({
-			method: "GET",
-			url: "https://maps.googleapis.com/maps/api/place/photo",
-			params: {
-				photo_reference: img,
-				key: PLACES_API_KEY,
-				maxwidth: 400,
-			},
-		}).catch(() => {
-			return undefined;
-		});
-		if (!res) return undefined;
-		// document has moved, expected behavior
-		const parser = new DOMParser();
-		const doc = parser.parseFromString(res.data, "text/html");
-		const link = doc.getElementsByTagName("a")[0];
-		return link.href;
-	};
-
-	useEffect(() => {
-		(async () => {
-			// only set photo if empty
-			if (photoSrc === "") {
-				let newSrc = await getPhoto(img);
-				if (newSrc) {
-					setPhotoSrc(newSrc);
-				}
-			}
-		})();
-	});
-
 	return (
 		<View style={styles.card}>
 			<View style={styles.alignText}>
@@ -63,7 +26,12 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 				<Text ellipsizeMode="tail" numberOfLines={1} style={styles.cardContent}>
 					{address}
 				</Text>
-				<Text adjustsFontSizeToFit={true} numberOfLines={2} style={styles.cardContent}>
+				<Text
+					adjustsFontSizeToFit={true}
+					numberOfLines={2}
+					style={styles.cardContent}
+					accessibilityLabel={`Rating: ${avg} out of 5`}
+				>
 					Rating: {avg}/5
 				</Text>
 			</View>
@@ -71,8 +39,7 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 				accessible={true}
 				accessibilityLabel={`Image of ${accessabilityLabel}`}
 				style={styles.imageStyle}
-				/*eslint-disable-next-line @typescript-eslint/no-unsafe-assignment*/
-				source={require("../../../assets/restaurant.jpg")}
+				source={{ uri: `${SERVER_BASE_URL}/getPlacePhoto/${photoref}` }}
 			/>
 		</View>
 	);
