@@ -9,3 +9,9 @@ Currently, we are using `react-native-dotenv` for environment variables. These e
 ## Data Collection
 
 In order to use Peer, users are required to authenticate, with sign-in information including their email address. If our database service were to be attacked and breached, users would have their email information leaked. This email information may be bought and sold in order to send them spam emails.
+
+## External Packages
+
+The Javascript (and by extension, Typescript) ecosystem depends highly on external packages made by authors of varying skill and trustworthiness. A single project (including this one) may depend on hundreds of libraries, and inherits all of the vulnerabilities of each library imported.
+
+In order to mitigate this risk, the maintainers of this repository are making use of Github's Dependabot feature. Dependabot scans all of the packages that are currently installed (including the dependencies of those package recursively) and alerts the maintainers of the repository when the community has discovered a vulnerability and there is a patch available.
