@@ -7,7 +7,7 @@
 		"ios": "expo start --ios",
 		"web": "expo start --web",
 		"eject": "expo eject",
-		"test": "jest",
+		"test": "jest --detectOpenHandles --runInBand --forceExit",
 		"lint": "eslint --config .eslintrc.js --fix . && prettier --config prettier.config.js --write \"**/*.{js,jsx,json,ts,tsx,md,mdx,css,html,yml,yaml,scss}\"",
 		"lint-check": "eslint --config .eslintrc.js . && prettier --config prettier.config.js --check \"**/*.{js,jsx,json,ts,tsx,md,mdx,css,html,yml,yaml,scss}\"",
 		"lint-staged": "pretty-quick --staged && lint-staged"
@@ -44,7 +44,7 @@
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-plugin-prettier": "^4.0.0",
 		"eslint-plugin-react": "^7.25.1",
-		"husky": "^7.0.2",
+		"husky": "^7.0.4",
 		"jest-expo": "^42.1.0",
 		"lint-staged": "^11.1.2",
 		"prettier": "^2.3.2",
