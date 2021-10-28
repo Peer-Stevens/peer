@@ -1,21 +1,32 @@
+import { SERVER_BASE_URL } from "@env";
 import React from "react";
 import { StyleSheet, Dimensions, View, Text, Image } from "react-native";
-
+import Icon from "react-native-vector-icons/Feather";
+import { TEXT_COLOR } from "../../util/colors";
 export interface PlaceCardProps {
-	place: string;
+	place?: string;
 	avg: number;
-	address: string;
-	img: string;
-	accessabilityLabel: string;
+	address?: string;
+	photoref?: string;
 }
 
-const PlaceCard: React.FC<PlaceCardProps> = ({
-	place,
-	avg,
-	address,
-	//img,
-	accessabilityLabel,
-}: PlaceCardProps) => {
+const PlaceCard: React.FC<PlaceCardProps> = ({ place, avg, address, photoref }: PlaceCardProps) => {
+	const image = photoref ? (
+		<Image
+			accessible={true}
+			accessibilityLabel={place ? `Image of ${place}` : ""}
+			style={styles.imageStyle}
+			source={{ uri: `${SERVER_BASE_URL}/getPlacePhoto/${photoref}` }}
+		/>
+	) : (
+		<Icon
+			name={"camera-off"}
+			color={TEXT_COLOR}
+			size={100}
+			style={{ alignSelf: "center", marginHorizontal: 30 }}
+			accessibilityLabel={place ? `No image available for ${place}` : "No image available"}
+		/>
+	);
 	return (
 		<View style={styles.card}>
 			<View style={styles.alignText}>
@@ -26,17 +37,16 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 				<Text ellipsizeMode="tail" numberOfLines={1} style={styles.cardContent}>
 					{address}
 				</Text>
-				<Text adjustsFontSizeToFit={true} numberOfLines={2} style={styles.cardContent}>
+				<Text
+					adjustsFontSizeToFit={true}
+					numberOfLines={2}
+					style={styles.cardContent}
+					accessibilityLabel={`Rating: ${avg} out of 5`}
+				>
 					Rating: {avg}/5
 				</Text>
 			</View>
-			<Image
-				accessible={true}
-				accessibilityLabel={`Image of ${accessabilityLabel}`}
-				style={styles.imageStyle}
-				/*eslint-disable-next-line @typescript-eslint/no-unsafe-assignment*/
-				source={require("../../../assets/restaurant.jpg")}
-			/>
+			{image}
 		</View>
 	);
 };
