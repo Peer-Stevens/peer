@@ -27,16 +27,16 @@ const hasSameCoordinates = (a?: LocationObject, b?: LocationObject): boolean => 
 
 export const useNearbyPlaces = (): { nearbyPlaces?: Place[] } => {
 	const { location } = useLocation();
-	const [lastLocation, setLastLocation] = React.useState<LocationObject>();
+	const lastLocationRef = React.useRef<LocationObject | undefined>(location);
 	const [nearbyPlaces, setNearbyPlaces] = React.useState<Place[]>();
 
 	const getNearbyPlaces = async (location: LocationObject) => {
-		if (hasSameCoordinates(location, lastLocation)) return;
+		if (hasSameCoordinates(location, lastLocationRef.current)) return;
 		const result = await axios.get<{ places: Place[] }>(
 			`${SERVER_BASE_URL}/getNearbyPlaces?latitude=${location.coords.latitude}&longitude=${location.coords.longitude}`
 		);
+		lastLocationRef.current = location;
 		setNearbyPlaces(result.data.places);
-		setLastLocation(location);
 	};
 
 	useEffect(() => {

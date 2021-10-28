@@ -9,22 +9,14 @@ const deepEqual = (a: Place[], b: Place[]): boolean => {
 };
 
 const PlaceList = (): JSX.Element => {
-	const [places, setPlaces] = useState<Place[]>([]);
+	//const [places, setPlaces] = useState<Place[]>([]);
 	const { nearbyPlaces } = useNearbyPlaces();
 
-	useEffect(() => {
-		if (nearbyPlaces) {
-			const newPlaces = nearbyPlaces.slice(0, 5); // only five to not use more resources than necessary
-			if (!deepEqual(places, newPlaces)) setPlaces(newPlaces);
-		}
-	});
-
-	const cardList = places.map((value, index) => {
+	const cardList = (nearbyPlaces || []).map((value, index) => {
 		const photo = value.photos ? value.photos[0].photo_reference : undefined;
 		return (
 			<PlaceCard
 				key={index}
-				accessabilityLabel={value.name}
 				place={value.name}
 				avg={0} // TODO: get average from our server
 				address={value.formatted_address}
