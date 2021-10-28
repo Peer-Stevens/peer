@@ -8,20 +8,13 @@ export interface PlaceCardProps {
 	avg: number;
 	address?: string;
 	photoref?: string;
-	accessabilityLabel?: string;
 }
 
-const PlaceCard: React.FC<PlaceCardProps> = ({
-	place,
-	avg,
-	address,
-	photoref,
-	accessabilityLabel,
-}: PlaceCardProps) => {
+const PlaceCard: React.FC<PlaceCardProps> = ({ place, avg, address, photoref }: PlaceCardProps) => {
 	const image = photoref ? (
 		<Image
 			accessible={true}
-			accessibilityLabel={`Image of ${accessabilityLabel}`}
+			accessibilityLabel={place ? `Image of ${place}` : ""}
 			style={styles.imageStyle}
 			source={{ uri: `${SERVER_BASE_URL}/getPlacePhoto/${photoref}` }}
 		/>
@@ -31,7 +24,7 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 			color={TEXT_COLOR}
 			size={100}
 			style={{ alignSelf: "center", marginHorizontal: 30 }}
-			accessibilityLabel={`No image available for ${place}`}
+			accessibilityLabel={place ? `No image available for ${place}` : "No image available"}
 		/>
 	);
 	return (
