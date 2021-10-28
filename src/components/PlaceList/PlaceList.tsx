@@ -4,13 +4,20 @@ import PlaceCard from "./PlaceCard";
 import type { Place } from "@googlemaps/google-maps-services-js";
 import { useNearbyPlaces } from "../NearbyPlaces/useNearbyPlaces";
 
+const deepEqual = (a: Place[], b: Place[]): boolean => {
+	return JSON.stringify(a) === JSON.stringify(b);
+};
+
 const PlaceList = (): JSX.Element => {
+	const [places, setPlaces] = useState<Place[]>([]);
 	const { nearbyPlaces } = useNearbyPlaces();
 
-	let places: Place[] = [];
-	if (nearbyPlaces) {
-		places = nearbyPlaces.slice(0, 5); // only five to not use more resources than necessary
-	}
+	useEffect(() => {
+		if (nearbyPlaces) {
+			const newPlaces = nearbyPlaces.slice(0, 5); // only five to not use more resources than necessary
+			if (!deepEqual(places, newPlaces)) setPlaces(newPlaces);
+		}
+	});
 
 	const cardList = places.map((value, index) => {
 		const photo = value.photos ? value.photos[0].photo_reference : undefined;
@@ -34,8 +41,14 @@ const PlaceList = (): JSX.Element => {
 		);
 	} else {
 		return (
-			<View style={{ height: Dimensions.get("window").height / 2 , display: "flex", justifyContent: "center"}}>
-				<ActivityIndicator size="large" color="#000000"/>
+			<View
+				style={{
+					height: Dimensions.get("window").height / 2,
+					display: "flex",
+					justifyContent: "center",
+				}}
+			>
+				<ActivityIndicator size="large" color="#000000" />
 			</View>
 		);
 	}
