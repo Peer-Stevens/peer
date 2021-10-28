@@ -15,3 +15,13 @@ In order to use Peer, users are required to authenticate, with sign-in informati
 The Javascript (and by extension, Typescript) ecosystem depends highly on external packages made by authors of varying skill and trustworthiness. A single project (including this one) may depend on hundreds of libraries, and inherits all of the vulnerabilities of each library imported.
 
 In order to mitigate this risk, the maintainers of this repository are making use of Github's Dependabot feature. Dependabot scans all of the packages that are currently installed (including the dependencies of those package recursively) and alerts the maintainers of the repository when the community has discovered a vulnerability and there is a patch available.
+
+## Remote Server and Places API
+
+Peer makes uses of the Google Places API by connecting to a remote server that is being hosted in the cloud. This remote server requires no authentication to make requests to. Any would-be attacker that finds this public URL for the server could continually make requests to the server until the API quota has been exhausted. This would cause Google Places functionality in Peer to break, accrue charges for the maintainers to pay, or both.
+
+Adding an authentication key for the Peer server in the form of an environment variable will not solve this problem for the reason outlined in the section "API Keys in Source Code".
+
+## Remote Server and Denial-of-Service (DoS) Attack
+
+Peer connects to a remote server in the cloud for certain functionality. If the number of Peer's users grows too large, or an attacker finds the remote server's public URL and writes a malicious script, a continuous barrage of requests could be made to the remote server too large for it to handle. This would cause all functionality that requires the remote server to break; both database management and the Places API (described above).
