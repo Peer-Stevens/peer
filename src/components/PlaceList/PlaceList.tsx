@@ -21,7 +21,7 @@ const PlaceList = (): JSX.Element => {
 				place={value.name}
 				avg={0} // TODO: get average from our server
 				address={value.formatted_address}
-				img={photo}
+				photoref={photo}
 			/>
 		);
 	});

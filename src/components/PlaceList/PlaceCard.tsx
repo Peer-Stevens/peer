@@ -1,6 +1,8 @@
 import { SERVER_BASE_URL } from "@env";
 import React from "react";
 import { StyleSheet, Dimensions, View, Text, Image } from "react-native";
+import Icon from "react-native-vector-icons/Feather";
+import { TEXT_COLOR } from "../../util/colors";
 export interface PlaceCardProps {
 	place?: string;
 	avg: number;
@@ -16,6 +18,22 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 	photoref,
 	accessabilityLabel,
 }: PlaceCardProps) => {
+	const image = photoref ? (
+		<Image
+			accessible={true}
+			accessibilityLabel={`Image of ${accessabilityLabel}`}
+			style={styles.imageStyle}
+			source={{ uri: `${SERVER_BASE_URL}/getPlacePhoto/${photoref}` }}
+		/>
+	) : (
+		<Icon
+			name={"camera-off"}
+			color={TEXT_COLOR}
+			size={100}
+			style={{ alignSelf: "center", marginHorizontal: 30 }}
+			accessibilityLabel={`No image available for ${place}`}
+		/>
+	);
 	return (
 		<View style={styles.card}>
 			<View style={styles.alignText}>
@@ -35,12 +53,7 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 					Rating: {avg}/5
 				</Text>
 			</View>
-			<Image
-				accessible={true}
-				accessibilityLabel={`Image of ${accessabilityLabel}`}
-				style={styles.imageStyle}
-				source={{ uri: `${SERVER_BASE_URL}/getPlacePhoto/${photoref}` }}
-			/>
+			{image}
 		</View>
 	);
 };
