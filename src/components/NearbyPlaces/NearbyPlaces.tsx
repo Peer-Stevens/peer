@@ -22,15 +22,25 @@ export const NearbyPlaces: React.FC<{ stopStrolling: () => void }> = ({ stopStro
 							userLocation: location,
 							place,
 						});
-						return (
-							<Text
-								key={place.name}
-								style={{ fontSize: 24, fontWeight: "bold", marginBottom: 15 }}
-							>
-								{"\u2022"} {place.name} is {relativeDirection.distanceInFeet} feet{" "}
-								{relativeDirection.dirString}
-							</Text>
-						);
+						if (relativeDirection)
+							return (
+								<Text
+									key={place.name}
+									style={{ fontSize: 24, fontWeight: "bold", marginBottom: 15 }}
+								>
+									{"\u2022"} {place.name} is {relativeDirection.distanceInFeet}{" "}
+									feet {relativeDirection.dirString}
+								</Text>
+							);
+						else
+							return (
+								<Text
+									key={place.name}
+									style={{ fontSize: 24, fontWeight: "bold", marginBottom: 15 }}
+								>
+									{"\u2022"} {place.name}
+								</Text>
+							);
 					})}
 				</>
 			) : (

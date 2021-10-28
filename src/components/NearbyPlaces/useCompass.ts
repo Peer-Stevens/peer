@@ -16,7 +16,7 @@ type RelativeDirectionOutput = {
 
 export const useCompass = (): {
 	heading: number | undefined;
-	getRelativeDirection: (arg: RelativeDirectionInput) => RelativeDirectionOutput;
+	getRelativeDirection: (arg: RelativeDirectionInput) => RelativeDirectionOutput | undefined;
 } => {
 	const [heading, setHeading] = useState<number>();
 
@@ -95,9 +95,3 @@ const getAbsDirection = (angle: number) => {
 
 	return absDirection;
 };
-
-const convertRange = (value: number, r1: [number, number], r2: [number, number]): number => {
-	return ((value - r1[0]) * (r2[1] - r2[0])) / (r1[1] - r1[0]) + r2[0];
-};
-
-const convertHeading = (heading: number) => heading; //convertRange(heading, [0, 360], [-180, 180]);
