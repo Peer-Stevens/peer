@@ -11,7 +11,7 @@ export const useNearbyPlaces = (): { nearbyPlaces?: Place[] } => {
 
 	const getNearbyPlaces = async (location: Location.LocationObject) => {
 		const result = await axios.get<{ places: Place[] }>(
-			`${SERVER_BASE_URL}/getNearbyPlaces?latitude=${location.coords.latitude}&longitude=${location.coords.longitude}`
+			`https://peer-server-stevens.herokuapp.com/getNearbyPlaces?latitude=${location.coords.latitude}&longitude=${location.coords.longitude}`
 		);
 		setNearbyPlaces(result.data.places);
 	};
