@@ -1,5 +1,5 @@
-import React from "react";
-import { Text, ScrollView, Dimensions } from "react-native";
+import React, { useEffect, useState } from "react";
+import { ScrollView, Dimensions, ActivityIndicator, View } from "react-native";
 import PlaceCard from "./PlaceCard";
 import type { Place } from "@googlemaps/google-maps-services-js";
 import { useNearbyPlaces } from "../NearbyPlaces/useNearbyPlaces";
@@ -33,7 +33,11 @@ const PlaceList = (): JSX.Element => {
 			</ScrollView>
 		);
 	} else {
-		return <Text>Loading...</Text>;
+		return (
+			<View style={{ height: Dimensions.get("window").height / 2 , display: "flex", justifyContent: "center"}}>
+				<ActivityIndicator size="large" color="#000000"/>
+			</View>
+		);
 	}
 };
 
