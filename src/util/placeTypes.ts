@@ -9,6 +9,11 @@ export enum PlaceTypes {
 	services = "Services",
 }
 
+export const placeTypeLabels: string[] = [];
+for (const place in PlaceTypes) {
+	placeTypeLabels.push(place);
+}
+
 export type Travel =
 	| PlaceType1.airport
 	| PlaceType1.bus_station
