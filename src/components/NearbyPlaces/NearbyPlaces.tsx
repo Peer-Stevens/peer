@@ -8,16 +8,16 @@ import { useLocation } from "./useLocation";
 export const NearbyPlaces: React.FC<{ stopStrolling: () => void }> = ({ stopStrolling }) => {
 	const { location } = useLocation();
 	const { nearbyPlaces } = useNearbyPlaces();
-	const { heading, getRelativeDirection } = useCompass();
+	const { getRelativeDirection } = useCompass();
 
 	return (
 		<View style={{ width: "90%" }}>
 			{nearbyPlaces && nearbyPlaces.length > 0 && location ? (
 				<>
-					<Text style={{ fontSize: 12 }}>
-						You are walking by {Math.round(heading || 0)}
+					<Text style={{ fontSize: 24, marginBottom: 15 }}>
+						The following places are nearby:
 					</Text>
-					{nearbyPlaces.slice(0, 15).map(place => {
+					{nearbyPlaces.slice(0, 5).map(place => {
 						const relativeDirection = getRelativeDirection({
 							userLocation: location,
 							place,
@@ -25,7 +25,7 @@ export const NearbyPlaces: React.FC<{ stopStrolling: () => void }> = ({ stopStro
 						return (
 							<Text
 								key={place.name}
-								style={{ fontSize: 14, fontWeight: "bold", lineHeight: 25 }}
+								style={{ fontSize: 24, fontWeight: "bold", marginBottom: 15 }}
 							>
 								{"\u2022"} {place.name} is {relativeDirection.distanceInFeet} feet{" "}
 								{relativeDirection.dirString}
