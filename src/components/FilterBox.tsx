@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet, Text, LogBox } from "react-native";
 import type { StyleProp } from "react-native";
 import { Box } from "./Box";
-import placeTypes from "../util/placeTypes";
+import { placeTypeLabels } from "../util/placeTypes";
 import SelectMultiple from "react-native-select-multiple";
 import { TEXT_COLOR } from "../util/colors";
 
@@ -68,7 +68,7 @@ const FilterBox: React.FC<FilterBoxProps> = ({
 			style={StyleSheet.compose(styles.container, style)}
 		>
 			<SelectMultiple
-				items={placeTypes}
+				items={placeTypeLabels}
 				selectedItems={selectedFilters}
 				onSelectionsChange={onSelectionsChange}
 				renderLabel={renderLabel}
