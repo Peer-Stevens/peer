@@ -1,12 +1,12 @@
 import { PlaceType1 } from "@googlemaps/google-maps-services-js";
 
 export enum PlaceTypes {
-	travel = "Travel",
-	recreation = "Recreation",
-	consumption = "Consumption",
-	health = "Health",
-	worship = "Worhship",
-	services = "Services",
+	Travel = "Travel",
+	Recreation = "Recreation",
+	Consumption = "Consumption",
+	Health = "Health",
+	Worship = "Worship",
+	Services = "Services",
 }
 
 export const placeTypeLabels: string[] = [];
