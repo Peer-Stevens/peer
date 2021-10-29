@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useLocation } from "./useLocation";
 import { LocationObject } from "expo-location";
 import axios from "axios";
-import { SERVER_BASE_URL } from "@env";
 import type { Place } from "@googlemaps/google-maps-services-js";
 
 /**
@@ -50,7 +49,7 @@ export const useNearbyPlaces = (): { nearbyPlaces?: Place[] } => {
 		}, 10000);
 
 		return () => clearInterval(fetchPlacesInterval);
-	}, []);
+	}, [location]);
 
 	return { nearbyPlaces };
 };
