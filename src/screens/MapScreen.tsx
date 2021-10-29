@@ -45,6 +45,7 @@ const MapScreen: React.FC<MapScreenProps> = ({ toggleIsStrolling }: MapScreenPro
 					onStartStrolling={toggleIsStrolling}
 					isShowingSelections={isShowingSelections}
 					setIsShowingSelections={setIsShowingSelections}
+					selections={selections}
 				/>
 			</View>
 			<PlaceList />
