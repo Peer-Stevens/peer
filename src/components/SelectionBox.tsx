@@ -16,7 +16,7 @@ interface SelectionListItemProps {
 
 const SelectionListItem: React.FC<SelectionListItemProps> = React.memo(
 	({ label }: SelectionListItemProps) => {
-		const accessibilityHint = `Recommend ${label}s to you while walking`;
+		const accessibilityHint = `Recommend places related to ${label} while you walk`;
 		return (
 			<View
 				style={styles.flitem}
