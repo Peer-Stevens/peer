@@ -14,23 +14,23 @@ it("renders something", () => {
 	expect(tr.toJSON()).toBeDefined();
 });
 
-describe("Filter box tests", () => {
-	it("can be clicked on to show filters button", () => {
+describe("Selection box tests", () => {
+	it("can be clicked on to show selections button", () => {
 		const { getByLabelText, getAllByText } = render(<App />);
-		fireEvent.press(getByLabelText("Show filters"));
+		fireEvent.press(getByLabelText("Show selections"));
 		expect(getAllByText(placeTypeLabels[0])).toHaveLength(1);
 	});
 
-	it("does not contain non-place names in the filters", () => {
+	it("does not contain non-place types in the selections", () => {
 		const { getByLabelText, queryAllByText } = render(<App />);
-		fireEvent.press(getByLabelText("Show filters"));
+		fireEvent.press(getByLabelText("Show selections"));
 		expect(queryAllByText("potato")).toHaveLength(0);
 	});
 
-	it("should not render the filter box after the hide filters button is pressed", () => {
+	it("should not render the slection box after the hide selections button is pressed", () => {
 		const { getByLabelText, queryAllByText } = render(<App />);
-		fireEvent.press(getByLabelText("Show filters"));
-		fireEvent.press(getByLabelText("Hide filters"));
+		fireEvent.press(getByLabelText("Show selections"));
+		fireEvent.press(getByLabelText("Hide selections"));
 		expect(queryAllByText(placeTypeLabels[0])).toHaveLength(0);
 	});
 });
