@@ -63,8 +63,8 @@ const SelectionBox: React.FC<SelectionBoxProps> = ({
 
 	return (
 		<Box
-			accessibilityLabel="A vertical list of filters"
-			accessibilityHint="A vertical list of checkboxes which allow you to select filters"
+			accessibilityLabel="A vertical list of kinds of places"
+			accessibilityHint="Select items from this list to be recommended those kinds of places"
 			style={StyleSheet.compose(styles.container, style)}
 		>
 			<SelectMultiple
