@@ -15,7 +15,9 @@
 		},
 		"assetBundlePatterns": ["**/*"],
 		"ios": {
-			"supportsTablet": true
+			"bundleIdentifier": "com.aej11.peerstevens",
+			"supportsTablet": true,
+			"buildNumber": "1.1.1"
 		},
 		"android": {
 			"adaptiveIcon": {
