@@ -1,18 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { ScrollView, Dimensions, ActivityIndicator, View } from "react-native";
 import PlaceCard from "./PlaceCard";
-import type { Place } from "@googlemaps/google-maps-services-js";
 import { useNearbyPlaces } from "../NearbyPlaces/useNearbyPlaces";
 
-const deepEqual = (a: Place[], b: Place[]): boolean => {
-	return JSON.stringify(a) === JSON.stringify(b);
-};
-
 const PlaceList = (): JSX.Element => {
-	//const [places, setPlaces] = useState<Place[]>([]);
 	const { nearbyPlaces } = useNearbyPlaces();
 
-	const cardList = (nearbyPlaces || []).map((value, index) => {
+	const cardList = (nearbyPlaces?.slice(0, 5) || []).map((value, index) => {
 		const photo = value.photos ? value.photos[0].photo_reference : undefined;
 		return (
 			<PlaceCard
