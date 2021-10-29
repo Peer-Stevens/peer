@@ -4,7 +4,9 @@ Here potential security and privacy risks are documented so that they can be tra
 
 ## API Keys in Source Code
 
-Currently, we are using `react-native-dotenv` for environment variables. These environment variables may include API keys. Because this is an app not simply intended to run a remote server where only a few users will be able to access the source code, but instead directly on a user's device a user can decompile the source code in order to determine our API keys in plaintext. If a user does this, they will gain unauthorized access to our API key, potentially exhausting our quotas causing functionality to go offline, or charging us money.
+~~Currently, we are using `react-native-dotenv` for environment variables. These environment variables may include API keys. Because this is an app not simply intended to run a remote server where only a few users will be able to access the source code, but instead directly on a user's device a user can decompile the source code in order to determine our API keys in plaintext. If a user does this, they will gain unauthorized access to our API key, potentially exhausting our quotas causing functionality to go offline, or charging us money.~~
+
+As of #90, `react-native-dotenv` has been removed.
 
 ## Data Collection
 
