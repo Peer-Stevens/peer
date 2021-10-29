@@ -7,8 +7,8 @@ import { Button } from "./Button";
 
 export interface StrollButtonProps {
 	onStartStrolling: () => void;
-	isShowingFilters: boolean;
-	setIsShowingFilters: React.Dispatch<React.SetStateAction<boolean>>;
+	isShowingSelections: boolean;
+	setIsShowingSelections: React.Dispatch<React.SetStateAction<boolean>>;
 	//eslint-disable-next-line @typescript-eslint/ban-types
 	style?: StyleProp<object>; // may be unsafe, but this is the type provided
 	// by Stylesheet documentation:
@@ -17,8 +17,8 @@ export interface StrollButtonProps {
 
 const StrollButton: React.FC<StrollButtonProps> = ({
 	onStartStrolling,
-	isShowingFilters,
-	setIsShowingFilters,
+	isShowingSelections: isShowingSelections,
+	setIsShowingSelections: setIsShowingSelections,
 	style,
 }: StrollButtonProps) => {
 	return (
@@ -32,10 +32,10 @@ const StrollButton: React.FC<StrollButtonProps> = ({
 			<Button
 				style={styles.filterBtn}
 				onPress={() => {
-					setIsShowingFilters(!isShowingFilters);
+					setIsShowingSelections(!isShowingSelections);
 				}}
-				accessibilityLabel={isShowingFilters ? "Hide filters" : "Show filters"}
-				iconName={isShowingFilters ? "chevron-down" : "chevron-up"}
+				accessibilityLabel={isShowingSelections ? "Hide selections" : "Show selections"}
+				iconName={isShowingSelections ? "chevron-down" : "chevron-up"}
 			/>
 		</View>
 	);

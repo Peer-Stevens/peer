@@ -8,15 +8,15 @@ import { TEXT_COLOR } from "../util/colors";
 
 // TODO: revise select multiple package to meet new React standards
 LogBox.ignoreLogs(["Warning: componentWillReceiveProps has been renamed,"]);
-interface FilterListItemProps {
+interface SelectionListItemProps {
 	label: string;
 	//eslint-disable-next-line @typescript-eslint/ban-types
 	style: StyleProp<object>;
 }
 
-const FilterListItem: React.FC<FilterListItemProps> = React.memo(
-	({ label }: FilterListItemProps) => {
-		const accessibilityHint = `Filter out ${label}s`;
+const SelectionListItem: React.FC<SelectionListItemProps> = React.memo(
+	({ label }: SelectionListItemProps) => {
+		const accessibilityHint = `Recommend ${label}s to you while walking`;
 		return (
 			<View
 				style={styles.flitem}
@@ -38,27 +38,27 @@ const FilterListItem: React.FC<FilterListItemProps> = React.memo(
 		);
 	}
 );
-FilterListItem.displayName = "FilterListItem";
-export interface FilterBoxProps {
-	selectedFilters: Array<string>;
-	setSelectedFilters: React.Dispatch<React.SetStateAction<Array<string>>>;
+SelectionListItem.displayName = "SelectionListItem";
+export interface SelectionBoxProps {
+	selections: Array<string>;
+	setSelections: React.Dispatch<React.SetStateAction<Array<string>>>;
 	//eslint-disable-next-line @typescript-eslint/ban-types
 	style?: StyleProp<object>; // TODO: update generic from "object"
 }
 
-const FilterBox: React.FC<FilterBoxProps> = ({
-	selectedFilters,
-	setSelectedFilters,
+const SelectionBox: React.FC<SelectionBoxProps> = ({
+	selections: selections,
+	setSelections: setSelections,
 	style,
-}: FilterBoxProps) => {
-	const onSelectionsChange = (selectedFilters: Array<{ label: string; value: string }>) => {
-		const filterArray = selectedFilters.map(filterObj => filterObj.label);
-		setSelectedFilters(filterArray);
+}: SelectionBoxProps) => {
+	const onSelectionsChange = (selectionObjs: Array<{ label: string; value: string }>) => {
+		const selectionArray = selectionObjs.map(selectionObj => selectionObj.label);
+		setSelections(selectionArray);
 	};
 
 	//eslint-disable-next-line @typescript-eslint/ban-types
 	const renderLabel = (label: string, style: StyleProp<object>) => {
-		return <FilterListItem label={label} style={style} />;
+		return <SelectionListItem label={label} style={style} />;
 	};
 
 	return (
@@ -69,7 +69,7 @@ const FilterBox: React.FC<FilterBoxProps> = ({
 		>
 			<SelectMultiple
 				items={placeTypeLabels}
-				selectedItems={selectedFilters}
+				selectedItems={selections}
 				onSelectionsChange={onSelectionsChange}
 				renderLabel={renderLabel}
 			/>
@@ -97,4 +97,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default FilterBox;
+export default SelectionBox;
