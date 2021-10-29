@@ -26,8 +26,8 @@ const StrollButton: React.FC<StrollButtonProps> = ({
 	const buildSelectionsText = (selections: string[]) => {
 		if (selections.length === 0) return "None";
 		let text = "";
-		for (const i in selections) {
-			text += `${selections[i]} `;
+		for (const selection of selections) {
+			text += `${selection} `;
 		}
 		return text;
 	};
