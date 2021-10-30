@@ -11,12 +11,18 @@ export interface PlaceCardProps {
 }
 
 const PlaceCard: React.FC<PlaceCardProps> = ({ place, avg, address, photoref }: PlaceCardProps) => {
+	// prevent calls to remote server during testing
+	const imageSrc =
+		process.env.NODE_ENV !== "test"
+			? { uri: `${SERVER_BASE_URL}/getPlacePhoto/${photoref}` }
+			: require("../../../assets/icon.png");
+
 	const image = photoref ? (
 		<Image
 			accessible={true}
 			accessibilityLabel={place ? `Image of ${place}` : ""}
 			style={styles.imageStyle}
-			source={{ uri: `${SERVER_BASE_URL}/getPlacePhoto/${photoref}` }}
+			source={imageSrc}
 		/>
 	) : (
 		<Icon
