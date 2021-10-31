@@ -3,6 +3,7 @@ import { useLocation } from "./useLocation";
 import { LocationObject } from "expo-location";
 import axios from "axios";
 import type { Place } from "@googlemaps/google-maps-services-js";
+import { SERVER_BASE_URL } from "../../util/env";
 
 /**
  * Returns true if the two locations have the same latitude and longitude. Returns false
@@ -32,7 +33,7 @@ export const useNearbyPlaces = (): { nearbyPlaces?: Place[] } => {
 	const getNearbyPlaces = async (location: LocationObject) => {
 		if (hasSameCoordinates(location, lastLocationRef.current)) return;
 		const result = await axios.get<{ places: Place[] }>(
-			`https://peer-server-stevens.herokuapp.com/getNearbyPlaces?latitude=${location.coords.latitude}&longitude=${location.coords.longitude}`
+			`${SERVER_BASE_URL}/getNearbyPlaces?latitude=${location.coords.latitude}&longitude=${location.coords.longitude}`
 		);
 		lastLocationRef.current = location;
 		setNearbyPlaces(result.data.places);
