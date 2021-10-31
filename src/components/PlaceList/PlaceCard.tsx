@@ -1,8 +1,9 @@
 import { SERVER_BASE_URL } from "@env";
 import React from "react";
-import { StyleSheet, Dimensions, View, Text, Image } from "react-native";
+import { StyleSheet, Dimensions, View, Text, Image, ImageSourcePropType } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import { TEXT_COLOR } from "../../util/colors";
+import PeerIcon from "../../../assets/icon.png";
 export interface PlaceCardProps {
 	place?: string;
 	avg: number;
@@ -12,10 +13,12 @@ export interface PlaceCardProps {
 
 const PlaceCard: React.FC<PlaceCardProps> = ({ place, avg, address, photoref }: PlaceCardProps) => {
 	// prevent calls to remote server during testing
-	const imageSrc =
-		process.env.NODE_ENV !== "test"
-			? { uri: `${SERVER_BASE_URL}/getPlacePhoto/${photoref}` }
-			: require("../../../assets/icon.png");
+	let imageSrc: ImageSourcePropType;
+	if (photoref && process.env.NODE_ENV !== "test") {
+		imageSrc = { uri: `${SERVER_BASE_URL}/getPlacePhoto/${photoref}` };
+	} else {
+		imageSrc = PeerIcon;
+	}
 
 	const image = photoref ? (
 		<Image

@@ -95,7 +95,7 @@ describe("Nearby places tests", () => {
 
 		// Assert
 		for (let i = 0; i < mockPlaces.length; i++) {
-			expect(getByTestId("nearby-place-" + i).children).toContain(mockPlaces[i].name);
+			expect(getByTestId(`nearby-place-${i}`).children).toContain(mockPlaces[i].name);
 		}
 	});
 
@@ -106,8 +106,8 @@ describe("Nearby places tests", () => {
 		// Assert
 		for (let i = 0; i < mockPlaces.length; i++) {
 			expect(
-				getByTestId("nearby-place-" + i).children.reduce((prev, cur) => {
-					return prev.toString() + cur.toString();
+				getByTestId(`nearby-place-${i}`).children.reduce((prev, cur) => {
+					return `${prev.toString()}${cur.toString()}`;
 				})
 			).toContain("is 5.58 feet to your left");
 		}

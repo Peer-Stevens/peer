@@ -27,7 +27,7 @@ export const NearbyPlaces: React.FC<{ stopStrolling: () => void }> = ({ stopStro
 								<Text
 									key={place.name}
 									style={{ fontSize: 24, fontWeight: "bold", marginBottom: 15 }}
-									testID={"nearby-place-" + index}
+									testID={`nearby-place-${index}`}
 								>
 									{"\u2022"} {place.name} is {relativeDirection.distanceInFeet}{" "}
 									feet {relativeDirection.dirString}
