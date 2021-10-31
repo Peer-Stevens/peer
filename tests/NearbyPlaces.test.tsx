@@ -88,4 +88,28 @@ describe("Nearby places tests", () => {
 		// Assert
 		expect(getByLabelText("Stop this stroll")).toBeDefined();
 	});
+
+	it("lists all the names of nearby places", () => {
+		// Arrange
+		const { getByTestId } = tr;
+
+		// Assert
+		for (let i = 0; i < mockPlaces.length; i++) {
+			expect(getByTestId("nearby-place-" + i).children).toContain(mockPlaces[i].name);
+		}
+	});
+
+	it("displays the heading of each nearby place", () => {
+		// Arrange
+		const { getByTestId } = tr;
+
+		// Assert
+		for (let i = 0; i < mockPlaces.length; i++) {
+			expect(
+				getByTestId("nearby-place-" + i).children.reduce((prev, cur) => {
+					return prev.toString() + cur.toString();
+				})
+			).toContain("is 5.58 feet to your left");
+		}
+	});
 });
