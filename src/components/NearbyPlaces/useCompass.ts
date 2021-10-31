@@ -7,7 +7,7 @@ type RelativeDirectionInput = {
 	place: Place;
 };
 
-type RelativeDirectionOutput = {
+export type RelativeDirectionOutput = {
 	absoluteAngle: number;
 	headingToPlaceAngle: number;
 	dirString: string;
