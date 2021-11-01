@@ -38,11 +38,11 @@ const mockPlaces: Partial<PlaceData & { rating: number }>[] = [
 		rating: 5,
 	},
 ];
+mockNearbyPlaces.mockReturnValue({ nearbyPlaces: mockPlaces });
 
 describe("Place list tests", () => {
 	it("renders the place name", () => {
 		// Arrange
-		mockNearbyPlaces.mockReturnValue({ nearbyPlaces: mockPlaces });
 		const { getByText } = render(<App />);
 
 		// Assert
@@ -54,7 +54,6 @@ describe("Place list tests", () => {
 
 	it("renders the place address", () => {
 		// Arrange
-		mockNearbyPlaces.mockReturnValue({ nearbyPlaces: mockPlaces });
 		const { getByText } = render(<App />);
 
 		// Assert
@@ -66,7 +65,6 @@ describe("Place list tests", () => {
 
 	it("renders the place rating", () => {
 		// Arrange
-		mockNearbyPlaces.mockReturnValue({ nearbyPlaces: mockPlaces });
 		const { getAllByText } = render(<App />);
 
 		// Assert
@@ -76,7 +74,6 @@ describe("Place list tests", () => {
 
 	it("does not render text other than the place name, address, or rating", () => {
 		// Arrange
-		mockNearbyPlaces.mockReturnValue({ nearbyPlaces: mockPlaces });
 		const { queryByText } = render(<App />);
 
 		// Assert
@@ -87,7 +84,6 @@ describe("Place list tests", () => {
 
 	it("renders an image when the photo reference field is defined", () => {
 		// Arrange
-		mockNearbyPlaces.mockReturnValue({ nearbyPlaces: mockPlaces });
 		const { getByLabelText } = render(<App />);
 		const photoFullMockPlaces = mockPlaces.filter(place => place.photos);
 
@@ -100,7 +96,6 @@ describe("Place list tests", () => {
 
 	it("renders an icon when the photo reference field is undefined", () => {
 		// Arrange
-		mockNearbyPlaces.mockReturnValue({ nearbyPlaces: mockPlaces });
 		const { getByLabelText } = render(<App />);
 		const photoLessMockPlaces = mockPlaces.filter(place => !place.photos);
 
