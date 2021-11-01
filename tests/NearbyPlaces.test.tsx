@@ -38,32 +38,15 @@ const mockRelativeDirection = (): RelativeDirectionOutput => {
 // mock nearby places to prevent calls to remote server
 jest.mock("../src/components/NearbyPlaces/useNearbyPlaces");
 const mockNearbyPlaces = useNearbyPlaces as jest.MockedFunction<typeof useNearbyPlaces>;
-const mockPhotosField: PlacePhoto[] = [
-	{
-		photo_reference: "a",
-		height: 100,
-		width: 100,
-		html_attributions: [],
-	},
-];
-const mockPlaces: Partial<PlaceData & { rating: number }>[] = [
+const mockPlaces: Partial<PlaceData>[] = [
 	{
 		name: "The Absolute Best Place in the Whole Wide World",
-		formatted_address: "312 Jones Pl",
-		photos: mockPhotosField,
-		rating: 5000,
 	},
 	{
 		name: "OneDrive Installation Services",
-		formatted_address: "95 Lora Ave",
-		photos: mockPhotosField,
-		rating: 0,
 	},
 	{
 		name: "Amplifier and Electric Guitar Appraisal",
-		formatted_address: "570 Rotsides Ln",
-		photos: undefined,
-		rating: 5,
 	},
 ];
 
@@ -94,7 +77,9 @@ describe("Nearby places tests", () => {
 		const { getByText } = tr;
 
 		// Assert
-		for (const mockPlace of mockPlaces) {
+		const namedMockPlaces = mockPlaces.filter(place => place.name);
+		for (const mockPlace of namedMockPlaces) {
+			if (!mockPlace.name) continue; // cannot happen
 			expect(getByText(`\u2022 ${mockPlace.name} is 5.58 feet to your left`)).toBeDefined();
 		}
 	});
