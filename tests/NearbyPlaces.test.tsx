@@ -30,7 +30,7 @@ const mockRelativeDirection = (): RelativeDirectionOutput => {
 	return {
 		absoluteAngle: 0,
 		headingToPlaceAngle: 90,
-		dirString: "to your left",
+		dirString: "to your right",
 		distanceInFeet: 5.58,
 	};
 };
@@ -80,7 +80,7 @@ describe("Nearby places tests", () => {
 		const namedMockPlaces = mockPlaces.filter(place => place.name);
 		for (const mockPlace of namedMockPlaces) {
 			if (!mockPlace.name) continue; // cannot happen
-			expect(getByText(`\u2022 ${mockPlace.name} is 5.58 feet to your left`)).toBeDefined();
+			expect(getByText(`\u2022 ${mockPlace.name} is 5.58 feet to your right`)).toBeDefined();
 		}
 	});
 });

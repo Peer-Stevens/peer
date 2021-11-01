@@ -89,9 +89,7 @@ describe("Place list tests", () => {
 		// Arrange
 		mockNearbyPlaces.mockReturnValue({ nearbyPlaces: mockPlaces });
 		const { getByLabelText } = render(<App />);
-		const photoFullMockPlaces = mockPlaces.map(place => {
-			if (place.photos) return place;
-		});
+		const photoFullMockPlaces = mockPlaces.filter(place => place.photos);
 
 		// Assert
 		for (const mockPlace of photoFullMockPlaces) {
@@ -104,9 +102,7 @@ describe("Place list tests", () => {
 		// Arrange
 		mockNearbyPlaces.mockReturnValue({ nearbyPlaces: mockPlaces });
 		const { getByLabelText } = render(<App />);
-		const photoLessMockPlaces = mockPlaces.map(place => {
-			if (!place.photos) return place;
-		});
+		const photoLessMockPlaces = mockPlaces.filter(place => !place.photos);
 
 		// Assert
 		for (const mockPlace of photoLessMockPlaces) {
