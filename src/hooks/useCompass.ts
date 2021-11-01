@@ -6,7 +6,6 @@ export type RelativeDirectionOutput = {
 	absoluteAngle: number;
 	headingToPlaceAngle: number;
 	dirString: string;
-	distanceInFeet: number;
 };
 
 export const useCompass = (): {
@@ -47,9 +46,6 @@ export const useCompass = (): {
 		const adjacent = placeLat - latitude;
 		const opposite = placeLng - longitude;
 
-		const degreeDistance = Math.sqrt(adjacent ** 2 + opposite ** 2);
-		const distanceInFeet = Math.round(degreeDistance * 362751.84);
-
 		// find the angle from the positive x axis to the place
 		const absoluteAngle = Math.atan2(adjacent, opposite) * (180 / Math.PI);
 
@@ -69,7 +65,6 @@ export const useCompass = (): {
 			absoluteAngle: cwAngle,
 			headingToPlaceAngle: differenceBetweenAngles,
 			dirString: getAbsDirection(differenceBetweenAngles),
-			distanceInFeet,
 		};
 	};
 
