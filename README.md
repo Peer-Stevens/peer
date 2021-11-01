@@ -1,5 +1,7 @@
 # Peer
 
+[![codecov](https://codecov.io/gh/Peer-Stevens/peer/branch/main/graph/badge.svg?token=GQU7RZ6VBU)](https://codecov.io/gh/Peer-Stevens/peer)
+
 Explorative navigation app for the blind and visually impaired for iOS and Android.
 
 ## Setup

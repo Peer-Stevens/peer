@@ -17,5 +17,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: yarn
+      - name: Install codecov
+        run: npm install codecov -g
       - name: Run all test suites
-        run: yarn test
+        run: |
+          yarn test --coverage
+          codecov -f coverage/*.json
