@@ -66,7 +66,7 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 				<Text ellipsizeMode="tail" numberOfLines={1} style={styles.title}>
 					{place}
 				</Text>
-				<Text accessibilityLabel={`${distanceInMi} miles away`}>
+				<Text accessibilityLabel={`${distanceInMi} miles away`} style={{ fontSize: 25 }}>
 					{`${distanceInMi} mi away`}
 				</Text>
 				<Text ellipsizeMode="tail" numberOfLines={1} style={styles.cardContent}>
