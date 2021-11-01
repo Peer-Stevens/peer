@@ -1,17 +1,40 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { StyleSheet, Dimensions, View, Text, Image, ImageSourcePropType } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import { TEXT_COLOR } from "../../util/colors";
 import PeerIcon from "../../../assets/icon.png";
 import { SERVER_BASE_URL } from "../../util/env";
+import { computeDistanceMi } from "../../util/distance";
+import { LocationObject } from "expo-location";
 export interface PlaceCardProps {
 	place?: string;
 	avg: number;
 	address?: string;
 	photoref?: string;
+	location?: LocationObject;
+	longitude?: number;
+	latitude?: number;
 }
 
-const PlaceCard: React.FC<PlaceCardProps> = ({ place, avg, address, photoref }: PlaceCardProps) => {
+const PlaceCard: React.FC<PlaceCardProps> = ({
+	place,
+	avg,
+	address,
+	photoref,
+	location,
+	latitude,
+	longitude,
+}: PlaceCardProps) => {
+	const userCoords = {
+		latitude: location?.coords.latitude,
+		longitude: location?.coords.longitude,
+	};
+	const placeCoords = { latitude: latitude, longitude: longitude };
+	const distanceInMi = useMemo<string | undefined>(
+		() => computeDistanceMi(userCoords, placeCoords)?.toPrecision(2),
+		[userCoords, placeCoords]
+	);
+
 	// prevent calls to remote server during testing
 	let imageSrc: ImageSourcePropType;
 	if (photoref && process.env.NODE_ENV !== "test") {
@@ -36,13 +59,16 @@ const PlaceCard: React.FC<PlaceCardProps> = ({ place, avg, address, photoref }: 
 			accessibilityLabel={place ? `No image available for ${place}` : "No image available"}
 		/>
 	);
+
 	return (
 		<View style={styles.card}>
 			<View style={styles.alignText}>
 				<Text ellipsizeMode="tail" numberOfLines={1} style={styles.title}>
 					{place}
 				</Text>
-
+				<Text accessibilityLabel={`${distanceInMi} miles away`}>
+					{`${distanceInMi} mi away`}
+				</Text>
 				<Text ellipsizeMode="tail" numberOfLines={1} style={styles.cardContent}>
 					{address}
 				</Text>

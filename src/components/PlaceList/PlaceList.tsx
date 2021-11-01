@@ -2,8 +2,10 @@ import React from "react";
 import { ScrollView, Dimensions, ActivityIndicator, View } from "react-native";
 import PlaceCard from "./PlaceCard";
 import { useNearbyPlaces } from "../../hooks/useNearbyPlaces";
+import { useLocation } from "../../hooks/useLocation";
 
 const PlaceList = (): JSX.Element => {
+	const { location } = useLocation();
 	const { nearbyPlaces } = useNearbyPlaces();
 
 	const cardList = (nearbyPlaces || []).map((value, index) => {
@@ -15,6 +17,9 @@ const PlaceList = (): JSX.Element => {
 				avg={0} // TODO: get average from our server
 				address={value.formatted_address}
 				photoref={photo}
+				location={location}
+				latitude={value.geometry?.location.lat}
+				longitude={value.geometry?.location.lng}
 			/>
 		);
 	});

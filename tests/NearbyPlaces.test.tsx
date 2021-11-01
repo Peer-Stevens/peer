@@ -6,7 +6,7 @@ import { useLocation } from "../src/hooks/useLocation";
 import { useNearbyPlaces } from "../src/hooks/useNearbyPlaces";
 import { RelativeDirectionOutput, useCompass } from "../src/hooks/useCompass";
 import { PlaceData } from "@googlemaps/google-maps-services-js";
-import { computeDistance } from "../src/util/distance";
+import { computeDistanceFeet } from "../src/util/distance";
 
 // mock use location to prevent querying for location data
 jest.mock("../src/hooks/useLocation");
@@ -32,13 +32,12 @@ const mockRelativeDirection = (): RelativeDirectionOutput => {
 		absoluteAngle: 0,
 		headingToPlaceAngle: 90,
 		dirString: "to your right",
-		distanceInFeet: 5.58,
 	};
 };
 
 // mock compute distance because user location is nonsense
 jest.mock("../src/util/distance.ts");
-const mockComputeDistance = computeDistance as jest.MockedFunction<typeof computeDistance>;
+const mockComputeDistance = computeDistanceFeet as jest.MockedFunction<typeof computeDistanceFeet>;
 const mockDistance = 5.58;
 
 // mock nearby places to prevent calls to remote server
