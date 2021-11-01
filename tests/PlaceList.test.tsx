@@ -1,6 +1,6 @@
 import React from "react";
 import { cleanup, render } from "@testing-library/react-native";
-import { useNearbyPlaces } from "../src/components/NearbyPlaces/useNearbyPlaces";
+import { useNearbyPlaces } from "../src/hooks/useNearbyPlaces";
 import { PlaceData, PlacePhoto } from "@googlemaps/google-maps-services-js";
 import App from "../App";
 

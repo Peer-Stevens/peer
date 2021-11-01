@@ -1,9 +1,9 @@
 import React from "react";
 import { Text, View } from "react-native";
 import { Button } from "../Button";
-import { useNearbyPlaces } from "./useNearbyPlaces";
-import { useCompass } from "./useCompass";
-import { useLocation } from "./useLocation";
+import { useNearbyPlaces } from "../../hooks/useNearbyPlaces";
+import { useCompass } from "../../hooks/useCompass";
+import { useLocation } from "../../hooks/useLocation";
 
 export const NearbyPlaces: React.FC<{ stopStrolling: () => void }> = ({ stopStrolling }) => {
 	const { location } = useLocation();

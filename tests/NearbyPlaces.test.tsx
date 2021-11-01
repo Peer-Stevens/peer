@@ -2,10 +2,10 @@ import React from "react";
 import { cleanup, fireEvent, render, RenderAPI } from "@testing-library/react-native";
 import App from "../App";
 import type { LocationObject } from "expo-location";
-import { useLocation } from "../src/components/NearbyPlaces/useLocation";
-import { RelativeDirectionOutput, useCompass } from "../src/components/NearbyPlaces/useCompass";
-import { useNearbyPlaces } from "../src/components/NearbyPlaces/useNearbyPlaces";
-import { PlaceData, PlacePhoto } from "@googlemaps/google-maps-services-js";
+import { useLocation } from "../src/hooks/useLocation";
+import { useNearbyPlaces } from "../src/hooks/useNearbyPlaces";
+import { RelativeDirectionOutput, useCompass } from "../src/hooks/useCompass";
+import { PlaceData } from "@googlemaps/google-maps-services-js";
 
 // mock use location to prevent querying for location data
 jest.mock("../src/components/NearbyPlaces/useLocation");
