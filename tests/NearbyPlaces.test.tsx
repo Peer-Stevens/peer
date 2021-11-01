@@ -89,27 +89,13 @@ describe("Nearby places tests", () => {
 		expect(getByLabelText("Stop this stroll")).toBeDefined();
 	});
 
-	it("lists all the names of nearby places", () => {
+	it("displays the name and heading of each place", () => {
 		// Arrange
-		const { getByTestId } = tr;
+		const { getByText } = tr;
 
 		// Assert
-		for (let i = 0; i < mockPlaces.length; i++) {
-			expect(getByTestId(`nearby-place-${i}`).children).toContain(mockPlaces[i].name);
-		}
-	});
-
-	it("displays the heading of each nearby place", () => {
-		// Arrange
-		const { getByTestId } = tr;
-
-		// Assert
-		for (let i = 0; i < mockPlaces.length; i++) {
-			expect(
-				getByTestId(`nearby-place-${i}`).children.reduce((prev, cur) => {
-					return `${prev.toString()}${cur.toString()}`;
-				})
-			).toContain("is 5.58 feet to your left");
+		for (const mockPlace of mockPlaces) {
+			expect(getByText(`\u2022 ${mockPlace.name} is 5.58 feet to your left`)).toBeDefined();
 		}
 	});
 });

@@ -17,7 +17,7 @@ export const NearbyPlaces: React.FC<{ stopStrolling: () => void }> = ({ stopStro
 					<Text style={{ fontSize: 24, marginBottom: 15 }}>
 						The following places are nearby:
 					</Text>
-					{nearbyPlaces.slice(0, 5).map((place, index) => {
+					{nearbyPlaces.slice(0, 5).map(place => {
 						const relativeDirection = getRelativeDirection({
 							userLocation: location,
 							place,
@@ -27,7 +27,6 @@ export const NearbyPlaces: React.FC<{ stopStrolling: () => void }> = ({ stopStro
 								<Text
 									key={place.name}
 									style={{ fontSize: 24, fontWeight: "bold", marginBottom: 15 }}
-									testID={`nearby-place-${index}`}
 								>
 									{"\u2022"} {place.name} is {relativeDirection.distanceInFeet}{" "}
 									feet {relativeDirection.dirString}
