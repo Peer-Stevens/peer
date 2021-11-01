@@ -1,9 +1,9 @@
-import { SERVER_BASE_URL } from "@env";
 import React from "react";
 import { StyleSheet, Dimensions, View, Text, Image, ImageSourcePropType } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import { TEXT_COLOR } from "../../util/colors";
 import PeerIcon from "../../../assets/icon.png";
+import { SERVER_BASE_URL } from "../../util/env";
 export interface PlaceCardProps {
 	place?: string;
 	avg: number;
