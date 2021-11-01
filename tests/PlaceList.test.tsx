@@ -8,7 +8,7 @@ afterEach(cleanup);
 jest.useFakeTimers();
 
 // mock axios to prevent calls to remote server for nearby places
-jest.mock("../src/components/NearbyPlaces/useNearbyPlaces");
+jest.mock("../src/hooks/useNearbyPlaces");
 const mockNearbyPlaces = useNearbyPlaces as jest.MockedFunction<typeof useNearbyPlaces>;
 const mockPhotosField: PlacePhoto[] = [
 	{

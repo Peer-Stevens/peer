@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { ScrollView, Dimensions, ActivityIndicator, View } from "react-native";
 import PlaceCard from "./PlaceCard";
 import type { Place } from "@googlemaps/google-maps-services-js";
-import { useNearbyPlaces } from "../NearbyPlaces/useNearbyPlaces";
+import { useNearbyPlaces } from "../../hooks/useNearbyPlaces";
 
 const deepEqual = (a: Place[], b: Place[]): boolean => {
 	return JSON.stringify(a) === JSON.stringify(b);

@@ -1,11 +1,6 @@
 import { useState, useEffect } from "react";
 import * as Location from "expo-location";
-import { Place } from "@googlemaps/google-maps-services-js";
-
-type RelativeDirectionInput = {
-	userLocation: Location.LocationObject;
-	place: Place;
-};
+import { UserPlaceComparisonInput } from "../util/distance";
 
 export type RelativeDirectionOutput = {
 	absoluteAngle: number;
@@ -16,7 +11,7 @@ export type RelativeDirectionOutput = {
 
 export const useCompass = (): {
 	heading: number | undefined;
-	getRelativeDirection: (arg: RelativeDirectionInput) => RelativeDirectionOutput | undefined;
+	getRelativeDirection: (arg: UserPlaceComparisonInput) => RelativeDirectionOutput | undefined;
 } => {
 	const [heading, setHeading] = useState<number>();
 
@@ -43,7 +38,7 @@ export const useCompass = (): {
 	const getRelativeDirection = ({
 		userLocation,
 		place,
-	}: RelativeDirectionInput): RelativeDirectionOutput | undefined => {
+	}: UserPlaceComparisonInput): RelativeDirectionOutput | undefined => {
 		if (!heading || !userLocation || !place || !place.geometry) return undefined;
 
 		const { latitude, longitude } = userLocation.coords;

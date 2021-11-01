@@ -4,6 +4,7 @@ import { Button } from "../Button";
 import { useNearbyPlaces } from "../../hooks/useNearbyPlaces";
 import { useCompass } from "../../hooks/useCompass";
 import { useLocation } from "../../hooks/useLocation";
+import { computeDistance, UserPlaceComparisonInput } from "../../util/distance";
 
 export const NearbyPlaces: React.FC<{ stopStrolling: () => void }> = ({ stopStrolling }) => {
 	const { location } = useLocation();
@@ -18,17 +19,18 @@ export const NearbyPlaces: React.FC<{ stopStrolling: () => void }> = ({ stopStro
 						The following places are nearby:
 					</Text>
 					{nearbyPlaces.slice(0, 5).map(place => {
-						const relativeDirection = getRelativeDirection({
+						const userPlaceCompare: UserPlaceComparisonInput = {
 							userLocation: location,
 							place,
-						});
+						};
+						const relativeDirection = getRelativeDirection(userPlaceCompare);
 						if (relativeDirection)
 							return (
 								<Text
 									key={place.name}
 									style={{ fontSize: 24, fontWeight: "bold", marginBottom: 15 }}
 								>
-									{"\u2022"} {place.name} is {relativeDirection.distanceInFeet}{" "}
+									{"\u2022"} {place.name} is {computeDistance(userPlaceCompare)}{" "}
 									feet {relativeDirection.dirString}
 								</Text>
 							);

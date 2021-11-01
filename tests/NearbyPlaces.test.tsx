@@ -6,9 +6,10 @@ import { useLocation } from "../src/hooks/useLocation";
 import { useNearbyPlaces } from "../src/hooks/useNearbyPlaces";
 import { RelativeDirectionOutput, useCompass } from "../src/hooks/useCompass";
 import { PlaceData } from "@googlemaps/google-maps-services-js";
+import { computeDistance } from "../src/util/distance";
 
 // mock use location to prevent querying for location data
-jest.mock("../src/components/NearbyPlaces/useLocation");
+jest.mock("../src/hooks/useLocation");
 const mockUseLocation = useLocation as jest.MockedFunction<typeof useLocation>;
 const mockLocation: LocationObject = {
 	coords: {
@@ -24,7 +25,7 @@ const mockLocation: LocationObject = {
 };
 
 // mock use compass to prevent querying for compass data
-jest.mock("../src/components/NearbyPlaces/useCompass");
+jest.mock("../src/hooks/useCompass");
 const mockUseCompass = useCompass as jest.MockedFunction<typeof useCompass>;
 const mockRelativeDirection = (): RelativeDirectionOutput => {
 	return {
@@ -35,8 +36,13 @@ const mockRelativeDirection = (): RelativeDirectionOutput => {
 	};
 };
 
+// mock compute distance because user location is nonsense
+jest.mock("../src/util/distance.ts");
+const mockComputeDistance = computeDistance as jest.MockedFunction<typeof computeDistance>;
+const mockDistance = 5.58;
+
 // mock nearby places to prevent calls to remote server
-jest.mock("../src/components/NearbyPlaces/useNearbyPlaces");
+jest.mock("../src/hooks/useNearbyPlaces");
 const mockNearbyPlaces = useNearbyPlaces as jest.MockedFunction<typeof useNearbyPlaces>;
 const mockPlaces: Partial<PlaceData>[] = [
 	{
@@ -55,6 +61,7 @@ beforeEach(() => {
 	mockUseLocation.mockReturnValue({ location: mockLocation });
 	mockNearbyPlaces.mockReturnValue({ nearbyPlaces: mockPlaces });
 	mockUseCompass.mockReturnValue({ heading: 0, getRelativeDirection: mockRelativeDirection });
+	mockComputeDistance.mockReturnValue(mockDistance);
 
 	tr = render(<App />);
 	// press take a stroll button
