@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import StrollScreen from "./StrollScreen";
 import MapScreen from "./MapScreen";
+import DetailedViewScreen from "./DetailedViewScreen";
 
 /**
  * Serves as the main view of the app, here all
@@ -9,6 +10,11 @@ import MapScreen from "./MapScreen";
  */
 const MainScreen: React.FC = () => {
 	const [isStrolling, setIsStrolling] = useState(false);
+	const [locationSelected, setLocationSelected] = useState(false);
+
+	const toggleLocationSelected = () => {
+		setLocationSelected(!locationSelected);
+	};
 
 	const toggleIsStrolling = () => {
 		setIsStrolling(!isStrolling);
@@ -16,6 +22,8 @@ const MainScreen: React.FC = () => {
 
 	if (isStrolling) {
 		return <StrollScreen toggleIsStrolling={toggleIsStrolling} />;
+	} else if (locationSelected) {
+		return <DetailedViewScreen toggleLocationSelected={toggleLocationSelected} />;
 	} else {
 		return <MapScreen toggleIsStrolling={toggleIsStrolling} />;
 	}
