@@ -4,7 +4,6 @@ on: [pull_request]
 
 jobs:
   test:
-    environment: codecov
     runs-on: ubuntu-latest
     env:
       CI: true
@@ -23,4 +22,4 @@ jobs:
       - name: Run all test suites
         run: |
           yarn test --coverage
-          codecov coverage/*.json -f --token=:${{secrets.CODECOV_TOKEN}}
+          codecov coverage/*.json -f
