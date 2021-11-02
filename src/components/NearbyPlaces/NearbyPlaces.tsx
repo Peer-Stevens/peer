@@ -17,7 +17,7 @@ export const NearbyPlaces: React.FC<{ stopStrolling: () => void }> = ({ stopStro
 					<Text style={{ fontSize: 24, marginBottom: 15 }}>
 						The following places are nearby:
 					</Text>
-					{nearbyPlaces.slice(0, 5).map(place => {
+					{(nearbyPlaces || []).map(place => {
 						const relativeDirection = getRelativeDirection({
 							userLocation: location,
 							place,
