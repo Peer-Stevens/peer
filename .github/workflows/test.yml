@@ -22,4 +22,4 @@ jobs:
       - name: Run all test suites
         run: |
           yarn test --coverage
-          codecov -f coverage/*.json --token=:CODECOV_TOKEN
+          codecov -f coverage/*.json --token=:$CODECOV_TOKEN
