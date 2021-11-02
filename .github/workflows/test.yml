@@ -18,8 +18,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: yarn
       - name: Install codecov
-        run: npm install codecov -g
+        run: |
+          curl -Os https://uploader.codecov.io/latest/linux/codecov 
+          chmod +x codecov
       - name: Run all test suites
         run: |
           yarn test --coverage
-          codecov coverage/*.json -f
+          ./codecov -t ${CODECOV_TOKEN}
