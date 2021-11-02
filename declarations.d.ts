@@ -5,6 +5,11 @@ declare module "*.svg" {
 	export default content;
 }
 
+declare module "*.png" {
+	const value: number;
+	export = value;
+}
+
 declare module "react-native-select-multiple" {
 	import React from "react";
 	import SelectMultiple from "react-native-select-multiple";
