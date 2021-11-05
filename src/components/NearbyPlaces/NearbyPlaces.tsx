@@ -1,9 +1,10 @@
 import React from "react";
 import { Text, View } from "react-native";
 import { Button } from "../Button";
-import { useNearbyPlaces } from "./useNearbyPlaces";
-import { useCompass } from "./useCompass";
-import { useLocation } from "./useLocation";
+import { useNearbyPlaces } from "../../hooks/useNearbyPlaces";
+import { useCompass } from "../../hooks/useCompass";
+import { useLocation } from "../../hooks/useLocation";
+import { computeDistanceFeet } from "../../util/distance";
 
 export const NearbyPlaces: React.FC<{ stopStrolling: () => void }> = ({ stopStrolling }) => {
 	const { location } = useLocation();
@@ -22,14 +23,23 @@ export const NearbyPlaces: React.FC<{ stopStrolling: () => void }> = ({ stopStro
 							userLocation: location,
 							place,
 						});
+						const userCoords = {
+							latitude: location.coords.latitude,
+							longitude: location.coords.longitude,
+						};
+						const placeCoords = {
+							latitude: place.geometry?.location.lat,
+							longitude: place.geometry?.location.lng,
+						};
 						if (relativeDirection)
 							return (
 								<Text
 									key={place.name}
 									style={{ fontSize: 24, fontWeight: "bold", marginBottom: 15 }}
 								>
-									{"\u2022"} {place.name} is {relativeDirection.distanceInFeet}{" "}
-									feet {relativeDirection.dirString}
+									{"\u2022"} {place.name} is{" "}
+									{computeDistanceFeet(userCoords, placeCoords)} feet{" "}
+									{relativeDirection.dirString}
 								</Text>
 							);
 						else

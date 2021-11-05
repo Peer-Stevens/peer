@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Dimensions, View, StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import SelectionBox from "../components/SelectionBox";
-import { useLocation } from "../components/NearbyPlaces/useLocation";
+import { useLocation } from "../hooks/useLocation";
 import PlaceList from "../components/PlaceList/PlaceList";
 import StrollButton from "../components/StrollButton";
 
