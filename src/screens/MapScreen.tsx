@@ -3,14 +3,17 @@ import { Dimensions, View, StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import FilterBox from "../components/FilterBox";
 import { useLocation } from "../components/NearbyPlaces/useLocation";
-import PlaceList from "../components/PlaceList/PlaceList";
+import PlaceList from "../components/Places/PlaceList";
 import StrollButton from "../components/StrollButton";
 
 export interface MapScreenProps {
-	toggleIsStrolling: () => void;
+	toggleIsStrolling: (screen: string) => void;
+
+	//check what type is placeID
+	setPlaceID: (placeID: string) => void;
 }
 
-const MapScreen: React.FC<MapScreenProps> = ({ toggleIsStrolling }: MapScreenProps) => {
+const MapScreen: React.FC<MapScreenProps> = ({ toggleIsStrolling, setPlaceID }: MapScreenProps) => {
 	const [isShowingFilters, setIsShowingFilters] = useState<boolean>(false);
 	const [selectedFilters, setSelectedFilters] = useState<Array<string>>([]);
 	const { location } = useLocation();
@@ -45,11 +48,13 @@ const MapScreen: React.FC<MapScreenProps> = ({ toggleIsStrolling }: MapScreenPro
 					/>
 				) : null}
 				<StrollButton
-					onStartStrolling={toggleIsStrolling}
+					onStartStrolling={() => toggleIsStrolling("strolling")}
 					isShowingFilters={isShowingFilters}
 					setIsShowingFilters={setIsShowingFilters}
 				/>
 			</View>
+
+			{/* Add props to PlaceList that takes in the placeID and does something with it */}
 			<PlaceList />
 		</View>
 	);

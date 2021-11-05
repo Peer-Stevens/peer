@@ -36,6 +36,7 @@ const PlaceCard: React.FC<PlaceCardProps> = ({ place, avg, address, photoref }: 
 			accessibilityLabel={place ? `No image available for ${place}` : "No image available"}
 		/>
 	);
+
 	return (
 		<View style={styles.card}>
 			<View style={styles.alignText}>

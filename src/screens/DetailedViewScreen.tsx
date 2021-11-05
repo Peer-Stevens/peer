@@ -1,14 +1,14 @@
 import React from "react";
-import { View } from "react-native";
+import PlaceDetailed from "../components/Places/PlaceDetailed";
 
 export interface DetailedViewScreenProps {
-	toggleLocationSelected: () => void;
+	togglePage: () => void;
 }
 
 const DetailedViewScreen: React.FC<DetailedViewScreenProps> = ({
-	toggleLocationSelected,
+	togglePage,
 }: DetailedViewScreenProps) => {
-	return <View>This is a test</View>;
+	return <PlaceDetailed togglePage={togglePage} />;
 };
 
 export default DetailedViewScreen;

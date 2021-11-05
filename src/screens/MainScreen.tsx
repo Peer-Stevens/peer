@@ -9,23 +9,19 @@ import DetailedViewScreen from "./DetailedViewScreen";
  * @returns the main screen component
  */
 const MainScreen: React.FC = () => {
-	const [isStrolling, setIsStrolling] = useState(false);
-	const [locationSelected, setLocationSelected] = useState(false);
+	const [page, setPage] = useState("mapScreen");
+	const [placeID, setPlaceID] = useState();
 
-	const toggleLocationSelected = () => {
-		setLocationSelected(!locationSelected);
-	};
+	//Makes new function that calls setPage with a specific argument
+	const goToMapScreen = () => setPage("mapScreen");
 
-	const toggleIsStrolling = () => {
-		setIsStrolling(!isStrolling);
-	};
-
-	if (isStrolling) {
-		return <StrollScreen toggleIsStrolling={toggleIsStrolling} />;
-	} else if (locationSelected) {
-		return <DetailedViewScreen toggleLocationSelected={toggleLocationSelected} />;
+	if (page === "strolling") {
+		return <StrollScreen toggleIsStrolling={goToMapScreen} />;
+	} else if (page === "locationSelected") {
+		return <DetailedViewScreen togglePage={goToMapScreen} />;
 	} else {
-		return <MapScreen toggleIsStrolling={toggleIsStrolling} />;
+		//Make sure that mapScreen takes in setPlace and uses it
+		return <MapScreen setPlace={setPlaceID} toggleIsStrolling={() => setPage("strolling")} />;
 	}
 };
 
