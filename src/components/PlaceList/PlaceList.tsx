@@ -6,7 +6,7 @@ import { useNearbyPlaces } from "../NearbyPlaces/useNearbyPlaces";
 const PlaceList = (): JSX.Element => {
 	const { nearbyPlaces } = useNearbyPlaces();
 
-	const cardList = (nearbyPlaces?.slice(0, 5) || []).map((value, index) => {
+	const cardList = (nearbyPlaces || []).map((value, index) => {
 		const photo = value.photos ? value.photos[0].photo_reference : undefined;
 		return (
 			<PlaceCard
