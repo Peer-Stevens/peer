@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { ScrollView, Dimensions, ActivityIndicator, View } from "react-native";
 import PlaceCard from "./PlaceCard";
-import type { Place } from "@googlemaps/google-maps-services-js";
-import { useNearbyPlaces } from "../NearbyPlaces/useNearbyPlaces";
-
-const deepEqual = (a: Place[], b: Place[]): boolean => {
-	return JSON.stringify(a) === JSON.stringify(b);
-};
+import { useNearbyPlaces } from "../../hooks/useNearbyPlaces";
+import { useLocation } from "../../hooks/useLocation";
 
 const PlaceList = (): JSX.Element => {
-	//const [places, setPlaces] = useState<Place[]>([]);
+	const { location } = useLocation();
 	const { nearbyPlaces } = useNearbyPlaces();
 
 	const cardList = (nearbyPlaces || []).map((value, index) => {
@@ -21,6 +17,9 @@ const PlaceList = (): JSX.Element => {
 				avg={0} // TODO: get average from our server
 				address={value.formatted_address}
 				photoref={photo}
+				location={location}
+				latitude={value.geometry?.location.lat}
+				longitude={value.geometry?.location.lng}
 			/>
 		);
 	});

@@ -3,7 +3,7 @@ import { useLocation } from "./useLocation";
 import { LocationObject } from "expo-location";
 import axios from "axios";
 import type { Place } from "@googlemaps/google-maps-services-js";
-import { SERVER_BASE_URL } from "../../util/env";
+import { SERVER_BASE_URL } from "../util/env";
 
 /**
  * Returns true if the two locations have the same latitude and longitude. Returns false
