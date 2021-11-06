@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Dimensions, View, StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import FilterBox from "../components/FilterBox";
+import SelectionBox from "../components/SelectionBox";
 import { useLocation } from "../hooks/useLocation";
 import PlaceList from "../components/PlaceList/PlaceList";
 import StrollButton from "../components/StrollButton";
@@ -11,8 +11,8 @@ export interface MapScreenProps {
 }
 
 const MapScreen: React.FC<MapScreenProps> = ({ toggleIsStrolling }: MapScreenProps) => {
-	const [isShowingFilters, setIsShowingFilters] = useState<boolean>(false);
-	const [selectedFilters, setSelectedFilters] = useState<Array<string>>([]);
+	const [isShowingSelections, setIsShowingSelections] = useState<boolean>(false);
+	const [selections, setSelections] = useState<Array<string>>([]);
 	const { location } = useLocation();
 	return (
 		<View style={styles.container}>
@@ -38,16 +38,14 @@ const MapScreen: React.FC<MapScreenProps> = ({ toggleIsStrolling }: MapScreenPro
 				</MapView>
 			) : null}
 			<View style={styles.buttonFilterGroup}>
-				{isShowingFilters ? (
-					<FilterBox
-						selectedFilters={selectedFilters}
-						setSelectedFilters={setSelectedFilters}
-					/>
+				{isShowingSelections ? (
+					<SelectionBox selections={selections} setSelections={setSelections} />
 				) : null}
 				<StrollButton
 					onStartStrolling={toggleIsStrolling}
-					isShowingFilters={isShowingFilters}
-					setIsShowingFilters={setIsShowingFilters}
+					isShowingSelections={isShowingSelections}
+					setIsShowingSelections={setIsShowingSelections}
+					selections={selections}
 				/>
 			</View>
 			<PlaceList />
