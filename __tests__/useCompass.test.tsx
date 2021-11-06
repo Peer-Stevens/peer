@@ -80,15 +80,17 @@ describe("useCompass tests", () => {
 
 		// Assert
 		expect(angleAsNum).toBeCloseTo(390.45087541217816);
-	})
+	});
 
 	it("should return the angle between the user's heading and the place", () => {
 		// Arrange
-		const betweenAngleAsNum = Number(testRenderer.getByTestId("heading-to-place").children[1] as string);
+		const betweenAngleAsNum = Number(
+			testRenderer.getByTestId("heading-to-place").children[1] as string
+		);
 
 		// Assert
 		expect(betweenAngleAsNum).toEqual(20);
-	})
+	});
 
 	it("should return some text representing the heading between the user and the place", () => {
 		// Arrange
@@ -96,5 +98,5 @@ describe("useCompass tests", () => {
 
 		// Assert
 		expect(dirText).toEqual("ahead of you");
-	})
+	});
 });
