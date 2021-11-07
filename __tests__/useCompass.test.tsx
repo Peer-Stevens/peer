@@ -31,7 +31,12 @@ const mockLocation: LocationObject = {
 	timestamp: 0,
 };
 
-jest.spyOn(React, "useState").mockImplementation(() => [10, () => {}]);
+jest.spyOn(React, "useState").mockImplementation(() => [
+	10,
+	() => {
+		return;
+	},
+]);
 const CompassComponent = () => {
 	const { heading, getRelativeDirection } = useCompass();
 	const relDir = getRelativeDirection({ userLocation: mockLocation, place: mockPlace });

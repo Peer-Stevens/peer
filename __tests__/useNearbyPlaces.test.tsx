@@ -76,6 +76,8 @@ const firstPlaceList: Place[] = [{ name: "Hungry Boi Place" }, { name: "Undergro
 const secondPlaceList: Place[] = [{ name: "Hungrier Boi Place" }, { name: "Magma Core" }];
 const thirdPlaceList: Place[] = [{ name: "Hungriest Boi Place" }, { name: "Gravity Well" }];
 const closePlaceList: Place[] = [{ name: "Hairline Width Barber Shop" }];
+// axios.get is an "unbound method" but this is an implementation detail of axios
+// eslint-disable-next-line @typescript-eslint/unbound-method
 const mockGet = axios.get as jest.MockedFunction<typeof axios.get>;
 mockGet.mockImplementation((url): Promise<{ data: { places: Place[] } }> => {
 	return new Promise(resolve => {
@@ -155,6 +157,9 @@ describe("useNearbyPlaces tests", () => {
 
 		// Assert
 		await act(async () => {
+			// this needs to be awaited or else there will be an open handle upon
+			// this tests's completion
+			// eslint-disable-next-line @typescript-eslint/await-thenable
 			await setTimeout(() => {
 				expect(mockGet).toHaveBeenCalledTimes(1);
 			}, 20000);
