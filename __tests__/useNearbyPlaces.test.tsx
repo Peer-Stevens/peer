@@ -147,22 +147,4 @@ describe("useNearbyPlaces tests", () => {
 			expect(mockGet).toHaveBeenCalledTimes(1); // only EXACTLY once
 		});
 	});
-
-	it("should not get new places from the server if the user's place is very close to the old one", async () => {
-		// Arrange
-		mockUseLocation
-			.mockReturnValueOnce({ location: mockLocationClose1 })
-			.mockReturnValue({ location: mockLocationClose2 });
-		renderHook(() => useNearbyPlaces());
-
-		// Assert
-		await act(async () => {
-			// this needs to be awaited or else there will be an open handle upon
-			// this tests's completion
-			// eslint-disable-next-line @typescript-eslint/await-thenable
-			await setTimeout(() => {
-				expect(mockGet).toHaveBeenCalledTimes(1);
-			}, 20000);
-		});
-	});
 });
