@@ -27,7 +27,7 @@ const hasSameCoordinates = (a?: LocationObject, b?: LocationObject): boolean => 
 
 export const useNearbyPlaces = (): { nearbyPlaces?: Place[] } => {
 	const { location } = useLocation();
-	const lastLocationRef = React.useRef<LocationObject | undefined>(location);
+	const lastLocationRef = React.useRef<LocationObject | undefined>(undefined);
 	const [nearbyPlaces, setNearbyPlaces] = React.useState<Place[]>();
 
 	const getNearbyPlaces = async (location: LocationObject) => {
