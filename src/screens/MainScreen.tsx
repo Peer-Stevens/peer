@@ -14,14 +14,17 @@ const MainScreen: React.FC = () => {
 
 	//Makes new function that calls setPage with a specific argument
 	const goToMapScreen = () => setPage("mapScreen");
+	const goToStrollScreen = () => setPage("strollScreen");
+	const goToDetails = () => setPage("detailsScreen");
 
-	if (page === "strolling") {
+	if (page === "strollScreen") {
 		return <StrollScreen toggleIsStrolling={goToMapScreen} />;
-	} else if (page === "locationSelected") {
+	} else if (page === "detailsScreen") {
 		return <DetailedViewScreen togglePage={goToMapScreen} />;
 	} else {
 		//Make sure that mapScreen takes in setPlace and uses it
-		return <MapScreen setPlace={setPlaceID} toggleIsStrolling={() => setPage("strolling")} />;
+		return <MapScreen toggleIsStrolling={goToStrollScreen} />;
+		// return <MapScreen setPlace={setPlaceID} toggleIsStrolling={goToStrollScreen} togglePageDetails={goToDetails} />;
 	}
 };
 

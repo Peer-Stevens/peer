@@ -10,10 +10,10 @@ export interface MapScreenProps {
 	toggleIsStrolling: (screen: string) => void;
 
 	//check what type is placeID
-	setPlaceID: (placeID: string) => void;
+	setPlace?: (placeID: string) => void;
 }
 
-const MapScreen: React.FC<MapScreenProps> = ({ toggleIsStrolling, setPlaceID }: MapScreenProps) => {
+const MapScreen: React.FC<MapScreenProps> = ({ toggleIsStrolling, setPlace }: MapScreenProps) => {
 	const [isShowingFilters, setIsShowingFilters] = useState<boolean>(false);
 	const [selectedFilters, setSelectedFilters] = useState<Array<string>>([]);
 	const { location } = useLocation();
@@ -48,7 +48,7 @@ const MapScreen: React.FC<MapScreenProps> = ({ toggleIsStrolling, setPlaceID }: 
 					/>
 				) : null}
 				<StrollButton
-					onStartStrolling={() => toggleIsStrolling("strolling")}
+					onStartStrolling={() => toggleIsStrolling("strollScreen")}
 					isShowingFilters={isShowingFilters}
 					setIsShowingFilters={setIsShowingFilters}
 				/>
