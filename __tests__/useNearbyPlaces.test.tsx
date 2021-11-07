@@ -3,7 +3,7 @@ import { useNearbyPlaces } from "../src/hooks/useNearbyPlaces";
 import axios from "axios";
 import { Place } from "@googlemaps/google-maps-services-js";
 import { LocationObject } from "expo-location";
-import { renderHook, act, cleanup } from "@testing-library/react-hooks";
+import { renderHook, cleanup } from "@testing-library/react-hooks";
 import { waitFor } from "@testing-library/react-native";
 
 jest.mock("../src/hooks/useLocation");
@@ -36,30 +36,6 @@ const mockLocation3: LocationObject = {
 	coords: {
 		latitude: 34,
 		longitude: 33,
-		altitude: null,
-		altitudeAccuracy: null,
-		heading: null,
-		speed: null,
-		accuracy: null,
-	},
-	timestamp: 0,
-};
-const mockLocationClose1: LocationObject = {
-	coords: {
-		latitude: 98.000000001,
-		longitude: 33,
-		altitude: null,
-		altitudeAccuracy: null,
-		heading: null,
-		speed: null,
-		accuracy: null,
-	},
-	timestamp: 0,
-};
-const mockLocationClose2: LocationObject = {
-	coords: {
-		latitude: 98.0000000011,
-		longitude: 81,
 		altitude: null,
 		altitudeAccuracy: null,
 		heading: null,
