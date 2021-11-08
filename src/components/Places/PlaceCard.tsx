@@ -1,5 +1,14 @@
 import React from "react";
-import { StyleSheet, Dimensions, View, Text, Image, ImageSourcePropType } from "react-native";
+import {
+	StyleSheet,
+	Dimensions,
+	View,
+	Text,
+	Image,
+	ImageSourcePropType,
+	Button,
+	Pressable,
+} from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import { TEXT_COLOR } from "../../util/colors";
 import PeerIcon from "../../../assets/icon.png";
@@ -9,9 +18,16 @@ export interface PlaceCardProps {
 	avg: number;
 	address?: string;
 	photoref?: string;
+	togglePageDetails: () => void;
 }
 
-const PlaceCard: React.FC<PlaceCardProps> = ({ place, avg, address, photoref }: PlaceCardProps) => {
+const PlaceCard: React.FC<PlaceCardProps> = ({
+	place,
+	avg,
+	address,
+	photoref,
+	togglePageDetails,
+}: PlaceCardProps) => {
 	// prevent calls to remote server during testing
 	let imageSrc: ImageSourcePropType;
 	if (photoref && process.env.NODE_ENV !== "test") {
@@ -39,11 +55,11 @@ const PlaceCard: React.FC<PlaceCardProps> = ({ place, avg, address, photoref }: 
 
 	return (
 		<View style={styles.card}>
+			<Button onPress={togglePageDetails} title="Details" />
 			<View style={styles.alignText}>
 				<Text ellipsizeMode="tail" numberOfLines={1} style={styles.title}>
 					{place}
 				</Text>
-
 				<Text ellipsizeMode="tail" numberOfLines={1} style={styles.cardContent}>
 					{address}
 				</Text>

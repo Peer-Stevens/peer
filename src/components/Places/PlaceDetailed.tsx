@@ -1,6 +1,6 @@
 //This is where we will be displaying the information of each single place
 import React from "react";
-import { StyleSheet, Dimensions, View } from "react-native";
+import { StyleSheet, Dimensions, View, Text, Button } from "react-native";
 
 export interface PlaceProps {
 	place?: string;
@@ -11,7 +11,12 @@ export interface PlaceProps {
 }
 
 const PlaceDetailed: React.FC<PlaceProps> = ({ togglePage }: PlaceProps) => {
-	return <View>Detailed view of any specific location</View>;
+	return (
+		<View style={styles.border}>
+			<Text>Detailed view of any specific location</Text>
+			<Button onPress={togglePage} title="Home" />
+		</View>
+	);
 };
 
 const styles = StyleSheet.create({
@@ -20,6 +25,10 @@ const styles = StyleSheet.create({
 		height: Dimensions.get("window").height * 0.9,
 		borderWidth: 3,
 		borderColor: "black",
+		justifyContent: "center",
+	},
+	text: {
+		textAlign: "center",
 	},
 });
 

@@ -20,11 +20,18 @@ const MainScreen: React.FC = () => {
 	if (page === "strollScreen") {
 		return <StrollScreen toggleIsStrolling={goToMapScreen} />;
 	} else if (page === "detailsScreen") {
-		return <DetailedViewScreen togglePage={goToMapScreen} />;
+		return <DetailedViewScreen placeID={placeID} togglePage={goToMapScreen} />;
 	} else {
 		//Make sure that mapScreen takes in setPlace and uses it
-		return <MapScreen toggleIsStrolling={goToStrollScreen} />;
-		// return <MapScreen setPlace={setPlaceID} toggleIsStrolling={goToStrollScreen} togglePageDetails={goToDetails} />;
+
+		// return <MapScreen toggleIsStrolling={goToStrollScreen} />;
+		return (
+			<MapScreen
+				setPlaceID={() => setPlaceID}
+				toggleIsStrolling={goToStrollScreen}
+				togglePageDetails={goToDetails}
+			/>
+		);
 	}
 };
 

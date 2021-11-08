@@ -8,7 +8,11 @@ const deepEqual = (a: Place[], b: Place[]): boolean => {
 	return JSON.stringify(a) === JSON.stringify(b);
 };
 
-const PlaceList = (): JSX.Element => {
+export interface PlaceListProps {
+	togglePageDetails: () => void;
+}
+
+const PlaceList = ({ togglePageDetails }: PlaceListProps): JSX.Element => {
 	//const [places, setPlaces] = useState<Place[]>([]);
 	const { nearbyPlaces } = useNearbyPlaces();
 
@@ -21,6 +25,7 @@ const PlaceList = (): JSX.Element => {
 				avg={0} // TODO: get average from our server
 				address={value.formatted_address}
 				photoref={photo}
+				togglePageDetails={togglePageDetails}
 			/>
 		);
 	});
