@@ -7,6 +7,8 @@ export const useLocation = (): {
 	const [location, setLocation] = useState<Location.LocationObject>();
 
 	useEffect(() => {
+		//Location.requestForegroundPermissionsAsync()
+
 		let locationSubscription:
 			| {
 					remove(): void;

@@ -7,14 +7,14 @@ export interface PlaceProps {
 	avg?: number;
 	address?: string;
 	photoref?: string;
-	togglePage: () => void;
+	setPage: () => void;
 }
 
-const PlaceDetailed: React.FC<PlaceProps> = ({ togglePage }: PlaceProps) => {
+const PlaceDetailed: React.FC<PlaceProps> = ({ setPage }: PlaceProps) => {
 	return (
 		<View style={styles.border}>
 			<Text>Detailed view of any specific location</Text>
-			<Button onPress={togglePage} title="Home" />
+			<Button onPress={setPage} title="Home" />
 		</View>
 	);
 };

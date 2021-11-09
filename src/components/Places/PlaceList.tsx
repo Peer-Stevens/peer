@@ -9,10 +9,10 @@ const deepEqual = (a: Place[], b: Place[]): boolean => {
 };
 
 export interface PlaceListProps {
-	togglePageDetails: () => void;
+	setPageDetails: () => void;
 }
 
-const PlaceList = ({ togglePageDetails }: PlaceListProps): JSX.Element => {
+const PlaceList = ({ setPageDetails }: PlaceListProps): JSX.Element => {
 	//const [places, setPlaces] = useState<Place[]>([]);
 	const { nearbyPlaces } = useNearbyPlaces();
 
@@ -25,7 +25,7 @@ const PlaceList = ({ togglePageDetails }: PlaceListProps): JSX.Element => {
 				avg={0} // TODO: get average from our server
 				address={value.formatted_address}
 				photoref={photo}
-				togglePageDetails={togglePageDetails}
+				setPageDetails={setPageDetails}
 			/>
 		);
 	});

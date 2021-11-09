@@ -18,7 +18,7 @@ export interface PlaceCardProps {
 	avg: number;
 	address?: string;
 	photoref?: string;
-	togglePageDetails: () => void;
+	setPageDetails: () => void;
 }
 
 const PlaceCard: React.FC<PlaceCardProps> = ({
@@ -26,7 +26,7 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 	avg,
 	address,
 	photoref,
-	togglePageDetails,
+	setPageDetails,
 }: PlaceCardProps) => {
 	// prevent calls to remote server during testing
 	let imageSrc: ImageSourcePropType;
@@ -55,7 +55,7 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 
 	return (
 		<View style={styles.card}>
-			<Button onPress={togglePageDetails} title="Details" />
+			<Button onPress={setPageDetails} title="Details" />
 			<View style={styles.alignText}>
 				<Text ellipsizeMode="tail" numberOfLines={1} style={styles.title}>
 					{place}

@@ -7,16 +7,16 @@ import PlaceList from "../components/Places/PlaceList";
 import StrollButton from "../components/StrollButton";
 
 export interface MapScreenProps {
-	toggleIsStrolling: (screen: string) => void;
-	togglePageDetails: (screen: string) => void;
+	setPageStrolling: (screen: string) => void;
+	setPageDetails: (screen: string) => void;
 
 	//check what type is placeID
 	setPlaceID?: () => void;
 }
 
 const MapScreen: React.FC<MapScreenProps> = ({
-	toggleIsStrolling,
-	togglePageDetails,
+	setPageStrolling,
+	setPageDetails,
 	setPlaceID,
 }: MapScreenProps) => {
 	const [isShowingFilters, setIsShowingFilters] = useState<boolean>(false);
@@ -53,14 +53,14 @@ const MapScreen: React.FC<MapScreenProps> = ({
 					/>
 				) : null}
 				<StrollButton
-					onStartStrolling={() => toggleIsStrolling("strollScreen")}
+					onStartStrolling={() => setPageStrolling("strollScreen")}
 					isShowingFilters={isShowingFilters}
 					setIsShowingFilters={setIsShowingFilters}
 				/>
 			</View>
 
 			{/* Add props to PlaceList that takes in the placeID and does something with it */}
-			<PlaceList togglePageDetails={() => togglePageDetails("detailsScreen")} />
+			<PlaceList setPageDetails={() => setPageDetails("detailsScreen")} />
 		</View>
 	);
 };

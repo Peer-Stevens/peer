@@ -2,15 +2,15 @@ import React from "react";
 import PlaceDetailed from "../components/Places/PlaceDetailed";
 
 export interface DetailedViewScreenProps {
-	togglePage: () => void;
+	setPage: () => void;
 	placeID?: string;
 }
 
 const DetailedViewScreen: React.FC<DetailedViewScreenProps> = ({
-	togglePage,
+	setPage,
 	placeID,
 }: DetailedViewScreenProps) => {
-	return <PlaceDetailed togglePage={togglePage} />;
+	return <PlaceDetailed setPage={setPage} />;
 };
 
 export default DetailedViewScreen;
