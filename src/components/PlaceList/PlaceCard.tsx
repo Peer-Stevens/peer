@@ -8,22 +8,22 @@ import { computeDistanceMi } from "../../util/distance";
 import { LocationObject } from "expo-location";
 export interface PlaceCardProps {
 	place?: string;
-	avg: number;
 	address?: string;
 	photoref?: string;
 	location?: LocationObject;
 	longitude?: number;
 	latitude?: number;
+	avgRating?: number;
 }
 
 const PlaceCard: React.FC<PlaceCardProps> = ({
 	place,
-	avg,
 	address,
 	photoref,
 	location,
 	latitude,
 	longitude,
+	avgRating,
 }: PlaceCardProps) => {
 	const userCoords = {
 		latitude: location?.coords.latitude,
@@ -79,9 +79,11 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 					adjustsFontSizeToFit={true}
 					numberOfLines={2}
 					style={styles.cardContent}
-					accessibilityLabel={`Rating: ${avg} out of 5`}
+					accessibilityLabel={
+						avgRating ? `Rating: ${avgRating} out of 5` : "No known ratings"
+					}
 				>
-					Rating: {avg}/5
+					Rating: {avgRating || 0}/5
 				</Text>
 			</View>
 			{image}

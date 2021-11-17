@@ -7,6 +7,7 @@ import { useNearbyPlaces } from "../src/hooks/useNearbyPlaces";
 import { RelativeDirectionOutput, useCompass } from "../src/hooks/useCompass";
 import { PlaceData } from "@googlemaps/google-maps-services-js";
 import { computeDistanceFeet } from "../src/util/distance";
+import { PlaceWithAccesibilityData } from "../src/util/placeTypes";
 
 // mock use location to prevent querying for location data
 jest.mock("../src/hooks/useLocation");
@@ -43,7 +44,7 @@ const mockDistance = 5.58;
 // mock nearby places to prevent calls to remote server
 jest.mock("../src/hooks/useNearbyPlaces");
 const mockNearbyPlaces = useNearbyPlaces as jest.MockedFunction<typeof useNearbyPlaces>;
-const mockPlaces: Partial<PlaceData>[] = [
+const mockPlaces: Partial<PlaceWithAccesibilityData>[] = [
 	{
 		name: "The Absolute Best Place in the Whole Wide World",
 	},
@@ -86,7 +87,11 @@ describe("Nearby places tests", () => {
 		const namedMockPlaces = mockPlaces.filter(place => place.name);
 		for (const mockPlace of namedMockPlaces) {
 			if (!mockPlace.name) continue; // cannot happen
-			expect(getByText(`\u2022 ${mockPlace.name} is 5.58 feet to your right`)).toBeDefined();
+			expect(
+				getByText(
+					`\u2022 ${mockPlace.name} is 5.58 feet to your right and has no accessibility ratings.`
+				)
+			).toBeDefined();
 		}
 	});
 });

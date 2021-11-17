@@ -3,6 +3,7 @@ import { ScrollView, Dimensions, ActivityIndicator, View } from "react-native";
 import PlaceCard from "./PlaceCard";
 import { useNearbyPlaces } from "../../hooks/useNearbyPlaces";
 import { useLocation } from "../../hooks/useLocation";
+import { getAverageA11yRating } from "../../util/processA11yRatings";
 
 const PlaceList = (): JSX.Element => {
 	const { location } = useLocation();
@@ -14,12 +15,16 @@ const PlaceList = (): JSX.Element => {
 			<PlaceCard
 				key={index}
 				place={value.name}
-				avg={0} // TODO: get average from our server
 				address={value.formatted_address}
 				photoref={photo}
 				location={location}
 				latitude={value.geometry?.location.lat}
 				longitude={value.geometry?.location.lng}
+				avgRating={
+					value.accessibilityData
+						? Math.round(getAverageA11yRating(value) * 2) / 2
+						: undefined
+				}
 			/>
 		);
 	});
