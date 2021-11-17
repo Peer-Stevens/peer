@@ -5,6 +5,7 @@ import { useNearbyPlaces } from "../../hooks/useNearbyPlaces";
 import { useCompass } from "../../hooks/useCompass";
 import { useLocation } from "../../hooks/useLocation";
 import { computeDistanceFeet } from "../../util/distance";
+import { getPlaceRatingString } from "../../util/processA11yRatings";
 
 export const NearbyPlaces: React.FC<{ stopStrolling: () => void }> = ({ stopStrolling }) => {
 	const { location } = useLocation();
@@ -39,7 +40,8 @@ export const NearbyPlaces: React.FC<{ stopStrolling: () => void }> = ({ stopStro
 								>
 									{"\u2022"} {place.name} is{" "}
 									{computeDistanceFeet(userCoords, placeCoords)} feet{" "}
-									{relativeDirection.dirString}
+									{relativeDirection.dirString} and has{" "}
+									{getPlaceRatingString(place)} accessibility ratings.
 								</Text>
 							);
 						else
