@@ -1,4 +1,5 @@
 import { PlaceType1 } from "@googlemaps/google-maps-services-js";
+import type { Place } from "@googlemaps/google-maps-services-js";
 
 export enum PlaceTypes {
 	Travel = "Travel",
@@ -114,3 +115,14 @@ export type Services =
 	| PlaceType1.roofing_contractor
 	| PlaceType1.storage
 	| PlaceType1.travel_agency;
+
+export type PlaceWithAccesibilityData = Place & {
+	accessibilityData?: {
+		_id: string;
+		avgBraille: number;
+		avgFontReadability: number;
+		avgNavigability: number;
+		avgStaffHelpfulness: number;
+		avgGuideDogFriendly: number;
+	};
+};

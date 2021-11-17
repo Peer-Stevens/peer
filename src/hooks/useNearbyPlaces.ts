@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { useLocation } from "./useLocation";
 import { LocationObject } from "expo-location";
 import axios from "axios";
-import type { Place } from "@googlemaps/google-maps-services-js";
 import { SERVER_BASE_URL } from "../util/env";
+import type { PlaceWithAccesibilityData } from "../util/placeTypes";
 
 /**
  * Returns true if the two locations have the same latitude and longitude. Returns false
@@ -25,15 +25,15 @@ const hasSameCoordinates = (a?: LocationObject, b?: LocationObject): boolean => 
 	);
 };
 
-export const useNearbyPlaces = (): { nearbyPlaces?: Place[] } => {
+export const useNearbyPlaces = (): { nearbyPlaces?: PlaceWithAccesibilityData[] } => {
 	const { location } = useLocation();
 	const lastLocationRef = React.useRef<LocationObject | undefined>(undefined);
-	const [nearbyPlaces, setNearbyPlaces] = React.useState<Place[]>();
+	const [nearbyPlaces, setNearbyPlaces] = React.useState<PlaceWithAccesibilityData[]>();
 
 	const getNearbyPlaces = async (location: LocationObject) => {
 		if (hasSameCoordinates(location, lastLocationRef.current)) return;
-		const result = await axios.get<{ places: Place[] }>(
-			`${SERVER_BASE_URL}/getNearbyPlaces?latitude=${location.coords.latitude}&longitude=${location.coords.longitude}`
+		const result = await axios.get<{ places: PlaceWithAccesibilityData[] }>(
+			`${SERVER_BASE_URL}/getNearbyPlaces?latitude=${location.coords.latitude}&longitude=${location.coords.longitude}&includeRatings=true`
 		);
 		lastLocationRef.current = location;
 		setNearbyPlaces(result.data.places);
