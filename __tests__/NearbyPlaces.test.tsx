@@ -5,7 +5,6 @@ import type { LocationObject } from "expo-location";
 import { useLocation } from "../src/hooks/useLocation";
 import { useNearbyPlaces } from "../src/hooks/useNearbyPlaces";
 import { RelativeDirectionOutput, useCompass } from "../src/hooks/useCompass";
-import { PlaceData } from "@googlemaps/google-maps-services-js";
 import { computeDistanceFeet } from "../src/util/distance";
 import { PlaceWithAccesibilityData } from "../src/util/placeTypes";
 
