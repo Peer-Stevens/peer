@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { Dimensions, View, StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import FilterBox from "../components/FilterBox";
@@ -8,15 +8,15 @@ import StrollButton from "../components/StrollButton";
 
 export interface MapScreenProps {
 	setPageStrolling: (screen: string) => void;
-	setPageDetails: (screen: string) => void;
+	goToDetails: () => void;
 
 	//check what type is placeID
-	setPlaceID?: () => void;
+	setPlaceID: Dispatch<SetStateAction<string | undefined>>;
 }
 
 const MapScreen: React.FC<MapScreenProps> = ({
 	setPageStrolling,
-	setPageDetails,
+	goToDetails,
 	setPlaceID,
 }: MapScreenProps) => {
 	const [isShowingFilters, setIsShowingFilters] = useState<boolean>(false);
@@ -60,10 +60,7 @@ const MapScreen: React.FC<MapScreenProps> = ({
 			</View>
 
 			{/* Add props to PlaceList that takes in the placeID and does something with it */}
-			<PlaceList
-				setPlaceID={() => setPlaceID}
-				setPageDetails={() => setPageDetails("detailsScreen")}
-			/>
+			<PlaceList setPlaceID={setPlaceID} goToDetails={goToDetails} />
 		</View>
 	);
 };

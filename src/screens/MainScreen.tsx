@@ -10,7 +10,7 @@ import DetailedViewScreen from "./DetailedViewScreen";
  */
 const MainScreen: React.FC = () => {
 	const [page, setPage] = useState("mapScreen");
-	const [placeID, setPlaceID] = useState();
+	const [placeID, setPlaceID] = useState<string>();
 
 	//Makes new function that calls setPage with a specific argument
 	const goToMapScreen = () => setPage("mapScreen");
@@ -27,9 +27,9 @@ const MainScreen: React.FC = () => {
 		// return <MapScreen toggleIsStrolling={goToStrollScreen} />;
 		return (
 			<MapScreen
-				setPlaceID={() => setPlaceID}
+				setPlaceID={setPlaceID}
 				setPageStrolling={goToStrollScreen}
-				setPageDetails={goToDetails}
+				goToDetails={goToDetails}
 			/>
 		);
 	}

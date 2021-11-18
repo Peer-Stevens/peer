@@ -14,23 +14,6 @@ export interface PlaceProps {
 	setPage: () => void;
 }
 
-// const [placeDetails, setPlaceDetails] = useState<{ placeDetails: PlaceDetailsResponseData }>();
-
-// //useffect to make an axios request to the server
-// const getPlaceDetails = async (placeID: string) => {
-// 	const result = await axios.get<{ placeDetails: PlaceDetailsResponseData }>(
-// 		`${SERVER_BASE_URL}/getPlaceDetails/${placeID}`
-// 	);
-// 	setPlaceDetails(result.data)
-// }
-
-// useEffect(() => {
-// 	// `void` here means "we don't need `await` because everything is handled in the function"
-// 	if (placeID) {
-// 		getPlaceDetails(placeID)
-// 	}
-// }, [location]);
-
 const PlaceDetailed: React.FC<PlaceProps> = ({ setPage, placeID }: PlaceProps) => {
 	const [placeDetails, setPlaceDetails] = useState<{ placeDetails: PlaceDetailsResponseData }>();
 
@@ -48,13 +31,13 @@ const PlaceDetailed: React.FC<PlaceProps> = ({ setPage, placeID }: PlaceProps) =
 				await getPlaceDetails(placeID);
 			}
 		})();
-	}, [placeDetails]);
+	}, [placeID]);
 
 	return (
 		<View style={styles.border}>
 			<Text>Detailed view of any specific location</Text>
 			<Text>{placeID}</Text>
-			<Text>{placeDetails}</Text>
+			<Text>{placeDetails?.placeDetails.result.name}</Text>
 			<Button onPress={setPage} title="Home" />
 		</View>
 	);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import {
 	StyleSheet,
 	Dimensions,
@@ -18,9 +18,9 @@ export interface PlaceCardProps {
 	avg: number;
 	address?: string;
 	photoref?: string;
-	setPageDetails: () => void;
+	goToDetails: () => void;
 	placeID?: string;
-	setPlaceID: (placeID: string) => void;
+	setPlaceID: Dispatch<SetStateAction<string | undefined>>;
 }
 
 const PlaceCard: React.FC<PlaceCardProps> = ({
@@ -29,7 +29,7 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 	address,
 	photoref,
 	placeID,
-	setPageDetails,
+	goToDetails,
 	setPlaceID,
 }: PlaceCardProps) => {
 	// prevent calls to remote server during testing
@@ -60,7 +60,7 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 	);
 
 	const setPageAndDetails = () => {
-		setPageDetails();
+		goToDetails();
 		if (placeID) {
 			setPlaceID(placeID);
 		}

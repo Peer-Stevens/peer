@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { ScrollView, Dimensions, ActivityIndicator, View } from "react-native";
 import PlaceCard from "./PlaceCard";
 import type { Place } from "@googlemaps/google-maps-services-js";
@@ -9,11 +9,11 @@ const deepEqual = (a: Place[], b: Place[]): boolean => {
 };
 
 export interface PlaceListProps {
-	setPageDetails: () => void;
-	setPlaceID: () => void;
+	goToDetails: () => void;
+	setPlaceID: Dispatch<SetStateAction<string | undefined>>;
 }
 
-const PlaceList = ({ setPageDetails, setPlaceID }: PlaceListProps): JSX.Element => {
+const PlaceList = ({ goToDetails, setPlaceID }: PlaceListProps): JSX.Element => {
 	//const [places, setPlaces] = useState<Place[]>([]);
 	const { nearbyPlaces } = useNearbyPlaces();
 
@@ -27,9 +27,9 @@ const PlaceList = ({ setPageDetails, setPlaceID }: PlaceListProps): JSX.Element 
 				avg={0} // TODO: get average from our server
 				address={value.formatted_address}
 				photoref={photo}
-				setPageDetails={setPageDetails}
+				goToDetails={goToDetails}
 				placeID={PlaceID}
-				setPlaceID={() => setPlaceID()}
+				setPlaceID={setPlaceID}
 			/>
 		);
 	});
