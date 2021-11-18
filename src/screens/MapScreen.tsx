@@ -60,7 +60,10 @@ const MapScreen: React.FC<MapScreenProps> = ({
 			</View>
 
 			{/* Add props to PlaceList that takes in the placeID and does something with it */}
-			<PlaceList setPageDetails={() => setPageDetails("detailsScreen")} />
+			<PlaceList
+				setPlaceID={() => setPlaceID}
+				setPageDetails={() => setPageDetails("detailsScreen")}
+			/>
 		</View>
 	);
 };

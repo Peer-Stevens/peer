@@ -10,22 +10,26 @@ const deepEqual = (a: Place[], b: Place[]): boolean => {
 
 export interface PlaceListProps {
 	setPageDetails: () => void;
+	setPlaceID: () => void;
 }
 
-const PlaceList = ({ setPageDetails }: PlaceListProps): JSX.Element => {
+const PlaceList = ({ setPageDetails, setPlaceID }: PlaceListProps): JSX.Element => {
 	//const [places, setPlaces] = useState<Place[]>([]);
 	const { nearbyPlaces } = useNearbyPlaces();
 
 	const cardList = (nearbyPlaces || []).map((value, index) => {
 		const photo = value.photos ? value.photos[0].photo_reference : undefined;
+		const PlaceID = value.place_id;
 		return (
 			<PlaceCard
 				key={index}
-				place={value.name}
+				placeName={value.name}
 				avg={0} // TODO: get average from our server
 				address={value.formatted_address}
 				photoref={photo}
 				setPageDetails={setPageDetails}
+				placeID={PlaceID}
+				setPlaceID={() => setPlaceID()}
 			/>
 		);
 	});

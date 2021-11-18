@@ -14,19 +14,23 @@ import { TEXT_COLOR } from "../../util/colors";
 import PeerIcon from "../../../assets/icon.png";
 import { SERVER_BASE_URL } from "../../util/env";
 export interface PlaceCardProps {
-	place?: string;
+	placeName?: string;
 	avg: number;
 	address?: string;
 	photoref?: string;
 	setPageDetails: () => void;
+	placeID?: string;
+	setPlaceID: (placeID: string) => void;
 }
 
 const PlaceCard: React.FC<PlaceCardProps> = ({
-	place,
+	placeName,
 	avg,
 	address,
 	photoref,
+	placeID,
 	setPageDetails,
+	setPlaceID,
 }: PlaceCardProps) => {
 	// prevent calls to remote server during testing
 	let imageSrc: ImageSourcePropType;
@@ -39,7 +43,7 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 	const image = photoref ? (
 		<Image
 			accessible={true}
-			accessibilityLabel={place ? `Image of ${place}` : ""}
+			accessibilityLabel={placeName ? `Image of ${placeName}` : ""}
 			style={styles.imageStyle}
 			source={imageSrc}
 		/>
@@ -49,17 +53,29 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 			color={TEXT_COLOR}
 			size={100}
 			style={{ alignSelf: "center", marginHorizontal: 30 }}
-			accessibilityLabel={place ? `No image available for ${place}` : "No image available"}
+			accessibilityLabel={
+				placeName ? `No image available for ${placeName}` : "No image available"
+			}
 		/>
 	);
 
+	const setPageAndDetails = () => {
+		setPageDetails();
+		if (placeID) {
+			setPlaceID(placeID);
+		}
+	};
+
 	return (
 		<View style={styles.card}>
-			<Button onPress={setPageDetails} title="Details" />
+			<Button onPress={setPageAndDetails} title="Details" />
 			<View style={styles.alignText}>
 				<Text ellipsizeMode="tail" numberOfLines={1} style={styles.title}>
-					{place}
+					{placeName}
 				</Text>
+				{/* <Text ellipsizeMode="tail" numberOfLines={1} style={styles.title}>
+					{placeID}
+				</Text> */}
 				<Text ellipsizeMode="tail" numberOfLines={1} style={styles.cardContent}>
 					{address}
 				</Text>

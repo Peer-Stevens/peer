@@ -10,7 +10,6 @@ const DetailedViewScreen: React.FC<DetailedViewScreenProps> = ({
 	setPage,
 	placeID,
 }: DetailedViewScreenProps) => {
-	return <PlaceDetailed setPage={setPage} />;
+	return <PlaceDetailed placeID={placeID} setPage={setPage} />;
 };
-
 export default DetailedViewScreen;
