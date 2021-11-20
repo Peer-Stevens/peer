@@ -2,13 +2,14 @@ import React from "react";
 import { cleanup, fireEvent, render, RenderAPI } from "@testing-library/react-native";
 import App from "../App";
 import type { LocationObject } from "expo-location";
-import { useLocation } from "../src/components/NearbyPlaces/useLocation";
-import { RelativeDirectionOutput, useCompass } from "../src/components/NearbyPlaces/useCompass";
-import { useNearbyPlaces } from "../src/components/NearbyPlaces/useNearbyPlaces";
-import { PlaceData, PlacePhoto } from "@googlemaps/google-maps-services-js";
+import { useLocation } from "../src/hooks/useLocation";
+import { useNearbyPlaces } from "../src/hooks/useNearbyPlaces";
+import { RelativeDirectionOutput, useCompass } from "../src/hooks/useCompass";
+import { computeDistanceFeet } from "../src/util/distance";
+import { PlaceWithAccesibilityData } from "../src/util/placeTypes";
 
 // mock use location to prevent querying for location data
-jest.mock("../src/components/NearbyPlaces/useLocation");
+jest.mock("../src/hooks/useLocation");
 const mockUseLocation = useLocation as jest.MockedFunction<typeof useLocation>;
 const mockLocation: LocationObject = {
 	coords: {
@@ -24,21 +25,25 @@ const mockLocation: LocationObject = {
 };
 
 // mock use compass to prevent querying for compass data
-jest.mock("../src/components/NearbyPlaces/useCompass");
+jest.mock("../src/hooks/useCompass");
 const mockUseCompass = useCompass as jest.MockedFunction<typeof useCompass>;
 const mockRelativeDirection = (): RelativeDirectionOutput => {
 	return {
 		absoluteAngle: 0,
 		headingToPlaceAngle: 90,
 		dirString: "to your right",
-		distanceInFeet: 5.58,
 	};
 };
 
+// mock compute distance because user location is nonsense
+jest.mock("../src/util/distance.ts");
+const mockComputeDistance = computeDistanceFeet as jest.MockedFunction<typeof computeDistanceFeet>;
+const mockDistance = 5.58;
+
 // mock nearby places to prevent calls to remote server
-jest.mock("../src/components/NearbyPlaces/useNearbyPlaces");
+jest.mock("../src/hooks/useNearbyPlaces");
 const mockNearbyPlaces = useNearbyPlaces as jest.MockedFunction<typeof useNearbyPlaces>;
-const mockPlaces: Partial<PlaceData>[] = [
+const mockPlaces: Partial<PlaceWithAccesibilityData>[] = [
 	{
 		name: "The Absolute Best Place in the Whole Wide World",
 	},
@@ -55,6 +60,7 @@ beforeEach(() => {
 	mockUseLocation.mockReturnValue({ location: mockLocation });
 	mockNearbyPlaces.mockReturnValue({ nearbyPlaces: mockPlaces });
 	mockUseCompass.mockReturnValue({ heading: 0, getRelativeDirection: mockRelativeDirection });
+	mockComputeDistance.mockReturnValue(mockDistance);
 
 	tr = render(<App />);
 	// press take a stroll button
@@ -80,7 +86,11 @@ describe("Nearby places tests", () => {
 		const namedMockPlaces = mockPlaces.filter(place => place.name);
 		for (const mockPlace of namedMockPlaces) {
 			if (!mockPlace.name) continue; // cannot happen
-			expect(getByText(`\u2022 ${mockPlace.name} is 5.58 feet to your right`)).toBeDefined();
+			expect(
+				getByText(
+					`\u2022 ${mockPlace.name} is 5.58 feet to your right and has no accessibility ratings.`
+				)
+			).toBeDefined();
 		}
 	});
 });

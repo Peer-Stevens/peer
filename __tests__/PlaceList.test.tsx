@@ -1,14 +1,19 @@
 import React from "react";
 import { cleanup, render } from "@testing-library/react-native";
-import { useNearbyPlaces } from "../src/components/NearbyPlaces/useNearbyPlaces";
+import { useNearbyPlaces } from "../src/hooks/useNearbyPlaces";
 import { PlaceData, PlacePhoto } from "@googlemaps/google-maps-services-js";
+import { computeDistanceMi } from "../src/util/distance";
 import App from "../App";
 
 afterEach(cleanup);
 jest.useFakeTimers();
 
+// mock distance computation because user location is not available during testing
+jest.mock("../src/util/distance");
+const mockDistMi = computeDistanceMi as jest.MockedFunction<typeof computeDistanceMi>;
+
 // mock axios to prevent calls to remote server for nearby places
-jest.mock("../src/components/NearbyPlaces/useNearbyPlaces");
+jest.mock("../src/hooks/useNearbyPlaces");
 const mockNearbyPlaces = useNearbyPlaces as jest.MockedFunction<typeof useNearbyPlaces>;
 const mockPhotosField: PlacePhoto[] = [
 	{
@@ -104,5 +109,42 @@ describe("Place list tests", () => {
 			if (!mockPlace?.name) continue;
 			expect(getByLabelText(`No image available for ${mockPlace.name}`)).toBeDefined();
 		}
+	});
+
+	it("renders the text stating how far away a location is from the user", () => {
+		// Arrange
+		const distances = [0.13, 0.41, 0.34];
+		for (const distance of distances) {
+			mockDistMi.mockReturnValueOnce(distance);
+		}
+		const { getByText } = render(<App />);
+
+		// Assert
+		expect(getByText("0.13 mi away")).toBeDefined();
+		expect(getByText("0.41 mi away")).toBeDefined();
+		expect(getByText("0.34 mi away")).toBeDefined();
+	});
+
+	it("does not render incorrect text about distance away", () => {
+		// Arrange
+		mockDistMi.mockReturnValue(21);
+		const { queryByText } = render(<App />);
+
+		// Assert
+		expect(queryByText("9001 mi away")).toBeNull();
+	});
+
+	it("renders text stating how far the location is with an accessibility label", () => {
+		// Arrange
+		const distances = [0.13, 0.41, 0.34];
+		for (const distance of distances) {
+			mockDistMi.mockReturnValueOnce(distance);
+		}
+		const { getByLabelText } = render(<App />);
+
+		// Assert
+		expect(getByLabelText("0.13 miles away")).toBeDefined();
+		expect(getByLabelText("0.41 miles away")).toBeDefined();
+		expect(getByLabelText("0.34 miles away")).toBeDefined();
 	});
 });

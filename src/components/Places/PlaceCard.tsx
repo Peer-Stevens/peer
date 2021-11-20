@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useMemo } from "react";
 import {
 	StyleSheet,
 	Dimensions,
@@ -13,25 +13,43 @@ import Icon from "react-native-vector-icons/Feather";
 import { TEXT_COLOR } from "../../util/colors";
 import PeerIcon from "../../../assets/icon.png";
 import { SERVER_BASE_URL } from "../../util/env";
+import { computeDistanceMi } from "../../util/distance";
+import { LocationObject } from "expo-location";
 export interface PlaceCardProps {
 	placeName?: string;
-	avg: number;
 	address?: string;
 	photoref?: string;
+	location?: LocationObject;
+	longitude?: number;
+	latitude?: number;
 	goToDetails: () => void;
 	placeID?: string;
 	setPlaceID: Dispatch<SetStateAction<string | undefined>>;
+	avgRating?: number;
 }
 
 const PlaceCard: React.FC<PlaceCardProps> = ({
 	placeName,
-	avg,
 	address,
 	photoref,
+	location,
+	latitude,
+	longitude,
+	avgRating,
 	placeID,
 	goToDetails,
 	setPlaceID,
 }: PlaceCardProps) => {
+	const userCoords = {
+		latitude: location?.coords.latitude,
+		longitude: location?.coords.longitude,
+	};
+	const placeCoords = { latitude: latitude, longitude: longitude };
+	const distanceInMi = useMemo<string | undefined>(
+		() => computeDistanceMi(userCoords, placeCoords)?.toPrecision(2),
+		[userCoords, placeCoords]
+	);
+
 	// prevent calls to remote server during testing
 	let imageSrc: ImageSourcePropType;
 	if (photoref && process.env.NODE_ENV !== "test") {
@@ -73,9 +91,12 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 				<Text ellipsizeMode="tail" numberOfLines={1} style={styles.title}>
 					{placeName}
 				</Text>
-				{/* <Text ellipsizeMode="tail" numberOfLines={1} style={styles.title}>
-					{placeID}
-				</Text> */}
+				<Text
+					accessibilityLabel={distanceInMi ? `${distanceInMi} miles away` : ""}
+					style={{ fontSize: 25 }}
+				>
+					{distanceInMi ? `${distanceInMi} mi away` : ""}
+				</Text>
 				<Text ellipsizeMode="tail" numberOfLines={1} style={styles.cardContent}>
 					{address}
 				</Text>
@@ -83,9 +104,11 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 					adjustsFontSizeToFit={true}
 					numberOfLines={2}
 					style={styles.cardContent}
-					accessibilityLabel={`Rating: ${avg} out of 5`}
+					accessibilityLabel={
+						avgRating ? `Rating: ${avgRating} out of 5` : "No known ratings"
+					}
 				>
-					Rating: {avg}/5
+					Rating: {avgRating || 0}/5
 				</Text>
 			</View>
 			{image}

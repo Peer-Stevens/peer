@@ -7,8 +7,7 @@ export const useLocation = (): {
 	const [location, setLocation] = useState<Location.LocationObject>();
 
 	useEffect(() => {
-		//Location.requestForegroundPermissionsAsync()
-
+		let permission: Location.LocationPermissionResponse;
 		let locationSubscription:
 			| {
 					remove(): void;
@@ -16,6 +15,7 @@ export const useLocation = (): {
 			| undefined;
 
 		(async () => {
+			permission = await Location.requestForegroundPermissionsAsync();
 			locationSubscription = await Location.watchPositionAsync(
 				{
 					accuracy: Location.Accuracy.Lowest,
@@ -25,7 +25,7 @@ export const useLocation = (): {
 		})();
 
 		return () => {
-			if (locationSubscription) {
+			if (locationSubscription && permission) {
 				void locationSubscription.remove();
 			}
 		};

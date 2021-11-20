@@ -9,6 +9,7 @@ export interface ButtonProps {
 	text?: string;
 	iconName?: string;
 	accessibilityLabel: string; // not optional for this project.
+	accessibilityHint?: string;
 	onPress: VoidFunction;
 	//eslint-disable-next-line @typescript-eslint/ban-types
 	style?: StyleProp<object>; // TODO: update generic from "object"
@@ -21,6 +22,7 @@ export const Button: React.FC<ButtonProps> = ({
 	text,
 	iconName: image,
 	accessibilityLabel,
+	accessibilityHint,
 	onPress,
 	style,
 	children,
@@ -72,6 +74,7 @@ export const Button: React.FC<ButtonProps> = ({
 			}}
 			style={StyleSheet.compose(styles.button, style)}
 			accessibilityLabel={accessibilityLabel}
+			accessibilityHint={accessibilityHint}
 		>
 			<View>{display}</View>
 		</Pressable>
