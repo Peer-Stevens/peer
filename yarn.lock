@@ -1684,21 +1684,21 @@
   resolved "https://registry.yarnpkg.com/@gar/promisify/-/promisify-1.1.2.tgz#30aa825f11d438671d585bd44e7fd564535fc210"
   integrity sha512-82cpyJyKRoQoRi+14ibCeGPu0CwypgtBAdBhq1WfvagpCZNKqwXbKwXllYSMG91DhmG4jt9gN8eP6lGOtozuaw==
 
-"@googlemaps/google-maps-services-js@3.3.1":
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/@googlemaps/google-maps-services-js/-/google-maps-services-js-3.3.1.tgz#e0fd5267d595acf63258a2fe053c7f1a19b3b914"
-  integrity sha512-Wg4IEQD+Pds2BZydxI2CVbqPCROfwzKQ8r7VRC2FI6aSdtAW8pNcjil9LiQEjy3NX6CA5ze6d4xPABcujfFUKg==
+"@googlemaps/google-maps-services-js@3.3.2":
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/@googlemaps/google-maps-services-js/-/google-maps-services-js-3.3.2.tgz#7eb54e3f3f02cd014c3d96ae07cd7bfd18529c86"
+  integrity sha512-euDGbfxeV/sPUCVFdfHmbSm5z5J8oppYVvrWeHUJq3PDRUBsvZ4s6Zy8GsFYFmy7YYWiVELFzqhrHMa54uCcDw==
   dependencies:
-    "@googlemaps/url-signature" "^1.0.2"
+    "@googlemaps/url-signature" "^1.0.4"
     agentkeepalive "^4.1.0"
     axios "^0.24.0"
     query-string "^7.0.1"
     retry-axios "^2.2.1"
 
-"@googlemaps/url-signature@^1.0.2":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@googlemaps/url-signature/-/url-signature-1.0.3.tgz#9d7c43117a792ac579b56e9d406cd68e67a1f88c"
-  integrity sha512-X19BrKR2cvC9XacyQVWzmVH7tKoOVlTE+Wfb5ookq3hs1OyJGfOt2eOKQ2+PkvU0r5ebBR0o9dCAH+Kf46HABw==
+"@googlemaps/url-signature@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@googlemaps/url-signature/-/url-signature-1.0.4.tgz#bd94dbe372187661bdf4850d89e3748c38187cd2"
+  integrity sha512-9OPJzSi/1hz7ieDbdVCEIgpfIgdPyAA+EkOrbDXPsG81//TtrIiRS/0RrDCsG0d2UGcXBxMkZGF6Y1sbsMP7oA==
   dependencies:
     crypto-js "^4.1.1"
 
@@ -2549,21 +2549,13 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@>=16.9.0":
-  version "17.0.34"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.34.tgz#797b66d359b692e3f19991b6b07e4b0c706c0102"
-  integrity sha512-46FEGrMjc2+8XhHXILr+3+/sTe3OfzSPU9YGKILLrUYbQ1CLQC9Daqo1KzENGXAWwrFwiY0l4ZbF20gRvgpWTg==
+"@types/react@*", "@types/react@>=16.9.0", "@types/react@~17.0.35":
+  version "17.0.35"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.35.tgz#217164cf830267d56cd1aec09dcf25a541eedd4c"
+  integrity sha512-r3C8/TJuri/SLZiiwwxQoLAoavaczARfT9up9b4Jr65+ErAUX3MIkU0oMOQnrpfgHme8zIqZLX7O5nnjm5Wayw==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
-    csstype "^3.0.2"
-
-"@types/react@~16.9.35":
-  version "16.9.56"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.56.tgz#ea25847b53c5bec064933095fc366b1462e2adf0"
-  integrity sha512-gIkl4J44G/qxbuC6r2Xh+D3CGZpJ+NdWTItAPmZbR5mUS+JQ8Zvzpl0ea5qT/ZT3ZNTUcDKUVqV3xBE8wv/DyQ==
-  dependencies:
-    "@types/prop-types" "*"
     csstype "^3.0.2"
 
 "@types/responselike@*", "@types/responselike@^1.0.0":
@@ -11694,10 +11686,10 @@ pretty-format@^27.0.0, pretty-format@^27.2.5:
     ansi-styles "^5.0.0"
     react-is "^17.0.1"
 
-pretty-quick@^3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/pretty-quick/-/pretty-quick-3.1.1.tgz#93ca4e2dd38cc4e970e3f54a0ead317a25454688"
-  integrity sha512-ZYLGiMoV2jcaas3vTJrLvKAYsxDoXQBUn8OSTxkl67Fyov9lyXivJTl0+2WVh+y6EovGcw7Lm5ThYpH+Sh3XxQ==
+pretty-quick@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/pretty-quick/-/pretty-quick-3.1.2.tgz#89d8741af7122cbd7f34182df746c5a7ea360b5c"
+  integrity sha512-T+fpTJrDjTzewql4p3lKrRA7z3MrNyjBK1MKeaBm5PpKwATgVm885TpY7TgY8KFt5Q1Qn3QDseRQcyX9AKTKkA==
   dependencies:
     chalk "^3.0.0"
     execa "^4.0.0"
