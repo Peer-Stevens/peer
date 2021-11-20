@@ -13,6 +13,8 @@
 		"lint-staged": "pretty-quick --staged && lint-staged"
 	},
 	"dependencies": {
+		"@unimodules/core": "^7.1.2",
+		"@unimodules/react-native-adapter": "^6.3.9",
 		"axios": "^0.24.0",
 		"expo": "~43.0.3",
 		"expo-cli": "^4.13.0",
