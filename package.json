@@ -34,7 +34,7 @@
 		"@types/jest": "^27.0.3",
 		"@types/react": "~17.0.35",
 		"@types/react-native": "^0.66.2",
-		"@types/react-native-vector-icons": "^6.4.9",
+		"@types/react-native-vector-icons": "^6.4.10",
 		"@types/react-test-renderer": "^17.0.1",
 		"@typescript-eslint/eslint-plugin": "^4.31.0",
 		"@typescript-eslint/parser": "^4.31.0",
