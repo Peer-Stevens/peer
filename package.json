@@ -32,7 +32,7 @@
 		"@testing-library/react-hooks": "^7.0.2",
 		"@testing-library/react-native": "^8.0.0",
 		"@types/jest": "^27.0.3",
-		"@types/react": "~17.0.36",
+		"@types/react": "~17.0.37",
 		"@types/react-native": "^0.66.5",
 		"@types/react-native-vector-icons": "^6.4.10",
 		"@types/react-test-renderer": "^17.0.1",
