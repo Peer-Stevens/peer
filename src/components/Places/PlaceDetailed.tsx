@@ -1,11 +1,13 @@
 //This is where we will be displaying the information of each single place
 import React, { useState, useEffect, useMemo } from "react";
-import { StyleSheet, Dimensions, View, Text, Button } from "react-native";
+import { StyleSheet, Dimensions, View, Text, ActivityIndicator } from "react-native";
 import axios from "axios";
 import { computeDistanceMi } from "../../util/distance";
 import { SERVER_BASE_URL } from "../../util/env";
 import { useLocation } from "../../hooks/useLocation";
 import { PlaceDetailsResponseData } from "@googlemaps/google-maps-services-js";
+import { Button } from "../Button";
+import { TEXT_COLOR } from "../../util/colors";
 
 export interface PlaceProps {
 	place?: string;
@@ -55,23 +57,43 @@ const PlaceDetailed: React.FC<PlaceProps> = ({ setPage, placeID }: PlaceProps) =
 		})();
 	}, [placeID]);
 
-	return (
-		<View style={styles.border}>
-			<Text ellipsizeMode="tail" numberOfLines={2} style={styles.title}>
-				{placeDetails?.placeDetails.result.name}
-			</Text>
-			<Text ellipsizeMode="tail" numberOfLines={2} style={styles.text}>
-				{placeDetails?.placeDetails.result.formatted_address}
-			</Text>
-			<Text
-				accessibilityLabel={distanceInMi ? `${distanceInMi} miles away` : ""}
-				style={styles.text}
+	if (placeDetails) {
+		return (
+			<View style={styles.border}>
+				<Text ellipsizeMode="tail" numberOfLines={2} style={styles.title}>
+					{placeDetails?.placeDetails.result.name}
+				</Text>
+				<Text ellipsizeMode="tail" numberOfLines={2} style={styles.text}>
+					{placeDetails?.placeDetails.result.formatted_address}
+				</Text>
+				<Text
+					accessibilityLabel={distanceInMi ? `${distanceInMi} miles away` : ""}
+					style={styles.text}
+				>
+					{distanceInMi ? `${distanceInMi} mi away` : ""}
+				</Text>
+				{/* <Button onPress={setPage} title="Home" /> */}
+				<Button
+					style={styles.homeBtn}
+					onPress={setPage}
+					accessibilityLabel="Return to Home Page"
+					text="Go Home"
+				/>
+			</View>
+		);
+	} else {
+		return (
+			<View
+				style={{
+					height: Dimensions.get("window").height,
+					display: "flex",
+					justifyContent: "center",
+				}}
 			>
-				{distanceInMi ? `${distanceInMi} mi away` : ""}
-			</Text>
-			<Button onPress={setPage} title="Home" />
-		</View>
-	);
+				<ActivityIndicator size="large" color="#000000" />
+			</View>
+		);
+	}
 };
 
 const styles = StyleSheet.create({
@@ -91,6 +113,10 @@ const styles = StyleSheet.create({
 	text: {
 		textAlign: "center",
 		fontSize: 30,
+	},
+	homeBtn: {
+		borderWidth: 3,
+		borderColor: TEXT_COLOR,
 	},
 });
 

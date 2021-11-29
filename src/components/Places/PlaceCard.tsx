@@ -86,20 +86,26 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 
 	return (
 		<View style={styles.card}>
-			<Button onPress={setPageAndDetails} title="Details" />
+			{/* <Button onPress={setPageAndDetails} title="Details" /> */}
 			<View style={styles.alignText}>
-				<Text ellipsizeMode="tail" numberOfLines={1} style={styles.title}>
-					{placeName}
-				</Text>
-				<Text
-					accessibilityLabel={distanceInMi ? `${distanceInMi} miles away` : ""}
-					style={{ fontSize: 25 }}
-				>
-					{distanceInMi ? `${distanceInMi} mi away` : ""}
-				</Text>
-				<Text ellipsizeMode="tail" numberOfLines={1} style={styles.cardContent}>
-					{address}
-				</Text>
+				<Pressable onPress={setPageAndDetails}>
+					<Text ellipsizeMode="tail" numberOfLines={1} style={styles.title}>
+						{placeName}
+					</Text>
+				</Pressable>
+				<Pressable onPress={setPageAndDetails}>
+					<Text
+						accessibilityLabel={distanceInMi ? `${distanceInMi} miles away` : ""}
+						style={{ fontSize: 25 }}
+					>
+						{distanceInMi ? `${distanceInMi} mi away` : ""}
+					</Text>
+				</Pressable>
+				<Pressable onPress={setPageAndDetails}>
+					<Text ellipsizeMode="tail" numberOfLines={1} style={styles.cardContent}>
+						{address}
+					</Text>
+				</Pressable>
 				<Text
 					adjustsFontSizeToFit={true}
 					numberOfLines={2}
