@@ -21,27 +21,23 @@ export interface PlaceProps {
 const PlaceDetailed: React.FC<PlaceProps> = ({ setPage, placeID }: PlaceProps) => {
 	const [placeDetails, setPlaceDetails] = useState<{ placeDetails: PlaceDetailsResponseData }>();
 
-	//get user location for future reference
 	const { location } = useLocation();
 	const userCoords = {
 		latitude: location?.coords.latitude,
 		longitude: location?.coords.longitude,
 	};
 
-	//get place coordinates for future reference
 	const placeCoord = {
 		latitude: placeDetails?.placeDetails.result.geometry?.location.lat,
 		longitude: placeDetails?.placeDetails.result.geometry?.location.lng,
 	};
 	const placeCoords = { latitude: placeCoord.latitude, longitude: placeCoord.longitude };
 
-	//calculate distance between user and place
 	const distanceInMi = useMemo<string | undefined>(
 		() => computeDistanceMi(userCoords, placeCoords)?.toPrecision(2),
 		[userCoords, placeCoords]
 	);
 
-	//useffect to make an axios request to the server
 	const getPlaceDetails = async (placeID: string) => {
 		const result = await axios.get<{ placeDetails: PlaceDetailsResponseData }>(
 			`${SERVER_BASE_URL}/getPlaceDetails/${placeID}`
@@ -72,7 +68,6 @@ const PlaceDetailed: React.FC<PlaceProps> = ({ setPage, placeID }: PlaceProps) =
 				>
 					{distanceInMi ? `${distanceInMi} mi away` : ""}
 				</Text>
-				{/* <Button onPress={setPage} title="Home" /> */}
 				<Button
 					style={styles.homeBtn}
 					onPress={setPage}
@@ -117,6 +112,8 @@ const styles = StyleSheet.create({
 	homeBtn: {
 		borderWidth: 3,
 		borderColor: TEXT_COLOR,
+		width: Dimensions.get("window").width * 0.9,
+		alignSelf: "center",
 	},
 });
 

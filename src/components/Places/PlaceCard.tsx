@@ -6,7 +6,6 @@ import {
 	Text,
 	Image,
 	ImageSourcePropType,
-	Button,
 	Pressable,
 } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
@@ -86,7 +85,6 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 
 	return (
 		<View style={styles.card}>
-			{/* <Button onPress={setPageAndDetails} title="Details" /> */}
 			<View style={styles.alignText}>
 				<Pressable onPress={setPageAndDetails}>
 					<Text ellipsizeMode="tail" numberOfLines={1} style={styles.title}>
@@ -106,16 +104,18 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 						{address}
 					</Text>
 				</Pressable>
-				<Text
-					adjustsFontSizeToFit={true}
-					numberOfLines={2}
-					style={styles.cardContent}
-					accessibilityLabel={
-						avgRating ? `Rating: ${avgRating} out of 5` : "No known ratings"
-					}
-				>
-					Rating: {avgRating || 0}/5
-				</Text>
+				<Pressable onPress={setPageAndDetails}>
+					<Text
+						adjustsFontSizeToFit={true}
+						numberOfLines={2}
+						style={styles.cardContent}
+						accessibilityLabel={
+							avgRating ? `Rating: ${avgRating} out of 5` : "No known ratings"
+						}
+					>
+						Rating: {avgRating || 0}/5
+					</Text>
+				</Pressable>
 			</View>
 			{image}
 		</View>
