@@ -14,7 +14,7 @@ export interface PlaceProps {
 	setPage: () => void;
 }
 
-const PlaceDetailed: React.FC<PlaceProps> = ({ setPage, placeID }: PlaceProps) => {
+const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlaceProps) => {
 	const [placeDetails, setPlaceDetails] = useState<{ placeDetails: PlaceDetailsResponseData }>();
 
 	const { location } = useLocation();
@@ -113,4 +113,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default PlaceDetailed;
+export default DetailedViewScreen;
