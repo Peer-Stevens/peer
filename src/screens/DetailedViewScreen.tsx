@@ -10,10 +10,6 @@ import { Button } from "../components/Button";
 import { TEXT_COLOR } from "../util/colors";
 
 export interface PlaceProps {
-	place?: string;
-	avg?: number;
-	address?: string;
-	photoref?: string;
 	placeID?: string;
 	setPage: () => void;
 }
