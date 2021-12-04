@@ -91,8 +91,6 @@ const styles = StyleSheet.create({
 	border: {
 		width: Dimensions.get("window").width,
 		height: Dimensions.get("window").height,
-		borderWidth: 3,
-		borderColor: "black",
 		justifyContent: "space-evenly",
 		alignSelf: "center",
 	},
