@@ -2,7 +2,7 @@ import React from "react";
 import { cleanup, render, fireEvent } from "@testing-library/react-native";
 import TestRenderer from "react-test-renderer";
 import App from "../App";
-import { enabledFiltersMap } from '../src/components/SelectionBox'
+import { enabledFiltersMap } from "../src/components/SelectionBox";
 
 // there will be errors if the tree is not unmounted after each test
 // https://callstack.github.io/react-native-testing-library/docs/api#cleanup
