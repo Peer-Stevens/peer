@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { ScrollView, Dimensions, ActivityIndicator, View } from "react-native";
 import PlaceCard from "./PlaceCard";
 import { useNearbyPlaces } from "../../hooks/useNearbyPlaces";
