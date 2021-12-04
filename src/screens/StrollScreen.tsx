@@ -3,10 +3,10 @@ import { View } from "react-native";
 import { NearbyPlaces } from "../components/NearbyPlaces/NearbyPlaces";
 
 export interface StrollScreenProps {
-	toggleIsStrolling: () => void;
+	setPage: () => void;
 }
 
-const StrollScreen: React.FC<StrollScreenProps> = ({ toggleIsStrolling }: StrollScreenProps) => {
+const StrollScreen: React.FC<StrollScreenProps> = ({ setPage }: StrollScreenProps) => {
 	return (
 		<View
 			style={{
@@ -17,7 +17,7 @@ const StrollScreen: React.FC<StrollScreenProps> = ({ toggleIsStrolling }: Stroll
 				justifyContent: "center",
 			}}
 		>
-			<NearbyPlaces stopStrolling={toggleIsStrolling} />
+			<NearbyPlaces stopStrolling={setPage} />
 		</View>
 	);
 };

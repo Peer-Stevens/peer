@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import StrollScreen from "./StrollScreen";
 import MapScreen from "./MapScreen";
+import DetailedViewScreen from "./DetailedViewScreen";
 
 /**
  * Serves as the main view of the app, here all
@@ -8,16 +9,26 @@ import MapScreen from "./MapScreen";
  * @returns the main screen component
  */
 const MainScreen: React.FC = () => {
-	const [isStrolling, setIsStrolling] = useState(false);
+	const [page, setPage] = useState("mapScreen");
+	const [placeID, setPlaceID] = useState<string>();
 
-	const toggleIsStrolling = () => {
-		setIsStrolling(!isStrolling);
-	};
+	//Makes new function that calls setPage with a specific argument
+	const goToMapScreen = () => setPage("mapScreen");
+	const goToStrollScreen = () => setPage("strollScreen");
+	const goToDetails = () => setPage("detailsScreen");
 
-	if (isStrolling) {
-		return <StrollScreen toggleIsStrolling={toggleIsStrolling} />;
+	if (page === "strollScreen") {
+		return <StrollScreen setPage={goToMapScreen} />;
+	} else if (page === "detailsScreen") {
+		return <DetailedViewScreen placeID={placeID} setPage={goToMapScreen} />;
 	} else {
-		return <MapScreen toggleIsStrolling={toggleIsStrolling} />;
+		return (
+			<MapScreen
+				setPlaceID={setPlaceID}
+				setPageStrolling={goToStrollScreen}
+				goToDetails={goToDetails}
+			/>
+		);
 	}
 };
 

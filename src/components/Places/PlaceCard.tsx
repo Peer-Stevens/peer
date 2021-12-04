@@ -1,5 +1,13 @@
-import React, { useMemo } from "react";
-import { StyleSheet, Dimensions, View, Text, Image, ImageSourcePropType } from "react-native";
+import React, { Dispatch, SetStateAction, useMemo } from "react";
+import {
+	StyleSheet,
+	Dimensions,
+	View,
+	Text,
+	Image,
+	ImageSourcePropType,
+	Pressable,
+} from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import { TEXT_COLOR } from "../../util/colors";
 import PeerIcon from "../../../assets/icon.png";
@@ -7,23 +15,29 @@ import { SERVER_BASE_URL } from "../../util/env";
 import { computeDistanceMi } from "../../util/distance";
 import { LocationObject } from "expo-location";
 export interface PlaceCardProps {
-	place?: string;
+	placeName?: string;
 	address?: string;
 	photoref?: string;
 	location?: LocationObject;
 	longitude?: number;
 	latitude?: number;
+	goToDetails: () => void;
+	placeID?: string;
+	setPlaceID: Dispatch<SetStateAction<string | undefined>>;
 	avgRating?: number;
 }
 
 const PlaceCard: React.FC<PlaceCardProps> = ({
-	place,
+	placeName,
 	address,
 	photoref,
 	location,
 	latitude,
 	longitude,
 	avgRating,
+	placeID,
+	goToDetails,
+	setPlaceID,
 }: PlaceCardProps) => {
 	const userCoords = {
 		latitude: location?.coords.latitude,
@@ -46,7 +60,7 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 	const image = photoref ? (
 		<Image
 			accessible={true}
-			accessibilityLabel={place ? `Image of ${place}` : ""}
+			accessibilityLabel={placeName ? `Image of ${placeName}` : ""}
 			style={styles.imageStyle}
 			source={imageSrc}
 		/>
@@ -56,35 +70,52 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 			color={TEXT_COLOR}
 			size={100}
 			style={{ alignSelf: "center", marginHorizontal: 30 }}
-			accessibilityLabel={place ? `No image available for ${place}` : "No image available"}
+			accessibilityLabel={
+				placeName ? `No image available for ${placeName}` : "No image available"
+			}
 		/>
 	);
+
+	const setPageAndDetails = () => {
+		goToDetails();
+		if (placeID) {
+			setPlaceID(placeID);
+		}
+	};
 
 	return (
 		<View style={styles.card}>
 			<View style={styles.alignText}>
-				<Text ellipsizeMode="tail" numberOfLines={1} style={styles.title}>
-					{place}
-				</Text>
-				<Text
-					accessibilityLabel={distanceInMi ? `${distanceInMi} miles away` : ""}
-					style={{ fontSize: 25 }}
-				>
-					{distanceInMi ? `${distanceInMi} mi away` : ""}
-				</Text>
-				<Text ellipsizeMode="tail" numberOfLines={1} style={styles.cardContent}>
-					{address}
-				</Text>
-				<Text
-					adjustsFontSizeToFit={true}
-					numberOfLines={2}
-					style={styles.cardContent}
-					accessibilityLabel={
-						avgRating ? `Rating: ${avgRating} out of 5` : "No known ratings"
-					}
-				>
-					Rating: {avgRating || 0}/5
-				</Text>
+				<Pressable onPress={setPageAndDetails}>
+					<Text ellipsizeMode="tail" numberOfLines={1} style={styles.title}>
+						{placeName}
+					</Text>
+				</Pressable>
+				<Pressable onPress={setPageAndDetails}>
+					<Text
+						accessibilityLabel={distanceInMi ? `${distanceInMi} miles away` : ""}
+						style={{ fontSize: 25 }}
+					>
+						{distanceInMi ? `${distanceInMi} mi away` : ""}
+					</Text>
+				</Pressable>
+				<Pressable onPress={setPageAndDetails}>
+					<Text ellipsizeMode="tail" numberOfLines={1} style={styles.cardContent}>
+						{address}
+					</Text>
+				</Pressable>
+				<Pressable onPress={setPageAndDetails}>
+					<Text
+						adjustsFontSizeToFit={true}
+						numberOfLines={2}
+						style={styles.cardContent}
+						accessibilityLabel={
+							avgRating ? `Rating: ${avgRating} out of 5` : "No known ratings"
+						}
+					>
+						Rating: {avgRating || 0}/5
+					</Text>
+				</Pressable>
 			</View>
 			{image}
 		</View>
