@@ -7,10 +7,8 @@ import { useLocation } from "../hooks/useLocation";
 import StrollButton from "../components/StrollButton";
 
 export interface MapScreenProps {
-	setPageStrolling: (screen: string) => void;
+	setPageStrolling: () => void;
 	goToDetails: () => void;
-
-	//check what type is placeID
 	setPlaceID: Dispatch<SetStateAction<string | undefined>>;
 }
 
@@ -50,14 +48,12 @@ const MapScreen: React.FC<MapScreenProps> = ({
 					<SelectionBox selections={selections} setSelections={setSelections} />
 				) : null}
 				<StrollButton
-					onStartStrolling={() => setPageStrolling("strollScreen")}
+					onStartStrolling={setPageStrolling}
 					isShowingSelections={isShowingSelections}
 					setIsShowingSelections={setIsShowingSelections}
 					selections={selections}
 				/>
 			</View>
-
-			{/* Add props to PlaceList that takes in the placeID and does something with it */}
 			<PlaceList setPlaceID={setPlaceID} goToDetails={goToDetails} />
 		</View>
 	);
