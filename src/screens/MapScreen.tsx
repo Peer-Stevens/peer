@@ -48,7 +48,7 @@ const MapScreen: React.FC<MapScreenProps> = ({ toggleIsStrolling }: MapScreenPro
 					selections={selections}
 				/>
 			</View>
-			<PlaceList />
+			<PlaceList selectedFilter={selections.length > 0 ? selections[0] : ""} />
 		</View>
 	);
 };

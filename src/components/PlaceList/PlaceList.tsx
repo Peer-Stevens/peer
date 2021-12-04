@@ -5,9 +5,9 @@ import { useNearbyPlaces } from "../../hooks/useNearbyPlaces";
 import { useLocation } from "../../hooks/useLocation";
 import { getAverageA11yRating } from "../../util/processA11yRatings";
 
-const PlaceList = (): JSX.Element => {
+const PlaceList = ({ selectedFilter }: { selectedFilter: string }): JSX.Element => {
 	const { location } = useLocation();
-	const { nearbyPlaces } = useNearbyPlaces();
+	const { nearbyPlaces } = useNearbyPlaces(selectedFilter);
 
 	const cardList = (nearbyPlaces || []).map((value, index) => {
 		const photo = value.photos ? value.photos[0].photo_reference : undefined;

@@ -25,17 +25,25 @@ const hasSameCoordinates = (a?: LocationObject, b?: LocationObject): boolean => 
 	);
 };
 
-export const useNearbyPlaces = (): { nearbyPlaces?: PlaceWithAccesibilityData[] } => {
+export const useNearbyPlaces = (
+	keyword: string
+): { nearbyPlaces?: PlaceWithAccesibilityData[] } => {
 	const { location } = useLocation();
 	const lastLocationRef = React.useRef<LocationObject | undefined>(undefined);
+	const keywordRef = React.useRef<string | undefined>(undefined);
 	const [nearbyPlaces, setNearbyPlaces] = React.useState<PlaceWithAccesibilityData[]>();
 
 	const getNearbyPlaces = async (location: LocationObject) => {
-		if (hasSameCoordinates(location, lastLocationRef.current)) return;
+		if (hasSameCoordinates(location, lastLocationRef.current) && keyword === keywordRef.current)
+			return;
+		setNearbyPlaces(undefined);
 		const result = await axios.get<{ places: PlaceWithAccesibilityData[] }>(
-			`${SERVER_BASE_URL}/getNearbyPlaces?latitude=${location.coords.latitude}&longitude=${location.coords.longitude}&includeRatings=true`
+			`${SERVER_BASE_URL}/getNearbyPlaces?latitude=${location.coords.latitude}&longitude=${
+				location.coords.longitude
+			}&includeRatings=true${keyword && keyword.length > 0 ? `&keyword=${keyword}` : ""}`
 		);
 		lastLocationRef.current = location;
+		keywordRef.current = keyword;
 		setNearbyPlaces(result.data.places);
 	};
 
@@ -50,7 +58,7 @@ export const useNearbyPlaces = (): { nearbyPlaces?: PlaceWithAccesibilityData[] 
 		}, 10000);
 
 		return () => clearInterval(fetchPlacesInterval);
-	}, [location]);
+	}, [location, keyword]);
 
 	return { nearbyPlaces };
 };

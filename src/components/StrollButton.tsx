@@ -46,7 +46,7 @@ const StrollButton: React.FC<StrollButtonProps> = ({
 				}}
 				accessibilityLabel={isShowingSelections ? "Hide selections" : "Show selections"}
 				accessibilityHint={`Current selections: ${buildSelectionsText(selections)}`}
-				iconName={isShowingSelections ? "chevron-down" : "chevron-up"}
+				iconName={isShowingSelections ? "chevron-down" : "filter"}
 			/>
 		</View>
 	);

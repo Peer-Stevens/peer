@@ -2,7 +2,6 @@ import React from "react";
 import { View, StyleSheet, Text, LogBox } from "react-native";
 import type { StyleProp } from "react-native";
 import { Box } from "./Box";
-import { placeTypeLabels } from "../util/placeTypes";
 import SelectMultiple from "react-native-select-multiple";
 import { TEXT_COLOR } from "../util/colors";
 
@@ -46,14 +45,27 @@ export interface SelectionBoxProps {
 	style?: StyleProp<object>; // TODO: update generic from "object"
 }
 
+const enabledFiltersMap = [
+	{ label: "Restaurants", value: "restaurant" },
+	{ label: "Bars", value: "bar" },
+	{ label: "Drugstores", value: "drugstore" },
+	{ label: "Supermarkets", value: "supermarket" },
+	{ label: "Banks", value: "bank" },
+	{ label: "Museums", value: "museum" },
+	{ label: "ATM", value: "atm" },
+	{ label: "Bakery", value: "bakery" },
+	{ label: "Laundry", value: "laundry" },
+] as const;
+type SelectItem = typeof enabledFiltersMap[number];
+
 const SelectionBox: React.FC<SelectionBoxProps> = ({
 	selections: selections,
 	setSelections: setSelections,
 	style,
 }: SelectionBoxProps) => {
-	const onSelectionsChange = (selectionObjs: Array<{ label: string; value: string }>) => {
-		const selectionArray = selectionObjs.map(selectionObj => selectionObj.label);
-		setSelections(selectionArray);
+	const onSelectionsChange = (selectionObjs: Array<SelectItem>, item: SelectItem) => {
+		//const selectionArray = selectionObjs.map(selectionObj => selectionObj.label);
+		setSelections([item.value]);
 	};
 
 	//eslint-disable-next-line @typescript-eslint/ban-types
@@ -68,7 +80,7 @@ const SelectionBox: React.FC<SelectionBoxProps> = ({
 			style={StyleSheet.compose(styles.container, style)}
 		>
 			<SelectMultiple
-				items={placeTypeLabels}
+				items={enabledFiltersMap}
 				selectedItems={selections}
 				onSelectionsChange={onSelectionsChange}
 				renderLabel={renderLabel}
