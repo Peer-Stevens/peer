@@ -52,9 +52,9 @@ const enabledFiltersMap = [
 	{ label: "Supermarkets", value: "supermarket" },
 	{ label: "Banks", value: "bank" },
 	{ label: "Museums", value: "museum" },
-	{ label: "ATM", value: "atm" },
-	{ label: "Bakery", value: "bakery" },
-	{ label: "Laundry", value: "laundry" },
+	{ label: "ATMs", value: "atm" },
+	{ label: "Bakeries", value: "bakery" },
+	{ label: "Laundromats", value: "laundry" },
 ] as const;
 type SelectItem = typeof enabledFiltersMap[number];
 
@@ -64,7 +64,6 @@ const SelectionBox: React.FC<SelectionBoxProps> = ({
 	style,
 }: SelectionBoxProps) => {
 	const onSelectionsChange = (selectionObjs: Array<SelectItem>, item: SelectItem) => {
-		//const selectionArray = selectionObjs.map(selectionObj => selectionObj.label);
 		setSelections([item.value]);
 	};
 
