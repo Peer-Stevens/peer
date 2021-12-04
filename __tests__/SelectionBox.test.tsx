@@ -74,7 +74,7 @@ describe("Selection box tests", () => {
 			const checkbox = getByLabelText(filterObj.label);
 			fireEvent.press(checkbox);
 			expect(chevronButton.props.accessibilityHint).toBeDefined();
-			expect(chevronButton.props.accessibilityHint).toContain(filterObj.label);
+			expect(chevronButton.props.accessibilityHint).toContain(filterObj.value);
 		}
 	});
 });
