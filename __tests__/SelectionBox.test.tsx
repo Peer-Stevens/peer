@@ -2,7 +2,7 @@ import React from "react";
 import { cleanup, render, fireEvent } from "@testing-library/react-native";
 import TestRenderer from "react-test-renderer";
 import App from "../App";
-import { placeTypeLabels } from "../src/util/placeTypes";
+import { enabledFiltersMap } from '../src/components/SelectionBox'
 
 // there will be errors if the tree is not unmounted after each test
 // https://callstack.github.io/react-native-testing-library/docs/api#cleanup
@@ -23,7 +23,7 @@ describe("Selection box tests", () => {
 		fireEvent.press(getByLabelText("Show selections"));
 
 		// Assert
-		expect(getAllByText(placeTypeLabels[0])).toHaveLength(1);
+		expect(getAllByText(enabledFiltersMap[0].label)).toHaveLength(1);
 	});
 
 	it("does not contain non-place types in the selections", () => {

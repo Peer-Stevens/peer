@@ -45,7 +45,7 @@ export interface SelectionBoxProps {
 	style?: StyleProp<object>; // TODO: update generic from "object"
 }
 
-const enabledFiltersMap = [
+export const enabledFiltersMap = [
 	{ label: "Restaurants", value: "restaurant" },
 	{ label: "Bars", value: "bar" },
 	{ label: "Drugstores", value: "drugstore" },
