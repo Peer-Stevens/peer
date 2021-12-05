@@ -1,16 +1,22 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { Dimensions, View, StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
+import PlaceList from "../components/Places/PlaceList";
 import SelectionBox from "../components/SelectionBox";
 import { useLocation } from "../hooks/useLocation";
-import PlaceList from "../components/PlaceList/PlaceList";
 import StrollButton from "../components/StrollButton";
 
 export interface MapScreenProps {
-	toggleIsStrolling: () => void;
+	setPageStrolling: () => void;
+	goToDetails: () => void;
+	setPlaceID: Dispatch<SetStateAction<string | undefined>>;
 }
 
-const MapScreen: React.FC<MapScreenProps> = ({ toggleIsStrolling }: MapScreenProps) => {
+const MapScreen: React.FC<MapScreenProps> = ({
+	setPageStrolling,
+	goToDetails,
+	setPlaceID,
+}: MapScreenProps) => {
 	const [isShowingSelections, setIsShowingSelections] = useState<boolean>(false);
 	const [selections, setSelections] = useState<Array<string>>([]);
 	const { location } = useLocation();
@@ -42,13 +48,17 @@ const MapScreen: React.FC<MapScreenProps> = ({ toggleIsStrolling }: MapScreenPro
 					<SelectionBox selections={selections} setSelections={setSelections} />
 				) : null}
 				<StrollButton
-					onStartStrolling={toggleIsStrolling}
+					onStartStrolling={setPageStrolling}
 					isShowingSelections={isShowingSelections}
 					setIsShowingSelections={setIsShowingSelections}
 					selections={selections}
 				/>
 			</View>
-			<PlaceList selectedFilter={selections.length > 0 ? selections[0] : ""} />
+			<PlaceList
+				setPlaceID={setPlaceID}
+				goToDetails={goToDetails}
+				selectedFilter={selections.length > 0 ? selections[0] : ""}
+			/>
 		</View>
 	);
 };

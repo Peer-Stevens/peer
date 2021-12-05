@@ -1,25 +1,34 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { ScrollView, Dimensions, ActivityIndicator, View } from "react-native";
 import PlaceCard from "./PlaceCard";
 import { useNearbyPlaces } from "../../hooks/useNearbyPlaces";
 import { useLocation } from "../../hooks/useLocation";
 import { getAverageA11yRating } from "../../util/processA11yRatings";
+export interface PlaceListProps {
+	goToDetails: () => void;
+	setPlaceID: Dispatch<SetStateAction<string | undefined>>;
+	selectedFilter: string;
+}
 
-const PlaceList = ({ selectedFilter }: { selectedFilter: string }): JSX.Element => {
+const PlaceList = ({ goToDetails, setPlaceID, selectedFilter }: PlaceListProps): JSX.Element => {
 	const { location } = useLocation();
 	const { nearbyPlaces } = useNearbyPlaces(selectedFilter);
 
 	const cardList = (nearbyPlaces || []).map((value, index) => {
 		const photo = value.photos ? value.photos[0].photo_reference : undefined;
+		const PlaceID = value.place_id;
 		return (
 			<PlaceCard
 				key={index}
-				place={value.name}
+				placeName={value.name}
 				address={value.formatted_address}
 				photoref={photo}
 				location={location}
 				latitude={value.geometry?.location.lat}
 				longitude={value.geometry?.location.lng}
+				goToDetails={goToDetails}
+				placeID={PlaceID}
+				setPlaceID={setPlaceID}
 				avgRating={
 					value.accessibilityData
 						? Math.round(getAverageA11yRating(value) * 2) / 2
