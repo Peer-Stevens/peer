@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
 		color: TEXT_COLOR,
 		borderLeftWidth: 3,
 		height: "100%",
+		width: 70,
 	},
 	strollBtn: {
 		borderWidth: 3,
