@@ -1,19 +1,8 @@
 import React, { Dispatch, SetStateAction, useMemo } from "react";
-import {
-	StyleSheet,
-	Dimensions,
-	View,
-	Text,
-	Image,
-	ImageSourcePropType,
-	Pressable,
-} from "react-native";
-import Icon from "react-native-vector-icons/Feather";
-import { TEXT_COLOR } from "../../util/colors";
-import PeerIcon from "../../../assets/icon.png";
-import { SERVER_BASE_URL } from "../../util/env";
+import { StyleSheet, Dimensions, View, Text, Pressable } from "react-native";
 import { computeDistanceMi } from "../../util/distance";
 import { LocationObject } from "expo-location";
+import { PlaceImage } from "../PlaceImage";
 export interface PlaceCardProps {
 	placeName?: string;
 	address?: string;
@@ -47,33 +36,6 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 	const distanceInMi = useMemo<string | undefined>(
 		() => computeDistanceMi(userCoords, placeCoords)?.toPrecision(2),
 		[userCoords, placeCoords]
-	);
-
-	// prevent calls to remote server during testing
-	let imageSrc: ImageSourcePropType;
-	if (photoref && process.env.NODE_ENV !== "test") {
-		imageSrc = { uri: `${SERVER_BASE_URL}/getPlacePhoto/${photoref}` };
-	} else {
-		imageSrc = PeerIcon;
-	}
-
-	const image = photoref ? (
-		<Image
-			accessible={true}
-			accessibilityLabel={placeName ? `Image of ${placeName}` : ""}
-			style={styles.imageStyle}
-			source={imageSrc}
-		/>
-	) : (
-		<Icon
-			name={"camera-off"}
-			color={TEXT_COLOR}
-			size={100}
-			style={{ alignSelf: "center", marginHorizontal: 30 }}
-			accessibilityLabel={
-				placeName ? `No image available for ${placeName}` : "No image available"
-			}
-		/>
 	);
 
 	const setPageAndDetails = () => {
@@ -117,7 +79,7 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 					</Text>
 				</Pressable>
 			</View>
-			{image}
+			<PlaceImage photoref={photoref} placeName={placeName} style={styles.imageStyle} />
 		</View>
 	);
 };

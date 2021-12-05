@@ -20,6 +20,9 @@ const MainScreen: React.FC = () => {
 	if (page === "strollScreen") {
 		return <StrollScreen setPage={goToMapScreen} />;
 	} else if (page === "detailsScreen") {
+		if (!placeID) {
+			throw new Error("No placeID set before navigation to details screen");
+		}
 		return <DetailedViewScreen placeID={placeID} setPage={goToMapScreen} />;
 	} else {
 		return (

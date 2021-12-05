@@ -1,75 +1,84 @@
 //This is where we will be displaying the information of each single place
-import React, { useState, useEffect, useMemo } from "react";
-import { StyleSheet, Dimensions, View, Text, ActivityIndicator } from "react-native";
-import axios from "axios";
+import React from "react";
+import { StyleSheet, Dimensions, View, Text, ActivityIndicator, TextProps } from "react-native";
 import { computeDistanceMi } from "../util/distance";
-import { SERVER_BASE_URL } from "../util/env";
 import { useLocation } from "../hooks/useLocation";
-import { PlaceDetailsResponseData } from "@googlemaps/google-maps-services-js";
 import { Button } from "../components/Button";
 import { TEXT_COLOR } from "../util/colors";
+import { PlaceImage } from "../components/PlaceImage";
+import { useFetchPlace } from "../hooks/useFetchPlace";
+import { getAverageA11yRating } from "../util/processA11yRatings";
 
 export interface PlaceProps {
-	placeID?: string;
-	setPage: () => void;
+	placeID: string;
+	setPage: (newPage: string) => void;
 }
 
+// eslint-disable-next-line
+const BodyText = (props: TextProps) => <Text style={styles.text} {...props} />;
+
 const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlaceProps) => {
-	const [placeDetails, setPlaceDetails] = useState<{ placeDetails: PlaceDetailsResponseData }>();
+	const { placeDetails } = useFetchPlace({ placeID });
 
 	const { location } = useLocation();
+
 	const userCoords = {
 		latitude: location?.coords.latitude,
 		longitude: location?.coords.longitude,
 	};
 
-	const placeCoord = {
-		latitude: placeDetails?.placeDetails.result.geometry?.location.lat,
-		longitude: placeDetails?.placeDetails.result.geometry?.location.lng,
-	};
-	const placeCoords = { latitude: placeCoord.latitude, longitude: placeCoord.longitude };
-
-	const distanceInMi = useMemo<string | undefined>(
-		() => computeDistanceMi(userCoords, placeCoords)?.toPrecision(2),
-		[userCoords, placeCoords]
-	);
-
-	const getPlaceDetails = async (placeID: string) => {
-		const result = await axios.get<{ placeDetails: PlaceDetailsResponseData }>(
-			`${SERVER_BASE_URL}/getPlaceDetails/${placeID}`
-		);
-		setPlaceDetails(result.data);
-	};
-
-	useEffect(() => {
-		(async () => {
-			if (placeID) {
-				await getPlaceDetails(placeID);
-			}
-		})();
-	}, [placeID]);
-
 	if (placeDetails) {
+		const place = placeDetails.placeDetails.result;
+
+		const placeCoord = {
+			latitude: place.geometry?.location.lat,
+			longitude: place.geometry?.location.lng,
+		};
+		const placeCoords = { latitude: placeCoord.latitude, longitude: placeCoord.longitude };
+		const distanceInMi = computeDistanceMi(userCoords, placeCoords)?.toPrecision(2);
+
 		return (
 			<View style={styles.border}>
-				<Text ellipsizeMode="tail" numberOfLines={2} style={styles.title}>
-					{placeDetails?.placeDetails.result.name}
-				</Text>
-				<Text ellipsizeMode="tail" numberOfLines={2} style={styles.text}>
-					{placeDetails?.placeDetails.result.formatted_address}
-				</Text>
-				<Text
-					accessibilityLabel={distanceInMi ? `${distanceInMi} miles away` : ""}
-					style={styles.text}
-				>
-					{distanceInMi ? `${distanceInMi} mi away` : ""}
-				</Text>
-				<Button
-					style={styles.homeBtn}
-					onPress={setPage}
-					accessibilityLabel="Return to Home Page"
-					text="Go Home"
+				<PlaceImage
+					photoref={place.photos?.[0]?.photo_reference}
+					placeName={place.name}
+					style={{
+						width: "100%",
+						height: "40%",
+					}}
 				/>
+				<View style={styles.content}>
+					<Text ellipsizeMode="tail" numberOfLines={2} style={styles.title}>
+						{place.name}
+					</Text>
+					<BodyText ellipsizeMode="tail" numberOfLines={2}>
+						{place.formatted_address}
+					</BodyText>
+					<BodyText accessibilityLabel={distanceInMi ? `${distanceInMi} miles away` : ""}>
+						{distanceInMi ? `${distanceInMi} mi away` : ""}
+					</BodyText>
+					<BodyText>
+						Accessibility Rating:{" "}
+						{getAverageA11yRating({
+							accessibilityData: placeDetails.placeDetails.accessibilityData,
+						})}
+					</BodyText>
+					<Button
+						style={styles.submitButton}
+						onPress={() => {
+							//placeholder
+						}}
+						//onPress={() => setPage("login")} need to update this after Eleni's PR is merged w/ Andrew's updates to nav
+						accessibilityLabel="Submit an accessibility rating"
+						text="Submit a Rating"
+					/>
+					<Button
+						style={styles.homeBtn}
+						onPress={() => setPage("mapScreen")} //need to update this after Eleni's PR is merged w/ Andrew's updates to nav
+						accessibilityLabel="Return to Home Page"
+						text="Go Home"
+					/>
+				</View>
 			</View>
 		);
 	} else {
@@ -91,23 +100,32 @@ const styles = StyleSheet.create({
 	border: {
 		width: Dimensions.get("window").width,
 		height: Dimensions.get("window").height,
-		justifyContent: "space-evenly",
-		alignSelf: "center",
+		borderColor: "black",
+		borderWidth: 1,
+	},
+	content: {
+		width: Dimensions.get("window").width * 0.95,
+		marginLeft: Dimensions.get("window").width * 0.025,
 	},
 	title: {
 		fontSize: 35,
-		textAlign: "center",
 		fontWeight: "bold",
 	},
 	text: {
-		textAlign: "center",
 		fontSize: 30,
+		lineHeight: 35,
+		marginBottom: 15,
 	},
 	homeBtn: {
 		borderWidth: 3,
 		borderColor: TEXT_COLOR,
 		width: Dimensions.get("window").width * 0.9,
-		alignSelf: "center",
+	},
+	submitButton: {
+		borderWidth: 3,
+		borderColor: TEXT_COLOR,
+		width: Dimensions.get("window").width * 0.9,
+		marginBottom: 10,
 	},
 });
 
