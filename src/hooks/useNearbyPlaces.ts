@@ -43,9 +43,7 @@ export const useNearbyPlaces = (
 		const result = await axios.get<{ places: PlaceWithAccesibilityData[] }>(
 			`${SERVER_BASE_URL}/getNearbyPlaces?latitude=${location.coords.latitude}&longitude=${
 				location.coords.longitude
-			}&includeRatings=true${
-				placeType && placeType.length > 0 ? `&keyword=${placeType}` : ""
-			}`
+			}&includeRatings=true${placeType && placeType.length > 0 ? `&type=${placeType}` : ""}`
 		);
 		lastLocationRef.current = location;
 		placeTypeRef.current = placeType;
