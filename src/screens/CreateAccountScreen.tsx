@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { Button } from "../components/Button";
-import { useNavigation } from "../hooks/useNavigation";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useForm, Controller } from "react-hook-form";
+import { Screens } from "./MainScreen";
+
+type CreateAccountScreenProps = { setPage: (screen: Screens) => void };
 
 type FormData = {
 	email: string;
 	password: string;
 };
 
-const CreateAccount: React.FC = () => {
-	const navigation = useNavigation();
+const CreateAccount: React.FC<CreateAccountScreenProps> = ({ setPage }) => {
 	const [errorMsg, setErrorMsg] = useState("");
 	const {
 		register,
@@ -38,7 +39,7 @@ const CreateAccount: React.FC = () => {
 				doesNotPreferHelp: false,
 			});
 			// should be logging the user in, storing the token, and storing the hashed password here
-			navigation.navigate("Home");
+			setPage(Screens.Home);
 		} catch (e) {
 			// TODO could not figure out how to pass e.error to setErrorMsg without getting yelled out (couldn't figure out how to make the types behave)
 			console.log(e);

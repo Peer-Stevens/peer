@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Button } from "../components/Button";
-import { View, Text, TextInput } from "react-native";
-// import { NavigationScreenProp } from "react-navigation";
-import { useNavigation } from "../hooks/useNavigation";
+import { View, Text } from "react-native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Screens } from "./MainScreen";
 
-const LoginScreen: React.FC = () => {
-	const navigation = useNavigation();
+type LoginScreenProps = { setPage: (screen: Screens) => void };
+
+const LoginScreen: React.FC<LoginScreenProps> = ({ setPage }) => {
 	const [errorMsg, setErrorMsg] = useState("");
 
 	const logInUser = async () => {
@@ -16,7 +16,7 @@ const LoginScreen: React.FC = () => {
 		const token: string | null = await AsyncStorage.getItem("@auth_token");
 
 		if (token) {
-			navigation.navigate("Home");
+			setPage(Screens.Home);
 			return;
 		}
 
@@ -28,7 +28,7 @@ const LoginScreen: React.FC = () => {
 			});
 			await AsyncStorage.setItem("@auth_token", data);
 			// need to store the hashed password as well
-			navigation.navigate("Home");
+			setPage(Screens.Home);
 		} catch (e) {
 			// TODO could not figure out how to pass e.error to setErrorMsg without getting yelled out (couldn't figure out how to make the types behave)
 			console.log(e);
@@ -41,7 +41,7 @@ const LoginScreen: React.FC = () => {
 			<Button text="Log in" onPress={logInUser} accessibilityLabel="Click to log in" />
 			<Button
 				text="Create Account"
-				onPress={() => navigation.navigate("CreateAccount")}
+				onPress={() => setPage(Screens.Home)}
 				accessibilityLabel="Click to create account"
 			/>
 			<Text style={{ fontSize: 30 }}>{errorMsg ? <Text>{errorMsg}</Text> : null}</Text>
