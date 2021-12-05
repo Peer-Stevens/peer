@@ -54,7 +54,11 @@ const MapScreen: React.FC<MapScreenProps> = ({
 					selections={selections}
 				/>
 			</View>
-			<PlaceList setPlaceID={setPlaceID} goToDetails={goToDetails} />
+			<PlaceList
+				setPlaceID={setPlaceID}
+				goToDetails={goToDetails}
+				selectedFilter={selections.length > 0 ? selections[0] : ""}
+			/>
 		</View>
 	);
 };

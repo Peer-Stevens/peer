@@ -4,15 +4,15 @@ import PlaceCard from "./PlaceCard";
 import { useNearbyPlaces } from "../../hooks/useNearbyPlaces";
 import { useLocation } from "../../hooks/useLocation";
 import { getAverageA11yRating } from "../../util/processA11yRatings";
-
 export interface PlaceListProps {
 	goToDetails: () => void;
 	setPlaceID: Dispatch<SetStateAction<string | undefined>>;
+	selectedFilter: string;
 }
 
-const PlaceList = ({ goToDetails, setPlaceID }: PlaceListProps): JSX.Element => {
+const PlaceList = ({ goToDetails, setPlaceID, selectedFilter }: PlaceListProps): JSX.Element => {
 	const { location } = useLocation();
-	const { nearbyPlaces } = useNearbyPlaces();
+	const { nearbyPlaces } = useNearbyPlaces(selectedFilter);
 
 	const cardList = (nearbyPlaces || []).map((value, index) => {
 		const photo = value.photos ? value.photos[0].photo_reference : undefined;

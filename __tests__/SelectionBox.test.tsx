@@ -2,7 +2,7 @@ import React from "react";
 import { cleanup, render, fireEvent } from "@testing-library/react-native";
 import TestRenderer from "react-test-renderer";
 import App from "../App";
-import { placeTypeLabels } from "../src/util/placeTypes";
+import { enabledFiltersMap } from "../src/components/SelectionBox";
 
 // there will be errors if the tree is not unmounted after each test
 // https://callstack.github.io/react-native-testing-library/docs/api#cleanup
@@ -23,7 +23,7 @@ describe("Selection box tests", () => {
 		fireEvent.press(getByLabelText("Show selections"));
 
 		// Assert
-		expect(getAllByText(placeTypeLabels[0])).toHaveLength(1);
+		expect(getAllByText(enabledFiltersMap[0].label)).toHaveLength(1);
 	});
 
 	it("does not contain non-place types in the selections", () => {
@@ -46,7 +46,7 @@ describe("Selection box tests", () => {
 		fireEvent.press(getByLabelText("Hide selections"));
 
 		// Assert
-		expect(queryAllByText(placeTypeLabels[0])).toHaveLength(0);
+		expect(queryAllByText(enabledFiltersMap[0].label)).toHaveLength(0);
 	});
 
 	it("should read aloud that nothing is selected when used with a screen reader", () => {
@@ -70,11 +70,11 @@ describe("Selection box tests", () => {
 		fireEvent.press(chevronButton);
 
 		// Assert
-		for (const placeTypeLabel of placeTypeLabels) {
-			const checkbox = getByLabelText(placeTypeLabel);
+		for (const filterObj of enabledFiltersMap) {
+			const checkbox = getByLabelText(filterObj.label);
 			fireEvent.press(checkbox);
 			expect(chevronButton.props.accessibilityHint).toBeDefined();
-			expect(chevronButton.props.accessibilityHint).toContain(placeTypeLabel);
+			expect(chevronButton.props.accessibilityHint).toContain(filterObj.value);
 		}
 	});
 });
