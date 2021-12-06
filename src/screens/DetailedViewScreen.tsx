@@ -57,10 +57,11 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 						{distanceInMi ? `${distanceInMi} mi away` : ""}
 					</BodyText>
 					<BodyText>
-						Accessibility Rating:{" "}
-						{getAverageA11yRating({
-							accessibilityData: placeDetails.placeDetails.accessibilityData,
-						})}
+						{Math.round(
+							getAverageA11yRating({
+								accessibilityData: placeDetails.placeDetails.accessibilityData,
+							}) * 2
+						) / 2}
 					</BodyText>
 					<Button
 						style={styles.submitButton}
