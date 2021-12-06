@@ -25,10 +25,7 @@
 		"react-dom": "16.13.1",
 		"react-hook-form": "^7.20.5",
 		"react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
-		"react-native-gesture-handler": "^1.10.3",
 		"react-native-maps": "0.28.0",
-		"react-native-reanimated": "^2.2.4",
-		"react-native-screens": "^3.9.0",
 		"react-native-select-multiple": "^2.1.0",
 		"react-native-vector-icons": "^9.0.0",
 		"react-native-web": "~0.14.13"
