@@ -14,7 +14,6 @@ export interface PlaceProps {
 	setPage: (newPage: string) => void;
 }
 
-// eslint-disable-next-line
 const BodyText = (props: TextProps) => <Text style={styles.text} {...props} />;
 
 const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlaceProps) => {

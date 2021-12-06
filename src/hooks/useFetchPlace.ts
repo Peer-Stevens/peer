@@ -9,7 +9,10 @@ export const useFetchPlace = ({
 }: {
 	placeID: string;
 	includeRatings?: boolean;
-}) => {
+}): {
+	placeDetails?: { placeDetails: PlaceDetailsWithAccesibilityData };
+	isLoading: boolean;
+} => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [placeDetails, setPlaceDetails] =
 		useState<{ placeDetails: PlaceDetailsWithAccesibilityData }>();
