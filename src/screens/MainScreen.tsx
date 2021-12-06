@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import StrollScreen from "./StrollScreen";
 import MapScreen from "./MapScreen";
 import DetailedViewScreen from "./DetailedViewScreen";
-import LoginScreen from "./LoginScreen";
+import LogInScreen from "./LoginScreen";
 import CreateAccountScreen from "./CreateAccountScreen";
+import NotLoggedIn from "./NotLoggedIn";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export enum Screens {
 	Home = "mapScreen",
 	Stroll = "strollScreen",
 	Details = "detailsScreen",
+	NotLoggedIn = "notLoggedIn",
 	Login = "loginScreen",
 	CreateAccount = "createAccountScreen",
 }
@@ -19,7 +22,18 @@ export enum Screens {
  * @returns the main screen component
  */
 const MainScreen: React.FC = () => {
-	const [page, setPage] = useState<Screens>(Screens.Home);
+	const [token, setToken] = useState(false);
+
+	useEffect(() => {
+		//TODO this doesn't work?? idk why, please help
+		if (AsyncStorage.getItem("@auth_token") !== null) {
+			setToken(true);
+			return;
+		}
+		setToken(false);
+	}, []);
+
+	const [page, setPage] = useState<Screens>(token ? Screens.Home : Screens.NotLoggedIn);
 	const [placeID, setPlaceID] = useState<string>();
 
 	//Makes new function that calls setPage with a specific argument
@@ -31,8 +45,10 @@ const MainScreen: React.FC = () => {
 		return <StrollScreen setPage={goToMapScreen} />;
 	} else if (page === "detailsScreen") {
 		return <DetailedViewScreen placeID={placeID} setPage={goToMapScreen} />;
+	} else if (page === "notLoggedIn") {
+		return <NotLoggedIn setPage={setPage} />;
 	} else if (page === "loginScreen") {
-		return <LoginScreen setPage={setPage} />;
+		return <LogInScreen setPage={setPage} />;
 	} else if (page === "createAccountScreen") {
 		return <CreateAccountScreen setPage={setPage} />;
 	} else {

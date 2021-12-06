@@ -69,22 +69,24 @@ const CreateAccount: React.FC<CreateAccountScreenProps> = ({ setPage }) => {
 			setErrorMsg("Please enter a username and password to create account");
 			return;
 		}
-		// try {
-		// 	const { data } = await axios.post("https://peer-server-stevens.herokuapp.com/addUser", {
-		// 		email: email,
-		// 		hash: password,
-		// 		// not including these right now, so I'm defaulting them to these values
-		// 		isBlindMode: false,
-		// 		readsBraille: true,
-		// 		doesNotPreferHelp: false,
-		// 	});
-		// 	// should be logging the user in, storing the token, and storing the hashed password here
-		// 	setPage(Screens.Home);
-		// } catch (e) {
-		// 	// TODO could not figure out how to pass e.error to setErrorMsg without getting yelled out (couldn't figure out how to make the types behave)
-		// 	console.log(e);
-		// 	setErrorMsg("Something went wrong");
-		// }
+		try {
+			const { data } = await axios.post("https://peer-server-stevens.herokuapp.com/addUser", {
+				email: email,
+				hash: password,
+				// not including these right now, so I'm defaulting them to these values
+				isBlindMode: false,
+				readsBraille: true,
+				doesNotPreferHelp: false,
+			});
+			// should be storing the token and storing the hashed password here, but IDK if it works?
+			await AsyncStorage.setItem("@auth_token", data.token);
+			await AsyncStorage.setItem("@pass", password);
+			setPage(Screens.Home);
+		} catch (e) {
+			// TODO could not figure out how to pass e.error to setErrorMsg without getting yelled out (couldn't figure out how to make the types behave)
+			console.log(e);
+			setErrorMsg("Something went wrong");
+		}
 	};
 
 	return (

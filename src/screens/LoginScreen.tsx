@@ -1,52 +1,116 @@
 import React, { useState } from "react";
+import { View, Text, TextInput, StyleSheet } from "react-native";
 import { Button } from "../components/Button";
-import { View, Text } from "react-native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Screens } from "./MainScreen";
 
-type LoginScreenProps = { setPage: (screen: Screens) => void };
+type CreateAccountScreenProps = { setPage: (screen: Screens) => void };
 
-const LoginScreen: React.FC<LoginScreenProps> = ({ setPage }) => {
+const LogInScreen: React.FC<CreateAccountScreenProps> = ({ setPage }) => {
 	const [errorMsg, setErrorMsg] = useState("");
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
 
-	const logInUser = async () => {
+	/**
+	 * Validates that the email the user provided has a valid email format
+	 * This validation in the client is faster than sending an invalid email over to the server only to recieve an error message.
+	 * @param email
+	 * @returns
+	 */
+	const validateEmail = (email: string) => {
 		setErrorMsg("");
 
-		const token: string | null = await AsyncStorage.getItem("@auth_token");
-
-		if (token) {
-			setPage(Screens.Home);
+		if (!email) {
+			setEmail("");
 			return;
 		}
 
-		try {
-			const { data } = await axios.post("https://peer-server-stevens.herokuapp.com/login", {
-				// this needs to be passed in dynamically; this was here for testing
-				email: "julioisfred@onedrive.com",
-				hash: "bd160cd097a48e6601402411225cefca8a15ec9ab4f817adf985bee5708a1bdc",
-			});
-			await AsyncStorage.setItem("@auth_token", data);
-			// need to store the hashed password as well
-			setPage(Screens.Home);
-		} catch (e) {
-			// TODO could not figure out how to pass e.error to setErrorMsg without getting yelled out (couldn't figure out how to make the types behave)
-			console.log(e);
-			setErrorMsg("Something went wrong");
+		const reg: RegExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+
+		if (reg.test(email) === false) {
+			setErrorMsg("Please provide a valid email");
+			return;
+		} else {
+			setErrorMsg("");
+			setEmail(email);
+			return;
 		}
 	};
 
 	return (
-		<View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-			<Button text="Log in" onPress={logInUser} accessibilityLabel="Click to log in" />
-			<Button
-				text="Create Account"
-				onPress={() => setPage(Screens.Home)}
-				accessibilityLabel="Click to create account"
+		<View style={styles.container}>
+			<Text style={styles.text}>Log In</Text>
+			<Text
+				style={{
+					color: "white",
+					fontWeight: "bold",
+					margin: 20,
+					marginLeft: 0,
+					fontSize: 30,
+					textAlign: "center",
+				}}
+			>
+				{errorMsg ? <Text>{errorMsg}</Text> : null}
+			</Text>
+			<Text style={styles.label}>Email</Text>
+			<TextInput
+				style={styles.input}
+				textContentType="emailAddress"
+				onChangeText={input => validateEmail(input)}
 			/>
-			<Text style={{ fontSize: 30 }}>{errorMsg ? <Text>{errorMsg}</Text> : null}</Text>
+			<Text style={styles.label}>Password</Text>
+			<TextInput style={styles.input} />
+			<Button
+				style={styles.button}
+				text="Log In"
+				onPress={() => {
+					//TODO
+				}}
+				accessibilityLabel="Click to log in"
+			/>
+			<Button
+				style={styles.button}
+				text="Back to previous page"
+				onPress={() => setPage(Screens.NotLoggedIn)}
+				accessibilityLabel="Click to go back to previous page"
+			/>
 		</View>
 	);
 };
 
-export default LoginScreen;
+const styles = StyleSheet.create({
+	label: {
+		color: "white",
+		margin: 20,
+		marginLeft: 0,
+		fontSize: 35,
+	},
+	button: {
+		marginTop: 30,
+	},
+	container: {
+		flex: 1,
+		justifyContent: "center",
+		padding: 8,
+		backgroundColor: "#0e101c",
+	},
+	input: {
+		backgroundColor: "white",
+		borderColor: "black",
+		height: 60,
+		padding: 10,
+		borderRadius: 4,
+		fontSize: 35,
+	},
+	text: {
+		color: "white",
+		margin: 20,
+		marginLeft: 0,
+		fontSize: 40,
+		textAlign: "center",
+		paddingBottom: 10,
+	},
+});
+
+export default LogInScreen;
