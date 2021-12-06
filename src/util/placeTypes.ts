@@ -129,3 +129,15 @@ export type PlaceWithAccesibilityData = Place & {
 		avgGuideDogFriendly: number;
 	};
 };
+
+export type PlaceDetailsWithAccesibilityData = {
+	result: Place;
+	accessibilityData?: {
+		_id: string;
+		avgBraille: number;
+		avgFontReadability: number;
+		avgNavigability: number;
+		avgStaffHelpfulness: number;
+		avgGuideDogFriendly: number;
+	};
+};

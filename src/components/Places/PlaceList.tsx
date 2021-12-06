@@ -14,24 +14,24 @@ const PlaceList = ({ goToDetails, setPlaceID, selectedFilter }: PlaceListProps):
 	const { location } = useLocation();
 	const { nearbyPlaces } = useNearbyPlaces(selectedFilter);
 
-	const cardList = (nearbyPlaces || []).map((value, index) => {
-		const photo = value.photos ? value.photos[0].photo_reference : undefined;
-		const PlaceID = value.place_id;
+	const cardList = (nearbyPlaces || []).map((place, index) => {
+		const photo = place.photos ? place.photos[0].photo_reference : undefined;
+		const PlaceID = place.place_id;
 		return (
 			<PlaceCard
 				key={index}
-				placeName={value.name}
-				address={value.formatted_address}
+				placeName={place.name}
+				address={place.formatted_address}
 				photoref={photo}
 				location={location}
-				latitude={value.geometry?.location.lat}
-				longitude={value.geometry?.location.lng}
+				latitude={place.geometry?.location.lat}
+				longitude={place.geometry?.location.lng}
 				goToDetails={goToDetails}
 				placeID={PlaceID}
 				setPlaceID={setPlaceID}
 				avgRating={
-					value.accessibilityData
-						? Math.round(getAverageA11yRating(value) * 2) / 2
+					place.accessibilityData
+						? Math.round(getAverageA11yRating(place) * 2) / 2
 						: undefined
 				}
 			/>
