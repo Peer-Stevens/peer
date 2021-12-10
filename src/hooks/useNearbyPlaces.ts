@@ -5,6 +5,12 @@ import axios from "axios";
 import { SERVER_BASE_URL } from "../util/env";
 import type { PlaceWithAccesibilityData } from "../util/placeTypes";
 
+enum BusinessStatus {
+	OPERATIONAL = "OPERATIONAL",
+	CLOSED_TEMPORARILY = "CLOSED_TEMPORARILY",
+	CLOSED_PERMANENTLY = "CLOSED_PERMANENTLY",
+}
+
 /**
  * Returns true if the two locations have the same latitude and longitude. Returns false
  * if one of the locations is undefined.
@@ -47,7 +53,10 @@ export const useNearbyPlaces = (
 		);
 		lastLocationRef.current = location;
 		placeTypeRef.current = placeType;
-		setNearbyPlaces(result.data.places);
+		const active_places = result.data.places.filter(
+			place => place.business_status === BusinessStatus.OPERATIONAL
+		);
+		setNearbyPlaces(active_places);
 	};
 
 	useEffect(() => {
