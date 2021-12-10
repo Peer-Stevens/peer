@@ -5,7 +5,7 @@ import axios from "axios";
 import { SERVER_BASE_URL } from "../util/env";
 import type { PlaceWithAccesibilityData } from "../util/placeTypes";
 
-enum BusinessStatus {
+export enum BusinessStatus {
 	OPERATIONAL = "OPERATIONAL",
 	CLOSED_TEMPORARILY = "CLOSED_TEMPORARILY",
 	CLOSED_PERMANENTLY = "CLOSED_PERMANENTLY",
