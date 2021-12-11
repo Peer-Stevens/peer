@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Pressable, StyleSheet, View, Text } from "react-native";
+import { Pressable, StyleSheet, View, Text, ViewStyle } from "react-native";
 import type { StyleProp } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
@@ -11,8 +11,7 @@ export interface ButtonProps {
 	accessibilityLabel: string; // not optional for this project.
 	accessibilityHint?: string;
 	onPress: VoidFunction;
-	//eslint-disable-next-line @typescript-eslint/ban-types
-	style?: StyleProp<object>; // TODO: update generic from "object"
+	style?: StyleProp<ViewStyle>;
 }
 
 /**
@@ -30,19 +29,17 @@ export const Button: React.FC<ButtonProps> = ({
 	const [color, setColor] = useState<string>(PRIMARY_COLOR);
 	const [textColor, setTextColor] = useState<string>(TEXT_COLOR);
 
-	const styles = StyleSheet.create({
-		button: {
-			display: "flex",
-			flexDirection: "row",
-			alignItems: "center",
-			justifyContent: "center",
-			paddingHorizontal: 15,
-			paddingVertical: 10,
-			backgroundColor: color,
-			borderWidth: 3,
-			borderColor: textColor,
-		},
-	});
+	const buttonStyle: ViewStyle = {
+		display: "flex",
+		flexDirection: "row",
+		alignItems: "center",
+		justifyContent: "center",
+		paddingHorizontal: 15,
+		paddingVertical: 10,
+		backgroundColor: color,
+		borderWidth: 3,
+		borderColor: textColor,
+	};
 
 	// chooses one to display, favoring top most prop
 
@@ -72,7 +69,7 @@ export const Button: React.FC<ButtonProps> = ({
 				setColor(PRIMARY_COLOR);
 				setTextColor(TEXT_COLOR);
 			}}
-			style={StyleSheet.compose(styles.button, style)}
+			style={StyleSheet.compose(buttonStyle, style)}
 			accessibilityLabel={accessibilityLabel}
 			accessibilityHint={accessibilityHint}
 		>
