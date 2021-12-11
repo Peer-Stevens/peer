@@ -7,18 +7,21 @@ import { useLocation } from "../hooks/useLocation";
 import StrollButton from "../components/StrollButton";
 
 export interface MapScreenProps {
+	selections: string[];
+	setSelections: React.Dispatch<React.SetStateAction<string[]>>;
 	setPageStrolling: () => void;
 	goToDetails: () => void;
 	setPlaceID: Dispatch<SetStateAction<string | undefined>>;
 }
 
 const MapScreen: React.FC<MapScreenProps> = ({
+	selections,
+	setSelections,
 	setPageStrolling,
 	goToDetails,
 	setPlaceID,
 }: MapScreenProps) => {
 	const [isShowingSelections, setIsShowingSelections] = useState<boolean>(false);
-	const [selections, setSelections] = useState<Array<string>>([]);
 	const { location } = useLocation();
 	return (
 		<View style={styles.container}>
