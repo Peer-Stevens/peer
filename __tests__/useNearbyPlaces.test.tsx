@@ -5,6 +5,7 @@ import { Place } from "@googlemaps/google-maps-services-js";
 import { LocationObject } from "expo-location";
 import { renderHook, cleanup } from "@testing-library/react-hooks";
 import { waitFor } from "@testing-library/react-native";
+import { BusinessStatus } from "../src/hooks/useNearbyPlaces";
 
 jest.mock("../src/hooks/useLocation");
 
@@ -48,10 +49,21 @@ const mockUseLocation = useLocation as jest.MockedFunction<typeof useLocation>;
 
 jest.mock("axios");
 
-const firstPlaceList: Place[] = [{ name: "Hungry Boi Place" }, { name: "Underground Tunnels" }];
-const secondPlaceList: Place[] = [{ name: "Hungrier Boi Place" }, { name: "Magma Core" }];
-const thirdPlaceList: Place[] = [{ name: "Hungriest Boi Place" }, { name: "Gravity Well" }];
-const closePlaceList: Place[] = [{ name: "Hairline Width Barber Shop" }];
+const firstPlaceList: Place[] = [
+	{ name: "Hungry Boi Place", business_status: BusinessStatus.OPERATIONAL },
+	{ name: "Underground Tunnels", business_status: BusinessStatus.OPERATIONAL },
+];
+const secondPlaceList: Place[] = [
+	{ name: "Hungrier Boi Place", business_status: BusinessStatus.OPERATIONAL },
+	{ name: "Magma Core", business_status: BusinessStatus.OPERATIONAL },
+];
+const thirdPlaceList: Place[] = [
+	{ name: "Hungriest Boi Place", business_status: BusinessStatus.OPERATIONAL },
+	{ name: "Gravity Well", business_status: BusinessStatus.OPERATIONAL },
+];
+const closePlaceList: Place[] = [
+	{ name: "Hairline Width Barber Shop", business_status: BusinessStatus.OPERATIONAL },
+];
 // axios.get is an "unbound method" but this is an implementation detail of axios
 // eslint-disable-next-line @typescript-eslint/unbound-method
 const mockGet = axios.get as jest.MockedFunction<typeof axios.get>;
@@ -121,6 +133,28 @@ describe("useNearbyPlaces tests", () => {
 		await waitFor(() => {
 			expect(result.current.nearbyPlaces).toEqual(firstPlaceList);
 			expect(mockGet).toHaveBeenCalledTimes(1); // only EXACTLY once
+		});
+	});
+
+	it("should not get places that are labeled as closed", async () => {
+		mockUseLocation.mockReturnValue({ location: mockLocation });
+		mockGet.mockResolvedValueOnce({
+			data: {
+				places: [
+					{ name: "Hungry Boi Place", business_status: BusinessStatus.OPERATIONAL },
+					{ name: "Underground Tunnels" },
+				],
+			},
+		});
+
+		const { result } = renderHook(() => useNearbyPlaces());
+
+		await waitFor(() => {
+			expect(result.current.nearbyPlaces).toContainEqual({
+				name: "Hungry Boi Place",
+				business_status: BusinessStatus.OPERATIONAL,
+			});
+			expect(result.current.nearbyPlaces).not.toContainEqual({ name: "Underground Tunnels" });
 		});
 	});
 });
