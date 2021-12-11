@@ -53,7 +53,11 @@ const PlaceList = ({ goToDetails, setPlaceID, selectedFilter }: PlaceListProps):
 					justifyContent: "center",
 				}}
 			>
-				<ActivityIndicator size="large" color="#000000" />
+				<ActivityIndicator
+					size="large"
+					color="#000000"
+					accessibilityLabel="List of places nearby is still loading"
+				/>
 			</View>
 		);
 	}
