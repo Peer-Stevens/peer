@@ -124,6 +124,15 @@ describe("useNearbyPlaces tests", () => {
 		});
 	});
 
+	it("should fetch places using the type as a query parameter", async () => {
+		mockUseLocation.mockReturnValue({ location: mockLocation });
+		renderHook(() => useNearbyPlaces("restaurants"));
+
+		await waitFor(() => {
+			expect(mockGet.mock.calls[0][0]).toContain("type=restaurants");
+		});
+	});
+
 	it("should not get new places from the server if the user has not moved somewhere new", async () => {
 		// Arrange
 		mockUseLocation.mockReturnValue({ location: mockLocation });
