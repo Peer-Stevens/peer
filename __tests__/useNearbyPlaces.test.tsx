@@ -135,4 +135,26 @@ describe("useNearbyPlaces tests", () => {
 			expect(mockGet).toHaveBeenCalledTimes(1); // only EXACTLY once
 		});
 	});
+
+	it("should not get places that are labeled as closed", async () => {
+		mockUseLocation.mockReturnValue({ location: mockLocation });
+		mockGet.mockResolvedValue({
+			data: {
+				places: [
+					{ name: "Hungry Boi Place", business_status: BusinessStatus.OPERATIONAL },
+					{ name: "Underground Tunnels" },
+				],
+			},
+		});
+
+		const { result } = renderHook(() => useNearbyPlaces());
+
+		await waitFor(() => {
+			expect(result.current.nearbyPlaces).toContainEqual({
+				name: "Hungry Boi Place",
+				business_status: BusinessStatus.OPERATIONAL,
+			});
+			expect(result.current.nearbyPlaces).not.toContainEqual({ name: "Underground Tunnels" });
+		});
+	});
 });
