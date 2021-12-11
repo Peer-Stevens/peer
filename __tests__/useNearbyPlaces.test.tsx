@@ -138,7 +138,7 @@ describe("useNearbyPlaces tests", () => {
 
 	it("should not get places that are labeled as closed", async () => {
 		mockUseLocation.mockReturnValue({ location: mockLocation });
-		mockGet.mockResolvedValue({
+		mockGet.mockResolvedValueOnce({
 			data: {
 				places: [
 					{ name: "Hungry Boi Place", business_status: BusinessStatus.OPERATIONAL },
