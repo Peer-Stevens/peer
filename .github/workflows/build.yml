@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Build
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     env:
       CI: true
@@ -15,18 +15,22 @@ jobs:
         node-version: [16.x]
     steps:
       - uses: actions/checkout@v2
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+
       - name: Setup Expo
-      - uses: expo/expo-github-action@v5
+        uses: expo/expo-github-action@v5
         with:
           expo-version: 4.x
           expo-token: ${{secrets.EXPO_TOKEN}}
           expo-cache: true
+
       - name: Install dependencies
         run: yarn
+
       - name: Build on EAS
         run: |
           npx eas-cli build --platform android --profile preview --non-interactive
