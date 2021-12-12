@@ -6,14 +6,7 @@
 			"request": "launch",
 			"name": "Jest single run all tests",
 			"program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
-			"args": [
-				"-o",
-				"--verbose",
-				"-i",
-				"--no-cache",
-				"-t",
-				"should not get new places from the server if the user has not moved somewhere new"
-			],
+			"args": ["-o", "--verbose", "-i", "--no-cache"],
 			"console": "integratedTerminal",
 			"internalConsoleOptions": "neverOpen"
 		}
