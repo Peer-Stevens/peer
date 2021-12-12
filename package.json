@@ -8,6 +8,7 @@
 		"web": "expo start --web",
 		"eject": "expo eject",
 		"test": "jest --detectOpenHandles --runInBand --forceExit",
+		"build": "eas build --platform android --profile preview",
 		"lint": "eslint --config .eslintrc.js --fix . && prettier --config prettier.config.js --write \"**/*.{js,jsx,json,ts,tsx,md,mdx,css,html,yml,yaml,scss}\"",
 		"lint-check": "eslint --config .eslintrc.js . && prettier --config prettier.config.js --check \"**/*.{js,jsx,json,ts,tsx,md,mdx,css,html,yml,yaml,scss}\"",
 		"lint-staged": "pretty-quick --staged && lint-staged"

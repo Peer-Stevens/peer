@@ -29,6 +29,6 @@ jobs:
         run: yarn
       - name: Build on EAS
         run: |
-          npx eas-cli build --platform android --non-interactive
-          # npx eas-cli build --platform all --non-interactive
+          npx eas-cli build --platform android --profile preview --non-interactive
+          # npx eas-cli build --platform all --profile preview --non-interactive
           # can't run this until Andrew adds his apple account credentials for building
