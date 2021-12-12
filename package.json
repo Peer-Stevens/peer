@@ -13,17 +13,17 @@
 		"lint-staged": "pretty-quick --staged && lint-staged"
 	},
 	"dependencies": {
-		"@unimodules/core": "~7.1.1",
-		"@unimodules/react-native-adapter": "~6.3.4",
+		"@unimodules/core": "~7.2.0",
+		"@unimodules/react-native-adapter": "~6.5.0",
 		"axios": "^0.24.0",
 		"expo": "~43.0.4",
 		"expo-cli": "^4.13.0",
-		"expo-location": "~12.1.2",
+		"expo-location": "~13.0.4",
 		"global": "^4.4.0",
 		"react": "16.13.1",
 		"react-dom": "16.13.1",
-		"react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
-		"react-native-maps": "0.28.0",
+		"react-native": "0.64.3",
+		"react-native-maps": "0.28.1",
 		"react-native-select-multiple": "^2.1.0",
 		"react-native-vector-icons": "^9.0.0",
 		"react-native-web": "~0.14.13"

@@ -3,7 +3,7 @@
 		"name": "peer",
 		"owner": "peer-stevens",
 		"slug": "peer",
-		"sdkVersion": "42.0.0",
+		"sdkVersion": "43.0.0",
 		"version": "1.2.0",
 		"orientation": "portrait",
 		"icon": "./assets/icon.png",
@@ -25,7 +25,8 @@
 			"adaptiveIcon": {
 				"backgroundColor": "#FFFFFF"
 			},
-			"package": "com.peer.peerstevens"
+			"package": "com.peer.peerstevens",
+			"versionCode": 3
 		},
 		"web": {
 			"favicon": "./assets/favicon.png"
