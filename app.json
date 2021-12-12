@@ -24,7 +24,8 @@
 		"android": {
 			"adaptiveIcon": {
 				"backgroundColor": "#FFFFFF"
-			}
+			},
+			"package": "com.peer.peerstevens"
 		},
 		"web": {
 			"favicon": "./assets/favicon.png"
