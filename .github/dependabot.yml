@@ -10,7 +10,7 @@ updates:
     schedule:
       interval: "weekly"
       day: "monday"
-      time: "08:00"
+      time: "20:00"
       timezone: "America/New_York"
     reviewers:
       - "elenirotsides"
