@@ -37,20 +37,20 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: "center",
 		padding: 8,
-		backgroundColor: "#0e101c",
+		backgroundColor: "white",
 	},
 	button: {
 		marginTop: 30,
 	},
 	text: {
-		color: "white",
+		color: "black",
 		margin: 20,
 		marginLeft: 0,
 		fontSize: 40,
 		textAlign: "center",
 	},
 	text2: {
-		color: "white",
+		color: "black",
 		margin: 20,
 		marginLeft: 0,
 		fontSize: 30,

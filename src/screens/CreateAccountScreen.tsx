@@ -102,7 +102,7 @@ const CreateAccount: React.FC<CreateAccountScreenProps> = ({ setPage }) => {
 					textAlign: "center",
 				}}
 			>
-				{errorMsg ? <Text>{errorMsg}</Text> : null}
+				{errorMsg ? <Text style={{ color: "black" }}>{errorMsg}</Text> : null}
 			</Text>
 			<Text style={styles.label}>Email</Text>
 			<TextInput
@@ -135,7 +135,7 @@ const CreateAccount: React.FC<CreateAccountScreenProps> = ({ setPage }) => {
 
 const styles = StyleSheet.create({
 	label: {
-		color: "white",
+		color: "black",
 		margin: 20,
 		marginLeft: 0,
 		fontSize: 35,
@@ -147,10 +147,12 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: "center",
 		padding: 8,
-		backgroundColor: "#0e101c",
+		backgroundColor: "white",
 	},
 	input: {
 		backgroundColor: "white",
+		borderStyle: "solid",
+		borderWidth: 3,
 		borderColor: "black",
 		height: 60,
 		padding: 10,
@@ -158,7 +160,7 @@ const styles = StyleSheet.create({
 		fontSize: 35,
 	},
 	text: {
-		color: "white",
+		color: "black",
 		margin: 20,
 		marginLeft: 0,
 		fontSize: 40,
