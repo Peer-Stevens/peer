@@ -42,14 +42,15 @@ export const useNearbyPlaces = (
 	const getNearbyPlaces = async (location: LocationObject) => {
 		if (
 			hasSameCoordinates(location, lastLocationRef.current) &&
-			(placeType === placeTypeRef.current || !placeType)
-		)
+			(placeType === placeTypeRef.current || placeType === undefined) // empty string is falsy, have to explicitly compare to undefined
+		) {
 			return;
+		}
 		setNearbyPlaces(undefined);
 		const result = await axios.get<{ places: PlaceWithAccesibilityData[] }>(
 			`${SERVER_BASE_URL}/getNearbyPlaces?latitude=${location.coords.latitude}&longitude=${
 				location.coords.longitude
-			}&includeRatings=true${placeType && placeType.length > 0 ? `&type=${placeType}` : ""}`
+			}&includeRatings=true${placeType ? `&type=${placeType}` : ""}`
 		);
 		lastLocationRef.current = location;
 		placeTypeRef.current = placeType;

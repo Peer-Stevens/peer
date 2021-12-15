@@ -1,9 +1,10 @@
 import React from "react";
 import { cleanup, render } from "@testing-library/react-native";
 import { useNearbyPlaces } from "../src/hooks/useNearbyPlaces";
-import { PlaceData, PlacePhoto } from "@googlemaps/google-maps-services-js";
+import { PlacePhoto } from "@googlemaps/google-maps-services-js";
 import { computeDistanceMi } from "../src/util/distance";
 import App from "../App";
+import { PlaceWithAccesibilityData } from "../src/util/placeTypes";
 
 afterEach(cleanup);
 jest.useFakeTimers();
@@ -23,24 +24,45 @@ const mockPhotosField: PlacePhoto[] = [
 		html_attributions: [],
 	},
 ];
-const mockPlaces: Partial<PlaceData & { rating: number }>[] = [
+const mockPlaces: PlaceWithAccesibilityData[] = [
 	{
 		name: "The Absolute Best Place in the Whole Wide World",
 		formatted_address: "312 Jones Pl",
 		photos: mockPhotosField,
-		rating: 5000,
+		accessibilityData: {
+			_id: "andhous",
+			avgBraille: 5,
+			avgFontReadability: 5,
+			avgGuideDogFriendly: 5,
+			avgNavigability: 5,
+			avgStaffHelpfulness: 5,
+		},
 	},
 	{
 		name: "OneDrive Installation Services",
 		formatted_address: "95 Lora Ave",
 		photos: mockPhotosField,
-		rating: 0,
+		accessibilityData: {
+			_id: "microsoft",
+			avgBraille: 0,
+			avgFontReadability: 0,
+			avgGuideDogFriendly: 0,
+			avgNavigability: 0,
+			avgStaffHelpfulness: 0,
+		},
 	},
 	{
-		name: "Amplifier and Electric Guitar Appraisal",
-		formatted_address: "570 Rotsides Ln",
+		name: "East LA",
+		formatted_address: "500 Marg Rd",
 		photos: undefined,
-		rating: 5,
+		accessibilityData: {
+			_id: "margs",
+			avgBraille: 3.5,
+			avgFontReadability: 3.5,
+			avgGuideDogFriendly: 3.5,
+			avgNavigability: 3.5,
+			avgStaffHelpfulness: 3.5,
+		},
 	},
 ];
 mockNearbyPlaces.mockReturnValue({ nearbyPlaces: mockPlaces });
@@ -70,11 +92,12 @@ describe("Place list tests", () => {
 
 	it("renders the place rating", () => {
 		// Arrange
-		const { getAllByText } = render(<App />);
+		const { getByText } = render(<App />);
 
 		// Assert
-		// TODO: use mock place's rating field, and getByText instead of getAll
-		expect(getAllByText("Rating: 0/5")).toHaveLength(mockPlaces.length);
+		expect(getByText("Rating: 5/5")).toBeDefined();
+		expect(getByText("Rating: 3.5/5")).toBeDefined();
+		expect(getByText("Rating: 0/5")).toBeDefined();
 	});
 
 	it("does not render text other than the place name, address, or rating", () => {
@@ -146,5 +169,12 @@ describe("Place list tests", () => {
 		expect(getByLabelText("0.13 miles away")).toBeDefined();
 		expect(getByLabelText("0.41 miles away")).toBeDefined();
 		expect(getByLabelText("0.34 miles away")).toBeDefined();
+	});
+
+	it("renders a loading indicator when no places are available", () => {
+		mockNearbyPlaces.mockReturnValueOnce({ nearbyPlaces: undefined });
+		const { queryByLabelText } = render(<App />);
+
+		expect(queryByLabelText("List of places nearby is still loading")).not.toBeNull();
 	});
 });

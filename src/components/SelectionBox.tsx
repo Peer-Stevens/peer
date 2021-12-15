@@ -62,6 +62,11 @@ const SelectionBox: React.FC<SelectionBoxProps> = ({
 	style,
 }: SelectionBoxProps) => {
 	const onSelectionsChange = (selectionObjs: Array<SelectItem>, item: SelectItem) => {
+		// if the item that the user pressed is the selected one, then unselect it
+		if (selections.includes(item.value)) {
+			setSelections([]);
+			return;
+		}
 		setSelections([item.value]);
 	};
 
