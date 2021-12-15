@@ -4,9 +4,11 @@ import { NearbyPlaces } from "../components/NearbyPlaces/NearbyPlaces";
 
 export interface StrollScreenProps {
 	setPage: () => void;
+	selections: string[];
 }
 
-const StrollScreen: React.FC<StrollScreenProps> = ({ setPage }: StrollScreenProps) => {
+const StrollScreen: React.FC<StrollScreenProps> = ({ setPage, selections }: StrollScreenProps) => {
+	const selection = selections.length > 0 ? selections[0] : "";
 	return (
 		<View
 			style={{
@@ -17,7 +19,7 @@ const StrollScreen: React.FC<StrollScreenProps> = ({ setPage }: StrollScreenProp
 				justifyContent: "center",
 			}}
 		>
-			<NearbyPlaces stopStrolling={setPage} />
+			<NearbyPlaces stopStrolling={setPage} type={selection} />
 		</View>
 	);
 };
