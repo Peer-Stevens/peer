@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, ImageSourcePropType, StyleProp } from "react-native";
+import { Image, ImageSourcePropType, StyleProp, StyleSheet, TextStyle, View } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import { TEXT_COLOR } from "../util/colors";
 import PeerIcon from "../../assets/icon.png";
@@ -26,14 +26,25 @@ export const PlaceImage: React.FC<{
 			source={imageSrc}
 		/>
 	) : (
-		<Icon
-			name={"camera-off"}
-			color={TEXT_COLOR}
-			size={100}
-			style={{ alignSelf: "center", marginHorizontal: 30 }}
-			accessibilityLabel={
-				placeName ? `No image available for ${placeName}` : "No image available"
+		<View
+			style={
+				StyleSheet.compose(style, {
+					display: "flex",
+					justifyContent: "center",
+				}) as StyleProp<TextStyle>
 			}
-		/>
+		>
+			<Icon
+				name={"camera-off"}
+				color={TEXT_COLOR}
+				size={125}
+				style={{
+					alignSelf: "center",
+				}}
+				accessibilityLabel={
+					placeName ? `No image available for ${placeName}` : "No image available"
+				}
+			/>
+		</View>
 	);
 };

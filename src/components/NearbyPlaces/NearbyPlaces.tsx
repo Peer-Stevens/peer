@@ -7,9 +7,14 @@ import { useLocation } from "../../hooks/useLocation";
 import { computeDistanceFeet } from "../../util/distance";
 import { getPlaceRatingString } from "../../util/processA11yRatings";
 
-export const NearbyPlaces: React.FC<{ stopStrolling: () => void }> = ({ stopStrolling }) => {
+export interface NearbyPlacesProps {
+	stopStrolling: () => void;
+	type: string;
+}
+
+export const NearbyPlaces: React.FC<NearbyPlacesProps> = ({ stopStrolling, type }) => {
 	const { location } = useLocation();
-	const { nearbyPlaces } = useNearbyPlaces();
+	const { nearbyPlaces } = useNearbyPlaces(type);
 	const { getRelativeDirection } = useCompass();
 
 	return (

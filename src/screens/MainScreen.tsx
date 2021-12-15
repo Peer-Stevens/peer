@@ -11,6 +11,7 @@ import DetailedViewScreen from "./DetailedViewScreen";
 const MainScreen: React.FC = () => {
 	const [page, setPage] = useState("mapScreen");
 	const [placeID, setPlaceID] = useState<string>();
+	const [selections, setSelections] = useState<Array<string>>([]);
 
 	//Makes new function that calls setPage with a specific argument
 	const goToMapScreen = () => setPage("mapScreen");
@@ -18,7 +19,7 @@ const MainScreen: React.FC = () => {
 	const goToDetails = () => setPage("detailsScreen");
 
 	if (page === "strollScreen") {
-		return <StrollScreen setPage={goToMapScreen} />;
+		return <StrollScreen setPage={goToMapScreen} selections={selections} />;
 	} else if (page === "detailsScreen") {
 		if (!placeID) {
 			throw new Error("No placeID set before navigation to details screen");
@@ -27,6 +28,8 @@ const MainScreen: React.FC = () => {
 	} else {
 		return (
 			<MapScreen
+				selections={selections}
+				setSelections={setSelections}
 				setPlaceID={setPlaceID}
 				setPageStrolling={goToStrollScreen}
 				goToDetails={goToDetails}
