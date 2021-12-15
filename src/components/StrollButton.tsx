@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, ViewStyle } from "react-native";
 import type { StyleProp } from "react-native";
 import { TEXT_COLOR } from "../util/colors";
 
@@ -10,10 +10,7 @@ export interface StrollButtonProps {
 	isShowingSelections: boolean;
 	setIsShowingSelections: React.Dispatch<React.SetStateAction<boolean>>;
 	selections: string[];
-	//eslint-disable-next-line @typescript-eslint/ban-types
-	style?: StyleProp<object>; // may be unsafe, but this is the type provided
-	// by Stylesheet documentation:
-	// https://reactnative.dev/docs/stylesheet#compose
+	style?: StyleProp<ViewStyle>;
 }
 
 const StrollButton: React.FC<StrollButtonProps> = ({
@@ -34,7 +31,15 @@ const StrollButton: React.FC<StrollButtonProps> = ({
 	return (
 		<View style={styles.buttonGroup}>
 			<Button
-				style={StyleSheet.compose(styles.strollBtn, style)}
+				style={StyleSheet.compose(
+					{
+						borderWidth: 3,
+						borderColor: TEXT_COLOR,
+						borderRightWidth: 0,
+						height: "100%",
+					},
+					style
+				)}
 				onPress={onStartStrolling}
 				accessibilityLabel="Take a stroll"
 				text="Take a stroll"
@@ -65,12 +70,6 @@ const styles = StyleSheet.create({
 		borderLeftWidth: 3,
 		height: "100%",
 		width: 70,
-	},
-	strollBtn: {
-		borderWidth: 3,
-		borderColor: TEXT_COLOR,
-		borderRightWidth: 0,
-		height: "100%",
 	},
 });
 
