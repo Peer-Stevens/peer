@@ -56,7 +56,7 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 				<Pressable onPress={setPageAndDetails}>
 					<Text
 						accessibilityLabel={distanceInMi ? `${distanceInMi} miles away` : ""}
-						style={{ fontSize: 25 }}
+						style={{ fontSize: 25, fontFamily: "APHont" }}
 					>
 						{distanceInMi ? `${distanceInMi} mi away` : ""}
 					</Text>
@@ -94,11 +94,12 @@ const styles = StyleSheet.create({
 		margin: 20,
 	},
 	title: {
-		fontWeight: "bold",
+		fontFamily: "APHontBold",
 		fontSize: 30,
 		borderRadius: 20,
 	},
 	cardContent: {
+		fontFamily: "APHont",
 		fontSize: 30,
 		borderRadius: 20,
 	},

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Pressable, StyleSheet, View, Text, ViewStyle } from "react-native";
+import { Pressable, StyleSheet, View, Text, ViewStyle, TextStyle } from "react-native";
 import type { StyleProp } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
@@ -47,7 +47,15 @@ export const Button: React.FC<ButtonProps> = ({
 
 	if (text) {
 		display = (
-			<Text style={{ fontWeight: "bold", color: textColor, fontSize: 30 }}>{text}</Text>
+			<Text
+				style={{
+					color: textColor,
+					fontSize: 30,
+					fontFamily: "APHontBold",
+				}}
+			>
+				{text}
+			</Text>
 		);
 	} else if (image) {
 		display = <Icon name={image} color={textColor} size={30} />;
