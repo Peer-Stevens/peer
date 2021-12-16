@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { Button } from "../components/Button";
 import axios from "axios";
@@ -6,12 +6,29 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Screens } from "./MainScreen";
 import sha256 from "crypto-js/sha256";
 
-type CreateAccountScreenProps = { setPage: (screen: Screens) => void };
+type CreateAccountScreenProps = {
+	placeID: string | undefined;
+	setPage: (screen: Screens) => void;
+	setPlaceID: Dispatch<SetStateAction<string | undefined>>;
+	goToSubmitRating: () => void;
+};
 
-const CreateAccount: React.FC<CreateAccountScreenProps> = ({ setPage }) => {
+const CreateAccount: React.FC<CreateAccountScreenProps> = ({
+	setPage,
+	placeID,
+	setPlaceID,
+	goToSubmitRating,
+}) => {
 	const [errorMsg, setErrorMsg] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+
+	const setPageAndSubmitRating = () => {
+		goToSubmitRating();
+		if (placeID) {
+			setPlaceID(placeID);
+		}
+	};
 
 	/**
 	 * Validates that the email the user provided has a valid email format
@@ -73,15 +90,11 @@ const CreateAccount: React.FC<CreateAccountScreenProps> = ({ setPage }) => {
 			const { data } = await axios.post("https://peer-server-stevens.herokuapp.com/addUser", {
 				email: email,
 				hash: password,
-				// not including these right now, so I'm defaulting them to these values
-				isBlindMode: false,
-				readsBraille: true,
-				doesNotPreferHelp: false,
 			});
 			// should be storing the token and storing the hashed password here, but IDK if it works?
 			await AsyncStorage.setItem("@auth_token", data.token);
 			await AsyncStorage.setItem("@pass", password);
-			setPage(Screens.Home);
+			setPageAndSubmitRating();
 		} catch (e) {
 			// TODO could not figure out how to pass e.error to setErrorMsg without getting yelled out (couldn't figure out how to make the types behave)
 			console.log(e);

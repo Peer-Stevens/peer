@@ -8,10 +8,11 @@ import { TEXT_COLOR } from "../util/colors";
 import { PlaceImage } from "../components/PlaceImage";
 import { useFetchPlace } from "../hooks/useFetchPlace";
 import { getAverageA11yRating } from "../util/processA11yRatings";
+import { Screens } from "./MainScreen";
 
 export interface PlaceProps {
 	placeID: string;
-	setPage: (newPage: string) => void;
+	setPage: (screen: Screens) => void;
 }
 
 const BodyText = (props: TextProps) => <Text style={styles.text} {...props} />;
@@ -65,16 +66,14 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 					</BodyText>
 					<Button
 						style={styles.submitButton}
-						onPress={() => {
-							//placeholder
-						}}
+						onPress={() => setPage(Screens.NotLoggedIn)}
 						//onPress={() => setPage("login")} need to update this after Eleni's PR is merged w/ Andrew's updates to nav
 						accessibilityLabel="Submit an accessibility rating"
 						text="Submit a Rating"
 					/>
 					<Button
 						style={styles.homeBtn}
-						onPress={() => setPage("mapScreen")} //need to update this after Eleni's PR is merged w/ Andrew's updates to nav
+						onPress={() => setPage(Screens.Home)} //need to update this after Eleni's PR is merged w/ Andrew's updates to nav
 						accessibilityLabel="Return to Home Page"
 						text="Go Home"
 					/>

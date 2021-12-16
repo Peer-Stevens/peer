@@ -4,8 +4,9 @@ import MapScreen from "./MapScreen";
 import DetailedViewScreen from "./DetailedViewScreen";
 import LogInScreen from "./LoginScreen";
 import CreateAccountScreen from "./CreateAccountScreen";
-import NotLoggedIn from "./NotLoggedIn";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import NotLoggedInScreen from "./NotLoggedInScreen";
+import SubmitRatingScreen from "./SubmitRatingScreen";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export enum Screens {
 	Home = "mapScreen",
@@ -14,6 +15,7 @@ export enum Screens {
 	NotLoggedIn = "notLoggedIn",
 	Login = "loginScreen",
 	CreateAccount = "createAccountScreen",
+	SubmitRating = "submitRating",
 }
 
 /**
@@ -22,18 +24,19 @@ export enum Screens {
  * @returns the main screen component
  */
 const MainScreen: React.FC = () => {
-	const [token, setToken] = useState(false);
+	//const [token, setToken] = useState(false);
 
-	useEffect(() => {
-		//TODO this doesn't work?? idk why, please help
-		if (AsyncStorage.getItem("@auth_token") !== null) {
-			setToken(true);
-			return;
-		}
-		setToken(false);
-	}, []);
+	// 	useEffect(() => {
+	// 		//TODO this doesn't work?? idk why, please help
+	// 		if (AsyncStorage.getItem("@auth_token") !== null) {
+	// 			setToken(true);
+	// 			return;
+	// 		}
+	// 		setToken(false);
+	// 	}, []);
+	// token ? Screens.Home : Screens.NotLoggedIn;
 
-	const [page, setPage] = useState<Screens>(token ? Screens.Home : Screens.NotLoggedIn);
+	const [page, setPage] = useState<Screens>(Screens.Home);
 	const [placeID, setPlaceID] = useState<string>();
 	const [selections, setSelections] = useState<Array<string>>([]);
 
@@ -41,6 +44,7 @@ const MainScreen: React.FC = () => {
 	const goToMapScreen = () => setPage(Screens.Home);
 	const goToStrollScreen = () => setPage(Screens.Stroll);
 	const goToDetails = () => setPage(Screens.Details);
+	const goToSubmitRating = () => setPage(Screens.SubmitRating);
 
 	if (page === "strollScreen") {
 		return <StrollScreen setPage={goToMapScreen} selections={selections} />;
@@ -48,13 +52,43 @@ const MainScreen: React.FC = () => {
 		if (!placeID) {
 			throw new Error("No placeID set before navigation to details screen");
 		}
-		return <DetailedViewScreen placeID={placeID} setPage={goToMapScreen} />;
+		return <DetailedViewScreen placeID={placeID} setPage={setPage} />;
 	} else if (page === "notLoggedIn") {
-		return <NotLoggedIn setPage={setPage} />;
+		return (
+			<NotLoggedInScreen
+				placeID={placeID}
+				setPage={setPage}
+				goToDetails={goToDetails}
+				setPlaceID={setPlaceID}
+			/>
+		);
 	} else if (page === "loginScreen") {
-		return <LogInScreen setPage={setPage} />;
+		return (
+			<LogInScreen
+				setPage={setPage}
+				placeID={placeID}
+				setPlaceID={setPlaceID}
+				goToSubmitRating={goToSubmitRating}
+			/>
+		);
 	} else if (page === "createAccountScreen") {
-		return <CreateAccountScreen setPage={setPage} />;
+		return (
+			<CreateAccountScreen
+				setPage={setPage}
+				placeID={placeID}
+				setPlaceID={setPlaceID}
+				goToSubmitRating={goToSubmitRating}
+			/>
+		);
+	} else if (page === "submitRating") {
+		return (
+			<SubmitRatingScreen
+				setPage={setPage}
+				placeID={placeID}
+				setPlaceID={setPlaceID}
+				goToDetails={goToDetails}
+			/>
+		);
 	} else {
 		return (
 			<MapScreen
