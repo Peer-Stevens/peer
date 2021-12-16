@@ -69,11 +69,4 @@ const styles = StyleSheet.create({
 		fontSize: 40,
 		textAlign: "center",
 	},
-	// text2: {
-	// 	color: "black",
-	// 	margin: 20,
-	// 	marginLeft: 0,
-	// 	fontSize: 30,
-	// 	textAlign: "center",
-	// },
 });

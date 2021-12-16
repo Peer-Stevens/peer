@@ -19,9 +19,9 @@ const CreateAccount: React.FC<CreateAccountScreenProps> = ({
 	setPlaceID,
 	goToSubmitRating,
 }) => {
-	const [errorMsg, setErrorMsg] = useState("");
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
+	const [errorMsg, setErrorMsg] = useState<string>("");
+	const [email, setEmail] = useState<string>("");
+	const [password, setPassword] = useState<string>("");
 
 	const setPageAndSubmitRating = () => {
 		goToSubmitRating();
@@ -43,14 +43,14 @@ const CreateAccount: React.FC<CreateAccountScreenProps> = ({
 			return;
 		}
 
-		const reg: RegExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+		const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
 
 		if (reg.test(email) === false) {
 			setErrorMsg("Please provide a valid email");
 			return;
 		} else {
 			setErrorMsg("");
-			setEmail(email);
+			setEmail(email.toLowerCase()); // making email lowercase will ensure that email isn't case sensitive
 			return;
 		}
 	};
@@ -83,22 +83,38 @@ const CreateAccount: React.FC<CreateAccountScreenProps> = ({
 		setErrorMsg("");
 
 		if (!email || !password) {
-			setErrorMsg("Please enter a username and password to create account");
+			setErrorMsg("Please enter an email and password to create account");
 			return;
 		}
 		try {
-			const { data } = await axios.post("https://peer-server-stevens.herokuapp.com/addUser", {
-				email: email,
-				hash: password,
-			});
-			// should be storing the token and storing the hashed password here, but IDK if it works?
-			await AsyncStorage.setItem("@auth_token", data.token);
-			await AsyncStorage.setItem("@pass", password);
-			setPageAndSubmitRating();
+			const { data } = await axios.post<{ error?: string; token?: string }>(
+				"https://peer-server-stevens.herokuapp.com/addUser",
+				{
+					email: email,
+					hash: password,
+				},
+				{
+					validateStatus: (status: number): boolean => {
+						return status < 500;
+					},
+				}
+			);
+
+			if (data.token) {
+				await AsyncStorage.setItem("@auth_token", data.token);
+				await AsyncStorage.setItem("@email", email);
+				setPageAndSubmitRating();
+			} else if (data.error) {
+				setErrorMsg(data.error);
+			} else {
+				throw new Error(
+					"Something has gone catastrophically wrong. (Response contains neither error nor token)"
+				);
+			}
 		} catch (e) {
-			// TODO could not figure out how to pass e.error to setErrorMsg without getting yelled out (couldn't figure out how to make the types behave)
-			console.log(e);
-			setErrorMsg("Something went wrong");
+			if (e instanceof Error) {
+				setErrorMsg("Something has gone wrong, please try again");
+			}
 		}
 	};
 
@@ -121,12 +137,16 @@ const CreateAccount: React.FC<CreateAccountScreenProps> = ({
 			<TextInput
 				style={styles.input}
 				textContentType="emailAddress"
+				autoCapitalize="none"
+				accessibilityLabel="Type in your email address here"
 				onChangeText={input => validateEmail(input)}
 			/>
 			<Text style={styles.label}>Password</Text>
 			<TextInput
 				style={styles.input}
 				textContentType="password"
+				autoCapitalize="none"
+				accessibilityLabel="Type in a password here"
 				onChangeText={input => hashPassword(input)}
 			/>
 			<Button
@@ -170,7 +190,7 @@ const styles = StyleSheet.create({
 		height: 60,
 		padding: 10,
 		borderRadius: 4,
-		fontSize: 35,
+		fontSize: 30,
 	},
 	text: {
 		color: "black",

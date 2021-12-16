@@ -1,17 +1,14 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { StyleSheet, View } from "react-native";
-import { Screens } from "./MainScreen";
 import { Button } from "../components/Button";
 
 type SubmitRatingScreenProps = {
 	placeID: string | undefined;
-	setPage: (screen: Screens) => void;
 	setPlaceID: Dispatch<SetStateAction<string | undefined>>;
 	goToDetails: () => void;
 };
 
 const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
-	setPage,
 	setPlaceID,
 	placeID,
 	goToDetails,
