@@ -69,7 +69,6 @@ const numberOfRatingFields = 4;
 
 describe("Detailed view screen tests", () => {
 	it("renders an image", () => {
-		tr.debug();
 		expect(tr.queryByLabelText(`No image available for ${mockNameString}`)).not.toBeNull();
 	});
 
