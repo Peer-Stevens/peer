@@ -33,6 +33,9 @@ export const PlaceImage: React.FC<{
 					justifyContent: "center",
 				}) as StyleProp<TextStyle>
 			}
+			accessibilityLabel={
+				placeName ? `No image available for ${placeName}` : "No image available"
+			}
 		>
 			<Icon
 				name={"camera-off"}
@@ -41,9 +44,6 @@ export const PlaceImage: React.FC<{
 				style={{
 					alignSelf: "center",
 				}}
-				accessibilityLabel={
-					placeName ? `No image available for ${placeName}` : "No image available"
-				}
 			/>
 		</View>
 	);
