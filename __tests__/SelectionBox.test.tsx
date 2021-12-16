@@ -4,7 +4,11 @@ import TestRenderer from "react-test-renderer";
 import App from "../App";
 import { enabledFiltersMap } from "../src/components/SelectionBox";
 import { useNearbyPlaces } from "../src/hooks/useNearbyPlaces";
-import { PlaceWithAccesibilityData } from "../src/util/placeTypes";
+import {
+	PlaceDetailsWithAccesibilityData,
+	PlaceWithAccesibilityData,
+} from "../src/util/placeTypes";
+import { useFetchPlace } from "../src/hooks/useFetchPlace";
 
 jest.mock("../src/hooks/useNearbyPlaces");
 const mockUseNearbyPlaces = useNearbyPlaces as jest.MockedFunction<typeof useNearbyPlaces>;
@@ -16,6 +20,20 @@ mockUseNearbyPlaces.mockImplementation(
 		return { nearbyPlaces: [{ name: "Gotta be a place to eat" } as PlaceWithAccesibilityData] };
 	}
 );
+
+jest.mock("../src/hooks/useFetchPlace");
+const mockUseFetchPlace = useFetchPlace as jest.MockedFunction<typeof useFetchPlace>;
+
+const mockPlaceDetails: PlaceDetailsWithAccesibilityData = {
+	result: {
+		place_id: "oiluj",
+	},
+};
+
+mockUseFetchPlace.mockReturnValue({
+	placeDetails: { placeDetails: mockPlaceDetails },
+	isLoading: false,
+});
 
 // there will be errors if the tree is not unmounted after each test
 // https://callstack.github.io/react-native-testing-library/docs/api#cleanup
