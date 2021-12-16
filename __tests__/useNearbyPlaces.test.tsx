@@ -7,6 +7,8 @@ import { renderHook, cleanup } from "@testing-library/react-hooks";
 import { waitFor } from "@testing-library/react-native";
 import { BusinessStatus } from "../src/hooks/useNearbyPlaces";
 
+jest.useFakeTimers();
+
 jest.mock("../src/hooks/useLocation");
 
 const mockLocation: LocationObject = {
