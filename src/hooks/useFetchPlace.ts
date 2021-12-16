@@ -7,7 +7,7 @@ export const useFetchPlace = ({
 	placeID,
 	includeRatings = true,
 }: {
-	placeID: string;
+	placeID?: string;
 	includeRatings?: boolean;
 }): {
 	placeDetails?: { placeDetails: PlaceDetailsWithAccesibilityData };
