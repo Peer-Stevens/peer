@@ -5,6 +5,12 @@ import axios from "axios";
 import { SERVER_BASE_URL } from "../util/env";
 import type { PlaceWithAccesibilityData } from "../util/placeTypes";
 
+export enum BusinessStatus {
+	OPERATIONAL = "OPERATIONAL",
+	CLOSED_TEMPORARILY = "CLOSED_TEMPORARILY",
+	CLOSED_PERMANENTLY = "CLOSED_PERMANENTLY",
+}
+
 /**
  * Returns true if the two locations have the same latitude and longitude. Returns false
  * if one of the locations is undefined.
@@ -25,18 +31,33 @@ const hasSameCoordinates = (a?: LocationObject, b?: LocationObject): boolean => 
 	);
 };
 
-export const useNearbyPlaces = (): { nearbyPlaces?: PlaceWithAccesibilityData[] } => {
+export const useNearbyPlaces = (
+	placeType?: string
+): { nearbyPlaces?: PlaceWithAccesibilityData[] } => {
 	const { location } = useLocation();
 	const lastLocationRef = React.useRef<LocationObject | undefined>(undefined);
+	const placeTypeRef = React.useRef<string | undefined>(undefined);
 	const [nearbyPlaces, setNearbyPlaces] = React.useState<PlaceWithAccesibilityData[]>();
 
 	const getNearbyPlaces = async (location: LocationObject) => {
-		if (hasSameCoordinates(location, lastLocationRef.current)) return;
+		if (
+			hasSameCoordinates(location, lastLocationRef.current) &&
+			(placeType === placeTypeRef.current || placeType === undefined) // empty string is falsy, have to explicitly compare to undefined
+		) {
+			return;
+		}
+		setNearbyPlaces(undefined);
 		const result = await axios.get<{ places: PlaceWithAccesibilityData[] }>(
-			`${SERVER_BASE_URL}/getNearbyPlaces?latitude=${location.coords.latitude}&longitude=${location.coords.longitude}&includeRatings=true`
+			`${SERVER_BASE_URL}/getNearbyPlaces?latitude=${location.coords.latitude}&longitude=${
+				location.coords.longitude
+			}&includeRatings=true${placeType ? `&type=${placeType}` : ""}`
 		);
 		lastLocationRef.current = location;
-		setNearbyPlaces(result.data.places);
+		placeTypeRef.current = placeType;
+		const active_places = result.data.places.filter(
+			place => place.business_status === BusinessStatus.OPERATIONAL
+		);
+		setNearbyPlaces(active_places);
 	};
 
 	useEffect(() => {
@@ -50,7 +71,7 @@ export const useNearbyPlaces = (): { nearbyPlaces?: PlaceWithAccesibilityData[] 
 		}, 10000);
 
 		return () => clearInterval(fetchPlacesInterval);
-	}, [location]);
+	}, [location, placeType]);
 
 	return { nearbyPlaces };
 };

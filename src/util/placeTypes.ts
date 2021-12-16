@@ -3,8 +3,9 @@ import type { Place } from "@googlemaps/google-maps-services-js";
 
 export enum PlaceTypes {
 	Travel = "Travel",
-	Recreation = "Recreation",
-	Consumption = "Consumption",
+	Entertainment = "Entertainment",
+	Food = "Food and Drink",
+	Stores = "Stores",
 	Health = "Health",
 	Worship = "Worship",
 	Services = "Services",
@@ -28,13 +29,11 @@ export type Travel =
 	| PlaceType1.travel_agency
 	| PlaceType1.parking;
 
-export type Recreation =
+export type Entertainment =
 	| PlaceType1.amusement_park
 	| PlaceType1.aquarium
 	| PlaceType1.art_gallery
-	| PlaceType1.bar
 	| PlaceType1.bowling_alley
-	| PlaceType1.cafe
 	| PlaceType1.campground
 	| PlaceType1.casino
 	| PlaceType1.gym
@@ -43,15 +42,23 @@ export type Recreation =
 	| PlaceType1.museum
 	| PlaceType1.night_club
 	| PlaceType1.park
-	| PlaceType1.restaurant
 	| PlaceType1.rv_park
 	| PlaceType1.tourist_attraction
 	| PlaceType1.spa
 	| PlaceType1.stadium
 	| PlaceType1.zoo;
 
-export type Consumption =
+export type Food =
 	| PlaceType1.bakery
+	| PlaceType1.bar
+	| PlaceType1.cafe
+	| PlaceType1.liquor_store
+	| PlaceType1.meal_delivery
+	| PlaceType1.meal_takeaway
+	| PlaceType1.restaurant
+	| PlaceType1.supermarket;
+
+export type Stores =
 	| PlaceType1.bicycle_store
 	| PlaceType1.book_store
 	| PlaceType1.car_dealer
@@ -66,16 +73,12 @@ export type Consumption =
 	| PlaceType1.hardware_store
 	| PlaceType1.home_goods_store
 	| PlaceType1.jewelry_store
-	| PlaceType1.liquor_store
-	| PlaceType1.meal_delivery
-	| PlaceType1.meal_takeaway
 	| PlaceType1.movie_rental
 	| PlaceType1.pet_store
 	| PlaceType1.pharmacy
 	| PlaceType1.shoe_store
 	| PlaceType1.shopping_mall
-	| PlaceType1.store
-	| PlaceType1.supermarket;
+	| PlaceType1.store;
 
 export type Health =
 	| PlaceType1.beauty_salon
@@ -117,6 +120,18 @@ export type Services =
 	| PlaceType1.travel_agency;
 
 export type PlaceWithAccesibilityData = Place & {
+	accessibilityData?: {
+		_id: string;
+		avgBraille: number;
+		avgFontReadability: number;
+		avgNavigability: number;
+		avgStaffHelpfulness: number;
+		avgGuideDogFriendly: number;
+	};
+};
+
+export type PlaceDetailsWithAccesibilityData = {
+	result: Place;
 	accessibilityData?: {
 		_id: string;
 		avgBraille: number;

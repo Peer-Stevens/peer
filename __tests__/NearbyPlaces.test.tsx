@@ -3,7 +3,7 @@ import { cleanup, fireEvent, render, RenderAPI } from "@testing-library/react-na
 import App from "../App";
 import type { LocationObject } from "expo-location";
 import { useLocation } from "../src/hooks/useLocation";
-import { useNearbyPlaces } from "../src/hooks/useNearbyPlaces";
+import { useNearbyPlaces, BusinessStatus } from "../src/hooks/useNearbyPlaces";
 import { RelativeDirectionOutput, useCompass } from "../src/hooks/useCompass";
 import { computeDistanceFeet } from "../src/util/distance";
 import { PlaceWithAccesibilityData } from "../src/util/placeTypes";
@@ -46,12 +46,15 @@ const mockNearbyPlaces = useNearbyPlaces as jest.MockedFunction<typeof useNearby
 const mockPlaces: Partial<PlaceWithAccesibilityData>[] = [
 	{
 		name: "The Absolute Best Place in the Whole Wide World",
+		business_status: BusinessStatus.OPERATIONAL,
 	},
 	{
 		name: "OneDrive Installation Services",
+		business_status: BusinessStatus.OPERATIONAL,
 	},
 	{
 		name: "Amplifier and Electric Guitar Appraisal",
+		business_status: BusinessStatus.OPERATIONAL,
 	},
 ];
 

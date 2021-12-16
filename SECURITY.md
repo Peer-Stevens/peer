@@ -10,9 +10,11 @@ As of #90, `react-native-dotenv` has been removed.
 
 ## Data Collection
 
-~~In order to use Peer, users are required to authenticate, with sign-in information including their email address. If our database service were to be attacked and breached, users would have their email information leaked. This email information may be bought and sold in order to send them spam emails.~~
+In order to use Peer, users are required to authenticate, with sign-in information including their email address. If our database service were to be attacked and breached, users would have their email information leaked. This email information may be bought and sold in order to send them spam emails.
 
-As of [#11](https://github.com/Peer-Stevens/peer-server/pull/11), users are not expected to sign-in with an email address, only a username.
+~~As of [#11](https://github.com/Peer-Stevens/peer-server/pull/11), users are not expected to sign-in with an email address, only a username.~~
+
+As of [#43](https://github.com/Peer-Stevens/peer-server/pull/43) the above decision was reverted, and this concern remains.
 
 ## External Packages
 

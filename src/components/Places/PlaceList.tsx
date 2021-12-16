@@ -4,34 +4,34 @@ import PlaceCard from "./PlaceCard";
 import { useNearbyPlaces } from "../../hooks/useNearbyPlaces";
 import { useLocation } from "../../hooks/useLocation";
 import { getAverageA11yRating } from "../../util/processA11yRatings";
-
 export interface PlaceListProps {
 	goToDetails: () => void;
 	setPlaceID: Dispatch<SetStateAction<string | undefined>>;
+	selectedFilter: string;
 }
 
-const PlaceList = ({ goToDetails, setPlaceID }: PlaceListProps): JSX.Element => {
+const PlaceList = ({ goToDetails, setPlaceID, selectedFilter }: PlaceListProps): JSX.Element => {
 	const { location } = useLocation();
-	const { nearbyPlaces } = useNearbyPlaces();
+	const { nearbyPlaces } = useNearbyPlaces(selectedFilter);
 
-	const cardList = (nearbyPlaces || []).map((value, index) => {
-		const photo = value.photos ? value.photos[0].photo_reference : undefined;
-		const PlaceID = value.place_id;
+	const cardList = (nearbyPlaces || []).map((place, index) => {
+		const photo = place.photos ? place.photos[0].photo_reference : undefined;
+		const PlaceID = place.place_id;
 		return (
 			<PlaceCard
 				key={index}
-				placeName={value.name}
-				address={value.formatted_address}
+				placeName={place.name}
+				address={place.formatted_address}
 				photoref={photo}
 				location={location}
-				latitude={value.geometry?.location.lat}
-				longitude={value.geometry?.location.lng}
+				latitude={place.geometry?.location.lat}
+				longitude={place.geometry?.location.lng}
 				goToDetails={goToDetails}
 				placeID={PlaceID}
 				setPlaceID={setPlaceID}
 				avgRating={
-					value.accessibilityData
-						? Math.round(getAverageA11yRating(value) * 2) / 2
+					place.accessibilityData
+						? Math.round(getAverageA11yRating(place) * 2) / 2
 						: undefined
 				}
 			/>
@@ -53,7 +53,11 @@ const PlaceList = ({ goToDetails, setPlaceID }: PlaceListProps): JSX.Element => 
 					justifyContent: "center",
 				}}
 			>
-				<ActivityIndicator size="large" color="#000000" />
+				<ActivityIndicator
+					size="large"
+					color="#000000"
+					accessibilityLabel="List of places nearby is still loading"
+				/>
 			</View>
 		);
 	}

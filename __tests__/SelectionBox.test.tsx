@@ -1,8 +1,21 @@
 import React from "react";
-import { cleanup, render, fireEvent } from "@testing-library/react-native";
+import { cleanup, render, fireEvent, waitFor } from "@testing-library/react-native";
 import TestRenderer from "react-test-renderer";
 import App from "../App";
-import { placeTypeLabels } from "../src/util/placeTypes";
+import { enabledFiltersMap } from "../src/components/SelectionBox";
+import { useNearbyPlaces } from "../src/hooks/useNearbyPlaces";
+import { PlaceWithAccesibilityData } from "../src/util/placeTypes";
+
+jest.mock("../src/hooks/useNearbyPlaces");
+const mockUseNearbyPlaces = useNearbyPlaces as jest.MockedFunction<typeof useNearbyPlaces>;
+mockUseNearbyPlaces.mockImplementation(
+	(placeType?): { nearbyPlaces: PlaceWithAccesibilityData[] | undefined } => {
+		if (placeType === "") {
+			return { nearbyPlaces: [{ name: "Could be anywhere" } as PlaceWithAccesibilityData] };
+		}
+		return { nearbyPlaces: [{ name: "Gotta be a place to eat" } as PlaceWithAccesibilityData] };
+	}
+);
 
 // there will be errors if the tree is not unmounted after each test
 // https://callstack.github.io/react-native-testing-library/docs/api#cleanup
@@ -23,7 +36,7 @@ describe("Selection box tests", () => {
 		fireEvent.press(getByLabelText("Show selections"));
 
 		// Assert
-		expect(getAllByText(placeTypeLabels[0])).toHaveLength(1);
+		expect(getAllByText(enabledFiltersMap[0].label)).toHaveLength(1);
 	});
 
 	it("does not contain non-place types in the selections", () => {
@@ -46,7 +59,7 @@ describe("Selection box tests", () => {
 		fireEvent.press(getByLabelText("Hide selections"));
 
 		// Assert
-		expect(queryAllByText(placeTypeLabels[0])).toHaveLength(0);
+		expect(queryAllByText(enabledFiltersMap[0].label)).toHaveLength(0);
 	});
 
 	it("should read aloud that nothing is selected when used with a screen reader", () => {
@@ -70,11 +83,41 @@ describe("Selection box tests", () => {
 		fireEvent.press(chevronButton);
 
 		// Assert
-		for (const placeTypeLabel of placeTypeLabels) {
-			const checkbox = getByLabelText(placeTypeLabel);
+		for (const filterObj of enabledFiltersMap) {
+			const checkbox = getByLabelText(filterObj.label);
 			fireEvent.press(checkbox);
 			expect(chevronButton.props.accessibilityHint).toBeDefined();
-			expect(chevronButton.props.accessibilityHint).toContain(placeTypeLabel);
+			expect(chevronButton.props.accessibilityHint).toContain(filterObj.value);
 		}
+	});
+
+	it("should affect the results of the place list when a selection is chosen", async () => {
+		const { getByText, queryByText, getByLabelText } = render(<App />);
+
+		const chevronButton = getByLabelText("Show selections");
+		fireEvent.press(chevronButton);
+		const topLabel = getByText(enabledFiltersMap[0].label);
+		fireEvent.press(topLabel);
+
+		await waitFor(() => {
+			expect(queryByText("Gotta be a place to eat")).not.toBeNull();
+			expect(queryByText("Could be anywhere")).toBeNull();
+		});
+	});
+
+	it("should allow for each selection to be unselected", async () => {
+		const { getByText, queryByText, getByLabelText } = render(<App />);
+
+		const chevronButton = getByLabelText("Show selections");
+		fireEvent.press(chevronButton);
+
+		const topLabel = getByText(enabledFiltersMap[0].label);
+		fireEvent.press(topLabel); // press it
+		fireEvent.press(topLabel); // unpress it
+
+		await waitFor(() => {
+			expect(queryByText("Gotta be a place to eat")).toBeNull();
+			expect(queryByText("Could be anywhere")).not.toBeNull();
+		});
 	});
 });
