@@ -91,4 +91,17 @@ describe("Detailed view screen tests", () => {
 	it("renders a submit button", () => {
 		expect(tr.queryByText("Submit")).not.toBeNull();
 	});
+
+	it("renders a plus and minus button even if the place name is missing", () => {
+		mockUseFetchPlace.mockReturnValue({
+			placeDetails: { placeDetails: { result: { place_id: "divad" } } },
+			isLoading: false,
+		});
+
+		expect(tr.queryAllByLabelText("Increase rating by 0.5")).not.toBeNull();
+		expect(tr.queryAllByLabelText("Increase rating by 0.5")).toHaveLength(numberOfRatingFields);
+
+		expect(tr.queryAllByLabelText("Decrease rating by 0.5")).not.toBeNull();
+		expect(tr.queryAllByLabelText("Decrease rating by 0.5")).toHaveLength(numberOfRatingFields);
+	});
 });
