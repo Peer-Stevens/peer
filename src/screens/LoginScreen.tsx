@@ -1,10 +1,10 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { Button } from "../components/Button";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Screens } from "./MainScreen";
-import sha256 from "crypto-js/sha256";
+import { useAuthentication } from "../hooks/useAuthentication";
 
 type LogInScreenProps = {
 	placeID: string | undefined;
@@ -19,64 +19,13 @@ const LogInScreen: React.FC<LogInScreenProps> = ({
 	setPlaceID,
 	goToSubmitRating,
 }) => {
-	const [errorMsg, setErrorMsg] = useState<string>("");
-	const [email, setEmail] = useState<string>("");
-	const [password, setPassword] = useState<string>("");
+	const { validateEmail, hashPassword, email, errorMsg, setErrorMsg, password } =
+		useAuthentication();
 
 	const setPageAndSubmitRating = () => {
 		goToSubmitRating();
 		if (placeID) {
 			setPlaceID(placeID);
-		}
-	};
-
-	/**
-	 * Validates that the email the user provided has a valid email format
-	 * This validation in the client is faster than sending an invalid email over to the server only to recieve an error message.
-	 * @param email
-	 * @returns
-	 */
-	const validateEmail = (email: string) => {
-		setErrorMsg("");
-
-		if (!email) {
-			setEmail("");
-			return;
-		}
-
-		const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
-
-		if (reg.test(email) === false) {
-			setErrorMsg("Please provide a valid email");
-			return;
-		} else {
-			setErrorMsg("");
-			setEmail(email.toLowerCase()); // making email lowercase will ensure that email isn't case sensitive
-			return;
-		}
-	};
-
-	/**
-	 * Hashes the password the user provies
-	 * @param passowrd
-	 * @returns
-	 */
-	const hashPassword = (password: string) => {
-		setErrorMsg("");
-
-		if (!password) {
-			setPassword("");
-			return;
-		}
-		const hash: CryptoJS.lib.WordArray = sha256(password);
-
-		if (hash !== undefined) {
-			setPassword(hash.toString());
-			return;
-		} else {
-			setPassword("");
-			setErrorMsg("Something went wrong, please try again");
-			return;
 		}
 	};
 
