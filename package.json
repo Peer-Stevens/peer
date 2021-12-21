@@ -48,7 +48,7 @@
 		"eslint-plugin-react": "^7.27.1",
 		"expo-cli": "^5.0.1",
 		"husky": "^7.0.4",
-		"jest-expo": "^43.0.1",
+		"jest-expo": "^44.0.1",
 		"lint-staged": "^12.1.2",
 		"prettier": "^2.5.1",
 		"pretty-quick": "^3.1.2",
