@@ -4,6 +4,7 @@ import axios, { AxiosResponse } from "axios";
 import { useNearbyPlaces } from "../src/hooks/useNearbyPlaces";
 import { PlaceWithAccesibilityData } from "../src/util/placeTypes";
 import { PlaceDetailsResponseData } from "@googlemaps/google-maps-services-js";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import App from "../App";
 
 const mockNameString = "Julio's OneDrive Installation Services";
@@ -31,6 +32,10 @@ const mockResponseData: Partial<
 	},
 };
 
+jest.mock("@react-native-async-storage/async-storage");
+// eslint-disable-next-line @typescript-eslint/unbound-method
+const mockGetItem = AsyncStorage.getItem as jest.MockedFunction<typeof AsyncStorage.getItem>;
+
 let tr: RenderAPI;
 beforeEach(() => {
 	// mock data
@@ -56,5 +61,26 @@ describe("Detailed place screen tests", () => {
 
 	it("should render the go home button", async () => {
 		expect(await tr.findByText("Go Home")).toBeDefined();
+	});
+
+	it("submit rating button should take you to the not logged in screen if it does not finds a token", async () => {
+		mockGetItem.mockResolvedValueOnce(null);
+		const submitRatingButton = await tr.findByText("Submit a Rating");
+
+		fireEvent.press(submitRatingButton);
+
+		expect(mockGetItem).toHaveBeenCalled();
+		expect(await tr.findByText("Log in")).toBeDefined();
+		expect(await tr.findByText("Please log in to leave a rating")).toBeDefined();
+	});
+
+	it("submit rating button should take you to the log in screen if it does finds a token", async () => {
+		mockGetItem.mockResolvedValueOnce("aaaaa");
+		const submitRatingButton = await tr.findByText("Submit a Rating");
+
+		fireEvent.press(submitRatingButton);
+
+		expect(mockGetItem).toHaveBeenCalled();
+		expect(await tr.findByText("Back to previous page")).toBeDefined();
 	});
 });
