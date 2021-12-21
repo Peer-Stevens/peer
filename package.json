@@ -20,7 +20,7 @@
 		"expo": "~43.0.4",
 		"expo-location": "~13.0.4",
 		"global": "^4.4.0",
-		"react": "16.13.1",
+		"react": "16.14.0",
 		"react-dom": "16.13.1",
 		"react-native": "0.64.3",
 		"react-native-maps": "0.28.1",
