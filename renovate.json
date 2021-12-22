@@ -3,5 +3,5 @@
 	"schedule": ["after 8pm on Mondays"],
 	"timezone": "America/New_York",
 	"labels": ["dependencies"],
-	"assignees": ["elenirotsides", "carpenterd777", "aej11a", "jlora23"]
+	"reviewers": ["elenirotsides", "carpenterd777", "aej11a", "jlora23"]
 }
