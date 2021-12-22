@@ -62,31 +62,48 @@ describe("Login screen tests", () => {
 			expect(errorMsg).not.toBeNull();
 		});
 	});
-	it.todo(
-		"brings user to submit rating page when valid credentials are passed and responds with token",
-		() => {
-			mockPost.mockResolvedValueOnce(mockResponseDataGood);
+	it("brings user to submit rating page when valid credentials are passed and responds with token", async () => {
+		mockPost.mockResolvedValueOnce(mockResponseDataGood);
 
-			const logInButton = tr.getByLabelText("Click to log in");
-			const emailField = tr.getByLabelText("Type in your email here");
-			const passwordField = tr.getByLabelText("Type in your password here");
+		const logInButton = tr.getByLabelText("Click to log in");
+		const emailField = tr.getByLabelText("Type in your email here");
+		const passwordField = tr.getByLabelText("Type in your password here");
 
-			fireEvent.changeText(emailField, "test@test.com");
-			fireEvent.changeText(passwordField, "test123");
+		fireEvent.changeText(emailField, "test@test.com");
+		fireEvent.changeText(passwordField, "test123");
 
-			fireEvent.press(logInButton);
+		fireEvent.press(logInButton);
 
-			expect(mockPost).toHaveBeenCalled();
-			expect(mockGoToSubmitRating).toHaveBeenCalledWith(Screens.SubmitRating);
-		}
-	);
-	it.todo("shows error to user when invalid credentials are provided", () => {});
-	it.todo("back button takes user to the previous screen", () => {
+		expect(mockPost).toHaveBeenCalled();
+
+		await waitFor(() => {
+			expect(mockSetPlaceID).toHaveBeenCalledWith("placeid123");
+			expect(mockGoToSubmitRating).toHaveBeenCalled();
+		});
+	});
+	it("shows error to user when invalid credentials are provided", async () => {
+		mockPost.mockResolvedValueOnce(mockResponseDataBad);
+
+		const logInButton = tr.getByLabelText("Click to log in");
+		const emailField = tr.getByLabelText("Type in your email here");
+		const passwordField = tr.getByLabelText("Type in your password here");
+
+		fireEvent.changeText(emailField, "test@test.com");
+		fireEvent.changeText(passwordField, "test1234");
+
+		fireEvent.press(logInButton);
+
+		expect(mockPost).toHaveBeenCalled();
+		await waitFor(() => {
+			const errorMsg = tr.queryByText("Account with that email and/or password not found.");
+			expect(errorMsg).not.toBeNull();
+		});
+	});
+	it("back button takes user to the previous screen", () => {
 		const goBackButton = tr.getByText("Back to previous page");
 
 		fireEvent.press(goBackButton);
 
 		expect(mockSetPage).toHaveBeenCalledWith(Screens.NotLoggedIn);
-		expect(mockSetPlaceID).toHaveBeenCalledWith("placeid123");
 	});
 });
