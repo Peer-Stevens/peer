@@ -19,6 +19,7 @@
 		"@unimodules/react-native-adapter": "~6.5.0",
 		"axios": "^0.24.0",
 		"crypto-js": "^4.1.1",
+		"email-validator": "^2.0.4",
 		"expo": "~43.0.4",
 		"expo-location": "~13.0.4",
 		"global": "^4.4.0",
