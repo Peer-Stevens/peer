@@ -12,16 +12,9 @@ Run:
 
 ```
 npm i -g yarn
-yarn global add expo-cli
+npm i -g expo-cli
+npm i -g eas-cli
 ```
-
-If running `expo --version` does not yield a version number, add this line to your `.bashrc`:
-
-```
-export PATH="$(yarn global bin):$PATH"
-```
-
-then restart your terminal.
 
 Run:
 
