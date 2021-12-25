@@ -19,7 +19,7 @@ jobs:
       - run: yarn
       - name: Run all test suites
         run: |
-          yarn test --coverage
+          yarn jest --coverage --forceExit
       - uses: codecov/codecov-action@v2
         with:
           token: ${{secrets.CODECOV_TOKEN}}

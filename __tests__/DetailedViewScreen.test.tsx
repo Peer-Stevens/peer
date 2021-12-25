@@ -4,7 +4,7 @@ import axios, { AxiosResponse } from "axios";
 import { useNearbyPlaces } from "../src/hooks/useNearbyPlaces";
 import { PlaceWithAccesibilityData } from "../src/util/placeTypes";
 import { PlaceDetailsResponseData } from "@googlemaps/google-maps-services-js";
-import App from "../App";
+import MainScreen from "../src/screens/MainScreen";
 
 const mockNameString = "Julio's OneDrive Installation Services";
 const mockAddressString = "123 Microsoft Road";
@@ -38,7 +38,7 @@ beforeEach(() => {
 	mockGet.mockResolvedValue(mockResponseData);
 
 	// press place name
-	tr = render(<App />);
+	tr = render(<MainScreen />);
 	fireEvent.press(tr.getByText(mockNameString));
 });
 afterEach(cleanup);
