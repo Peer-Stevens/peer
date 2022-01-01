@@ -126,9 +126,10 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		fontSize: 35,
-		fontWeight: "bold",
+		fontFamily: "APHontBold",
 	},
 	text: {
+		fontFamily: "APHont",
 		fontSize: 30,
 		lineHeight: 35,
 		marginBottom: 15,

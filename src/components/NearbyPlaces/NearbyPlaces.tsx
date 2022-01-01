@@ -21,7 +21,7 @@ export const NearbyPlaces: React.FC<NearbyPlacesProps> = ({ stopStrolling, type 
 		<View style={{ width: "90%" }}>
 			{nearbyPlaces && nearbyPlaces.length > 0 && location ? (
 				<>
-					<Text style={{ fontSize: 24, marginBottom: 15 }}>
+					<Text style={{ fontFamily: "APHont", fontSize: 24, marginBottom: 15 }}>
 						The following places are nearby:
 					</Text>
 					{nearbyPlaces.slice(0, 5).map(place => {
@@ -41,7 +41,11 @@ export const NearbyPlaces: React.FC<NearbyPlacesProps> = ({ stopStrolling, type 
 							return (
 								<Text
 									key={place.name}
-									style={{ fontSize: 24, fontWeight: "bold", marginBottom: 15 }}
+									style={{
+										fontSize: 24,
+										fontFamily: "APHontBold",
+										marginBottom: 15,
+									}}
 								>
 									{"\u2022"} {place.name} is{" "}
 									{computeDistanceFeet(userCoords, placeCoords)} feet{" "}
