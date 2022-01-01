@@ -1,5 +1,5 @@
 //This is where we will be displaying the information of each single place
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Dimensions, View, Text, ActivityIndicator, TextProps } from "react-native";
 import { computeDistanceMi } from "../util/distance";
 import { useLocation } from "../hooks/useLocation";
@@ -8,15 +8,31 @@ import { TEXT_COLOR } from "../util/colors";
 import { PlaceImage } from "../components/PlaceImage";
 import { useFetchPlace } from "../hooks/useFetchPlace";
 import { getAverageA11yRating } from "../util/processA11yRatings";
-
+import { Screens } from "./MainScreen";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 export interface PlaceProps {
 	placeID: string;
-	setPage: (newPage: string) => void;
+	setPage: (screen: Screens) => void;
 }
 
 const BodyText = (props: TextProps) => <Text style={styles.text} {...props} />;
 
 const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlaceProps) => {
+	const [tokenExists, setTokenExists] = useState(false);
+
+	useEffect(() => {
+		const checkForToken = async () => {
+			const key = await AsyncStorage.getItem("@auth_token");
+
+			if (key !== null) {
+				setTokenExists(true);
+				return;
+			}
+			setTokenExists(false);
+		};
+		void checkForToken();
+	}, []);
+
 	const { placeDetails } = useFetchPlace({ placeID });
 
 	const { location } = useLocation();
@@ -65,16 +81,17 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 					</BodyText>
 					<Button
 						style={styles.submitButton}
-						onPress={() => {
-							//placeholder
-						}}
-						//onPress={() => setPage("login")} need to update this after Eleni's PR is merged w/ Andrew's updates to nav
+						onPress={() =>
+							tokenExists
+								? setPage(Screens.SubmitRating)
+								: setPage(Screens.NotLoggedIn)
+						}
 						accessibilityLabel="Submit an accessibility rating"
 						text="Submit a Rating"
 					/>
 					<Button
 						style={styles.homeBtn}
-						onPress={() => setPage("mapScreen")} //need to update this after Eleni's PR is merged w/ Andrew's updates to nav
+						onPress={() => setPage(Screens.Home)}
 						accessibilityLabel="Return to Home Page"
 						text="Go Home"
 					/>

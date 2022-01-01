@@ -14,9 +14,12 @@
 		"lint-staged": "pretty-quick --staged && lint-staged"
 	},
 	"dependencies": {
+		"@react-native-async-storage/async-storage": "^1.15.14",
 		"@unimodules/core": "~7.2.0",
 		"@unimodules/react-native-adapter": "~6.5.0",
 		"axios": "^0.24.0",
+		"crypto-js": "^4.1.1",
+		"email-validator": "^2.0.4",
 		"expo": "~43.0.4",
 		"expo-app-loading": "~1.2.1",
 		"expo-font": "~10.0.3",
@@ -35,6 +38,7 @@
 		"@googlemaps/google-maps-services-js": "3.3.4",
 		"@testing-library/react-hooks": "^7.0.2",
 		"@testing-library/react-native": "^9.0.0",
+		"@types/crypto-js": "^4.0.2",
 		"@types/jest": "^27.0.3",
 		"@types/react": "~17.0.37",
 		"@types/react-native": "^0.66.9",
