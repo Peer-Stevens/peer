@@ -13,7 +13,7 @@ export interface PlaceProps {
 	placeID: string;
 	goToMapScreen: () => void;
 	goToSubmitRatingScreen: () => void;
-	placeDetails?: { placeDetails: PlaceDetailsWithAccesibilityData } | undefined;
+	placeDetails?: PlaceDetailsWithAccesibilityData;
 }
 
 const BodyText = (props: TextProps) => <Text style={styles.text} {...props} />;
@@ -31,7 +31,7 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({
 	};
 
 	if (placeDetails) {
-		const place = placeDetails.placeDetails.result;
+		const place = placeDetails.result;
 
 		const placeCoord = {
 			latitude: place.geometry?.location.lat,
@@ -63,7 +63,7 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({
 					<BodyText>
 						{Math.round(
 							getAverageA11yRating({
-								accessibilityData: placeDetails.placeDetails.accessibilityData,
+								accessibilityData: placeDetails.accessibilityData,
 							}) * 2
 						) / 2}
 					</BodyText>
