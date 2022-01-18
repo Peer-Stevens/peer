@@ -76,7 +76,7 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({
 					/>
 					<Button
 						style={styles.homeBtn}
-						onPress={() => goToMapScreen()} //need to update this after Eleni's PR is merged w/ Andrew's updates to nav
+						onPress={() => goToMapScreen()}
 						accessibilityLabel="Return to Home Page"
 						text="Go Home"
 					/>
