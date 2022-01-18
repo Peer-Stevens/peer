@@ -28,29 +28,30 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 				}}
 			/>
 			{["Navigability", "Sensory Aids", "Staff Helpfulness", "Guide Dog Friendliness"].map(
-				(value, index) => {
-					const decreaseHint = placeName
-						? `Decrease your evaluation of ${placeName}'s ${value} by 0.5`
-						: `Decrease your evaluation of this place's ${value} by 0.5`;
-					const increaseHint = placeName
-						? `Increase your evaluation of ${placeName}'s ${value} by 0.5`
-						: `Increase your evaluation of this place's ${value} by 0.5`;
+				(attribute, index) => {
+					const interimRating = interimRatingRef.current[index];
+					const nextRatingAbove = interimRating + 0.5;
+					const nextRatingBelow = interimRating - 0.5;
+					const decreaseLabel = `Decrease your evaluation of ${
+						placeName ? placeName : "this place"
+					}'s ${attribute} from ${interimRating} to ${nextRatingBelow}`;
+					const increaseLabel = `Increase your evaluation of ${
+						placeName ? placeName : "this place"
+					}'s ${attribute} from ${interimRating} to ${nextRatingAbove}`;
 					return (
 						<View key={`rating${index}`}>
 							<Button
 								iconName={"minus"}
-								accessibilityLabel={"Decrease rating by 0.5"}
-								accessibilityHint={decreaseHint}
+								accessibilityLabel={decreaseLabel}
 								onPress={() => {
 									// TODO
 								}}
 							/>
-							<Text>{value}</Text>
-							<Text>{interimRatingRef.current[index]}</Text>
+							<Text>{attribute}</Text>
+							<Text>{interimRating}</Text>
 							<Button
 								iconName={"plus"}
-								accessibilityLabel={"Increase rating by 0.5"}
-								accessibilityHint={increaseHint}
+								accessibilityLabel={increaseLabel}
 								onPress={() => {
 									// TODO
 								}}
