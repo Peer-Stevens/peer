@@ -1,5 +1,5 @@
 //This is where we will be displaying the information of each single place
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Dimensions, View, Text, ActivityIndicator, TextProps } from "react-native";
 import { computeDistanceMi } from "../util/distance";
 import { useLocation } from "../hooks/useLocation";
@@ -7,21 +7,35 @@ import { Button } from "../components/Button";
 import { TEXT_COLOR } from "../util/colors";
 import { PlaceImage } from "../components/PlaceImage";
 import { getAverageA11yRating } from "../util/processA11yRatings";
-import { PlaceDetailsWithAccesibilityData } from "../util/placeTypes";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFetchPlace } from "../hooks/useFetchPlace";
+import Screens from "../util/screens";
 
 export interface PlaceProps {
-	goToMapScreen: () => void;
-	goToSubmitRatingScreen: () => void;
-	placeDetails?: PlaceDetailsWithAccesibilityData;
+	placeID: string;
+	setPage: (screen: Screens) => void;
 }
 
 const BodyText = (props: TextProps) => <Text style={styles.text} {...props} />;
 
-const DetailedViewScreen: React.FC<PlaceProps> = ({
-	goToMapScreen,
-	goToSubmitRatingScreen,
-	placeDetails,
-}: PlaceProps) => {
+const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlaceProps) => {
+	const [tokenExists, setTokenExists] = useState(false);
+
+	useEffect(() => {
+		const checkForToken = async () => {
+			const key = await AsyncStorage.getItem("@auth_token");
+
+			if (key !== null) {
+				setTokenExists(true);
+				return;
+			}
+			setTokenExists(false);
+		};
+		void checkForToken();
+	}, []);
+
+	const { placeDetails } = useFetchPlace({ placeID });
+
 	const { location } = useLocation();
 
 	const userCoords = {
@@ -67,14 +81,17 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({
 					</BodyText>
 					<Button
 						style={styles.submitButton}
-						onPress={() => goToSubmitRatingScreen()}
-						//onPress={() => setPage("login")} need to update this after Eleni's PR is merged w/ Andrew's updates to nav
+						onPress={() =>
+							tokenExists
+								? setPage(Screens.SubmitRating)
+								: setPage(Screens.NotLoggedIn)
+						}
 						accessibilityLabel="Submit an accessibility rating"
 						text="Submit a Rating"
 					/>
 					<Button
 						style={styles.homeBtn}
-						onPress={() => goToMapScreen()}
+						onPress={() => setPage(Screens.Home)}
 						accessibilityLabel="Return to Home Page"
 						text="Go Home"
 					/>
@@ -109,9 +126,10 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		fontSize: 35,
-		fontWeight: "bold",
+		fontFamily: "APHontBold",
 	},
 	text: {
+		fontFamily: "APHont",
 		fontSize: 30,
 		lineHeight: 35,
 		marginBottom: 15,
