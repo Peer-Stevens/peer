@@ -17,12 +17,12 @@ export const useFetchPlace = ({
 	const [placeDetails, setPlaceDetails] = useState<PlaceDetailsWithAccesibilityData>();
 
 	const getPlaceDetails = async (placeID: string) => {
-		const result = await axios.get<PlaceDetailsWithAccesibilityData>(
+		const result = await axios.get<{ placeDetails: PlaceDetailsWithAccesibilityData }>(
 			`${SERVER_BASE_URL}/getPlaceDetails/${placeID}?${
 				includeRatings ? `includeRatings=true` : ``
 			}`
 		);
-		setPlaceDetails(result.data);
+		setPlaceDetails(result.data.placeDetails);
 	};
 
 	useEffect(() => {
