@@ -10,7 +10,6 @@ import { getAverageA11yRating } from "../util/processA11yRatings";
 import { PlaceDetailsWithAccesibilityData } from "../util/placeTypes";
 
 export interface PlaceProps {
-	placeID: string;
 	goToMapScreen: () => void;
 	goToSubmitRatingScreen: () => void;
 	placeDetails?: PlaceDetailsWithAccesibilityData;
@@ -37,8 +36,7 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({
 			latitude: place.geometry?.location.lat,
 			longitude: place.geometry?.location.lng,
 		};
-		const placeCoords = { latitude: placeCoord.latitude, longitude: placeCoord.longitude };
-		const distanceInMi = computeDistanceMi(userCoords, placeCoords)?.toPrecision(2);
+		const distanceInMi = computeDistanceMi(userCoords, placeCoord)?.toPrecision(2);
 
 		return (
 			<View style={styles.border}>

@@ -1,73 +1,24 @@
 import React from "react";
-import { cleanup, render, fireEvent, RenderAPI } from "@testing-library/react-native";
-import axios, { AxiosResponse } from "axios";
-import { useNearbyPlaces } from "../src/hooks/useNearbyPlaces";
-import { useFetchPlace } from "../src/hooks/useFetchPlace";
+import { cleanup, render, RenderAPI } from "@testing-library/react-native";
 import {
-	PlaceDetailsWithAccesibilityData,
-	PlaceWithAccesibilityData,
-} from "../src/util/placeTypes";
-import { PlaceDetailsResponseData } from "@googlemaps/google-maps-services-js";
-import App from "../App";
+	CANCEL,
+	PLACE_ATTRIBUTES,
+	SUBMIT,
+	getIncrementRatingButtonLabel,
+} from "../src/util/strings";
+import SubmitRatingScreen, { DEFAULT_INTERIM_RATING } from "../src/screens/SubmitRatingScreen";
 
 const mockNameString = "Julio's OneDrive Installation Services";
-const mockAddressString = "123 Microsoft Road";
-
-jest.mock("../src/hooks/useNearbyPlaces");
-const mockNearbyPlaces = useNearbyPlaces as jest.MockedFunction<typeof useNearbyPlaces>;
-
-const mockPlaces: PlaceWithAccesibilityData[] = [
-	{
-		place_id: "oiluj",
-		name: mockNameString,
-	},
-];
-
-jest.mock("../src/hooks/useFetchPlace");
-const mockUseFetchPlace = useFetchPlace as jest.MockedFunction<typeof useFetchPlace>;
-
-const mockPlaceDetails: PlaceDetailsWithAccesibilityData = {
-	result: {
-		place_id: "oiluj",
-		name: mockNameString,
-	},
-};
-
-mockUseFetchPlace.mockReturnValue({
-	placeDetails: { placeDetails: mockPlaceDetails },
-	isLoading: false,
-});
-
-jest.mock("axios");
-// eslint-disable-next-line @typescript-eslint/unbound-method
-const mockGet = axios.get as jest.MockedFunction<typeof axios.get>;
-
-const mockResponseData: Partial<
-	AxiosResponse<{ placeDetails: Partial<PlaceDetailsResponseData> }>
-> = {
-	data: {
-		placeDetails: { result: { name: mockNameString, formatted_address: mockAddressString } },
-	},
-};
+const mockPlaceID = "oiluj";
 
 let tr: RenderAPI;
 beforeEach(() => {
-	// mock data
-	mockNearbyPlaces.mockReturnValue({ nearbyPlaces: mockPlaces });
-	mockGet.mockResolvedValue(mockResponseData);
-
 	// press place name
-	tr = render(<App />);
-	fireEvent.press(tr.getByText(mockNameString));
-
-	// press submit rating
-	fireEvent.press(tr.getByText("Submit a Rating"));
+	tr = render(<SubmitRatingScreen placeID={mockPlaceID} placeName={mockNameString} />);
 });
 afterEach(cleanup);
 
-const numberOfRatingFields = 4;
-
-describe("Detailed view screen tests", () => {
+describe("Submit rating screen tests", () => {
 	it("renders an image", () => {
 		expect(tr.queryByLabelText(`No image available for ${mockNameString}`)).not.toBeNull();
 	});
@@ -77,31 +28,53 @@ describe("Detailed view screen tests", () => {
 	});
 
 	it("renders a plus and minus button for each rating", () => {
-		expect(tr.queryAllByLabelText("Increase rating by 0.5")).not.toBeNull();
-		expect(tr.queryAllByLabelText("Increase rating by 0.5")).toHaveLength(numberOfRatingFields);
-
-		expect(tr.queryAllByLabelText("Decrease rating by 0.5")).not.toBeNull();
-		expect(tr.queryAllByLabelText("Decrease rating by 0.5")).toHaveLength(numberOfRatingFields);
+		for (const attribute of PLACE_ATTRIBUTES) {
+			expect(
+				tr.queryAllByLabelText(
+					getIncrementRatingButtonLabel(
+						true,
+						DEFAULT_INTERIM_RATING,
+						attribute,
+						mockNameString
+					)
+				)
+			).not.toBeNull();
+			expect(
+				tr.queryAllByLabelText(
+					getIncrementRatingButtonLabel(
+						false,
+						DEFAULT_INTERIM_RATING,
+						attribute,
+						mockNameString
+					)
+				)
+			).not.toBeNull();
+		}
 	});
 
 	it("renders a cancel button", () => {
-		expect(tr.queryByText("Cancel")).not.toBeNull();
+		expect(tr.queryByText(CANCEL)).not.toBeNull();
 	});
 
 	it("renders a submit button", () => {
-		expect(tr.queryByText("Submit")).not.toBeNull();
+		expect(tr.queryByText(SUBMIT)).not.toBeNull();
 	});
 
 	it("renders a plus and minus button even if the place name is missing", () => {
-		mockUseFetchPlace.mockReturnValue({
-			placeDetails: { placeDetails: { result: { place_id: "divad" } } },
-			isLoading: false,
-		});
+		// no name!
+		const tr = render(<SubmitRatingScreen placeID={mockPlaceID} />);
 
-		expect(tr.queryAllByLabelText("Increase rating by 0.5")).not.toBeNull();
-		expect(tr.queryAllByLabelText("Increase rating by 0.5")).toHaveLength(numberOfRatingFields);
-
-		expect(tr.queryAllByLabelText("Decrease rating by 0.5")).not.toBeNull();
-		expect(tr.queryAllByLabelText("Decrease rating by 0.5")).toHaveLength(numberOfRatingFields);
+		for (const attribute of PLACE_ATTRIBUTES) {
+			expect(
+				tr.queryAllByLabelText(
+					getIncrementRatingButtonLabel(true, DEFAULT_INTERIM_RATING, attribute)
+				)
+			).not.toBeNull();
+			expect(
+				tr.queryAllByLabelText(
+					getIncrementRatingButtonLabel(false, DEFAULT_INTERIM_RATING, attribute)
+				)
+			).not.toBeNull();
+		}
 	});
 });
