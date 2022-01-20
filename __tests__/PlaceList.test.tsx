@@ -3,8 +3,12 @@ import { cleanup, render } from "@testing-library/react-native";
 import { useNearbyPlaces } from "../src/hooks/useNearbyPlaces";
 import { PlacePhoto } from "@googlemaps/google-maps-services-js";
 import { computeDistanceMi } from "../src/util/distance";
-import App from "../App";
-import { PlaceWithAccesibilityData } from "../src/util/placeTypes";
+import {
+	PlaceDetailsWithAccesibilityData,
+	PlaceWithAccesibilityData,
+} from "../src/util/placeTypes";
+import { useFetchPlace } from "../src/hooks/useFetchPlace";
+import MainScreen from "../src/screens/MainScreen";
 
 afterEach(cleanup);
 jest.useFakeTimers();
@@ -67,10 +71,24 @@ const mockPlaces: PlaceWithAccesibilityData[] = [
 ];
 mockNearbyPlaces.mockReturnValue({ nearbyPlaces: mockPlaces });
 
+jest.mock("../src/hooks/useFetchPlace");
+const mockUseFetchPlace = useFetchPlace as jest.MockedFunction<typeof useFetchPlace>;
+
+const mockPlaceDetails: PlaceDetailsWithAccesibilityData = {
+	result: {
+		place_id: "oiluj",
+	},
+};
+
+mockUseFetchPlace.mockReturnValue({
+	placeDetails: mockPlaceDetails,
+	isLoading: false,
+});
+
 describe("Place list tests", () => {
 	it("renders the place name", () => {
 		// Arrange
-		const { getByText } = render(<App />);
+		const { getByText } = render(<MainScreen />);
 
 		// Assert
 		for (const mockPlace of mockPlaces) {
@@ -81,7 +99,7 @@ describe("Place list tests", () => {
 
 	it("renders the place address", () => {
 		// Arrange
-		const { getByText } = render(<App />);
+		const { getByText } = render(<MainScreen />);
 
 		// Assert
 		for (const mockPlace of mockPlaces) {
@@ -92,7 +110,7 @@ describe("Place list tests", () => {
 
 	it("renders the place rating", () => {
 		// Arrange
-		const { getByText } = render(<App />);
+		const { getByText } = render(<MainScreen />);
 
 		// Assert
 		expect(getByText("Rating: 5/5")).toBeDefined();
@@ -102,7 +120,7 @@ describe("Place list tests", () => {
 
 	it("does not render text other than the place name, address, or rating", () => {
 		// Arrange
-		const { queryByText } = render(<App />);
+		const { queryByText } = render(<MainScreen />);
 
 		// Assert
 		expect(queryByText("Null Island")).toBeNull();
@@ -112,7 +130,7 @@ describe("Place list tests", () => {
 
 	it("renders an image when the photo reference field is defined", () => {
 		// Arrange
-		const { getByLabelText } = render(<App />);
+		const { getByLabelText } = render(<MainScreen />);
 		const photoFullMockPlaces = mockPlaces.filter(place => place.photos);
 
 		// Assert
@@ -124,7 +142,7 @@ describe("Place list tests", () => {
 
 	it("renders an icon when the photo reference field is undefined", () => {
 		// Arrange
-		const { getByLabelText } = render(<App />);
+		const { getByLabelText } = render(<MainScreen />);
 		const photoLessMockPlaces = mockPlaces.filter(place => !place.photos);
 
 		// Assert
@@ -140,7 +158,7 @@ describe("Place list tests", () => {
 		for (const distance of distances) {
 			mockDistMi.mockReturnValueOnce(distance);
 		}
-		const { getByText } = render(<App />);
+		const { getByText } = render(<MainScreen />);
 
 		// Assert
 		expect(getByText("0.13 mi away")).toBeDefined();
@@ -151,7 +169,7 @@ describe("Place list tests", () => {
 	it("does not render incorrect text about distance away", () => {
 		// Arrange
 		mockDistMi.mockReturnValue(21);
-		const { queryByText } = render(<App />);
+		const { queryByText } = render(<MainScreen />);
 
 		// Assert
 		expect(queryByText("9001 mi away")).toBeNull();
@@ -163,7 +181,7 @@ describe("Place list tests", () => {
 		for (const distance of distances) {
 			mockDistMi.mockReturnValueOnce(distance);
 		}
-		const { getByLabelText } = render(<App />);
+		const { getByLabelText } = render(<MainScreen />);
 
 		// Assert
 		expect(getByLabelText("0.13 miles away")).toBeDefined();
@@ -173,7 +191,7 @@ describe("Place list tests", () => {
 
 	it("renders a loading indicator when no places are available", () => {
 		mockNearbyPlaces.mockReturnValueOnce({ nearbyPlaces: undefined });
-		const { queryByLabelText } = render(<App />);
+		const { queryByLabelText } = render(<MainScreen />);
 
 		expect(queryByLabelText("List of places nearby is still loading")).not.toBeNull();
 	});

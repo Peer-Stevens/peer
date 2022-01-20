@@ -101,8 +101,8 @@ const SelectionBox: React.FC<SelectionBoxProps> = ({
 
 const styles = StyleSheet.create({
 	text: {
+		fontFamily: "APHontBold",
 		color: TEXT_COLOR,
-		fontWeight: "bold",
 	},
 	flitem: {
 		display: "flex",

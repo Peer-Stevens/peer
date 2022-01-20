@@ -7,15 +7,14 @@ export const useFetchPlace = ({
 	placeID,
 	includeRatings = true,
 }: {
-	placeID: string;
+	placeID?: string;
 	includeRatings?: boolean;
 }): {
-	placeDetails?: { placeDetails: PlaceDetailsWithAccesibilityData };
+	placeDetails?: PlaceDetailsWithAccesibilityData;
 	isLoading: boolean;
 } => {
 	const [isLoading, setIsLoading] = useState(false);
-	const [placeDetails, setPlaceDetails] =
-		useState<{ placeDetails: PlaceDetailsWithAccesibilityData }>();
+	const [placeDetails, setPlaceDetails] = useState<PlaceDetailsWithAccesibilityData>();
 
 	const getPlaceDetails = async (placeID: string) => {
 		const result = await axios.get<{ placeDetails: PlaceDetailsWithAccesibilityData }>(
@@ -23,7 +22,7 @@ export const useFetchPlace = ({
 				includeRatings ? `includeRatings=true` : ``
 			}`
 		);
-		setPlaceDetails(result.data);
+		setPlaceDetails(result.data.placeDetails);
 	};
 
 	useEffect(() => {

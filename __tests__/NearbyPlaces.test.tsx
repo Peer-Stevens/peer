@@ -1,12 +1,16 @@
 import React from "react";
 import { cleanup, fireEvent, render, RenderAPI } from "@testing-library/react-native";
-import App from "../App";
 import type { LocationObject } from "expo-location";
 import { useLocation } from "../src/hooks/useLocation";
 import { useNearbyPlaces, BusinessStatus } from "../src/hooks/useNearbyPlaces";
 import { RelativeDirectionOutput, useCompass } from "../src/hooks/useCompass";
 import { computeDistanceFeet } from "../src/util/distance";
-import { PlaceWithAccesibilityData } from "../src/util/placeTypes";
+import {
+	PlaceDetailsWithAccesibilityData,
+	PlaceWithAccesibilityData,
+} from "../src/util/placeTypes";
+import { useFetchPlace } from "../src/hooks/useFetchPlace";
+import MainScreen from "../src/screens/MainScreen";
 
 // mock use location to prevent querying for location data
 jest.mock("../src/hooks/useLocation");
@@ -58,6 +62,20 @@ const mockPlaces: Partial<PlaceWithAccesibilityData>[] = [
 	},
 ];
 
+jest.mock("../src/hooks/useFetchPlace");
+const mockUseFetchPlace = useFetchPlace as jest.MockedFunction<typeof useFetchPlace>;
+
+const mockPlaceDetails: PlaceDetailsWithAccesibilityData = {
+	result: {
+		place_id: "oiluj",
+	},
+};
+
+mockUseFetchPlace.mockReturnValue({
+	placeDetails: mockPlaceDetails,
+	isLoading: false,
+});
+
 let tr: RenderAPI;
 beforeEach(() => {
 	mockUseLocation.mockReturnValue({ location: mockLocation });
@@ -65,7 +83,7 @@ beforeEach(() => {
 	mockUseCompass.mockReturnValue({ heading: 0, getRelativeDirection: mockRelativeDirection });
 	mockComputeDistance.mockReturnValue(mockDistance);
 
-	tr = render(<App />);
+	tr = render(<MainScreen />);
 	// press take a stroll button
 	const strollButton = tr.getByText("Take a stroll");
 	fireEvent.press(strollButton);

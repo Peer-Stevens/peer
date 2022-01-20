@@ -1,15 +1,17 @@
 //This is where we will be displaying the information of each single place
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, ActivityIndicator, TextProps, ScrollView } from "react-native";
 import { computeDistanceMi } from "../util/distance";
 import { useLocation } from "../hooks/useLocation";
 import { Button } from "../components/Button";
 import { PlaceImage } from "../components/PlaceImage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFetchPlace } from "../hooks/useFetchPlace";
+import Screens from "../util/screens";
 
 export interface PlaceProps {
 	placeID: string;
-	setPage: (newPage: string) => void;
+	setPage: (screen: Screens) => void;
 }
 
 const BodyText = (props: TextProps) => (
@@ -24,6 +26,21 @@ const BodyText = (props: TextProps) => (
 );
 
 const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlaceProps) => {
+	const [tokenExists, setTokenExists] = useState(false);
+
+	useEffect(() => {
+		const checkForToken = async () => {
+			const key = await AsyncStorage.getItem("@auth_token");
+
+			if (key !== null) {
+				setTokenExists(true);
+				return;
+			}
+			setTokenExists(false);
+		};
+		void checkForToken();
+	}, []);
+
 	const { placeDetails } = useFetchPlace({ placeID });
 
 	const { location } = useLocation();
@@ -33,21 +50,22 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 		longitude: location?.coords.longitude,
 	};
 
-	if (placeDetails && placeDetails.placeDetails.accessibilityData) {
-		const place = placeDetails.placeDetails.result;
+	if (placeDetails) {
+		const place = placeDetails.result;
 
 		const placeCoord = {
 			latitude: place.geometry?.location.lat,
 			longitude: place.geometry?.location.lng,
 		};
-		const placeCoords = { latitude: placeCoord.latitude, longitude: placeCoord.longitude };
-		const distanceInMi = computeDistanceMi(userCoords, placeCoords)?.toPrecision(2);
+		const distanceInMi = computeDistanceMi(userCoords, placeCoord)?.toPrecision(2);
 
-		// TODO: update to use new rating fields
-		const { avgBraille, avgFontReadability, avgGuideDogFriendly, avgNavigability } =
-			placeDetails.placeDetails.accessibilityData;
-
-		const a11yDataList = [avgBraille, avgFontReadability, avgGuideDogFriendly, avgNavigability];
+		// TODO: update to use new rating "sensory aids"
+		const a11yDataMap = {
+			"Navigability": placeDetails.accessibilityData?.avgNavigability,
+			"Sensory Aids": placeDetails.accessibilityData?.avgBraille,
+			"Staff Helpfulness": placeDetails.accessibilityData?.avgStaffHelpfulness,
+			"Guide Dog Friendliness": placeDetails.accessibilityData?.avgGuideDogFriendly,
+		};
 
 		return (
 			<View style={{ flex: 1 }}>
@@ -84,12 +102,10 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 						>
 							{distanceInMi ? `${distanceInMi} mi away` : ""}
 						</BodyText>
-						{[
-							"Navigability",
-							"Sensory Aids",
-							"Staff Helpfulness",
-							"Guide Dog Friendliness",
-						].map((value, index) => {
+						{Object.entries(a11yDataMap).map((attrScorePair, index) => {
+							const attribute = attrScorePair[0];
+							const score = attrScorePair[1];
+
 							return (
 								<View key={`rating${index}`}>
 									<Text
@@ -100,7 +116,7 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 											alignSelf: "center",
 										}}
 									>
-										{value}
+										{attribute}
 									</Text>
 									<Text
 										style={{
@@ -111,7 +127,7 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 											fontWeight: "bold",
 										}}
 									>
-										{a11yDataList[index]}
+										{score ?? "N/A"}
 									</Text>
 								</View>
 							);
@@ -119,16 +135,17 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 					</ScrollView>
 					<Button
 						style={styles.button}
-						onPress={() => {
-							//placeholder
-						}}
-						//onPress={() => setPage("login")} need to update this after Eleni's PR is merged w/ Andrew's updates to nav
+						onPress={() =>
+							tokenExists
+								? setPage(Screens.SubmitRating)
+								: setPage(Screens.NotLoggedIn)
+						}
 						accessibilityLabel="Submit an accessibility rating"
 						text="Submit a Rating"
 					/>
 					<Button
 						style={styles.button}
-						onPress={() => setPage("mapScreen")} //need to update this after Eleni's PR is merged w/ Andrew's updates to nav
+						onPress={() => setPage(Screens.Home)}
 						accessibilityLabel="Return to Home Page"
 						text="Go Home"
 					/>
