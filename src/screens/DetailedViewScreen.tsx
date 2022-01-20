@@ -17,6 +17,7 @@ export interface PlaceProps {
 const BodyText = (props: TextProps) => (
 	<Text
 		style={{
+			fontFamily: "APHont",
 			fontSize: 30,
 			lineHeight: 35,
 			marginBottom: 15,
@@ -88,8 +89,8 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 							ellipsizeMode="tail"
 							numberOfLines={2}
 							style={{
+								fontFamily: "APHontBold",
 								fontSize: 35,
-								fontWeight: "bold",
 							}}
 						>
 							{place.name}
@@ -110,6 +111,7 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 								<View key={`rating${index}`}>
 									<Text
 										style={{
+											fontFamily: "APHont",
 											fontSize: 30,
 											lineHeight: 35,
 											marginBottom: 15,
@@ -120,6 +122,7 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 									</Text>
 									<Text
 										style={{
+											fontFamily: "APHont",
 											fontSize: 30,
 											lineHeight: 35,
 											marginBottom: 15,
