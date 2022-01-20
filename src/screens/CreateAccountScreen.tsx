@@ -3,8 +3,8 @@ import { View, Text, TextInput, StyleSheet } from "react-native";
 import { Button } from "../components/Button";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Screens } from "./MainScreen";
 import { useAuthentication } from "../hooks/useAuthentication";
+import Screens from "../util/screens";
 
 type CreateAccountScreenProps = {
 	placeID: string | undefined;

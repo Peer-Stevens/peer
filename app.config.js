@@ -9,7 +9,6 @@ export default {
 	orientation: "portrait",
 	githubUrl: "https://github.com/Peer-Stevens/peer",
 	icon: "./assets/icon.png",
-	permissions: ["ACCESS_FINE_LOCATION", "ACCESS_BACKGROUND_LOCATION"],
 	splash: {
 		image: "./assets/splash.png",
 		resizeMode: "contain",

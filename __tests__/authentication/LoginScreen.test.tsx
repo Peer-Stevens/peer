@@ -2,7 +2,7 @@ import React from "react";
 import { cleanup, render, fireEvent, RenderAPI, waitFor } from "@testing-library/react-native";
 import axios, { AxiosResponse } from "axios";
 import LogInScreen from "../../src/screens/LoginScreen";
-import { Screens } from "../../src/screens/MainScreen";
+import Screens from "../../src/util/screens";
 
 jest.mock("axios");
 

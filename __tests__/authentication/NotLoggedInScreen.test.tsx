@@ -1,7 +1,7 @@
 import React from "react";
 import { cleanup, render, RenderAPI, fireEvent } from "@testing-library/react-native";
 import NotLoggedInScreen from "../../src/screens/NotLoggedInScreen";
-import { Screens } from "../../src/screens/MainScreen";
+import Screens from "../../src/util/screens";
 
 const mockSetPage = jest.fn();
 const mockSetPlaceID = jest.fn();

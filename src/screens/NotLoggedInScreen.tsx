@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { Button } from "../components/Button";
 import { View, Text, StyleSheet } from "react-native";
-import { Screens } from "./MainScreen";
+import Screens from "../util/screens";
 
 type NotLoggedInScreenProps = {
 	placeID: string | undefined;

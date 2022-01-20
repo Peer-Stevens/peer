@@ -2,20 +2,12 @@ import React, { useState } from "react";
 import StrollScreen from "./StrollScreen";
 import MapScreen from "./MapScreen";
 import DetailedViewScreen from "./DetailedViewScreen";
+import SubmitRatingScreen from "./SubmitRatingScreen";
+import { useFetchPlace } from "../hooks/useFetchPlace";
 import LogInScreen from "./LoginScreen";
 import CreateAccountScreen from "./CreateAccountScreen";
 import NotLoggedInScreen from "./NotLoggedInScreen";
-import SubmitRatingScreen from "./SubmitRatingScreen";
-
-export enum Screens {
-	Home = "mapScreen",
-	Stroll = "strollScreen",
-	Details = "detailsScreen",
-	NotLoggedIn = "notLoggedIn",
-	Login = "loginScreen",
-	CreateAccount = "createAccountScreen",
-	SubmitRating = "submitRating",
-}
+import Screens from "../util/screens";
 
 /**
  * Serves as the main view of the app, here all
@@ -27,20 +19,34 @@ const MainScreen: React.FC = () => {
 	const [placeID, setPlaceID] = useState<string>();
 	const [selections, setSelections] = useState<Array<string>>([]);
 
+	// Keep data around to avoid making another call when moving from
+	// details screen to submit rating screen
+	const { placeDetails } = useFetchPlace({ placeID });
+
 	//Makes new function that calls setPage with a specific argument
 	const goToMapScreen = () => setPage(Screens.Home);
 	const goToStrollScreen = () => setPage(Screens.Stroll);
 	const goToDetails = () => setPage(Screens.Details);
 	const goToSubmitRating = () => setPage(Screens.SubmitRating);
 
-	if (page === "strollScreen") {
+	if (page === Screens.Stroll) {
 		return <StrollScreen setPage={goToMapScreen} selections={selections} />;
-	} else if (page === "detailsScreen") {
+	} else if (page === Screens.Details) {
 		if (!placeID) {
 			throw new Error("No placeID set before navigation to details screen");
 		}
 		return <DetailedViewScreen placeID={placeID} setPage={setPage} />;
-	} else if (page === "notLoggedIn") {
+	} else if (page === Screens.SubmitRating) {
+		const photos = placeDetails?.result.photos;
+		const photo_reference = photos ? photos[0].photo_reference : undefined;
+		return (
+			<SubmitRatingScreen
+				placeID={placeID}
+				placeName={placeDetails?.result.name}
+				photo_reference={photo_reference}
+			/>
+		);
+	} else if (page === Screens.NotLoggedIn) {
 		return (
 			<NotLoggedInScreen
 				placeID={placeID}
@@ -49,7 +55,7 @@ const MainScreen: React.FC = () => {
 				setPlaceID={setPlaceID}
 			/>
 		);
-	} else if (page === "loginScreen") {
+	} else if (page === Screens.Login) {
 		return (
 			<LogInScreen
 				setPage={setPage}
@@ -58,21 +64,13 @@ const MainScreen: React.FC = () => {
 				goToSubmitRating={goToSubmitRating}
 			/>
 		);
-	} else if (page === "createAccountScreen") {
+	} else if (page === Screens.CreateAccount) {
 		return (
 			<CreateAccountScreen
 				setPage={setPage}
 				placeID={placeID}
 				setPlaceID={setPlaceID}
 				goToSubmitRating={goToSubmitRating}
-			/>
-		);
-	} else if (page === "submitRating") {
-		return (
-			<SubmitRatingScreen
-				placeID={placeID}
-				setPlaceID={setPlaceID}
-				goToDetails={goToDetails}
 			/>
 		);
 	} else {

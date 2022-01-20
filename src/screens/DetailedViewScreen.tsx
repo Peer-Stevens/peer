@@ -6,10 +6,11 @@ import { useLocation } from "../hooks/useLocation";
 import { Button } from "../components/Button";
 import { TEXT_COLOR } from "../util/colors";
 import { PlaceImage } from "../components/PlaceImage";
-import { useFetchPlace } from "../hooks/useFetchPlace";
 import { getAverageA11yRating } from "../util/processA11yRatings";
-import { Screens } from "./MainScreen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFetchPlace } from "../hooks/useFetchPlace";
+import Screens from "../util/screens";
+
 export interface PlaceProps {
 	placeID: string;
 	setPage: (screen: Screens) => void;
@@ -43,14 +44,13 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 	};
 
 	if (placeDetails) {
-		const place = placeDetails.placeDetails.result;
+		const place = placeDetails.result;
 
 		const placeCoord = {
 			latitude: place.geometry?.location.lat,
 			longitude: place.geometry?.location.lng,
 		};
-		const placeCoords = { latitude: placeCoord.latitude, longitude: placeCoord.longitude };
-		const distanceInMi = computeDistanceMi(userCoords, placeCoords)?.toPrecision(2);
+		const distanceInMi = computeDistanceMi(userCoords, placeCoord)?.toPrecision(2);
 
 		return (
 			<View style={styles.border}>
@@ -75,7 +75,7 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 					<BodyText>
 						{Math.round(
 							getAverageA11yRating({
-								accessibilityData: placeDetails.placeDetails.accessibilityData,
+								accessibilityData: placeDetails.accessibilityData,
 							}) * 2
 						) / 2}
 					</BodyText>
