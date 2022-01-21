@@ -109,29 +109,8 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 
 							return (
 								<View key={`rating${index}`}>
-									<Text
-										style={{
-											fontFamily: "APHont",
-											fontSize: 30,
-											lineHeight: 35,
-											marginBottom: 15,
-											alignSelf: "center",
-										}}
-									>
-										{attribute}
-									</Text>
-									<Text
-										style={{
-											fontFamily: "APHont",
-											fontSize: 30,
-											lineHeight: 35,
-											marginBottom: 15,
-											alignSelf: "center",
-											fontWeight: "bold",
-										}}
-									>
-										{score ?? "N/A"}
-									</Text>
+									<Text>{attribute}</Text>
+									<Text>{score ?? "N/A"}</Text>
 								</View>
 							);
 						})}
