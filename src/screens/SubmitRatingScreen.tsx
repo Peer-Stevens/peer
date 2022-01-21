@@ -1,8 +1,9 @@
-import React, { useRef } from "react";
+import React from "react";
 import { ScrollView, View, Text } from "react-native";
 import { PlaceImage } from "../components/PlaceImage";
 import { Button } from "../components/Button";
 import { CANCEL, getIncrementRatingButtonLabel, PLACE_ATTRIBUTES, SUBMIT } from "../util/strings";
+import { useCounter } from "../hooks/useCounter";
 
 export interface SubmitRatingScreenProps {
 	placeID?: string;
@@ -16,14 +17,6 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 	placeName,
 	photo_reference,
 }: SubmitRatingScreenProps) => {
-	// 0 index is navigability, 1 is sensory aid, 2 is staff helpfulness, 3 is guide dog
-	const interimRatingRef = useRef([
-		DEFAULT_INTERIM_RATING,
-		DEFAULT_INTERIM_RATING,
-		DEFAULT_INTERIM_RATING,
-		DEFAULT_INTERIM_RATING,
-	]);
-
 	return (
 		<ScrollView>
 			<PlaceImage photoref={photo_reference} placeName={placeName} />
@@ -36,34 +29,31 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 				}}
 			/>
 			{PLACE_ATTRIBUTES.map((attribute, index) => {
-				const interimRating = interimRatingRef.current[index];
+				const { counter, increment, decrement } = useCounter(DEFAULT_INTERIM_RATING);
+
 				return (
 					<View key={`rating${index}`}>
 						<Button
 							iconName={"minus"}
 							accessibilityLabel={getIncrementRatingButtonLabel(
 								true,
-								interimRating,
+								counter,
 								attribute,
 								placeName
 							)}
-							onPress={() => {
-								// TODO
-							}}
+							onPress={() => decrement(counter)}
 						/>
 						<Text>{attribute}</Text>
-						<Text>{interimRating}</Text>
+						<Text>{counter}</Text>
 						<Button
 							iconName={"plus"}
 							accessibilityLabel={getIncrementRatingButtonLabel(
 								false,
-								interimRating,
+								counter,
 								attribute,
 								placeName
 							)}
-							onPress={() => {
-								// TODO
-							}}
+							onPress={() => increment(counter)}
 						/>
 					</View>
 				);
