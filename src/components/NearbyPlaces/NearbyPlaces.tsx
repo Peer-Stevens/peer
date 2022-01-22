@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Text, View } from "react-native";
 import { Button } from "../Button";
 import { useNearbyPlaces } from "../../hooks/useNearbyPlaces";
@@ -6,6 +6,7 @@ import { useCompass } from "../../hooks/useCompass";
 import { useLocation } from "../../hooks/useLocation";
 import { computeDistanceFeet } from "../../util/distance";
 import { getPlaceRatingString } from "../../util/processA11yRatings";
+import * as Haptics from "expo-haptics";
 
 export interface NearbyPlacesProps {
 	stopStrolling: () => void;
@@ -16,6 +17,14 @@ export const NearbyPlaces: React.FC<NearbyPlacesProps> = ({ stopStrolling, type 
 	const { location } = useLocation();
 	const { nearbyPlaces } = useNearbyPlaces(type);
 	const { getRelativeDirection } = useCompass();
+	const lastList = useRef(nearbyPlaces);
+
+	useEffect(() => {
+		if (JSON.stringify(lastList.current) !== JSON.stringify(nearbyPlaces)) {
+			lastList.current = nearbyPlaces;
+			void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+		}
+	}, [nearbyPlaces]);
 
 	return (
 		<View style={{ width: "90%" }}>
