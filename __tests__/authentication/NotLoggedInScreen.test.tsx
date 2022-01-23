@@ -1,7 +1,7 @@
 import React from "react";
 import { cleanup, render, RenderAPI, fireEvent } from "@testing-library/react-native";
 import NotLoggedInScreen from "../../src/screens/NotLoggedInScreen";
-import Screens from "../../src/util/screens";
+import Screen from "../../src/util/screens";
 
 const mockSetPage = jest.fn();
 const mockSetPlaceID = jest.fn();
@@ -39,14 +39,14 @@ describe("Not logged in screen tests", () => {
 
 		fireEvent.press(logInButton);
 
-		expect(mockSetPage).toHaveBeenCalledWith(Screens.Login);
+		expect(mockSetPage).toHaveBeenCalledWith(Screen.Login);
 	});
 	it("create account button takes user to create account screen", () => {
 		const createAccountButton = tr.getByText("Create Account");
 
 		fireEvent.press(createAccountButton);
 
-		expect(mockSetPage).toHaveBeenCalledWith(Screens.CreateAccount);
+		expect(mockSetPage).toHaveBeenCalledWith(Screen.CreateAccount);
 	});
 	it("go back button takes user to the previous screen", () => {
 		const goBackButton = tr.getByText("Back to previous page");

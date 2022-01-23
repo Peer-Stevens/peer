@@ -2,7 +2,7 @@ import React from "react";
 import { cleanup, render, fireEvent, RenderAPI, waitFor } from "@testing-library/react-native";
 import axios, { AxiosResponse } from "axios";
 import CreateAccount from "../../src/screens/CreateAccountScreen";
-import Screens from "../../src/util/screens";
+import Screen from "../../src/util/screens";
 
 jest.mock("axios");
 
@@ -105,6 +105,6 @@ describe("Login screen tests", () => {
 
 		fireEvent.press(goBackButton);
 
-		expect(mockSetPage).toHaveBeenCalledWith(Screens.NotLoggedIn);
+		expect(mockSetPage).toHaveBeenCalledWith(Screen.NotLoggedIn);
 	});
 });
