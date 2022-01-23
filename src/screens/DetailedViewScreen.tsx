@@ -7,11 +7,11 @@ import { Button } from "../components/Button";
 import { PlaceImage } from "../components/PlaceImage";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFetchPlace } from "../hooks/useFetchPlace";
-import Screens from "../util/screens";
+import Screen from "../util/screens";
 
 export interface PlaceProps {
 	placeID: string;
-	setPage: (screen: Screens) => void;
+	setPage: (screen: Screen) => void;
 }
 
 const BodyText = (props: TextProps) => (
@@ -118,16 +118,14 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 					<Button
 						style={styles.button}
 						onPress={() =>
-							tokenExists
-								? setPage(Screens.SubmitRating)
-								: setPage(Screens.NotLoggedIn)
+							tokenExists ? setPage(Screen.SubmitRating) : setPage(Screen.NotLoggedIn)
 						}
 						accessibilityLabel="Submit an accessibility rating"
 						text="Submit a Rating"
 					/>
 					<Button
 						style={styles.button}
-						onPress={() => setPage(Screens.Home)}
+						onPress={() => setPage(Screen.Home)}
 						accessibilityLabel="Return to Home Page"
 						text="Go Home"
 					/>

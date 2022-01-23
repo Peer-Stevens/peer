@@ -3,13 +3,13 @@ import { ScrollView, View, Text } from "react-native";
 import { PlaceImage } from "../components/PlaceImage";
 import { Button } from "../components/Button";
 import { CANCEL, getIncrementRatingButtonLabel, PLACE_ATTRIBUTES, SUBMIT } from "../util/strings";
-import Screens from "../util/screens";
+import Screen from "../util/screens";
 
 export interface SubmitRatingScreenProps {
 	placeID?: string;
 	placeName?: string;
 	photo_reference?: string;
-	setPage: (screen: Screens) => void;
+	setPage: (screen: Screen) => void;
 }
 
 export const DEFAULT_INTERIM_RATING = 3;
@@ -35,7 +35,7 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 				text={CANCEL}
 				accessibilityLabel={CANCEL}
 				onPress={() => {
-					setPage(Screens.Details);
+					setPage(Screen.Details);
 				}}
 			/>
 			{PLACE_ATTRIBUTES.map((attribute, index) => {

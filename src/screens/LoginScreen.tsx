@@ -4,11 +4,11 @@ import { Button } from "../components/Button";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuthentication } from "../hooks/useAuthentication";
-import Screens from "../util/screens";
+import Screen from "../util/screens";
 
 type LogInScreenProps = {
 	placeID: string | undefined;
-	setPage: (screen: Screens) => void;
+	setPage: (screen: Screen) => void;
 	setPlaceID: Dispatch<SetStateAction<string | undefined>>;
 	goToSubmitRating: () => void;
 };
@@ -109,7 +109,7 @@ const LogInScreen: React.FC<LogInScreenProps> = ({
 			<Button
 				style={styles.button}
 				text="Back to previous page"
-				onPress={() => setPage(Screens.NotLoggedIn)}
+				onPress={() => setPage(Screen.NotLoggedIn)}
 				accessibilityLabel="Click to go back to previous page"
 			/>
 		</View>

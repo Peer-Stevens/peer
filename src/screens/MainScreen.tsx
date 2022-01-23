@@ -7,7 +7,7 @@ import { useFetchPlace } from "../hooks/useFetchPlace";
 import LogInScreen from "./LoginScreen";
 import CreateAccountScreen from "./CreateAccountScreen";
 import NotLoggedInScreen from "./NotLoggedInScreen";
-import Screens from "../util/screens";
+import Screen from "../util/screens";
 
 /**
  * Serves as the main view of the app, here all
@@ -15,7 +15,7 @@ import Screens from "../util/screens";
  * @returns the main screen component
  */
 const MainScreen: React.FC = () => {
-	const [page, setPage] = useState<Screens>(Screens.Home);
+	const [page, setPage] = useState<Screen>(Screen.Home);
 	const [placeID, setPlaceID] = useState<string>();
 	const [selections, setSelections] = useState<Array<string>>([]);
 
@@ -24,19 +24,19 @@ const MainScreen: React.FC = () => {
 	const { placeDetails } = useFetchPlace({ placeID });
 
 	//Makes new function that calls setPage with a specific argument
-	const goToMapScreen = () => setPage(Screens.Home);
-	const goToStrollScreen = () => setPage(Screens.Stroll);
-	const goToDetails = () => setPage(Screens.Details);
-	const goToSubmitRating = () => setPage(Screens.SubmitRating);
+	const goToMapScreen = () => setPage(Screen.Home);
+	const goToStrollScreen = () => setPage(Screen.Stroll);
+	const goToDetails = () => setPage(Screen.Details);
+	const goToSubmitRating = () => setPage(Screen.SubmitRating);
 
-	if (page === Screens.Stroll) {
+	if (page === Screen.Stroll) {
 		return <StrollScreen setPage={goToMapScreen} selections={selections} />;
-	} else if (page === Screens.Details) {
+	} else if (page === Screen.Details) {
 		if (!placeID) {
 			throw new Error("No placeID set before navigation to details screen");
 		}
 		return <DetailedViewScreen placeID={placeID} setPage={setPage} />;
-	} else if (page === Screens.SubmitRating) {
+	} else if (page === Screen.SubmitRating) {
 		const photos = placeDetails?.result.photos;
 		const photo_reference = photos ? photos[0].photo_reference : undefined;
 		return (
@@ -47,7 +47,7 @@ const MainScreen: React.FC = () => {
 				setPage={setPage}
 			/>
 		);
-	} else if (page === Screens.NotLoggedIn) {
+	} else if (page === Screen.NotLoggedIn) {
 		return (
 			<NotLoggedInScreen
 				placeID={placeID}
@@ -56,7 +56,7 @@ const MainScreen: React.FC = () => {
 				setPlaceID={setPlaceID}
 			/>
 		);
-	} else if (page === Screens.Login) {
+	} else if (page === Screen.Login) {
 		return (
 			<LogInScreen
 				setPage={setPage}
@@ -65,7 +65,7 @@ const MainScreen: React.FC = () => {
 				goToSubmitRating={goToSubmitRating}
 			/>
 		);
-	} else if (page === Screens.CreateAccount) {
+	} else if (page === Screen.CreateAccount) {
 		return (
 			<CreateAccountScreen
 				setPage={setPage}

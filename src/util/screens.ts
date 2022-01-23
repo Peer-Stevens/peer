@@ -1,4 +1,4 @@
-enum Screens {
+enum Screen {
 	Home = "mapScreen",
 	Stroll = "strollScreen",
 	Details = "detailsScreen",
@@ -8,4 +8,4 @@ enum Screens {
 	SubmitRating = "submitRating",
 }
 
-export default Screens;
+export default Screen;

@@ -1,11 +1,11 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { Button } from "../components/Button";
 import { View, Text, StyleSheet } from "react-native";
-import Screens from "../util/screens";
+import Screen from "../util/screens";
 
 type NotLoggedInScreenProps = {
 	placeID: string | undefined;
-	setPage: (screen: Screens) => void;
+	setPage: (screen: Screen) => void;
 	setPlaceID: Dispatch<SetStateAction<string | undefined>>;
 	goToDetails: () => void;
 };
@@ -31,13 +31,13 @@ const NotLoggedInScreen: React.FC<NotLoggedInScreenProps> = ({
 			<Button
 				style={styles.button}
 				text="Log in"
-				onPress={() => setPage(Screens.Login)}
+				onPress={() => setPage(Screen.Login)}
 				accessibilityLabel="Click to log in"
 			/>
 			<Button
 				style={styles.button}
 				text="Create Account"
-				onPress={() => setPage(Screens.CreateAccount)}
+				onPress={() => setPage(Screen.CreateAccount)}
 				accessibilityLabel="Click to create account"
 			/>
 			<Button
