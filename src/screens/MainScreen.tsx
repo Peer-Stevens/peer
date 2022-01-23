@@ -44,6 +44,7 @@ const MainScreen: React.FC = () => {
 				placeID={placeID}
 				placeName={placeDetails?.result.name}
 				photo_reference={photo_reference}
+				setPage={setPage}
 			/>
 		);
 	} else if (page === Screens.NotLoggedIn) {
