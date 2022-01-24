@@ -19,18 +19,12 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 	placeName,
 	photo_reference,
 }: SubmitRatingScreenProps) => {
-	const [counter0, setCounter0] = useState<number>(DEFAULT_INTERIM_RATING);
-	const [counter1, setCounter1] = useState<number>(DEFAULT_INTERIM_RATING);
-	const [counter2, setCounter2] = useState<number>(DEFAULT_INTERIM_RATING);
-	const [counter3, setCounter3] = useState<number>(DEFAULT_INTERIM_RATING);
-
-	// 0 index is navigability, 1 is sensory aid, 2 is staff helpfulness, 3 is guide dog
-	const counterStates = [
-		{ state: counter0, update: setCounter0 },
-		{ state: counter1, update: setCounter1 },
-		{ state: counter2, update: setCounter2 },
-		{ state: counter3, update: setCounter3 },
-	];
+	const [counter, setCounter] = useState(
+		PLACE_ATTRIBUTES.reduce<{ [index: string]: number }>(function (countersMap, nextAttr) {
+			countersMap[nextAttr] = DEFAULT_INTERIM_RATING;
+			return countersMap;
+		}, {})
+	);
 
 	return (
 		<ScrollView>
@@ -44,7 +38,7 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 				}}
 			/>
 			{PLACE_ATTRIBUTES.map((attribute, index) => {
-				const counter = counterStates[index];
+				const count = counter[attribute];
 
 				return (
 					<View key={`rating${index}`}>
@@ -52,32 +46,38 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 							iconName={"minus"}
 							accessibilityLabel={getIncrementRatingButtonLabel(
 								true,
-								counter.state,
+								count,
 								attribute,
 								placeName
 							)}
 							onPress={() => {
-								if (counter.state === MIN_COUNT) {
+								if (count === MIN_COUNT) {
 									return;
 								}
-								counter.update(counter.state - INCREMENT_VAL);
+								setCounter({
+									...counter,
+									[attribute]: count - INCREMENT_VAL,
+								});
 							}}
 						/>
 						<Text>{attribute}</Text>
-						<Text>{counter.state}</Text>
+						<Text>{count}</Text>
 						<Button
 							iconName={"plus"}
 							accessibilityLabel={getIncrementRatingButtonLabel(
 								false,
-								counter.state,
+								count,
 								attribute,
 								placeName
 							)}
 							onPress={() => {
-								if (counter.state === MAX_COUNT) {
+								if (count === MAX_COUNT) {
 									return;
 								}
-								counter.update(counter.state + INCREMENT_VAL);
+								setCounter({
+									...counter,
+									[attribute]: count + INCREMENT_VAL,
+								});
 							}}
 						/>
 					</View>
