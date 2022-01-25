@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import { ScrollView, View, Text } from "react-native";
 import { PlaceImage } from "../components/PlaceImage";
 import { Button } from "../components/Button";
@@ -13,19 +13,21 @@ export interface SubmitRatingScreenProps {
 }
 
 export const DEFAULT_INTERIM_RATING = 3;
+const MAX_COUNT = 5;
+const MIN_COUNT = 0;
+const INCREMENT_VAL = 0.5;
 
 const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 	placeName,
 	photo_reference,
 	setPage,
 }: SubmitRatingScreenProps) => {
-	// 0 index is navigability, 1 is sensory aid, 2 is staff helpfulness, 3 is guide dog
-	const interimRatingRef = useRef([
-		DEFAULT_INTERIM_RATING,
-		DEFAULT_INTERIM_RATING,
-		DEFAULT_INTERIM_RATING,
-		DEFAULT_INTERIM_RATING,
-	]);
+	const [counter, setCounter] = useState(
+		PLACE_ATTRIBUTES.reduce<{ [attribute: string]: number }>(function (countersMap, attribute) {
+			countersMap[attribute] = DEFAULT_INTERIM_RATING;
+			return countersMap;
+		}, {})
+	);
 
 	return (
 		<ScrollView>
@@ -39,33 +41,46 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 				}}
 			/>
 			{PLACE_ATTRIBUTES.map((attribute, index) => {
-				const interimRating = interimRatingRef.current[index];
+				const count = counter[attribute];
+
 				return (
 					<View key={`rating${index}`}>
 						<Button
 							iconName={"minus"}
 							accessibilityLabel={getIncrementRatingButtonLabel(
 								true,
-								interimRating,
+								count,
 								attribute,
 								placeName
 							)}
 							onPress={() => {
-								// TODO
+								if (count === MIN_COUNT) {
+									return;
+								}
+								setCounter({
+									...counter,
+									[attribute]: count - INCREMENT_VAL,
+								});
 							}}
 						/>
 						<Text>{attribute}</Text>
-						<Text>{interimRating}</Text>
+						<Text>{count}</Text>
 						<Button
 							iconName={"plus"}
 							accessibilityLabel={getIncrementRatingButtonLabel(
 								false,
-								interimRating,
+								count,
 								attribute,
 								placeName
 							)}
 							onPress={() => {
-								// TODO
+								if (count === MAX_COUNT) {
+									return;
+								}
+								setCounter({
+									...counter,
+									[attribute]: count + INCREMENT_VAL,
+								});
 							}}
 						/>
 					</View>
