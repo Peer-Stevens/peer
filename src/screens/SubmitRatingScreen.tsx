@@ -20,8 +20,8 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 	photo_reference,
 }: SubmitRatingScreenProps) => {
 	const [counter, setCounter] = useState(
-		PLACE_ATTRIBUTES.reduce<{ [attribute: string]: number }>(function (countersMap, nextAttr) {
-			countersMap[nextAttr] = DEFAULT_INTERIM_RATING;
+		PLACE_ATTRIBUTES.reduce<{ [attribute: string]: number }>(function (countersMap, attribute) {
+			countersMap[attribute] = DEFAULT_INTERIM_RATING;
 			return countersMap;
 		}, {})
 	);
