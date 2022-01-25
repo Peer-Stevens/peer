@@ -20,7 +20,7 @@ export const CANCEL = "Cancel";
 // Functions
 
 /**
- * Returns the string for the label for the button to incrememt a potential rating
+ * Returns the string for the label for the button to increment a potential rating
  * before it is submitted.
  * @param increment true for incrementing, false for decrementing
  * @param interimRating the rating that would be submitted if the user hit "Submit"
