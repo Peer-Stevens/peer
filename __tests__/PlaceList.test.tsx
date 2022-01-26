@@ -3,7 +3,11 @@ import { cleanup, render } from "@testing-library/react-native";
 import { useNearbyPlaces } from "../src/hooks/useNearbyPlaces";
 import { PlacePhoto } from "@googlemaps/google-maps-services-js";
 import { computeDistanceMi } from "../src/util/distance";
-import { PlaceWithAccesibilityData } from "../src/util/placeTypes";
+import {
+	PlaceDetailsWithAccesibilityData,
+	PlaceWithAccesibilityData,
+} from "../src/util/placeTypes";
+import { useFetchPlace } from "../src/hooks/useFetchPlace";
 import MainScreen from "../src/screens/MainScreen";
 
 afterEach(cleanup);
@@ -66,6 +70,20 @@ const mockPlaces: PlaceWithAccesibilityData[] = [
 	},
 ];
 mockNearbyPlaces.mockReturnValue({ nearbyPlaces: mockPlaces });
+
+jest.mock("../src/hooks/useFetchPlace");
+const mockUseFetchPlace = useFetchPlace as jest.MockedFunction<typeof useFetchPlace>;
+
+const mockPlaceDetails: PlaceDetailsWithAccesibilityData = {
+	result: {
+		place_id: "oiluj",
+	},
+};
+
+mockUseFetchPlace.mockReturnValue({
+	placeDetails: mockPlaceDetails,
+	isLoading: false,
+});
 
 describe("Place list tests", () => {
 	it("renders the place name", () => {

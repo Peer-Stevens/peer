@@ -1,22 +1,47 @@
 //This is where we will be displaying the information of each single place
-import React from "react";
-import { StyleSheet, Dimensions, View, Text, ActivityIndicator, TextProps } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View, Text, ActivityIndicator, TextProps, ScrollView } from "react-native";
 import { computeDistanceMi } from "../util/distance";
 import { useLocation } from "../hooks/useLocation";
 import { Button } from "../components/Button";
-import { TEXT_COLOR } from "../util/colors";
 import { PlaceImage } from "../components/PlaceImage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFetchPlace } from "../hooks/useFetchPlace";
-import { getAverageA11yRating } from "../util/processA11yRatings";
+import Screen from "../util/screens";
 
 export interface PlaceProps {
 	placeID: string;
-	setPage: (newPage: string) => void;
+	setPage: (screen: Screen) => void;
 }
 
-const BodyText = (props: TextProps) => <Text style={styles.text} {...props} />;
+const BodyText = (props: TextProps) => (
+	<Text
+		style={{
+			fontFamily: "APHont",
+			fontSize: 30,
+			lineHeight: 35,
+			marginBottom: 15,
+		}}
+		{...props}
+	/>
+);
 
 const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlaceProps) => {
+	const [tokenExists, setTokenExists] = useState(false);
+
+	useEffect(() => {
+		const checkForToken = async () => {
+			const key = await AsyncStorage.getItem("@auth_token");
+
+			if (key !== null) {
+				setTokenExists(true);
+				return;
+			}
+			setTokenExists(false);
+		};
+		void checkForToken();
+	}, []);
+
 	const { placeDetails } = useFetchPlace({ placeID });
 
 	const { location } = useLocation();
@@ -27,17 +52,24 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 	};
 
 	if (placeDetails) {
-		const place = placeDetails.placeDetails.result;
+		const place = placeDetails.result;
 
 		const placeCoord = {
 			latitude: place.geometry?.location.lat,
 			longitude: place.geometry?.location.lng,
 		};
-		const placeCoords = { latitude: placeCoord.latitude, longitude: placeCoord.longitude };
-		const distanceInMi = computeDistanceMi(userCoords, placeCoords)?.toPrecision(2);
+		const distanceInMi = computeDistanceMi(userCoords, placeCoord)?.toPrecision(2);
+
+		// TODO: update to use new rating "sensory aids"
+		const a11yDataMap = {
+			"Navigability": placeDetails.accessibilityData?.avgNavigability,
+			"Sensory Aids": placeDetails.accessibilityData?.avgBraille,
+			"Staff Helpfulness": placeDetails.accessibilityData?.avgStaffHelpfulness,
+			"Guide Dog Friendliness": placeDetails.accessibilityData?.avgGuideDogFriendly,
+		};
 
 		return (
-			<View style={styles.border}>
+			<View style={{ flex: 1 }}>
 				<PlaceImage
 					photoref={place.photos?.[0]?.photo_reference}
 					placeName={place.name}
@@ -46,35 +78,54 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 						height: "40%",
 					}}
 				/>
-				<View style={styles.content}>
-					<Text ellipsizeMode="tail" numberOfLines={2} style={styles.title}>
-						{place.name}
-					</Text>
-					<BodyText ellipsizeMode="tail" numberOfLines={2}>
-						{place.formatted_address}
-					</BodyText>
-					<BodyText accessibilityLabel={distanceInMi ? `${distanceInMi} miles away` : ""}>
-						{distanceInMi ? `${distanceInMi} mi away` : ""}
-					</BodyText>
-					<BodyText>
-						{Math.round(
-							getAverageA11yRating({
-								accessibilityData: placeDetails.placeDetails.accessibilityData,
-							}) * 2
-						) / 2}
-					</BodyText>
+				<View
+					style={{
+						width: "90%",
+						alignSelf: "center",
+					}}
+				>
+					<ScrollView style={{ height: "40%" }}>
+						<Text
+							ellipsizeMode="tail"
+							numberOfLines={2}
+							style={{
+								fontFamily: "APHontBold",
+								fontSize: 35,
+							}}
+						>
+							{place.name}
+						</Text>
+						<BodyText ellipsizeMode="tail" numberOfLines={2}>
+							{place.formatted_address}
+						</BodyText>
+						<BodyText
+							accessibilityLabel={distanceInMi ? `${distanceInMi} miles away` : ""}
+						>
+							{distanceInMi ? `${distanceInMi} mi away` : ""}
+						</BodyText>
+						{Object.entries(a11yDataMap).map((attrScorePair, index) => {
+							const attribute = attrScorePair[0];
+							const score = attrScorePair[1];
+
+							return (
+								<View key={`rating${index}`}>
+									<Text>{attribute}</Text>
+									<Text>{score ?? "N/A"}</Text>
+								</View>
+							);
+						})}
+					</ScrollView>
 					<Button
-						style={styles.submitButton}
-						onPress={() => {
-							//placeholder
-						}}
-						//onPress={() => setPage("login")} need to update this after Eleni's PR is merged w/ Andrew's updates to nav
+						style={styles.button}
+						onPress={() =>
+							tokenExists ? setPage(Screen.SubmitRating) : setPage(Screen.NotLoggedIn)
+						}
 						accessibilityLabel="Submit an accessibility rating"
 						text="Submit a Rating"
 					/>
 					<Button
-						style={styles.homeBtn}
-						onPress={() => setPage("mapScreen")} //need to update this after Eleni's PR is merged w/ Andrew's updates to nav
+						style={styles.button}
+						onPress={() => setPage(Screen.Home)}
 						accessibilityLabel="Return to Home Page"
 						text="Go Home"
 					/>
@@ -85,7 +136,7 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 		return (
 			<View
 				style={{
-					height: Dimensions.get("window").height,
+					height: "100%",
 					display: "flex",
 					justifyContent: "center",
 				}}
@@ -97,35 +148,8 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 };
 
 const styles = StyleSheet.create({
-	border: {
-		width: Dimensions.get("window").width,
-		height: Dimensions.get("window").height,
-		borderColor: "black",
-		borderWidth: 1,
-	},
-	content: {
-		width: Dimensions.get("window").width * 0.95,
-		marginLeft: Dimensions.get("window").width * 0.025,
-	},
-	title: {
-		fontSize: 35,
-		fontFamily: "APHontBold",
-	},
-	text: {
-		fontFamily: "APHont",
-		fontSize: 30,
-		lineHeight: 35,
-		marginBottom: 15,
-	},
-	homeBtn: {
-		borderWidth: 3,
-		borderColor: TEXT_COLOR,
-		width: Dimensions.get("window").width * 0.9,
-	},
-	submitButton: {
-		borderWidth: 3,
-		borderColor: TEXT_COLOR,
-		width: Dimensions.get("window").width * 0.9,
+	button: {
+		width: "100%",
 		marginBottom: 10,
 	},
 });

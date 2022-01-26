@@ -22,7 +22,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Setup Expo
-        uses: expo/expo-github-action@v6
+        uses: expo/expo-github-action@v7
         with:
           expo-version: 4.x
           expo-token: ${{secrets.EXPO_TOKEN}}
