@@ -52,10 +52,10 @@ const MainScreen: React.FC = () => {
 		const photo_reference = photos ? photos[0].photo_reference : undefined;
 		return (
 			<SubmitRatingScreen
-				placeID={placeID}
 				placeName={placeDetails?.result.name}
 				photo_reference={photo_reference}
 				setPage={setPage}
+				previousRating={previousRating}
 			/>
 		);
 	} else if (page === Screen.NotLoggedIn) {

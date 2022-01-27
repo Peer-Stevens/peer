@@ -4,12 +4,13 @@ import { PlaceImage } from "../components/PlaceImage";
 import { Button } from "../components/Button";
 import { CANCEL, getIncrementRatingButtonLabel, PLACE_ATTRIBUTES, SUBMIT } from "../util/strings";
 import Screen from "../util/screens";
+import { Rating } from "../util/ratingTypes";
 
 export interface SubmitRatingScreenProps {
-	placeID?: string;
 	placeName?: string;
 	photo_reference?: string;
 	setPage: (screen: Screen) => void;
+	previousRating?: Rating | null;
 }
 
 export const DEFAULT_INTERIM_RATING = 3;
@@ -21,10 +22,25 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 	placeName,
 	photo_reference,
 	setPage,
+	previousRating,
 }: SubmitRatingScreenProps) => {
 	const [counter, setCounter] = useState(
 		PLACE_ATTRIBUTES.reduce<{ [attribute: string]: number }>(function (countersMap, attribute) {
-			countersMap[attribute] = DEFAULT_INTERIM_RATING;
+			if (previousRating) {
+				// this smells bad
+				if (attribute === "Navigability") {
+					countersMap[attribute] = previousRating.navigability ?? DEFAULT_INTERIM_RATING;
+				} else if (attribute === "Sensory Aids") {
+					// TODO: change braille to sensory aids
+					countersMap[attribute] = previousRating.braille ?? DEFAULT_INTERIM_RATING;
+				} else if (attribute === "Staff Helpfulness") {
+					countersMap[attribute] =
+						previousRating.staffHelpfulness ?? DEFAULT_INTERIM_RATING;
+				} else if (attribute === "Guide Dog Friendliness") {
+					countersMap[attribute] =
+						previousRating.guideDogFriendly ?? DEFAULT_INTERIM_RATING;
+				}
+			}
 			return countersMap;
 		}, {})
 	);
