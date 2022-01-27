@@ -49,7 +49,7 @@ export const NearbyPlaces: React.FC<NearbyPlacesProps> = ({ stopStrolling, type 
 						if (relativeDirection)
 							return (
 								<Text
-									key={place.name}
+									key={place.place_id}
 									style={{
 										fontSize: 24,
 										fontFamily: "APHontBold",
@@ -65,7 +65,7 @@ export const NearbyPlaces: React.FC<NearbyPlacesProps> = ({ stopStrolling, type 
 						else
 							return (
 								<Text
-									key={place.name}
+									key={place.place_id}
 									style={{ fontSize: 24, fontWeight: "bold", marginBottom: 15 }}
 								>
 									{"\u2022"} {place.name}
