@@ -20,18 +20,18 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: yarn
 
-      - name: Setup Expo
+      - name: Set up Expo
         uses: expo/expo-github-action@v7
         with:
           expo-version: 5.x
           eas-version: latest
-          expo-token: ${{secrets.EXPO_TOKEN}}
+          expo-token: ${{ secrets.EXPO_TOKEN }}
 
       - name: Install dependencies
         run: yarn
 
       - name: Build on EAS
         run: |
-          eas  build --platform android --profile preview --non-interactive
+          eas build --platform android --profile preview --non-interactive
           # eas build --platform all --profile preview --non-interactive
           # can't run this until Andrew adds his apple account credentials for building
