@@ -1,15 +1,15 @@
 import React from "react";
 import { cleanup, render, fireEvent, waitFor, RenderAPI } from "@testing-library/react-native";
-import { enabledFiltersMap } from "../src/components/SelectionBox";
-import { useNearbyPlaces } from "../src/hooks/useNearbyPlaces";
+import { enabledFiltersMap } from "../../src/components/SelectionBox";
+import { useNearbyPlaces } from "../../src/hooks/useNearbyPlaces";
 import {
 	PlaceDetailsWithAccesibilityData,
 	PlaceWithAccesibilityData,
-} from "../src/util/placeTypes";
-import { useFetchPlace } from "../src/hooks/useFetchPlace";
-import MainScreen from "../src/screens/MainScreen";
+} from "../../src/util/placeTypes";
+import { useFetchPlace } from "../../src/hooks/useFetchPlace";
+import MainScreen from "../../src/screens/MainScreen";
 
-jest.mock("../src/hooks/useNearbyPlaces");
+jest.mock("../../src/hooks/useNearbyPlaces");
 const mockUseNearbyPlaces = useNearbyPlaces as jest.MockedFunction<typeof useNearbyPlaces>;
 mockUseNearbyPlaces.mockImplementation(
 	(placeType?): { nearbyPlaces: PlaceWithAccesibilityData[] | undefined } => {
@@ -20,7 +20,7 @@ mockUseNearbyPlaces.mockImplementation(
 	}
 );
 
-jest.mock("../src/hooks/useFetchPlace");
+jest.mock("../../src/hooks/useFetchPlace");
 const mockUseFetchPlace = useFetchPlace as jest.MockedFunction<typeof useFetchPlace>;
 
 const mockPlaceDetails: PlaceDetailsWithAccesibilityData = {

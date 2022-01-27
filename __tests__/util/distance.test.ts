@@ -1,4 +1,4 @@
-import { computeDistanceFeet, computeDistanceMi } from "../src/util/distance";
+import { computeDistanceFeet, computeDistanceMi } from "../../src/util/distance";
 
 describe("distance util function tests", () => {
 	it("returns undefined if any inputs are undefined", () => {

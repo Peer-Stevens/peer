@@ -2,7 +2,7 @@ import { LocationType, Place } from "@googlemaps/google-maps-services-js";
 import { cleanup, render, RenderAPI } from "@testing-library/react-native";
 import React from "react";
 import { View, Text } from "react-native";
-import { useCompass } from "../src/hooks/useCompass";
+import { useCompass } from "../../src/hooks/useCompass";
 import { LocationObject } from "expo-location";
 
 afterEach(cleanup);

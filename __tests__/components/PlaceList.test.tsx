@@ -1,24 +1,24 @@
 import React from "react";
 import { cleanup, render } from "@testing-library/react-native";
-import { useNearbyPlaces } from "../src/hooks/useNearbyPlaces";
+import { useNearbyPlaces } from "../../src/hooks/useNearbyPlaces";
 import { PlacePhoto } from "@googlemaps/google-maps-services-js";
-import { computeDistanceMi } from "../src/util/distance";
+import { computeDistanceMi } from "../../src/util/distance";
 import {
 	PlaceDetailsWithAccesibilityData,
 	PlaceWithAccesibilityData,
-} from "../src/util/placeTypes";
-import { useFetchPlace } from "../src/hooks/useFetchPlace";
-import MainScreen from "../src/screens/MainScreen";
+} from "../../src/util/placeTypes";
+import { useFetchPlace } from "../../src/hooks/useFetchPlace";
+import MainScreen from "../../src/screens/MainScreen";
 
 afterEach(cleanup);
 jest.useFakeTimers();
 
 // mock distance computation because user location is not available during testing
-jest.mock("../src/util/distance");
+jest.mock("../../src/util/distance");
 const mockDistMi = computeDistanceMi as jest.MockedFunction<typeof computeDistanceMi>;
 
 // mock axios to prevent calls to remote server for nearby places
-jest.mock("../src/hooks/useNearbyPlaces");
+jest.mock("../../src/hooks/useNearbyPlaces");
 const mockNearbyPlaces = useNearbyPlaces as jest.MockedFunction<typeof useNearbyPlaces>;
 const mockPhotosField: PlacePhoto[] = [
 	{
@@ -71,7 +71,7 @@ const mockPlaces: PlaceWithAccesibilityData[] = [
 ];
 mockNearbyPlaces.mockReturnValue({ nearbyPlaces: mockPlaces });
 
-jest.mock("../src/hooks/useFetchPlace");
+jest.mock("../../src/hooks/useFetchPlace");
 const mockUseFetchPlace = useFetchPlace as jest.MockedFunction<typeof useFetchPlace>;
 
 const mockPlaceDetails: PlaceDetailsWithAccesibilityData = {

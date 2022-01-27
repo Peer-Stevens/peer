@@ -1,19 +1,19 @@
 import React from "react";
 import { cleanup, fireEvent, render, RenderAPI } from "@testing-library/react-native";
 import type { LocationObject } from "expo-location";
-import { useLocation } from "../src/hooks/useLocation";
-import { useNearbyPlaces, BusinessStatus } from "../src/hooks/useNearbyPlaces";
-import { RelativeDirectionOutput, useCompass } from "../src/hooks/useCompass";
-import { computeDistanceFeet } from "../src/util/distance";
+import { useLocation } from "../../src/hooks/useLocation";
+import { useNearbyPlaces, BusinessStatus } from "../../src/hooks/useNearbyPlaces";
+import { RelativeDirectionOutput, useCompass } from "../../src/hooks/useCompass";
+import { computeDistanceFeet } from "../../src/util/distance";
 import {
 	PlaceDetailsWithAccesibilityData,
 	PlaceWithAccesibilityData,
-} from "../src/util/placeTypes";
-import { useFetchPlace } from "../src/hooks/useFetchPlace";
-import MainScreen from "../src/screens/MainScreen";
+} from "../../src/util/placeTypes";
+import { useFetchPlace } from "../../src/hooks/useFetchPlace";
+import MainScreen from "../../src/screens/MainScreen";
 
 // mock use location to prevent querying for location data
-jest.mock("../src/hooks/useLocation");
+jest.mock("../../src/hooks/useLocation");
 const mockUseLocation = useLocation as jest.MockedFunction<typeof useLocation>;
 const mockLocation: LocationObject = {
 	coords: {
@@ -29,7 +29,7 @@ const mockLocation: LocationObject = {
 };
 
 // mock use compass to prevent querying for compass data
-jest.mock("../src/hooks/useCompass");
+jest.mock("../../src/hooks/useCompass");
 const mockUseCompass = useCompass as jest.MockedFunction<typeof useCompass>;
 const mockRelativeDirection = (): RelativeDirectionOutput => {
 	return {
@@ -40,12 +40,12 @@ const mockRelativeDirection = (): RelativeDirectionOutput => {
 };
 
 // mock compute distance because user location is nonsense
-jest.mock("../src/util/distance.ts");
+jest.mock("../../src/util/distance.ts");
 const mockComputeDistance = computeDistanceFeet as jest.MockedFunction<typeof computeDistanceFeet>;
 const mockDistance = 5.58;
 
 // mock nearby places to prevent calls to remote server
-jest.mock("../src/hooks/useNearbyPlaces");
+jest.mock("../../src/hooks/useNearbyPlaces");
 const mockNearbyPlaces = useNearbyPlaces as jest.MockedFunction<typeof useNearbyPlaces>;
 const mockPlaces: Partial<PlaceWithAccesibilityData>[] = [
 	{
@@ -62,7 +62,7 @@ const mockPlaces: Partial<PlaceWithAccesibilityData>[] = [
 	},
 ];
 
-jest.mock("../src/hooks/useFetchPlace");
+jest.mock("../../src/hooks/useFetchPlace");
 const mockUseFetchPlace = useFetchPlace as jest.MockedFunction<typeof useFetchPlace>;
 
 const mockPlaceDetails: PlaceDetailsWithAccesibilityData = {

@@ -1,16 +1,16 @@
 import React from "react";
 import { cleanup, render, fireEvent, RenderAPI } from "@testing-library/react-native";
 import axios, { AxiosResponse } from "axios";
-import { useNearbyPlaces } from "../src/hooks/useNearbyPlaces";
-import { PlaceWithAccesibilityData } from "../src/util/placeTypes";
+import { useNearbyPlaces } from "../../src/hooks/useNearbyPlaces";
+import { PlaceWithAccesibilityData } from "../../src/util/placeTypes";
 import { PlaceDetailsResponseData } from "@googlemaps/google-maps-services-js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import MainScreen from "../src/screens/MainScreen";
+import MainScreen from "../../src/screens/MainScreen";
 
 const mockNameString = "Julio's OneDrive Installation Services";
 const mockAddressString = "123 Microsoft Road";
 
-jest.mock("../src/hooks/useNearbyPlaces");
+jest.mock("../../src/hooks/useNearbyPlaces");
 const mockNearbyPlaces = useNearbyPlaces as jest.MockedFunction<typeof useNearbyPlaces>;
 
 const mockPlaces: PlaceWithAccesibilityData[] = [

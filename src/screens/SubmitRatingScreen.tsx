@@ -7,6 +7,7 @@ import Screen from "../util/screens";
 import { Rating } from "../util/ratingTypes";
 
 export interface SubmitRatingScreenProps {
+	placeID?: string;
 	placeName?: string;
 	photo_reference?: string;
 	setPage: (screen: Screen) => void;

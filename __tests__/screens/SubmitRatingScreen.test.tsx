@@ -5,8 +5,8 @@ import {
 	PLACE_ATTRIBUTES,
 	SUBMIT,
 	getIncrementRatingButtonLabel,
-} from "../src/util/strings";
-import SubmitRatingScreen, { DEFAULT_INTERIM_RATING } from "../src/screens/SubmitRatingScreen";
+} from "../../src/util/strings";
+import SubmitRatingScreen, { DEFAULT_INTERIM_RATING } from "../../src/screens/SubmitRatingScreen";
 
 const mockNameString = "Julio's OneDrive Installation Services";
 const mockPlaceID = "oiluj";
@@ -14,7 +14,9 @@ const mockPlaceID = "oiluj";
 let tr: RenderAPI;
 beforeEach(() => {
 	// press place name
-	tr = render(<SubmitRatingScreen placeID={mockPlaceID} placeName={mockNameString} />);
+	tr = render(
+		<SubmitRatingScreen placeID={mockPlaceID} placeName={mockNameString} setPage={jest.fn()} />
+	);
 });
 afterEach(cleanup);
 
@@ -62,7 +64,7 @@ describe("Submit rating screen tests", () => {
 
 	it("renders a plus and minus button even if the place name is missing", () => {
 		// no name!
-		const tr = render(<SubmitRatingScreen placeID={mockPlaceID} />);
+		const tr = render(<SubmitRatingScreen placeID={mockPlaceID} setPage={jest.fn()} />);
 
 		for (const attribute of PLACE_ATTRIBUTES) {
 			expect(
