@@ -11,6 +11,7 @@ type LogInScreenProps = {
 	setPage: (screen: Screen) => void;
 	setPlaceID: Dispatch<SetStateAction<string | undefined>>;
 	goToSubmitRating: () => void;
+	setLoggedIn: Dispatch<React.SetStateAction<boolean>>;
 };
 
 const LogInScreen: React.FC<LogInScreenProps> = ({
@@ -18,11 +19,13 @@ const LogInScreen: React.FC<LogInScreenProps> = ({
 	placeID,
 	setPlaceID,
 	goToSubmitRating,
+	setLoggedIn,
 }) => {
 	const { validateEmail, hashPassword, email, errorMsg, setErrorMsg, password } =
 		useAuthentication();
 
 	const setPageAndSubmitRating = () => {
+		setLoggedIn(true);
 		goToSubmitRating();
 		if (placeID) {
 			setPlaceID(placeID);

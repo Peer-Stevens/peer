@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import StrollScreen from "./StrollScreen";
 import MapScreen from "./MapScreen";
 import DetailedViewScreen from "./DetailedViewScreen";
@@ -8,6 +8,8 @@ import LogInScreen from "./LoginScreen";
 import CreateAccountScreen from "./CreateAccountScreen";
 import NotLoggedInScreen from "./NotLoggedInScreen";
 import Screen from "../util/screens";
+import { usePreviousRating } from "../hooks/usePreviousRating";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 /**
  * Serves as the main view of the app, here all
@@ -15,13 +17,22 @@ import Screen from "../util/screens";
  * @returns the main screen component
  */
 const MainScreen: React.FC = () => {
+	const [loggedIn, setLoggedIn] = useState<boolean>(false);
 	const [page, setPage] = useState<Screen>(Screen.Home);
 	const [placeID, setPlaceID] = useState<string>();
 	const [selections, setSelections] = useState<Array<string>>([]);
+	const [email, setEmail] = useState<string | null>();
+
+	useEffect(() => {
+		(async () => {
+			setEmail(await AsyncStorage.getItem("@email"));
+		})();
+	}, [loggedIn]);
 
 	// Keep data around to avoid making another call when moving from
 	// details screen to submit rating screen
 	const { placeDetails } = useFetchPlace({ placeID });
+	const { previousRating } = usePreviousRating({ email, placeID });
 
 	//Makes new function that calls setPage with a specific argument
 	const goToMapScreen = () => setPage(Screen.Home);
@@ -63,6 +74,7 @@ const MainScreen: React.FC = () => {
 				placeID={placeID}
 				setPlaceID={setPlaceID}
 				goToSubmitRating={goToSubmitRating}
+				setLoggedIn={setLoggedIn}
 			/>
 		);
 	} else if (page === Screen.CreateAccount) {
@@ -72,6 +84,7 @@ const MainScreen: React.FC = () => {
 				placeID={placeID}
 				setPlaceID={setPlaceID}
 				goToSubmitRating={goToSubmitRating}
+				setLoggedIn={setLoggedIn}
 			/>
 		);
 	} else {

@@ -11,6 +11,7 @@ type CreateAccountScreenProps = {
 	setPage: (screen: Screen) => void;
 	setPlaceID: Dispatch<SetStateAction<string | undefined>>;
 	goToSubmitRating: () => void;
+	setLoggedIn: Dispatch<React.SetStateAction<boolean>>;
 };
 
 const CreateAccount: React.FC<CreateAccountScreenProps> = ({
@@ -18,11 +19,13 @@ const CreateAccount: React.FC<CreateAccountScreenProps> = ({
 	placeID,
 	setPlaceID,
 	goToSubmitRating,
+	setLoggedIn,
 }) => {
 	const { validateEmail, hashPassword, email, password, errorMsg, setErrorMsg } =
 		useAuthentication();
 
 	const setPageAndSubmitRating = () => {
+		setLoggedIn(true);
 		goToSubmitRating();
 		if (placeID) {
 			setPlaceID(placeID);

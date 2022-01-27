@@ -8,7 +8,7 @@ export const usePreviousRating = ({
 	email,
 	placeID,
 }: {
-	email?: string;
+	email?: string | null;
 	placeID?: string;
 }): { previousRating?: Rating | null } => {
 	const [previousRating, setPreviousRating] = useState<Rating | undefined | null>(undefined);
