@@ -32,7 +32,7 @@ const MainScreen: React.FC = () => {
 	// Keep data around to avoid making another call when moving from
 	// details screen to submit rating screen
 	const { placeDetails } = useFetchPlace({ placeID });
-	const { previousRating } = usePreviousRating({ email, placeID });
+	const previousRating = usePreviousRating(email, placeID);
 
 	//Makes new function that calls setPage with a specific argument
 	const goToMapScreen = () => setPage(Screen.Home);

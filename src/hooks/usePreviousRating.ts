@@ -4,13 +4,10 @@ import { SERVER_BASE_URL } from "../util/env";
 import { Rating } from "../util/ratingTypes";
 
 // email may be undefined if the user is not logged in
-export const usePreviousRating = ({
-	email,
-	placeID,
-}: {
-	email?: string | null;
-	placeID?: string;
-}): { previousRating?: Rating | null } => {
+export const usePreviousRating = (
+	email?: string | null,
+	placeID?: string
+): Rating | null | undefined => {
 	const [previousRating, setPreviousRating] = useState<Rating | undefined | null>(undefined);
 
 	useEffect(() => {
@@ -24,5 +21,5 @@ export const usePreviousRating = ({
 		})();
 	}, [placeID]);
 
-	return { previousRating };
+	return previousRating;
 };
