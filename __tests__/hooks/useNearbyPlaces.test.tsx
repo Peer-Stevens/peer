@@ -1,15 +1,15 @@
-import { useLocation } from "../src/hooks/useLocation";
-import { useNearbyPlaces } from "../src/hooks/useNearbyPlaces";
+import { useLocation } from "../../src/hooks/useLocation";
+import { useNearbyPlaces } from "../../src/hooks/useNearbyPlaces";
 import axios from "axios";
 import { Place } from "@googlemaps/google-maps-services-js";
 import { LocationObject } from "expo-location";
 import { renderHook, cleanup } from "@testing-library/react-hooks";
 import { waitFor } from "@testing-library/react-native";
-import { BusinessStatus } from "../src/hooks/useNearbyPlaces";
+import { BusinessStatus } from "../../src/hooks/useNearbyPlaces";
 
 jest.useFakeTimers();
 
-jest.mock("../src/hooks/useLocation");
+jest.mock("../../src/hooks/useLocation");
 
 const mockLocation: LocationObject = {
 	coords: {

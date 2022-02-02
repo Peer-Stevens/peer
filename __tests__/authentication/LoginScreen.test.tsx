@@ -33,6 +33,7 @@ beforeEach(() => {
 			setPage={mockSetPage}
 			setPlaceID={mockSetPlaceID}
 			goToSubmitRating={mockGoToSubmitRating}
+			setLoggedIn={jest.fn()}
 		/>
 	);
 });

@@ -1,9 +1,9 @@
-import { PlaceWithAccesibilityData } from "../src/util/placeTypes";
+import { PlaceWithAccesibilityData } from "../../src/util/placeTypes";
 import {
 	accessibilityRatingToString,
 	getAverageA11yRating,
 	getPlaceRatingString,
-} from "../src/util/processA11yRatings";
+} from "../../src/util/processA11yRatings";
 
 const sampleRating: PlaceWithAccesibilityData["accessibilityData"] = {
 	_id: "test",
