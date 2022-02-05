@@ -20,7 +20,7 @@
 		"axios": "0.25.0",
 		"crypto-js": "4.1.1",
 		"email-validator": "2.0.4",
-		"expo": "44.0.6",
+		"expo": "43.0.3",
 		"expo-app-loading": "~1.2.1",
 		"expo-font": "10.0.5",
 		"expo-haptics": "~11.0.3",
