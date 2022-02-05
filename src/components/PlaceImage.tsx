@@ -4,6 +4,7 @@ import Icon from "react-native-vector-icons/Feather";
 import { TEXT_COLOR } from "../util/colors";
 import PeerIcon from "../../assets/icon.png";
 import { SERVER_BASE_URL } from "../util/env";
+import { sendLog } from "../util/sendLog";
 
 export const PlaceImage: React.FC<{
 	photoref?: string;
@@ -15,6 +16,16 @@ export const PlaceImage: React.FC<{
 	if (photoref && process.env.NODE_ENV !== "test") {
 		imageSrc = { uri: `${SERVER_BASE_URL}/getPlacePhoto/${photoref}` };
 	} else {
+		if (!photoref) {
+			sendLog({
+				logtype: "error",
+				logs: [
+					{
+						message: `photoref is undefined for place ${placeName || "<unknown>"}`,
+					},
+				],
+			});
+		}
 		imageSrc = PeerIcon;
 	}
 
