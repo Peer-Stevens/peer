@@ -9,3 +9,4 @@
  */
 
 export const SERVER_BASE_URL = "https://peer-server-stevens.herokuapp.com";
+export const NEWRELIC_LICENSE = "f3952030847c8931a8d3c9eb9f03cdbeb594NRAL";

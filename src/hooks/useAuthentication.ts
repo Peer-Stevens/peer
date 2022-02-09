@@ -1,6 +1,7 @@
 import { useState } from "react";
 import sha256 from "crypto-js/sha256";
 import { validate } from "email-validator";
+import { sendLog } from "../util/sendLog";
 
 export const useAuthentication = (): {
 	validateEmail: (input: string) => void;
@@ -52,6 +53,10 @@ export const useAuthentication = (): {
 			setPassword(hash.toString());
 			return;
 		} else {
+			sendLog({
+				logtype: "logic-error",
+				logs: [{ message: "hashPassword: password hash failed" }],
+			});
 			setPassword("");
 			setErrorMsg("Something went wrong, please try again");
 			return;

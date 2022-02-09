@@ -10,6 +10,8 @@ import MainScreen from "../../src/screens/MainScreen";
 const mockNameString = "Julio's OneDrive Installation Services";
 const mockAddressString = "123 Microsoft Road";
 
+jest.mock("../../src/util/sendLog");
+
 jest.mock("../../src/hooks/useNearbyPlaces");
 const mockNearbyPlaces = useNearbyPlaces as jest.MockedFunction<typeof useNearbyPlaces>;
 
