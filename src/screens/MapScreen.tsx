@@ -4,7 +4,7 @@ import MapView, { Marker } from "react-native-maps";
 import PlaceList from "../components/Places/PlaceList";
 import SelectionBox from "../components/SelectionBox";
 import { useLocation } from "../hooks/useLocation";
-import StrollButton from "../components/StrollButton";
+import StrollButton from "../components/StrollButton/StrollButton";
 
 export interface MapScreenProps {
 	selections: string[];
