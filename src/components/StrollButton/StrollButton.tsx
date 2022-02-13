@@ -36,7 +36,6 @@ const StrollButton: React.FC<StrollButtonProps> = ({
 					{
 						borderWidth: 3,
 						borderColor: TEXT_COLOR,
-						borderRightWidth: 0,
 						height: "100%",
 					},
 					style
