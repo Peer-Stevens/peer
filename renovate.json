@@ -4,5 +4,15 @@
 	"timezone": "America/New_York",
 	"labels": ["dependencies"],
 	"reviewers": ["elenirotsides", "carpenterd777", "aej11a", "jlora23"],
-	"ignoreDeps": ["expo", "jest-expo", "react-native", "react-native-maps"]
+	"ignoreDeps": [
+		"expo",
+		"jest-expo",
+		"react-native",
+		"react-native-maps",
+		"expo-app-loading",
+		"expo-haptics",
+		"expo-location",
+		"react-native-maps",
+		"expo-cli"
+	]
 }
