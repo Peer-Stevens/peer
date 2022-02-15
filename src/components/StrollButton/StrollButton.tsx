@@ -1,9 +1,9 @@
 import React from "react";
 import { StyleSheet, View, ViewStyle } from "react-native";
 import type { StyleProp } from "react-native";
-import { TEXT_COLOR } from "../util/colors";
+import { TEXT_COLOR } from "../../util/colors";
 
-import { Button } from "./Button";
+import { Button } from "../Button";
 
 export interface StrollButtonProps {
 	onStartStrolling: () => void;
@@ -13,21 +13,22 @@ export interface StrollButtonProps {
 	style?: StyleProp<ViewStyle>;
 }
 
+/**
+ * The button group to begin a stroll.
+ * Formerly had a filter button as part of the group, but was removed
+ * in wake of the decision to focus on showing the user only restaurants.
+ *
+ * Props:
+ * onStartStrolling,
+ * isShowingSelections (unused),
+ * setIsShowingSelections (unused),
+ * selections (unused),
+ * style,
+ */
 const StrollButton: React.FC<StrollButtonProps> = ({
 	onStartStrolling,
-	isShowingSelections: isShowingSelections,
-	setIsShowingSelections: setIsShowingSelections,
-	selections,
 	style,
 }: StrollButtonProps) => {
-	const buildSelectionsText = (selections: string[]) => {
-		if (selections.length === 0) return "None";
-		let text = "";
-		for (const selection of selections) {
-			text += `${selection} `;
-		}
-		return text;
-	};
 	return (
 		<View style={styles.buttonGroup}>
 			<Button
@@ -35,7 +36,6 @@ const StrollButton: React.FC<StrollButtonProps> = ({
 					{
 						borderWidth: 3,
 						borderColor: TEXT_COLOR,
-						borderRightWidth: 0,
 						height: "100%",
 					},
 					style
@@ -43,15 +43,6 @@ const StrollButton: React.FC<StrollButtonProps> = ({
 				onPress={onStartStrolling}
 				accessibilityLabel="Take a stroll"
 				text="Take a stroll"
-			/>
-			<Button
-				style={styles.filterBtn}
-				onPress={() => {
-					setIsShowingSelections(!isShowingSelections);
-				}}
-				accessibilityLabel={isShowingSelections ? "Hide selections" : "Show selections"}
-				accessibilityHint={`Current selections: ${buildSelectionsText(selections)}`}
-				iconName={isShowingSelections ? "chevron-down" : "filter"}
 			/>
 		</View>
 	);
@@ -62,14 +53,6 @@ const styles = StyleSheet.create({
 		display: "flex",
 		flexDirection: "row",
 		alignItems: "center",
-	},
-	filterBtn: {
-		borderWidth: 3,
-		borderColor: TEXT_COLOR,
-		color: TEXT_COLOR,
-		borderLeftWidth: 3,
-		height: "100%",
-		width: 70,
 	},
 });
 

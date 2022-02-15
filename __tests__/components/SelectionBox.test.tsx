@@ -47,7 +47,7 @@ it("renders something", () => {
 	expect(tr.toJSON()).toBeDefined();
 });
 
-describe("Selection box tests", () => {
+describe.skip("Selection box tests", () => {
 	it("can be clicked on to show selections button", () => {
 		// Act
 		fireEvent.press(tr.getByLabelText("Show selections"));
