@@ -1977,10 +1977,10 @@
     serialize-error "6.0.0"
     temp-dir "^2.0.0"
 
-"@expo/dev-tools@0.13.144":
-  version "0.13.144"
-  resolved "https://registry.yarnpkg.com/@expo/dev-tools/-/dev-tools-0.13.144.tgz#e4c22ebf5b63e113e32633eb32b9348cc12de48e"
-  integrity sha512-W4bxADwmuBIwZPdEgWbI5uPw5A58D6HR5RhlMDV4VxJPJ4SqQD64wDnsqw/a/FiWOQNzSVolfcgTK2YBmZa/cQ==
+"@expo/dev-tools@0.13.145":
+  version "0.13.145"
+  resolved "https://registry.yarnpkg.com/@expo/dev-tools/-/dev-tools-0.13.145.tgz#573f31f60e79679730ac1ddfb8a336c6eacb5234"
+  integrity sha512-GtqnA9rmmSqCrv893MWbzbAoDZnYaSXe4kKQ57tCWYeSTOKav74ofvZlUZalosPuPjE9yuMA47rH9XJY0YgC1g==
   dependencies:
     "@expo/config" "6.0.18"
     base64url "3.0.1"
@@ -2102,10 +2102,10 @@
     "@expo/spawn-async" "^1.5.0"
     exec-async "^2.2.0"
 
-"@expo/package-manager@0.0.49":
-  version "0.0.49"
-  resolved "https://registry.yarnpkg.com/@expo/package-manager/-/package-manager-0.0.49.tgz#a9a9490f0e045ec95a0c6a6102a9174061025d38"
-  integrity sha512-H50tVngtgcSUzBpOF7W1fD66UXJ8BFwNX1G4nxzJuy0A4UiBu6gatnZYTkHlRHIZcaX0Q6OYGGrz1MapFlxywA==
+"@expo/package-manager@0.0.50":
+  version "0.0.50"
+  resolved "https://registry.yarnpkg.com/@expo/package-manager/-/package-manager-0.0.50.tgz#4ede0f8f11213a467546faf8783e719d8c1f1755"
+  integrity sha512-rDa1MkXFxZb3jj/a1iX12A+6DpWsZgtX8H0d5j+sYeCqjOARTvuvgNS9anpNbdhbGEXSu+1m8YGXK/QmBAo51Q==
   dependencies:
     "@expo/json-file" "8.2.34"
     "@expo/spawn-async" "^1.5.0"
@@ -6827,10 +6827,10 @@ expo-asset@~8.4.3:
     path-browserify "^1.0.0"
     url-parse "^1.4.4"
 
-expo-cli@^5.1.3:
-  version "5.1.3"
-  resolved "https://registry.yarnpkg.com/expo-cli/-/expo-cli-5.1.3.tgz#2cf726a8f9e19b588bbb826cb821660b9aaafcc2"
-  integrity sha512-4NbJorQEXGj0sRJZrDbP82MKtBLg5UmVq4qraDKMhgmv+gjboxA3qAdD5T5iX5H7I/PhY+zXrddac+LoepG7Uw==
+expo-cli@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/expo-cli/-/expo-cli-5.2.0.tgz#2cbf9d0a5175d4b4f7cca3d9ac335303d18b189a"
+  integrity sha512-0zyZwv7mBmeeEMZ7ur5xHt/klu1CNiuMuTbsrbDOvQPqDxyLOKlQtvsJOn9VHCUt8sAlyN21Jmu7KI6lH7fSgQ==
   dependencies:
     "@babel/runtime" "7.9.0"
     "@expo/apple-utils" "0.0.0-alpha.26"
@@ -6838,10 +6838,10 @@ expo-cli@^5.1.3:
     "@expo/config" "6.0.18"
     "@expo/config-plugins" "4.0.18"
     "@expo/dev-server" "0.1.105"
-    "@expo/dev-tools" "0.13.144"
+    "@expo/dev-tools" "0.13.145"
     "@expo/json-file" "8.2.34"
     "@expo/osascript" "2.0.31"
-    "@expo/package-manager" "0.0.49"
+    "@expo/package-manager" "0.0.50"
     "@expo/plist" "0.0.17"
     "@expo/prebuild-config" "3.0.18"
     "@expo/spawn-async" "1.5.0"
@@ -6889,7 +6889,7 @@ expo-cli@^5.1.3:
     url-join "4.0.0"
     uuid "^8.0.0"
     wrap-ansi "^7.0.0"
-    xdl "59.2.28"
+    xdl "59.2.29"
 
 expo-constants@~12.1.3:
   version "12.1.3"
@@ -12739,10 +12739,10 @@ react-native-codegen@^0.0.6:
     jscodeshift "^0.11.0"
     nullthrows "^1.1.1"
 
-react-native-maps@0.28.1:
-  version "0.28.1"
-  resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.28.1.tgz#f3d9a919f403f1103a70e94f651462e65c7ca6db"
-  integrity sha512-Ytcc8ZK7Pp5oU1gbRgtXKvl5hIlTa1F7J/bEPeS1Ch/ad9/3gHP+uC/pNfe2Ava90nXqZ+ATIFTF2uVcTMogWg==
+react-native-maps@0.28.0:
+  version "0.28.0"
+  resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.28.0.tgz#1913dd4977652ddfc317d39c7cb7d78a8e513784"
+  integrity sha512-F+k5ZT9hhl+iXR1H+5ZcoHOEB5lPu9gCIwtA4lI/LoI9nfa9xFvr1vMiLIv44jzeGNzbE3+/R81IpcNDMJ5uDg==
   dependencies:
     "@types/geojson" "^7946.0.7"
 
@@ -15474,10 +15474,10 @@ xcode@^3.0.0, xcode@^3.0.1:
     simple-plist "^1.1.0"
     uuid "^7.0.3"
 
-xdl@59.2.28:
-  version "59.2.28"
-  resolved "https://registry.yarnpkg.com/xdl/-/xdl-59.2.28.tgz#a2abf5db4e0a6f53d3e2030df12959a4e1f5f939"
-  integrity sha512-uAHgdi2nle3FOWPIE1QX2f+A6vVrt5No1TFD4oPvHhOOnwQOUyYHmQE2CT3/ExXRKyGdUgipe7GSEuB8ACk/7g==
+xdl@59.2.29:
+  version "59.2.29"
+  resolved "https://registry.yarnpkg.com/xdl/-/xdl-59.2.29.tgz#42198646be57e2978209b34a3f5f57ed6d6a3234"
+  integrity sha512-qwLdMdv7AR3Tz9rud/Dro2TQFlhZHLN9GIN4+TKKcz9M9mkeoqZAFbDEt+7MyDUKQ644iBpSvShjMdyRA7M+aQ==
   dependencies:
     "@expo/bunyan" "4.0.0"
     "@expo/config" "6.0.18"
@@ -15486,7 +15486,7 @@ xdl@59.2.28:
     "@expo/devcert" "^1.0.0"
     "@expo/json-file" "8.2.34"
     "@expo/osascript" "2.0.31"
-    "@expo/package-manager" "0.0.49"
+    "@expo/package-manager" "0.0.50"
     "@expo/plist" "0.0.17"
     "@expo/rudder-sdk-node" "1.1.1"
     "@expo/schemer" "1.3.33"
