@@ -60,12 +60,17 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 		};
 		const distanceInMi = computeDistanceMi(userCoords, placeCoord)?.toPrecision(2);
 
-		// TODO: update to use new rating "sensory aids"
 		const a11yDataMap = {
-			"Navigability": placeDetails.accessibilityData?.avgNavigability,
-			"Sensory Aids": placeDetails.accessibilityData?.avgBraille,
-			"Staff Helpfulness": placeDetails.accessibilityData?.avgStaffHelpfulness,
-			"Guide Dog Friendliness": placeDetails.accessibilityData?.avgGuideDogFriendly,
+			"Guide Dog Friendliness": placeDetails.accessibilityData?.guideDogAvg,
+			"Bathroom on Entrance Level":
+				placeDetails.accessibilityData?.isBathroomOnEntranceFloorAvg,
+			"Contactless Payment": placeDetails.accessibilityData?.isContactlessPaymentOfferedAvg,
+			"Accessible Menu": placeDetails.accessibilityData?.isMenuAccessibleAvg,
+			"Staff Helpfulness": placeDetails.accessibilityData?.isStaffHelpfulAvg,
+			"Stairs Required": placeDetails.accessibilityData?.isStairsRequiredAvg,
+			"Lighting": placeDetails.accessibilityData?.lightingAvg,
+			"Noise Level": placeDetails.accessibilityData?.noiseLevelAvg,
+			"Spacing": placeDetails.accessibilityData?.spacingAvg, // Do we want to call this 'navigability'? Or is that technically different from 'spacing'?
 		};
 
 		return (
