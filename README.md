@@ -11,14 +11,6 @@ Explorative navigation app for the blind and visually impaired for iOS and Andro
 Run:
 
 ```
-npm i -g yarn
-npm i -g expo-cli
-npm i -g eas-cli
-```
-
-Run:
-
-```
 yarn
 ```
 
