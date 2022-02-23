@@ -47,3 +47,26 @@ export const getIncrementRatingButtonLabel = (
 		placeName ? placeName : "this place"
 	}'s ${attribute} from ${interimRating} to ${increment ? nextRatingAbove : nextRatingBelow}`;
 };
+
+export const getPopUpProps = (
+	attribute: string,
+	propsType: "accessibility" | "text" | "closeButtonAccessibilityLabel"
+): string => {
+	let displayString!: string;
+
+	switch (propsType) {
+		case "accessibility":
+			displayString =
+				"A button that triggers a pop up to open. This will explain what " +
+				attribute +
+				" is";
+			break;
+		case "closeButtonAccessibilityLabel":
+			displayString = "Close " + attribute + " pop up";
+			break;
+		case "text":
+			displayString = attribute + " Explained";
+			break;
+	}
+	return displayString;
+};

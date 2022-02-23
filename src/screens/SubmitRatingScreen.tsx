@@ -7,6 +7,7 @@ import {
 	getIncrementRatingButtonLabel,
 	PLACE_ATTRIBUTES,
 	S_SUBMIT,
+	getPopUpProps,
 } from "../util/strings";
 import Screen from "../util/screens";
 import { Rating } from "../util/ratingTypes";
@@ -90,17 +91,14 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 						/>
 						<Text>{attribute.type}</Text>
 						<PopUp
-							accessibilityLabel={
-								"A button that triggers a pop up to open. This will explain what " +
-								attribute.type +
-								" is"
-							}
-							accessibilityHint={
-								"A button that triggers a pop up to open. This will explain what " +
-								attribute.type +
-								" is"
-							}
-							text={attribute.type + " Explained"}
+							accessibilityLabel={getPopUpProps(attribute.type, "accessibility")}
+							accessibilityHint={getPopUpProps(attribute.type, "accessibility")}
+							text={getPopUpProps(attribute.type, "text")}
+							closeButtonAccessibilityLabel={getPopUpProps(
+								attribute.type,
+								"closeButtonAccessibilityLabel"
+							)}
+							closeButtonText={"Close"}
 						>
 							<Text>{attribute.helpText}</Text>
 						</PopUp>

@@ -8,6 +8,8 @@ export interface ModalProps {
 	text: string;
 	accessibilityLabel: string;
 	accessibilityHint?: string;
+	closeButtonAccessibilityLabel: string;
+	closeButtonText: string;
 	style?: StyleProp<ViewStyle>;
 }
 
@@ -15,6 +17,8 @@ export const PopUp: React.FC<ModalProps> = ({
 	text,
 	accessibilityLabel,
 	accessibilityHint,
+	closeButtonText,
+	closeButtonAccessibilityLabel,
 	style,
 	children,
 }) => {
@@ -45,8 +49,8 @@ export const PopUp: React.FC<ModalProps> = ({
 						{children}
 						<Button
 							onPress={() => setModalVisible(!modalVisible)}
-							accessibilityLabel="Close Pop Up"
-							text="Close Pop Up"
+							accessibilityLabel={closeButtonAccessibilityLabel}
+							text={closeButtonText}
 						/>
 					</View>
 				</View>
