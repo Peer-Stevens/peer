@@ -11,10 +11,10 @@
  * Capitalized attributes of a place that can be rated by a user.
  */
 
-export const S_NAVIGABILITY = "Navigability";
-export const S_SENSORY_AIDS = "Sensory Aids";
-export const S_STAFF_HELPFULNESS = "Staff Helpfulness";
-export const S_GUIDE_DOG_FRIENDLINESS = "Guide Dog Friendliness";
+export const S_NAVIGABILITY = { type: "Navigability", helpText: "TODO" }; // TODO: fill in helpText when the new rating metrics are added in https://github.com/Peer-Stevens/peer/issues/256
+export const S_SENSORY_AIDS = { type: "Sensory Aids", helpText: "TODO" };
+export const S_STAFF_HELPFULNESS = { type: "Staff Helpfulness", helpText: "TODO" };
+export const S_GUIDE_DOG_FRIENDLINESS = { type: "Guide Dog Friendliness", helpText: "TODO" };
 export const PLACE_ATTRIBUTES = [
 	S_NAVIGABILITY,
 	S_SENSORY_AIDS,
