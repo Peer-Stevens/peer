@@ -14,6 +14,7 @@
 		"expo-location",
 		"react-native-maps",
 		"expo-cli",
-		"expo-linking"
+		"expo-linking",
+		"@react-native-async-storage/async-storage"
 	]
 }
