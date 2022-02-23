@@ -13,32 +13,51 @@ const handlePress = async (href: string) => {
 	await Linking.openURL(href);
 };
 
-const buildMapsHref = (
-	travelmode: TravelMode,
-	destination_place_id: string,
-	destination?: string,
-	formatted_address?: string
-) => {
+const buildMapsHref = ({
+	travelmode,
+	destination_place_id,
+	destination,
+	formatted_address,
+}: {
+	travelmode: TravelMode;
+	destination_place_id: string;
+	destination?: string;
+	formatted_address?: string;
+}) => {
 	return Platform.select<string>({
-		android: buildGoogleMapsHref(travelmode, false, destination, destination_place_id),
-		ios: buildAppleMapsHref(travelmode, destination, formatted_address),
-		default: buildGoogleMapsHref(travelmode, false, destination, destination_place_id),
+		android: buildGoogleMapsHref({
+			travelmode,
+			startNavigation: false,
+			destination,
+			destination_place_id,
+		}),
+		ios: buildAppleMapsHref({ travelmode, destination, formatted_address }),
+		default: buildGoogleMapsHref({
+			travelmode,
+			startNavigation: false,
+			destination,
+			destination_place_id,
+		}),
 	});
 };
 
-const buildGoogleMapsHref = (
-	travelmode: TravelMode,
-	startNavigation: boolean,
-	destination?: string,
-	destination_place_id?: string
-) => {
+const buildGoogleMapsHref = ({
+	travelmode,
+	startNavigation,
+	destination,
+	destination_place_id,
+}: {
+	travelmode: TravelMode;
+	startNavigation: boolean;
+	destination?: string;
+	destination_place_id?: string;
+}) => {
 	// https://developers.google.com/maps/documentation/urls/get-started#directions-action
-	let href = "https://www.google.com/maps/dir/?api=1";
-	href += `&travelmode=${travelmode}`;
+	let href = `https://www.google.com/maps/dir/?api=1&travelmode=${travelmode}`;
 
 	if (destination && destination_place_id) {
 		href += `&destination=${encodeURIComponent(destination)}`;
-		href += `&destination_place_id=${destination_place_id}`;
+		href += `&destination_place_id=${encodeURIComponent(destination_place_id)}`;
 	}
 
 	if (startNavigation) {
@@ -48,27 +67,28 @@ const buildGoogleMapsHref = (
 	return href;
 };
 
-const buildAppleMapsHref = (
-	travelmode: TravelMode,
-	destination?: string,
-	formatted_address?: string
-) => {
+const buildAppleMapsHref = ({
+	travelmode,
+	destination,
+	formatted_address,
+}: {
+	travelmode: TravelMode;
+	destination?: string;
+	formatted_address?: string;
+}) => {
 	// https://developer.apple.com/library/archive/featuredarticles/iPhoneURLScheme_Reference/MapLinks/MapLinks.html
 	const appleTravelModeParamMap: Record<string, string> = {
 		driving: "d",
 		walking: "w",
 		transit: "r",
 	};
-	const zoomLevel = 10; // can be from 2 - 21
 
-	let href = "http://maps.apple.com/?";
-	href += `dirflg=${appleTravelModeParamMap[travelmode]}`;
-	href += `&z=${zoomLevel}`;
+	let href = `http://maps.apple.com/dirflg=${appleTravelModeParamMap[travelmode]}`;
 
 	if (formatted_address) {
-		href += `&daddr=${formatted_address}`;
+		href += `&daddr=${encodeURIComponent(formatted_address)}`;
 	} else if (destination) {
-		href += `&daddr=${destination}`;
+		href += `&daddr=${encodeURIComponent(destination)}`;
 	}
 
 	return href;
@@ -86,12 +106,12 @@ const MapAnchor: React.FC<MapAnchorProps> = ({
 	formatted_address,
 	children,
 }: React.PropsWithChildren<MapAnchorProps>) => {
-	const MAPS_HREF = buildMapsHref(
-		TravelMode.Walking,
+	const MAPS_HREF = buildMapsHref({
+		travelmode: TravelMode.Walking,
 		destination_place_id,
 		destination,
-		formatted_address
-	);
+		formatted_address,
+	});
 
 	let a11yLabel;
 	if (destination) {
