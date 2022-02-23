@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, ViewStyle, Modal, Alert } from "react-native";
+import { View, StyleSheet, ViewStyle, Modal } from "react-native";
 import type { StyleProp } from "react-native";
 import { PRIMARY_COLOR, TEXT_COLOR } from "../util/colors";
 import { Button } from "./Button";
@@ -37,7 +37,6 @@ export const PopUp: React.FC<ModalProps> = ({
 				transparent={true}
 				visible={modalVisible}
 				onRequestClose={() => {
-					Alert.alert("Modal has been closed.");
 					setModalVisible(!modalVisible);
 				}}
 			>
