@@ -23,6 +23,8 @@ export const PLACE_ATTRIBUTES = [
 ];
 export const S_SUBMIT = "Submit";
 export const S_CANCEL = "Cancel";
+export const START_WALKING = "Start walking here";
+export const MAP_ANCHOR_A11Y = "Tap to navigate to this place.";
 
 // Functions
 
@@ -46,4 +48,8 @@ export const getIncrementRatingButtonLabel = (
 	return `${increment ? "Increase" : "Decrease"} your evaluation of ${
 		placeName ? placeName : "this place"
 	}'s ${attribute} from ${interimRating} to ${increment ? nextRatingAbove : nextRatingBelow}`;
+};
+
+export const getMapAnchorA11yLabel = (destination: string) => {
+	return `Tap to navigate to ${destination}`;
 };
