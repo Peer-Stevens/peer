@@ -4,17 +4,9 @@
 [![CI Test](https://github.com/Peer-Stevens/peer/actions/workflows/test.yml/badge.svg)](https://github.com/Peer-Stevens/peer/actions/workflows/test.yml)
 [![codecov](https://codecov.io/gh/Peer-Stevens/peer/branch/main/graph/badge.svg?token=GQU7RZ6VBU)](https://codecov.io/gh/Peer-Stevens/peer)
 
-Explorative navigation app for the blind and visually impaired for iOS and Android.
+Restaurant review app for the blind and visually impaired for iOS and Android.
 
 ## Setup
-
-Run:
-
-```
-npm i -g yarn
-npm i -g expo-cli
-npm i -g eas-cli
-```
 
 Run:
 

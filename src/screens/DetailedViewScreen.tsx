@@ -8,6 +8,9 @@ import { PlaceImage } from "../components/PlaceImage";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFetchPlace } from "../hooks/useFetchPlace";
 import Screen from "../util/screens";
+import MapAnchor from "../components/MapAnchor";
+import Icon from "react-native-vector-icons/FontAwesome";
+import { START_WALKING } from "../util/strings";
 
 export interface PlaceProps {
 	placeID: string;
@@ -100,6 +103,14 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 						>
 							{place.name}
 						</Text>
+						<MapAnchor
+							destination={place.name}
+							destination_place_id={placeID}
+							formatted_address={place.formatted_address}
+						>
+							<BodyText>{START_WALKING}</BodyText>
+							<Icon name="arrow-circle-right" size={100} />
+						</MapAnchor>
 						<BodyText ellipsizeMode="tail" numberOfLines={2}>
 							{place.formatted_address}
 						</BodyText>

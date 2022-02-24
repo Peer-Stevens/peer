@@ -13,6 +13,8 @@
 		"expo-haptics",
 		"expo-location",
 		"react-native-maps",
-		"expo-cli"
+		"expo-cli",
+		"expo-linking",
+		"@react-native-async-storage/async-storage"
 	]
 }
