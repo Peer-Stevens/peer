@@ -11,6 +11,7 @@ import {
 import Screen from "../util/screens";
 import { Rating } from "../util/ratingTypes";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Place as GooglePlace } from "@googlemaps/google-maps-services-js";
 import { SERVER_BASE_URL } from "../util/env";
 
@@ -36,29 +37,60 @@ const attributesMap: Record<string, string> = {
 	"Guide Dog Friendliness": "guideDogFriendly",
 };
 
-const submitRating = async (request_body: {
-	userID: string;
-	token: string;
-	placeID: GooglePlace["place_id"];
-	guideDogFriendly: number | null;
-	isMenuAccessible: 0 | 1 | null;
-	noiseLevel: number | null;
-	isStaffHelpful: 0 | 1 | null;
-	lighting: number | null;
-	isBathroomOnEntranceFloor: 0 | 1 | null;
-	isContactlessPaymentOffered: 0 | 1 | null;
-	isStairsRequired: 0 | 1 | null;
-	spacing: number | null;
-}) => {
-	await axios.post(`${SERVER_BASE_URL}/addRatingToPlace`, request_body);
-};
-
 const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
+	placeID,
 	placeName,
 	photo_reference,
 	setPage,
 	previousRating,
 }: SubmitRatingScreenProps) => {
+	const submitRating = async (request_body: {
+		email: string | null;
+		token: string | null;
+		placeID: GooglePlace["place_id"];
+		guideDogFriendly: number | null;
+		isMenuAccessible: 0 | 1 | null;
+		noiseLevel: number | null;
+		isStaffHelpful: 0 | 1 | null;
+		lighting: number | null;
+		isBathroomOnEntranceFloor: 0 | 1 | null;
+		isContactlessPaymentOffered: 0 | 1 | null;
+		isStairsRequired: 0 | 1 | null;
+		spacing: number | null;
+	}) => {
+		if (!request_body.email || !request_body.token) {
+			// there is some sort of invalid state here, not sure if
+			// throw error is appropritate though
+			return;
+		}
+
+		if (previousRating) {
+			await axios.post(`${SERVER_BASE_URL}/editRating`, request_body);
+		} /* else no previous rating has been made on this place by this user */
+		await axios.post(`${SERVER_BASE_URL}/addRatingtoPlace`, request_body);
+	};
+
+	const handleSubmitButton = async () => {
+		const email = await AsyncStorage.getItem("@email");
+		const token = await AsyncStorage.getItem("@auth_token");
+		// TODO: change "0" to user input
+		const ratingToSubmit: Parameters<typeof submitRating>[0] = {
+			email: email,
+			token: token,
+			placeID: placeID,
+			guideDogFriendly: counter.guideDogFriendly,
+			isMenuAccessible: 0,
+			noiseLevel: counter.noiseLevel,
+			isStaffHelpful: 0,
+			isBathroomOnEntranceFloor: 0,
+			isContactlessPaymentOffered: 0,
+			lighting: counter.lighting,
+			isStairsRequired: 0,
+			spacing: counter.spacing,
+		};
+		await submitRating(ratingToSubmit);
+	};
+
 	const [counter, setCounter] = useState(
 		PLACE_ATTRIBUTES.reduce<{ [attribute: string]: number }>(function (countersMap, attribute) {
 			if (previousRating) {
@@ -129,15 +161,7 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 					</View>
 				);
 			})}
-			<Button
-				text={S_SUBMIT}
-				accessibilityLabel={S_SUBMIT}
-				onPress={() => {
-					const ratingToSubmit = {
-						...counter,
-					};
-				}}
-			/>
+			<Button text={S_SUBMIT} accessibilityLabel={S_SUBMIT} onPress={handleSubmitButton} />
 		</ScrollView>
 	);
 };
