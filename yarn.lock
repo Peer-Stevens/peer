@@ -11954,6 +11954,11 @@ pbkdf2@^3.0.3:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
+peer-types@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/peer-types/-/peer-types-1.0.2.tgz#1ec101f5c5e66a8e2180cc658ff91c25a7a77986"
+  integrity sha512-SgY/s0P0iWg6CLZKVWvEhtneFjLfLaMBCuMUKoEL0RV4RG8EAuUSueJAdO7YdMtzzFv1qt3mOWN9mUPIJKvUNA==
+
 picocolors@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/picocolors/-/picocolors-0.2.1.tgz#570670f793646851d1ba135996962abad587859f"
@@ -15198,10 +15203,8 @@ watchpack@^1.6.1:
   resolved "https://registry.yarnpkg.com/watchpack/-/watchpack-1.7.5.tgz#1267e6c55e0b9b5be44c2023aed5437a2c26c453"
   integrity sha512-9P3MWk6SrKjHsGkLT2KHXdQ/9SNkyoJbabxnKOoJepsvJjJG8uYTR3yTPxPQvNDI3w4Nz1xnE0TLHK4RIVe/MQ==
   dependencies:
-    chokidar "^3.4.1"
     graceful-fs "^4.1.2"
     neo-async "^2.5.0"
-    watchpack-chokidar2 "^2.0.1"
   optionalDependencies:
     chokidar "^3.4.1"
     watchpack-chokidar2 "^2.0.1"
