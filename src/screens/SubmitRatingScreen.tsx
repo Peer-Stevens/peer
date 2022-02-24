@@ -7,6 +7,7 @@ import {
 	getIncrementRatingButtonLabel,
 	PLACE_ATTRIBUTES,
 	S_SUBMIT,
+	getPopUpProps,
 } from "../util/strings";
 import Screen from "../util/screens";
 import { Rating } from "../util/ratingTypes";
@@ -14,6 +15,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Place as GooglePlace } from "@googlemaps/google-maps-services-js";
 import { SERVER_BASE_URL } from "../util/env";
+import { PopUp } from "../components/PopUp";
 
 export interface SubmitRatingScreenProps {
 	placeID?: string;
@@ -97,8 +99,9 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 				// a little dirty, but we know that it will be a number
 				// as all of the keys of attributesMap are the names
 				// of the number
-				countersMap[attribute] =
-					(previousRating[attributesMap[attribute]] as number) ?? DEFAULT_INTERIM_RATING;
+				countersMap[attribute.type] =
+					(previousRating[attributesMap[attribute.type]] as number) ??
+					DEFAULT_INTERIM_RATING;
 			}
 			return countersMap;
 		}, {})
@@ -116,7 +119,7 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 				}}
 			/>
 			{PLACE_ATTRIBUTES.map((attribute, index) => {
-				const count = counter[attribute];
+				const count = counter[attribute.type];
 
 				return (
 					<View key={`rating${index}`}>
@@ -125,7 +128,7 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 							accessibilityLabel={getIncrementRatingButtonLabel(
 								true,
 								count,
-								attribute,
+								attribute.type,
 								placeName
 							)}
 							onPress={() => {
@@ -134,18 +137,33 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 								}
 								setCounter({
 									...counter,
-									[attribute]: count - INCREMENT_VAL,
+									[attribute.type]: count - INCREMENT_VAL,
 								});
 							}}
 						/>
-						<Text>{attribute}</Text>
+						<Text>{attribute.type}</Text>
+						<PopUp
+							accessibilityLabel={getPopUpProps(
+								attribute.type,
+								"buttonAccessibilityLabel"
+							)}
+							text={getPopUpProps(attribute.type, "text")}
+							modalAccessibilityLabel={getPopUpProps(
+								attribute.type,
+								"modalAccessibilityLabel"
+							)}
+							closeButtonAccessibilityLabel={"Close this pop up."}
+							closeButtonText={"Close"}
+						>
+							<Text>{attribute.helpText}</Text>
+						</PopUp>
 						<Text>{count}</Text>
 						<Button
 							iconName={"plus"}
 							accessibilityLabel={getIncrementRatingButtonLabel(
 								false,
 								count,
-								attribute,
+								attribute.type,
 								placeName
 							)}
 							onPress={() => {
@@ -154,7 +172,7 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 								}
 								setCounter({
 									...counter,
-									[attribute]: count + INCREMENT_VAL,
+									[attribute.type]: count + INCREMENT_VAL,
 								});
 							}}
 						/>
