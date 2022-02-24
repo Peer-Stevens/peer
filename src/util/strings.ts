@@ -11,16 +11,33 @@
  * Capitalized attributes of a place that can be rated by a user.
  */
 
-export const S_NAVIGABILITY = { type: "Navigability", helpText: "TODO" }; // TODO: fill in helpText when the new rating metrics are added in https://github.com/Peer-Stevens/peer/issues/256
-export const S_SENSORY_AIDS = { type: "Sensory Aids", helpText: "TODO" };
-export const S_STAFF_HELPFULNESS = { type: "Staff Helpfulness", helpText: "TODO" };
-export const S_GUIDE_DOG_FRIENDLINESS = { type: "Guide Dog Friendliness", helpText: "TODO" };
-export const PLACE_ATTRIBUTES = [
-	S_NAVIGABILITY,
-	S_SENSORY_AIDS,
-	S_STAFF_HELPFULNESS,
-	S_GUIDE_DOG_FRIENDLINESS,
-];
+// TODO: fill in helpText when the new rating metrics are added in https://github.com/Peer-Stevens/peer/issues/256
+export const S_NOISE_LEVEL = { renderText: "Noise Level", helpText: "TODO" };
+export const S_LIGHTING = { renderText: "Lighting", helpText: "TODO" };
+export const S_SPACING = { renderText: "Spacing", helpText: "TODO" };
+export const S_GUIDE_DOG_FRIENDLINESS = { renderText: "Guide Dog Friendliness", helpText: "TODO" };
+export const S_STAFF_HELPFULNESS = {
+	renderText:
+		"Were the staff helpful and polite when you made request regarding your accomodations?",
+	helpText: "TODO",
+};
+export const S_MENU_ACCESSIBLE = {
+	renderText: "Could you easily find an accessible menu? (Braille or screen-reader compatible)",
+	helpText: "TODO",
+};
+export const S_BATHROOM_ENTRANCE_FLOOR = {
+	renderText: "Is the bathroom on the first floor?",
+	helpText: "TODO",
+};
+export const S_CONTACTLESS_PAYMENT = {
+	renderText: "Could you pay using contactless payment? (Apple Pay, etc.)",
+	helpText: "TODO",
+};
+export const S_STAIRS_REQUIRED = {
+	renderText: "Did you have to walk up stairs to receive service?",
+	helpText: "TODO",
+};
+
 export const S_SUBMIT = "Submit";
 export const S_CANCEL = "Cancel";
 export const START_WALKING = "Start walking here";
