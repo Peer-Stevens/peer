@@ -8,6 +8,7 @@ export interface ModalProps {
 	text: string;
 	accessibilityLabel: string;
 	accessibilityHint?: string;
+	modalAccessibility: string;
 	closeButtonAccessibilityLabel: string;
 	closeButtonText: string;
 	style?: StyleProp<ViewStyle>;
@@ -17,6 +18,7 @@ export const PopUp: React.FC<ModalProps> = ({
 	text,
 	accessibilityLabel,
 	accessibilityHint,
+	modalAccessibility,
 	closeButtonText,
 	closeButtonAccessibilityLabel,
 	style,
@@ -25,8 +27,8 @@ export const PopUp: React.FC<ModalProps> = ({
 	const [modalVisible, setModalVisible] = useState(false);
 	return (
 		<View
-			accessibilityLabel="A Pop Up"
-			accessibilityHint="A Pop Up"
+			accessibilityLabel={modalAccessibility}
+			accessibilityHint={modalAccessibility}
 			style={StyleSheet.compose(
 				{
 					backgroundColor: PRIMARY_COLOR,

@@ -50,22 +50,26 @@ export const getIncrementRatingButtonLabel = (
 
 export const getPopUpProps = (
 	attribute: string,
-	propsType: "accessibility" | "text" | "closeButtonAccessibilityLabel"
+	propsType:
+		| "buttonAccessibility"
+		| "text"
+		| "modalAccessibility"
+		| "closeButtonAccessibilityLabel"
 ): string => {
 	let displayString!: string;
 
 	switch (propsType) {
-		case "accessibility":
-			displayString =
-				"A button that triggers a pop up to open. This will explain what " +
-				attribute +
-				" is";
+		case "buttonAccessibility":
+			displayString = `A button that triggers a pop up to open. This will explain what ${attribute} is.`;
+			break;
+		case "modalAccessibility":
+			displayString = `A pop up that explains ${attribute}`;
 			break;
 		case "closeButtonAccessibilityLabel":
-			displayString = "Close " + attribute + " pop up";
+			displayString = `Close ${attribute} pop up`;
 			break;
 		case "text":
-			displayString = attribute + " Explained";
+			displayString = `${attribute} Explained`;
 			break;
 	}
 	return displayString;
