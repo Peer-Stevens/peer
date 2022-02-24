@@ -11954,10 +11954,10 @@ pbkdf2@^3.0.3:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-peer-types@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/peer-types/-/peer-types-1.0.0.tgz#3ae9bd72c1715c9798a491647587fcfc94f9eccf"
-  integrity sha512-V8/2S8EttG01sh4LLzXGoEyZH9XjGvAAW6YYrvIzKqodJWg/CbYZSGVYayuCFtV/Gkd+PAlKtzfvwHMZrYuxaw==
+peer-types@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/peer-types/-/peer-types-1.0.2.tgz#1ec101f5c5e66a8e2180cc658ff91c25a7a77986"
+  integrity sha512-SgY/s0P0iWg6CLZKVWvEhtneFjLfLaMBCuMUKoEL0RV4RG8EAuUSueJAdO7YdMtzzFv1qt3mOWN9mUPIJKvUNA==
 
 picocolors@^0.2.1:
   version "0.2.1"
