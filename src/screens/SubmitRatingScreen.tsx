@@ -98,10 +98,7 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 							accessibilityHint={getPopUpProps(attribute.type, "buttonAccessibility")}
 							text={getPopUpProps(attribute.type, "text")}
 							modalAccessibility={getPopUpProps(attribute.type, "modalAccessibility")}
-							closeButtonAccessibilityLabel={getPopUpProps(
-								attribute.type,
-								"closeButtonAccessibilityLabel"
-							)}
+							closeButtonAccessibilityLabel={"Close this pop up."}
 							closeButtonText={"Close"}
 						>
 							<Text>{attribute.helpText}</Text>

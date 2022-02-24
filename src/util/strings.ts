@@ -54,27 +54,20 @@ export const getIncrementRatingButtonLabel = (
  * Returns the string needed for the props in the PopUp component in the Submit Rating page
  * @param attribute
  * @param propsType
- * @returns
+ * @returns the string to display
  */
 export const getPopUpProps = (
 	attribute: string,
-	propsType:
-		| "buttonAccessibility"
-		| "text"
-		| "modalAccessibility"
-		| "closeButtonAccessibilityLabel"
+	propsType: "buttonAccessibility" | "text" | "modalAccessibility"
 ): string => {
 	let displayString!: string;
 
 	switch (propsType) {
 		case "buttonAccessibility":
-			displayString = `A button that triggers a pop up to open. This will explain what ${attribute} is.`;
+			displayString = `Press this button to find out more about the ${attribute} rating.`;
 			break;
 		case "modalAccessibility":
-			displayString = `A pop up that explains ${attribute}`;
-			break;
-		case "closeButtonAccessibilityLabel":
-			displayString = `Close ${attribute} pop up`;
+			displayString = `A pop up that explains ${attribute}.`;
 			break;
 		case "text":
 			displayString = `${attribute} Explained`;
