@@ -70,13 +70,13 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 		 * @returns Object containing the attribute name as the key and the avg rating as the value
 		 */
 		const avgRatingLookup = (key: string): number => {
-			let avgs: { [attribute: string]: number } = {};
+			const avgs: { [attribute: string]: number } = {};
 			for (const [key, value] of Object.entries(namesToFieldsMap)) {
 				let avgRating!: number;
 
 				// _id is a number and a key in this object, so this check makes TS happy
-				if (typeof value !== "string") {
-					avgRating = placeDetails.accessibilityData![value];
+				if (typeof value !== "string" && placeDetails.accessibilityData) {
+					avgRating = placeDetails.accessibilityData[value];
 				}
 
 				avgs[key] = avgRating;
@@ -127,9 +127,9 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 						>
 							{distanceInMi ? `${distanceInMi} mi away` : ""}
 						</BodyText>
-						{Object.entries(namesToFieldsMap).map((attrScorePair, index) => {
-							const attribute = attrScorePair[0];
-							const score = avgRatingLookup(attrScorePair[0]);
+						{Object.entries(namesToFieldsMap).map(([attrName, rating], index) => {
+							const attribute = attrName;
+							const score = avgRatingLookup(rating);
 
 							return (
 								<View key={`rating${index}`}>
