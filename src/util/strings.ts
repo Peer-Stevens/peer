@@ -11,10 +11,10 @@
  * Capitalized attributes of a place that can be rated by a user.
  */
 
-export const S_NAVIGABILITY = "Navigability";
-export const S_SENSORY_AIDS = "Sensory Aids";
-export const S_STAFF_HELPFULNESS = "Staff Helpfulness";
-export const S_GUIDE_DOG_FRIENDLINESS = "Guide Dog Friendliness";
+export const S_NAVIGABILITY = { type: "Navigability", helpText: "TODO" }; // TODO: fill in helpText when the new rating metrics are added in https://github.com/Peer-Stevens/peer/issues/256
+export const S_SENSORY_AIDS = { type: "Sensory Aids", helpText: "TODO" };
+export const S_STAFF_HELPFULNESS = { type: "Staff Helpfulness", helpText: "TODO" };
+export const S_GUIDE_DOG_FRIENDLINESS = { type: "Guide Dog Friendliness", helpText: "TODO" };
 export const PLACE_ATTRIBUTES = [
 	S_NAVIGABILITY,
 	S_SENSORY_AIDS,
@@ -48,6 +48,32 @@ export const getIncrementRatingButtonLabel = (
 	return `${increment ? "Increase" : "Decrease"} your evaluation of ${
 		placeName ? placeName : "this place"
 	}'s ${attribute} from ${interimRating} to ${increment ? nextRatingAbove : nextRatingBelow}`;
+};
+
+/**
+ * Returns the string needed for the props in the PopUp component in the Submit Rating page
+ * @param attribute
+ * @param propsType
+ * @returns the string to display
+ */
+export const getPopUpProps = (
+	attribute: string,
+	propsType: "buttonAccessibilityLabel" | "text" | "modalAccessibilityLabel"
+): string => {
+	let displayString!: string;
+
+	switch (propsType) {
+		case "buttonAccessibilityLabel":
+			displayString = `Press this button to find out more about the ${attribute} rating.`;
+			break;
+		case "modalAccessibilityLabel":
+			displayString = `A pop up that explains ${attribute}.`;
+			break;
+		case "text":
+			displayString = `${attribute} Explained`;
+			break;
+	}
+	return displayString;
 };
 
 export const getMapAnchorA11yLabel = (destination: string) => {
