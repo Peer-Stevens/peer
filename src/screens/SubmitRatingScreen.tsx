@@ -10,6 +10,9 @@ import {
 } from "../util/strings";
 import Screen from "../util/screens";
 import { Rating } from "../util/ratingTypes";
+import axios from "axios";
+import { Place as GooglePlace } from "@googlemaps/google-maps-services-js";
+import { SERVER_BASE_URL } from "../util/env";
 
 export interface SubmitRatingScreenProps {
 	placeID?: string;
@@ -31,6 +34,23 @@ const attributesMap: Record<string, string> = {
 	"Sensory Aids": "braille", // TODO: change braille to sensory aids
 	"Staff Helpfulness": "staffHelpfulness",
 	"Guide Dog Friendliness": "guideDogFriendly",
+};
+
+const submitRating = async (request_body: {
+	userID: string;
+	token: string;
+	placeID: GooglePlace["place_id"];
+	guideDogFriendly: number | null;
+	isMenuAccessible: 0 | 1 | null;
+	noiseLevel: number | null;
+	isStaffHelpful: 0 | 1 | null;
+	lighting: number | null;
+	isBathroomOnEntranceFloor: 0 | 1 | null;
+	isContactlessPaymentOffered: 0 | 1 | null;
+	isStairsRequired: 0 | 1 | null;
+	spacing: number | null;
+}) => {
+	await axios.post(`${SERVER_BASE_URL}/addRatingToPlace`, request_body);
 };
 
 const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
@@ -113,7 +133,9 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 				text={S_SUBMIT}
 				accessibilityLabel={S_SUBMIT}
 				onPress={() => {
-					//TODO
+					const ratingToSubmit = {
+						...counter,
+					};
 				}}
 			/>
 		</ScrollView>
