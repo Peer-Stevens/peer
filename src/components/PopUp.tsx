@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { View, StyleSheet, ViewStyle, Modal } from "react-native";
+import { View, StyleSheet, ViewStyle } from "react-native";
 import type { StyleProp } from "react-native";
 import { PRIMARY_COLOR, TEXT_COLOR } from "../util/colors";
 import { Button } from "./Button";
+import Modal from "react-native-modal";
 
 export interface ModalProps {
 	text: string;
@@ -36,25 +37,15 @@ export const PopUp: React.FC<ModalProps> = ({
 				style
 			)}
 		>
-			<Modal
-				animationType="none"
-				// TODO: setting 'transparent' to false will make the background disappear; we may want this for our users
-				// so that there are less distractions and they can focus on a single element. Test it out and lmk what you guys think
-				transparent={true}
-				visible={modalVisible}
-				onRequestClose={() => {
-					setModalVisible(!modalVisible);
-				}}
-			>
-				<View style={styles.centeredView}>
-					<View style={styles.modalView}>
-						{children}
-						<Button
-							onPress={() => setModalVisible(!modalVisible)}
-							accessibilityLabel={closeButtonAccessibilityLabel}
-							text={closeButtonText}
-						/>
-					</View>
+			<Modal isVisible={modalVisible} style={styles.modal}>
+				<View style={styles.modalView}>
+					{children}
+					<Button
+						style={{ marginTop: 15 }}
+						onPress={() => setModalVisible(!modalVisible)}
+						accessibilityLabel={closeButtonAccessibilityLabel}
+						text={closeButtonText}
+					/>
 				</View>
 			</Modal>
 			<Button
@@ -68,18 +59,16 @@ export const PopUp: React.FC<ModalProps> = ({
 };
 
 const styles = StyleSheet.create({
-	centeredView: {
-		flex: 1,
-		justifyContent: "center",
-		marginTop: 22,
+	modal: {
+		justifyContent: "flex-end",
+		margin: 0,
 	},
 	modalView: {
-		margin: 20,
 		backgroundColor: "white",
 		borderColor: TEXT_COLOR,
 		borderStyle: "solid",
-		borderWidth: 3,
-		padding: 35,
+		borderTopWidth: 3,
+		padding: 15,
 		alignItems: "center",
 	},
 });
