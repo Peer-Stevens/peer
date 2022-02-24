@@ -50,6 +50,12 @@ export const getIncrementRatingButtonLabel = (
 	}'s ${attribute} from ${interimRating} to ${increment ? nextRatingAbove : nextRatingBelow}`;
 };
 
+/**
+ * Returns the string needed for the props in the PopUp component in the Submit Rating page
+ * @param attribute
+ * @param propsType
+ * @returns
+ */
 export const getPopUpProps = (
 	attribute: string,
 	propsType:
