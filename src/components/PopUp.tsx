@@ -5,21 +5,23 @@ import { PRIMARY_COLOR, TEXT_COLOR } from "../util/colors";
 import { Button } from "./Button";
 import Modal from "react-native-modal";
 
-export interface ModalProps {
+export interface PopUpProps {
 	text: string;
 	accessibilityLabel: string;
 	accessibilityHint?: string;
-	modalAccessibility: string;
+	modalAccessibilityLabel: string;
+	modalAccessibilityHint?: string;
 	closeButtonAccessibilityLabel: string;
 	closeButtonText: string;
 	style?: StyleProp<ViewStyle>;
 }
 
-export const PopUp: React.FC<ModalProps> = ({
+export const PopUp: React.FC<PopUpProps> = ({
 	text,
 	accessibilityLabel,
 	accessibilityHint,
-	modalAccessibility,
+	modalAccessibilityLabel,
+	modalAccessibilityHint,
 	closeButtonText,
 	closeButtonAccessibilityLabel,
 	style,
@@ -28,8 +30,8 @@ export const PopUp: React.FC<ModalProps> = ({
 	const [modalVisible, setModalVisible] = useState(false);
 	return (
 		<View
-			accessibilityLabel={modalAccessibility}
-			accessibilityHint={modalAccessibility}
+			accessibilityLabel={modalAccessibilityLabel}
+			accessibilityHint={modalAccessibilityHint}
 			style={StyleSheet.compose(
 				{
 					backgroundColor: PRIMARY_COLOR,
