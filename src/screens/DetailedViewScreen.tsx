@@ -11,6 +11,7 @@ import Screen from "../util/screens";
 import MapAnchor from "../components/MapAnchor";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { START_WALKING } from "../util/strings";
+import { namesToFieldsMap } from "peer-types";
 
 export interface PlaceProps {
 	placeID: string;
@@ -63,17 +64,24 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 		};
 		const distanceInMi = computeDistanceMi(userCoords, placeCoord)?.toPrecision(2);
 
-		const a11yDataMap = {
-			"Guide Dog Friendliness": placeDetails.accessibilityData?.guideDogAvg,
-			"Bathroom on Entrance Level":
-				placeDetails.accessibilityData?.isBathroomOnEntranceFloorAvg,
-			"Contactless Payment": placeDetails.accessibilityData?.isContactlessPaymentOfferedAvg,
-			"Accessible Menu": placeDetails.accessibilityData?.isMenuAccessibleAvg,
-			"Staff Helpfulness": placeDetails.accessibilityData?.isStaffHelpfulAvg,
-			"Stairs Required": placeDetails.accessibilityData?.isStairsRequiredAvg,
-			"Lighting": placeDetails.accessibilityData?.lightingAvg,
-			"Noise Level": placeDetails.accessibilityData?.noiseLevelAvg,
-			"Spacing": placeDetails.accessibilityData?.spacingAvg, // Do we want to call this 'navigability'? Or is that technically different from 'spacing'?
+		/**
+		 * Function that dynamically finds the avg rating on a place using the namesToFieldsMap object and placeDetails
+		 * @param key
+		 * @returns Object containing the attribute name as the key and the avg rating as the value
+		 */
+		const avgRatingLookup = (key: string): number => {
+			let avgs: { [attribute: string]: number } = {};
+			for (const [key, value] of Object.entries(namesToFieldsMap)) {
+				let avgRating!: number;
+
+				// _id is a number and a key in this object, so this check makes TS happy
+				if (typeof value !== "string") {
+					avgRating = placeDetails.accessibilityData![value];
+				}
+
+				avgs[key] = avgRating;
+			}
+			return avgs[key];
 		};
 
 		return (
@@ -119,9 +127,9 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 						>
 							{distanceInMi ? `${distanceInMi} mi away` : ""}
 						</BodyText>
-						{Object.entries(a11yDataMap).map((attrScorePair, index) => {
+						{Object.entries(namesToFieldsMap).map((attrScorePair, index) => {
 							const attribute = attrScorePair[0];
-							const score = attrScorePair[1];
+							const score = avgRatingLookup(attrScorePair[0]);
 
 							return (
 								<View key={`rating${index}`}>
