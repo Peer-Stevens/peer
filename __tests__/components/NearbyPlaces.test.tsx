@@ -5,10 +5,8 @@ import { useLocation } from "../../src/hooks/useLocation";
 import { useNearbyPlaces, BusinessStatus } from "../../src/hooks/useNearbyPlaces";
 import { RelativeDirectionOutput, useCompass } from "../../src/hooks/useCompass";
 import { computeDistanceFeet } from "../../src/util/distance";
-import {
-	PlaceDetailsWithAccesibilityData,
-	PlaceWithAccesibilityData,
-} from "../../src/util/placeTypes";
+import { PlaceDetailsWithAccesibilityData } from "../../src/util/placeTypes";
+import { PlaceWithAccessibilityData } from "peer-types";
 import { useFetchPlace } from "../../src/hooks/useFetchPlace";
 import MainScreen from "../../src/screens/MainScreen";
 
@@ -47,7 +45,7 @@ const mockDistance = 5.58;
 // mock nearby places to prevent calls to remote server
 jest.mock("../../src/hooks/useNearbyPlaces");
 const mockNearbyPlaces = useNearbyPlaces as jest.MockedFunction<typeof useNearbyPlaces>;
-const mockPlaces: Partial<PlaceWithAccesibilityData>[] = [
+const mockPlaces: Partial<PlaceWithAccessibilityData>[] = [
 	{
 		name: "The Absolute Best Place in the Whole Wide World",
 		business_status: BusinessStatus.OPERATIONAL,

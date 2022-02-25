@@ -3,7 +3,7 @@ import { useLocation } from "./useLocation";
 import { LocationObject } from "expo-location";
 import axios from "axios";
 import { SERVER_BASE_URL } from "../util/env";
-import type { PlaceWithAccesibilityData } from "../util/placeTypes";
+import { PlaceWithAccessibilityData } from "peer-types";
 
 export enum BusinessStatus {
 	OPERATIONAL = "OPERATIONAL",
@@ -33,11 +33,11 @@ const hasSameCoordinates = (a?: LocationObject, b?: LocationObject): boolean => 
 
 export const useNearbyPlaces = (
 	placeType?: string
-): { nearbyPlaces?: PlaceWithAccesibilityData[] } => {
+): { nearbyPlaces?: PlaceWithAccessibilityData[] } => {
 	const { location } = useLocation();
 	const lastLocationRef = React.useRef<LocationObject | undefined>(undefined);
 	const placeTypeRef = React.useRef<string | undefined>(undefined);
-	const [nearbyPlaces, setNearbyPlaces] = React.useState<PlaceWithAccesibilityData[]>();
+	const [nearbyPlaces, setNearbyPlaces] = React.useState<PlaceWithAccessibilityData[]>();
 
 	const getNearbyPlaces = async (location: LocationObject) => {
 		if (
@@ -47,7 +47,7 @@ export const useNearbyPlaces = (
 			return;
 		}
 		setNearbyPlaces(undefined);
-		const result = await axios.get<{ places: PlaceWithAccesibilityData[] }>(
+		const result = await axios.get<{ places: PlaceWithAccessibilityData[] }>(
 			`${SERVER_BASE_URL}/getNearbyPlaces?latitude=${location.coords.latitude}&longitude=${
 				location.coords.longitude
 			}&includeRatings=true${placeType ? `&type=${placeType}` : ""}`
