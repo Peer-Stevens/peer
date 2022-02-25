@@ -5,7 +5,6 @@ import { useLocation } from "../../src/hooks/useLocation";
 import { useNearbyPlaces, BusinessStatus } from "../../src/hooks/useNearbyPlaces";
 import { RelativeDirectionOutput, useCompass } from "../../src/hooks/useCompass";
 import { computeDistanceFeet } from "../../src/util/distance";
-import { PlaceDetailsWithAccesibilityData } from "../../src/util/placeTypes";
 import { PlaceWithAccessibilityData } from "peer-types";
 import { useFetchPlace } from "../../src/hooks/useFetchPlace";
 import MainScreen from "../../src/screens/MainScreen";
@@ -63,10 +62,8 @@ const mockPlaces: Partial<PlaceWithAccessibilityData>[] = [
 jest.mock("../../src/hooks/useFetchPlace");
 const mockUseFetchPlace = useFetchPlace as jest.MockedFunction<typeof useFetchPlace>;
 
-const mockPlaceDetails: PlaceDetailsWithAccesibilityData = {
-	result: {
-		place_id: "oiluj",
-	},
+const mockPlaceDetails: PlaceWithAccessibilityData = {
+	place_id: "oiluj",
 };
 
 mockUseFetchPlace.mockReturnValue({
