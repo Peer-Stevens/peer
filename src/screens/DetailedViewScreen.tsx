@@ -11,6 +11,7 @@ import Screen from "../util/screens";
 import MapAnchor from "../components/MapAnchor";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { START_WALKING } from "../util/strings";
+import { namesToFieldsMap } from "peer-types";
 
 export interface PlaceProps {
 	placeID: string;
@@ -63,12 +64,24 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 		};
 		const distanceInMi = computeDistanceMi(userCoords, placeCoord)?.toPrecision(2);
 
-		// TODO: update to use new rating "sensory aids"
-		const a11yDataMap = {
-			"Navigability": placeDetails.accessibilityData?.avgNavigability,
-			"Sensory Aids": placeDetails.accessibilityData?.avgBraille,
-			"Staff Helpfulness": placeDetails.accessibilityData?.avgStaffHelpfulness,
-			"Guide Dog Friendliness": placeDetails.accessibilityData?.avgGuideDogFriendly,
+		/**
+		 * Function that dynamically finds the avg rating on a place using the namesToFieldsMap object and placeDetails
+		 * @param key
+		 * @returns Object containing the attribute name as the key and the avg rating as the value
+		 */
+		const avgRatingLookup = (key: string): number => {
+			const avgs: { [attribute: string]: number } = {};
+			for (const [key, value] of Object.entries(namesToFieldsMap)) {
+				let avgRating!: number;
+
+				// _id is a number and a key in this object, so this check makes TS happy
+				if (typeof value !== "string" && placeDetails.accessibilityData) {
+					avgRating = placeDetails.accessibilityData[value];
+				}
+
+				avgs[key] = avgRating;
+			}
+			return avgs[key];
 		};
 
 		return (
@@ -114,9 +127,9 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 						>
 							{distanceInMi ? `${distanceInMi} mi away` : ""}
 						</BodyText>
-						{Object.entries(a11yDataMap).map((attrScorePair, index) => {
-							const attribute = attrScorePair[0];
-							const score = attrScorePair[1];
+						{Object.entries(namesToFieldsMap).map(([attrName, rating], index) => {
+							const attribute = attrName;
+							const score = avgRatingLookup(rating);
 
 							return (
 								<View key={`rating${index}`}>
