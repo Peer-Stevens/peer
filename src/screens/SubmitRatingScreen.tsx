@@ -24,6 +24,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Place as GooglePlace } from "@googlemaps/google-maps-services-js";
 import { SERVER_BASE_URL } from "../util/env";
 import { PopUp } from "../components/PopUp";
+import CheckBox from "react-native-check-box";
 
 // Types
 export interface SubmitRatingScreenProps {
@@ -131,6 +132,7 @@ const submitRating = async (
 
 const handleSubmitButton = async (
 	counter: { [attribute: string]: number },
+	yesNoCounter: { [attribute: string]: 0 | 1 | null },
 	placeID: string | undefined
 ) => {
 	const email = await AsyncStorage.getItem("@email");
@@ -141,13 +143,13 @@ const handleSubmitButton = async (
 		token: token,
 		placeID: placeID,
 		guideDogFriendly: counter.guideDogFriendly,
-		isMenuAccessible: 0,
+		isMenuAccessible: yesNoCounter.isMenuAccessible,
 		noiseLevel: counter.noiseLevel,
-		isStaffHelpful: 0,
-		isBathroomOnEntranceFloor: 0,
-		isContactlessPaymentOffered: 0,
+		isStaffHelpful: yesNoCounter.isStaffHelpful,
+		isBathroomOnEntranceFloor: yesNoCounter.isBathroomOnEntranceFloor,
+		isContactlessPaymentOffered: yesNoCounter.isContactlessPaymentOffered,
 		lighting: counter.lighting,
-		isStairsRequired: 0,
+		isStairsRequired: yesNoCounter.isStairsRequired,
 		spacing: counter.spacing,
 	};
 	await submitRating(ratingToSubmit);
@@ -165,8 +167,16 @@ const RatingCounter: React.FC<{
 			[attribute: string]: number;
 		}>
 	>;
+	yesNoCounter: {
+		[attribute: string]: 0 | 1 | null;
+	};
+	setYesNoCounter: React.Dispatch<
+		React.SetStateAction<{
+			[attribute: string]: 0 | 1 | null;
+		}>
+	>;
 	placeName?: string;
-}> = ({ field, counter, setCounter, placeName }) => {
+}> = ({ field, counter, setCounter, yesNoCounter, setYesNoCounter, placeName }) => {
 	if (field.ratingType === "numeric") {
 		const count = counter[field.fieldName];
 		return (
@@ -224,8 +234,42 @@ const RatingCounter: React.FC<{
 			</View>
 		);
 	} else {
-		// TODO
-		return null;
+		// field.ratingType === "yes/no"
+
+		return (
+			<View>
+				<Text>{field.renderText}</Text>
+				<CheckBox
+					onClick={() => {
+						if (yesNoCounter[field.fieldName] === 0) {
+							setYesNoCounter({
+								...yesNoCounter,
+								[field.fieldName]: 1,
+							});
+						} else {
+							// yesNoCounter[field.fieldName]  === 1
+							setYesNoCounter({
+								...yesNoCounter,
+								[field.fieldName]: 0,
+							});
+						}
+					}}
+					isChecked={counter[field.fieldName] === 1}
+				/>
+				<PopUp
+					accessibilityLabel={getPopUpProps(field.renderText, "buttonAccessibilityLabel")}
+					text={getPopUpProps(field.renderText, "text")}
+					modalAccessibilityLabel={getPopUpProps(
+						field.fieldName,
+						"modalAccessibilityLabel"
+					)}
+					closeButtonAccessibilityLabel={"Close this pop up."}
+					closeButtonText={"Close"}
+				>
+					<Text>{field.helpText}</Text>
+				</PopUp>
+			</View>
+		);
 	}
 };
 
@@ -238,16 +282,25 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 }: SubmitRatingScreenProps) => {
 	const [counter, setCounter] = useState(
 		fieldInfos.reduce<{ [attribute: string]: number }>(function (countersMap, field) {
-			if (previousRating) {
-				// a little dirty, but we know that it will be a number
-				// as all of the keys of attributesMap are the names
-				// of the number
-				if (field.ratingType === "numeric") {
-					countersMap[field.fieldName] =
-						(previousRating[field.fieldName] as number) ?? DEFAULT_INTERIM_RATING;
-				} /* else field.ratingType === "yes/no" */
-				countersMap[field.fieldName] =
-					(previousRating[field.fieldName] as number) ?? DEFAULT_YES_NO_RATING;
+			if (field.ratingType === "numeric") {
+				if (previousRating && previousRating[field.fieldName]) {
+					countersMap[field.fieldName] = previousRating[field.fieldName] as number;
+				} else {
+					countersMap[field.fieldName] = DEFAULT_INTERIM_RATING;
+				}
+			}
+			return countersMap;
+		}, {})
+	);
+
+	const [yesNoCounter, setYesNoCounter] = useState(
+		fieldInfos.reduce<{ [attribute: string]: 0 | 1 | null }>(function (countersMap, field) {
+			if (field.ratingType === "yes/no") {
+				if (previousRating && previousRating[field.fieldName]) {
+					countersMap[field.fieldName] = previousRating[field.fieldName] as 0 | 1 | null;
+				} else {
+					countersMap[field.fieldName] = DEFAULT_YES_NO_RATING;
+				}
 			}
 			return countersMap;
 		}, {})
@@ -270,13 +323,15 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 					field={field}
 					counter={counter}
 					setCounter={setCounter}
+					yesNoCounter={yesNoCounter}
+					setYesNoCounter={setYesNoCounter}
 					placeName={placeName}
 				/>
 			))}
 			<Button
 				text={S_SUBMIT}
 				accessibilityLabel={S_SUBMIT}
-				onPress={() => handleSubmitButton(counter, placeID)}
+				onPress={() => handleSubmitButton(counter, yesNoCounter, placeID)}
 			/>
 		</ScrollView>
 	);
