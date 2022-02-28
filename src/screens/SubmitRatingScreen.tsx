@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ScrollView, View, Text } from "react-native";
+import { ScrollView, View, Text, StyleSheet, Dimensions } from "react-native";
 import { PlaceImage } from "../components/PlaceImage";
 import { Button } from "../components/Button";
 import {
@@ -180,7 +180,7 @@ const RatingCounter: React.FC<{
 	if (field.ratingType === "numeric") {
 		const count = counter[field.fieldName];
 		return (
-			<View>
+			<View style={styles.ratingOptions}>
 				<Button
 					iconName={"minus"}
 					accessibilityLabel={getIncrementRatingButtonLabel(
@@ -199,20 +199,26 @@ const RatingCounter: React.FC<{
 						});
 					}}
 				/>
-				<Text>{field.renderText}</Text>
-				<PopUp
-					accessibilityLabel={getPopUpProps(field.renderText, "buttonAccessibilityLabel")}
-					text={getPopUpProps(field.renderText, "text")}
-					modalAccessibilityLabel={getPopUpProps(
-						field.fieldName,
-						"modalAccessibilityLabel"
-					)}
-					closeButtonAccessibilityLabel={"Close this pop up."}
-					closeButtonText={"Close"}
-				>
-					<Text>{field.helpText}</Text>
-				</PopUp>
-				<Text>{count}</Text>
+				<View>
+					<Text style={styles.textStyle}>{field.renderText}</Text>
+					<Text style={styles.textStyle}>{count}</Text>
+					<PopUp
+						style={styles.popUp}
+						accessibilityLabel={getPopUpProps(
+							field.renderText,
+							"buttonAccessibilityLabel"
+						)}
+						text={getPopUpProps(field.renderText, "text")}
+						modalAccessibilityLabel={getPopUpProps(
+							field.fieldName,
+							"modalAccessibilityLabel"
+						)}
+						closeButtonAccessibilityLabel={"Close this pop up."}
+						closeButtonText={"Close"}
+					>
+						<Text>{field.helpText}</Text>
+					</PopUp>
+				</View>
 				<Button
 					iconName={"plus"}
 					accessibilityLabel={getIncrementRatingButtonLabel(
@@ -237,8 +243,22 @@ const RatingCounter: React.FC<{
 		// field.ratingType === "yes/no"
 
 		return (
-			<View>
+			<View style={styles.ratingOptions}>
 				<Text>{field.renderText}</Text>
+				<PopUp
+					accessibilityLabel={getPopUpProps(field.renderText, "buttonAccessibilityLabel")}
+					text={getPopUpProps(field.renderText, "text")}
+					modalAccessibilityLabel={getPopUpProps(
+						field.fieldName,
+						"modalAccessibilityLabel"
+					)}
+					closeButtonAccessibilityLabel={"Close this pop up."}
+					closeButtonText={"Close"}
+				>
+					<Text ellipsizeMode="tail" numberOfLines={1}>
+						{field.helpText}
+					</Text>
+				</PopUp>
 				<CheckBox
 					onClick={() => {
 						if (yesNoCounter[field.fieldName] === 0) {
@@ -256,18 +276,6 @@ const RatingCounter: React.FC<{
 					}}
 					isChecked={counter[field.fieldName] === 1}
 				/>
-				<PopUp
-					accessibilityLabel={getPopUpProps(field.renderText, "buttonAccessibilityLabel")}
-					text={getPopUpProps(field.renderText, "text")}
-					modalAccessibilityLabel={getPopUpProps(
-						field.fieldName,
-						"modalAccessibilityLabel"
-					)}
-					closeButtonAccessibilityLabel={"Close this pop up."}
-					closeButtonText={"Close"}
-				>
-					<Text>{field.helpText}</Text>
-				</PopUp>
 			</View>
 		);
 	}
@@ -309,14 +317,16 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 	return (
 		<ScrollView>
 			<PlaceImage photoref={photo_reference} placeName={placeName} />
-			<Text>{placeName}</Text>
-			<Button
-				text={S_CANCEL}
-				accessibilityLabel={S_CANCEL}
-				onPress={() => {
-					setPage(Screen.Details);
-				}}
-			/>
+			<View style={styles.nameAndCancel}>
+				<Text style={styles.placeName}>{placeName}</Text>
+				<Button
+					text={S_CANCEL}
+					accessibilityLabel={S_CANCEL}
+					onPress={() => {
+						setPage(Screen.Details);
+					}}
+				/>
+			</View>
 			{fieldInfos.map((field, index) => (
 				<RatingCounter
 					key={`rating${index}`}
@@ -336,5 +346,33 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 		</ScrollView>
 	);
 };
+
+const styles = StyleSheet.create({
+	ratingOptions: {
+		flexDirection: "row",
+		width: Dimensions.get("window").width,
+		marginTop: 5,
+		marginBottom: 5,
+		justifyContent: "space-evenly",
+	},
+	popUp: {
+		width: Dimensions.get("window").width * 0.5,
+		height: Dimensions.get("window").height * 0.1,
+	},
+	textStyle: {
+		alignSelf: "center",
+		fontFamily: "APHontBold",
+	},
+	nameAndCancel: {
+		flexDirection: "row",
+		marginTop: 5,
+		marginBottom: 5,
+		justifyContent: "space-around",
+	},
+	placeName: {
+		fontSize: 30,
+		fontWeight: "bold",
+	},
+});
 
 export default SubmitRatingScreen;
