@@ -122,8 +122,8 @@ const MapAnchor: React.FC<MapAnchorProps> = ({
 
 	return (
 		<Pressable
-			onPress={async () => {
-				await handlePress(MAPS_HREF);
+			onPress={() => {
+				void handlePress(MAPS_HREF);
 			}}
 			accessibilityLabel={a11yLabel}
 		>

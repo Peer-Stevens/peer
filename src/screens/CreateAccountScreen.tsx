@@ -105,7 +105,7 @@ const CreateAccount: React.FC<CreateAccountScreenProps> = ({
 			<Button
 				style={styles.button}
 				text="Create Account"
-				onPress={() => createUser()}
+				onPress={() => void createUser()}
 				accessibilityLabel="Click to create account"
 			/>
 
