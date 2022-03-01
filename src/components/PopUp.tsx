@@ -14,7 +14,6 @@ export interface PopUpProps {
 	closeButtonAccessibilityLabel: string;
 	closeButtonText: string;
 	style?: StyleProp<ViewStyle>;
-	//popupType: "button" | "questionMark"
 }
 
 export const PopUp: React.FC<PopUpProps> = ({
@@ -25,7 +24,6 @@ export const PopUp: React.FC<PopUpProps> = ({
 	modalAccessibilityHint,
 	closeButtonText,
 	closeButtonAccessibilityLabel,
-	//popupType,
 	style,
 	children,
 }) => {
