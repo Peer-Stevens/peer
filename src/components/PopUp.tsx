@@ -31,19 +31,6 @@ export const PopUp: React.FC<PopUpProps> = ({
 }) => {
 	const [modalVisible, setModalVisible] = useState(false);
 
-	// const renderButton = () => {
-	// 	if(popupType === 'button'){
-	// 		return (<Button
-	// 			onPress={() => setModalVisible(true)}
-	// 			accessibilityLabel={accessibilityLabel}
-	// 			accessibilityHint={accessibilityHint}
-	// 			text={text}
-	// 		/>)
-	// 	} else {
-	// 		//TODO return pressable question mark or something like that
-	// 	}
-	// }
-
 	return (
 		<View
 			accessibilityLabel={modalAccessibilityLabel}
@@ -66,8 +53,6 @@ export const PopUp: React.FC<PopUpProps> = ({
 					/>
 				</View>
 			</Modal>
-			{/* {renderButton()} */}
-
 			<Button
 				onPress={() => setModalVisible(true)}
 				accessibilityLabel={accessibilityLabel}
