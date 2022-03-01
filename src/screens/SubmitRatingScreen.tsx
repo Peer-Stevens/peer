@@ -50,7 +50,7 @@ const MAX_COUNT = 5;
 const MIN_COUNT = 0;
 const INCREMENT_VAL = 0.5;
 
-const fieldInfos: fieldInfo[] = [
+export const fieldInfos: fieldInfo[] = [
 	{
 		fieldName: "guideDogFriendly",
 		ratingType: "numeric",
