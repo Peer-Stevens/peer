@@ -180,7 +180,7 @@ const RatingCounter: React.FC<{
 	if (field.ratingType === "numeric") {
 		const count = counter[field.fieldName];
 		return (
-			<View style={styles.ratingOptions}>
+			<View style={styles.numericalRatingOptions}>
 				<Button
 					iconName={"minus"}
 					accessibilityLabel={getIncrementRatingButtonLabel(
@@ -199,7 +199,7 @@ const RatingCounter: React.FC<{
 						});
 					}}
 				/>
-				<View>
+				<View style={{ flexDirection: "column" }}>
 					<Text style={styles.textStyle}>{field.renderText}</Text>
 					<Text style={styles.textStyle}>{count}</Text>
 					<PopUp
@@ -208,7 +208,8 @@ const RatingCounter: React.FC<{
 							field.renderText,
 							"buttonAccessibilityLabel"
 						)}
-						text={getPopUpProps(field.renderText, "text")}
+						//text={getPopUpProps(field.renderText, "text")}
+						text={"Help"}
 						modalAccessibilityLabel={getPopUpProps(
 							field.fieldName,
 							"modalAccessibilityLabel"
@@ -243,23 +244,30 @@ const RatingCounter: React.FC<{
 		// field.ratingType === "yes/no"
 
 		return (
-			<View style={styles.ratingOptions}>
-				<Text>{field.renderText}</Text>
-				<PopUp
-					accessibilityLabel={getPopUpProps(field.renderText, "buttonAccessibilityLabel")}
-					text={getPopUpProps(field.renderText, "text")}
-					modalAccessibilityLabel={getPopUpProps(
-						field.fieldName,
-						"modalAccessibilityLabel"
-					)}
-					closeButtonAccessibilityLabel={"Close this pop up."}
-					closeButtonText={"Close"}
-				>
-					<Text ellipsizeMode="tail" numberOfLines={1}>
-						{field.helpText}
-					</Text>
-				</PopUp>
+			<View style={styles.yesNoRatingOptions}>
+				<View style={{ flex: 5 }}>
+					<Text style={{ fontSize: 25 }}>{field.renderText}</Text>
+					<PopUp
+						accessibilityLabel={getPopUpProps(
+							field.renderText,
+							"buttonAccessibilityLabel"
+						)}
+						//text={getPopUpProps(field.renderText, "text")}
+						text={"Help"}
+						modalAccessibilityLabel={getPopUpProps(
+							field.fieldName,
+							"modalAccessibilityLabel"
+						)}
+						closeButtonAccessibilityLabel={"Close this pop up."}
+						closeButtonText={"Close"}
+					>
+						<Text ellipsizeMode="tail" numberOfLines={1}>
+							{field.helpText}
+						</Text>
+					</PopUp>
+				</View>
 				<CheckBox
+					style={{ flex: 2 }}
 					onClick={() => {
 						if (yesNoCounter[field.fieldName] === 0) {
 							setYesNoCounter({
@@ -348,20 +356,28 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 };
 
 const styles = StyleSheet.create({
-	ratingOptions: {
+	numericalRatingOptions: {
 		flexDirection: "row",
 		width: Dimensions.get("window").width,
 		marginTop: 5,
 		marginBottom: 5,
 		justifyContent: "space-evenly",
 	},
+	yesNoRatingOptions: {
+		flexDirection: "row",
+		width: Dimensions.get("window").width,
+		marginTop: 5,
+		marginBottom: 5,
+	},
 	popUp: {
 		width: Dimensions.get("window").width * 0.5,
 		height: Dimensions.get("window").height * 0.1,
+		alignSelf: "flex-end",
 	},
 	textStyle: {
 		alignSelf: "center",
 		fontFamily: "APHontBold",
+		fontSize: 20,
 	},
 	nameAndCancel: {
 		flexDirection: "row",
