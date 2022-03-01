@@ -350,7 +350,7 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 			<Button
 				text={S_SUBMIT}
 				accessibilityLabel={S_SUBMIT}
-				onPress={() => handleSubmitButton(counter, yesNoCounter, placeID)}
+				onPress={() => void handleSubmitButton(counter, yesNoCounter, placeID)}
 			/>
 		</ScrollView>
 	);
