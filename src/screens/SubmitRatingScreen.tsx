@@ -25,6 +25,7 @@ import { Place as GooglePlace } from "@googlemaps/google-maps-services-js";
 import { SERVER_BASE_URL } from "../util/env";
 import { PopUp } from "../components/PopUp";
 import CheckBox from "react-native-check-box";
+import { YesNoRating } from "peer-types";
 
 // Types
 export interface SubmitRatingScreenProps {
@@ -107,13 +108,13 @@ const submitRating = async (
 		token: string | null;
 		placeID: GooglePlace["place_id"];
 		guideDogFriendly: number | null;
-		isMenuAccessible: 0 | 1 | null;
+		isMenuAccessible: YesNoRating;
 		noiseLevel: number | null;
-		isStaffHelpful: 0 | 1 | null;
+		isStaffHelpful: YesNoRating;
 		lighting: number | null;
-		isBathroomOnEntranceFloor: 0 | 1 | null;
-		isContactlessPaymentOffered: 0 | 1 | null;
-		isStairsRequired: 0 | 1 | null;
+		isBathroomOnEntranceFloor: YesNoRating;
+		isContactlessPaymentOffered: YesNoRating;
+		isStairsRequired: YesNoRating;
 		spacing: number | null;
 	},
 	previousRating?: Rating | null
@@ -132,7 +133,7 @@ const submitRating = async (
 
 const handleSubmitButton = async (
 	counter: { [attribute: string]: number },
-	yesNoCounter: { [attribute: string]: 0 | 1 | null },
+	yesNoCounter: { [attribute: string]: YesNoRating },
 	placeID: string | undefined
 ) => {
 	const email = await AsyncStorage.getItem("@email");
@@ -168,11 +169,11 @@ const RatingCounter: React.FC<{
 		}>
 	>;
 	yesNoCounter: {
-		[attribute: string]: 0 | 1 | null;
+		[attribute: string]: YesNoRating;
 	};
 	setYesNoCounter: React.Dispatch<
 		React.SetStateAction<{
-			[attribute: string]: 0 | 1 | null;
+			[attribute: string]: YesNoRating;
 		}>
 	>;
 	placeName?: string;
@@ -310,10 +311,10 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 	);
 
 	const [yesNoCounter, setYesNoCounter] = useState(
-		fieldInfos.reduce<{ [attribute: string]: 0 | 1 | null }>(function (countersMap, field) {
+		fieldInfos.reduce<{ [attribute: string]: YesNoRating }>(function (countersMap, field) {
 			if (field.ratingType === "yes/no") {
 				if (previousRating && previousRating[field.fieldName]) {
-					countersMap[field.fieldName] = previousRating[field.fieldName] as 0 | 1 | null;
+					countersMap[field.fieldName] = previousRating[field.fieldName] as YesNoRating;
 				} else {
 					countersMap[field.fieldName] = DEFAULT_YES_NO_RATING;
 				}
