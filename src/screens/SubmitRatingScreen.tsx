@@ -199,7 +199,7 @@ const RatingCounter: React.FC<{
 						});
 					}}
 				/>
-				<View style={{ flexDirection: "column" }}>
+				<View>
 					<Text style={styles.textStyle}>{field.renderText}</Text>
 					<Text style={styles.textStyle}>{count}</Text>
 					<PopUp
