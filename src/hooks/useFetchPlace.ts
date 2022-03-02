@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { SERVER_BASE_URL } from "../util/env";
-import { PlaceWithAccessibilityData } from "peer-types";
+import { PlaceWithA11yData } from "peer-types";
 
 export const useFetchPlace = ({
 	placeID,
@@ -10,14 +10,14 @@ export const useFetchPlace = ({
 	placeID?: string;
 	includeRatings?: boolean;
 }): {
-	placeDetails?: PlaceWithAccessibilityData;
+	placeDetails?: PlaceWithA11yData;
 	isLoading: boolean;
 } => {
 	const [isLoading, setIsLoading] = useState(false);
-	const [placeDetails, setPlaceDetails] = useState<PlaceWithAccessibilityData>();
+	const [placeDetails, setPlaceDetails] = useState<PlaceWithA11yData>();
 
 	const getPlaceDetails = async (placeID: string) => {
-		const result = await axios.get<{ placeDetails: PlaceWithAccessibilityData }>(
+		const result = await axios.get<{ placeDetails: PlaceWithA11yData }>(
 			`${SERVER_BASE_URL}/getPlaceDetails/${placeID}?${
 				includeRatings ? `includeRatings=true` : ``
 			}`

@@ -1,5 +1,4 @@
 import { PlaceType1 } from "@googlemaps/google-maps-services-js";
-import type { Place } from "@googlemaps/google-maps-services-js";
 
 export enum PlaceTypes {
 	Travel = "Travel",

@@ -56,7 +56,8 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 	};
 
 	if (placeDetails) {
-		const place = placeDetails.result;
+		const place = placeDetails;
+		console.log(placeDetails);
 
 		const placeCoord = {
 			latitude: place.geometry?.location.lat,

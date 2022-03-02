@@ -3,7 +3,7 @@ import { cleanup, render } from "@testing-library/react-native";
 import { useNearbyPlaces } from "../../src/hooks/useNearbyPlaces";
 import { PlacePhoto } from "@googlemaps/google-maps-services-js";
 import { computeDistanceMi } from "../../src/util/distance";
-import { PlaceWithAccessibilityData } from "peer-types";
+import { PlaceWithA11yData } from "peer-types";
 import { useFetchPlace } from "../../src/hooks/useFetchPlace";
 import MainScreen from "../../src/screens/MainScreen";
 
@@ -25,7 +25,7 @@ const mockPhotosField: PlacePhoto[] = [
 		html_attributions: [],
 	},
 ];
-const mockPlaces: PlaceWithAccessibilityData[] = [
+const mockPlaces: PlaceWithA11yData[] = [
 	{
 		name: "The Absolute Best Place in the Whole Wide World",
 		formatted_address: "312 Jones Pl",
@@ -74,10 +74,10 @@ const mockPlaces: PlaceWithAccessibilityData[] = [
 		photos: undefined,
 		accessibilityData: {
 			_id: "margs",
-			spacingAvg: 2.5,
-			guideDogAvg: 2.5,
-			lightingAvg: 2.5,
-			noiseLevelAvg: 2.5,
+			spacingAvg: 3.5,
+			guideDogAvg: 3.5,
+			lightingAvg: 3.5,
+			noiseLevelAvg: 3.5,
 			isStaffHelpfulAvg: 0.8,
 			isMenuAccessibleAvg: 0.7,
 			isBathroomOnEntranceFloorAvg: 0.9,
@@ -95,7 +95,7 @@ mockNearbyPlaces.mockReturnValue({ nearbyPlaces: mockPlaces });
 jest.mock("../../src/hooks/useFetchPlace");
 const mockUseFetchPlace = useFetchPlace as jest.MockedFunction<typeof useFetchPlace>;
 
-const mockPlaceDetails: PlaceWithAccessibilityData = {
+const mockPlaceDetails: PlaceWithA11yData = {
 	place_id: "oiluj",
 };
 

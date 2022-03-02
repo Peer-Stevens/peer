@@ -1,11 +1,11 @@
-import { PlaceWithAccessibilityData } from "peer-types";
+import { PlaceWithA11yData } from "peer-types";
 import {
 	accessibilityRatingToString,
 	getAverageA11yRating,
 	getPlaceRatingString,
 } from "../../src/util/processA11yRatings";
 
-const sampleRating: PlaceWithAccessibilityData["accessibilityData"] = {
+const sampleRating: PlaceWithA11yData["accessibilityData"] = {
 	_id: "test",
 	spacingAvg: 2.5,
 	guideDogAvg: 2.5,
@@ -27,20 +27,20 @@ describe("a11y util function tests", () => {
 		expect(
 			getAverageA11yRating({
 				accessibilityData: sampleRating,
-			} as unknown as PlaceWithAccessibilityData)
+			} as unknown as PlaceWithA11yData)
 		).toBeGreaterThanOrEqual(2.719);
 	});
 	it("returns the right strings", () => {
 		expect(
 			getPlaceRatingString({
 				accessibilityData: sampleRating,
-			} as unknown as PlaceWithAccessibilityData)
+			} as unknown as PlaceWithA11yData)
 		).toBe("moderate");
 		expect(
 			accessibilityRatingToString(
 				getAverageA11yRating({
 					accessibilityData: sampleRating,
-				} as unknown as PlaceWithAccessibilityData)
+				} as unknown as PlaceWithA11yData)
 			)
 		).toBe("moderate");
 	});

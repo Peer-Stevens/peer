@@ -36,7 +36,7 @@ describe("Submit rating screen tests", () => {
 					getIncrementRatingButtonLabel(
 						true,
 						DEFAULT_INTERIM_RATING,
-						attribute,
+						attribute.type,
 						mockNameString
 					)
 				)
@@ -46,7 +46,7 @@ describe("Submit rating screen tests", () => {
 					getIncrementRatingButtonLabel(
 						false,
 						DEFAULT_INTERIM_RATING,
-						attribute,
+						attribute.type,
 						mockNameString
 					)
 				)
@@ -69,12 +69,12 @@ describe("Submit rating screen tests", () => {
 		for (const attribute of PLACE_ATTRIBUTES) {
 			expect(
 				tr.queryAllByLabelText(
-					getIncrementRatingButtonLabel(true, DEFAULT_INTERIM_RATING, attribute)
+					getIncrementRatingButtonLabel(true, DEFAULT_INTERIM_RATING, attribute.type)
 				)
 			).not.toBeNull();
 			expect(
 				tr.queryAllByLabelText(
-					getIncrementRatingButtonLabel(false, DEFAULT_INTERIM_RATING, attribute)
+					getIncrementRatingButtonLabel(false, DEFAULT_INTERIM_RATING, attribute.type)
 				)
 			).not.toBeNull();
 		}
