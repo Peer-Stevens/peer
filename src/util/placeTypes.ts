@@ -122,22 +122,30 @@ export type Services =
 export type PlaceWithAccesibilityData = Place & {
 	accessibilityData?: {
 		_id: string;
-		avgBraille: number;
-		avgFontReadability: number;
-		avgNavigability: number;
-		avgStaffHelpfulness: number;
-		avgGuideDogFriendly: number;
+		guideDogAvg: number;
+		isMenuAccessibleAvg: number;
+		noiseLevelAvg: number;
+		lightingAvg: number;
+		isStaffHelpfulAvg: number;
+		isBathroomOnEntranceFloorAvg: number;
+		isContactlessPaymentOfferedAvg: number;
+		isStairsRequiredAvg: number;
+		spacingAvg: number;
 	};
 };
 
-export type PlaceDetailsWithAccesibilityData = {
-	result: Place;
+// we're changing this just to get rid of it but whatevs
+export type PlaceDetailsWithAccesibilityData = Place & {
 	accessibilityData?: {
 		_id: string;
-		avgBraille: number;
-		avgFontReadability: number;
-		avgNavigability: number;
-		avgStaffHelpfulness: number;
-		avgGuideDogFriendly: number;
+		guideDogAvg: number;
+		isMenuAccessibleAvg: number;
+		noiseLevelAvg: number;
+		lightingAvg: number;
+		isStaffHelpfulAvg: number;
+		isBathroomOnEntranceFloorAvg: number;
+		isContactlessPaymentOfferedAvg: number;
+		isStairsRequiredAvg: number;
+		spacingAvg: number;
 	};
 };

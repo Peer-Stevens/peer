@@ -14,7 +14,6 @@ export interface PopUpProps {
 	closeButtonAccessibilityLabel: string;
 	closeButtonText: string;
 	style?: StyleProp<ViewStyle>;
-	//popupType: "button" | "questionMark"
 }
 
 export const PopUp: React.FC<PopUpProps> = ({
@@ -25,24 +24,10 @@ export const PopUp: React.FC<PopUpProps> = ({
 	modalAccessibilityHint,
 	closeButtonText,
 	closeButtonAccessibilityLabel,
-	//popupType,
 	style,
 	children,
 }) => {
 	const [modalVisible, setModalVisible] = useState(false);
-
-	// const renderButton = () => {
-	// 	if(popupType === 'button'){
-	// 		return (<Button
-	// 			onPress={() => setModalVisible(true)}
-	// 			accessibilityLabel={accessibilityLabel}
-	// 			accessibilityHint={accessibilityHint}
-	// 			text={text}
-	// 		/>)
-	// 	} else {
-	// 		//TODO return pressable question mark or something like that
-	// 	}
-	// }
 
 	return (
 		<View
@@ -66,8 +51,6 @@ export const PopUp: React.FC<PopUpProps> = ({
 					/>
 				</View>
 			</Modal>
-			{/* {renderButton()} */}
-
 			<Button
 				onPress={() => setModalVisible(true)}
 				accessibilityLabel={accessibilityLabel}

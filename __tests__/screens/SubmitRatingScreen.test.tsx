@@ -1,12 +1,8 @@
 import React from "react";
 import { cleanup, render, RenderAPI } from "@testing-library/react-native";
-import {
-	S_CANCEL,
-	PLACE_ATTRIBUTES,
-	S_SUBMIT,
-	getIncrementRatingButtonLabel,
-} from "../../src/util/strings";
+import { S_CANCEL, S_SUBMIT, getIncrementRatingButtonLabel } from "../../src/util/strings";
 import SubmitRatingScreen, { DEFAULT_INTERIM_RATING } from "../../src/screens/SubmitRatingScreen";
+import { fieldInfos } from "../../src/screens/SubmitRatingScreen";
 
 const mockNameString = "Julio's OneDrive Installation Services";
 const mockPlaceID = "oiluj";
@@ -30,13 +26,13 @@ describe("Submit rating screen tests", () => {
 	});
 
 	it("renders a plus and minus button for each rating", () => {
-		for (const attribute of PLACE_ATTRIBUTES) {
+		for (const fieldInfo of fieldInfos) {
 			expect(
 				tr.queryAllByLabelText(
 					getIncrementRatingButtonLabel(
 						true,
 						DEFAULT_INTERIM_RATING,
-						attribute,
+						fieldInfo.renderText,
 						mockNameString
 					)
 				)
@@ -46,7 +42,7 @@ describe("Submit rating screen tests", () => {
 					getIncrementRatingButtonLabel(
 						false,
 						DEFAULT_INTERIM_RATING,
-						attribute,
+						fieldInfo.renderText,
 						mockNameString
 					)
 				)
@@ -66,15 +62,23 @@ describe("Submit rating screen tests", () => {
 		// no name!
 		const tr = render(<SubmitRatingScreen placeID={mockPlaceID} setPage={jest.fn()} />);
 
-		for (const attribute of PLACE_ATTRIBUTES) {
+		for (const fieldInfo of fieldInfos) {
 			expect(
 				tr.queryAllByLabelText(
-					getIncrementRatingButtonLabel(true, DEFAULT_INTERIM_RATING, attribute)
+					getIncrementRatingButtonLabel(
+						true,
+						DEFAULT_INTERIM_RATING,
+						fieldInfo.renderText
+					)
 				)
 			).not.toBeNull();
 			expect(
 				tr.queryAllByLabelText(
-					getIncrementRatingButtonLabel(false, DEFAULT_INTERIM_RATING, attribute)
+					getIncrementRatingButtonLabel(
+						false,
+						DEFAULT_INTERIM_RATING,
+						fieldInfo.renderText
+					)
 				)
 			).not.toBeNull();
 		}

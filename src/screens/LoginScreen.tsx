@@ -106,7 +106,7 @@ const LogInScreen: React.FC<LogInScreenProps> = ({
 			<Button
 				style={styles.button}
 				text="Log In"
-				onPress={() => logInUser()}
+				onPress={() => void logInUser()}
 				accessibilityLabel="Click to log in"
 			/>
 			<Button
