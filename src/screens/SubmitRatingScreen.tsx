@@ -242,7 +242,7 @@ const RatingCounter: React.FC<{
 			</View>
 		);
 	} else {
-		// field.ratingType === "yes/no"
+		// thus, field.ratingType === "yes/no"
 
 		return (
 			<View style={styles.yesNoRatingOptions}>
@@ -253,7 +253,6 @@ const RatingCounter: React.FC<{
 							field.renderText,
 							"buttonAccessibilityLabel"
 						)}
-						//text={getPopUpProps(field.renderText, "text")}
 						text={"Help"}
 						modalAccessibilityLabel={getPopUpProps(
 							field.fieldName,
@@ -276,7 +275,7 @@ const RatingCounter: React.FC<{
 								[field.fieldName]: 1,
 							});
 						} else {
-							// yesNoCounter[field.fieldName]  === 1
+							// thus, yesNoCounter[field.fieldName]  === 1
 							setYesNoCounter({
 								...yesNoCounter,
 								[field.fieldName]: 0,
