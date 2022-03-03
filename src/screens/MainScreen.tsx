@@ -48,11 +48,11 @@ const MainScreen: React.FC = () => {
 		}
 		return <DetailedViewScreen placeID={placeID} setPage={setPage} />;
 	} else if (page === Screen.SubmitRating) {
-		const photos = placeDetails?.result.photos;
+		const photos = placeDetails?.photos;
 		const photo_reference = photos ? photos[0].photo_reference : undefined;
 		return (
 			<SubmitRatingScreen
-				placeName={placeDetails?.result.name}
+				placeName={placeDetails?.name}
 				photo_reference={photo_reference}
 				setPage={setPage}
 				previousRating={previousRating}

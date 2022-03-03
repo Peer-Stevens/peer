@@ -56,11 +56,9 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 	};
 
 	if (placeDetails) {
-		const place = placeDetails.result;
-
 		const placeCoord = {
-			latitude: place.geometry?.location.lat,
-			longitude: place.geometry?.location.lng,
+			latitude: placeDetails?.geometry?.location.lat,
+			longitude: placeDetails?.geometry?.location.lng,
 		};
 		const distanceInMi = computeDistanceMi(userCoords, placeCoord)?.toPrecision(2);
 
@@ -87,8 +85,8 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 		return (
 			<View style={{ flex: 1 }}>
 				<PlaceImage
-					photoref={place.photos?.[0]?.photo_reference}
-					placeName={place.name}
+					photoref={placeDetails.photos?.[0]?.photo_reference}
+					placeName={placeDetails.name}
 					style={{
 						width: "100%",
 						height: "40%",
@@ -109,18 +107,18 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 								fontSize: 35,
 							}}
 						>
-							{place.name}
+							{placeDetails.name}
 						</Text>
 						<MapAnchor
-							destination={place.name}
+							destination={placeDetails.name}
 							destination_place_id={placeID}
-							formatted_address={place.formatted_address}
+							formatted_address={placeDetails.formatted_address}
 						>
 							<BodyText>{START_WALKING}</BodyText>
 							<Icon name="arrow-circle-right" size={100} />
 						</MapAnchor>
 						<BodyText ellipsizeMode="tail" numberOfLines={2}>
-							{place.formatted_address}
+							{placeDetails.formatted_address}
 						</BodyText>
 						<BodyText
 							accessibilityLabel={distanceInMi ? `${distanceInMi} miles away` : ""}

@@ -2,8 +2,10 @@ import React from "react";
 import { cleanup, render, fireEvent, RenderAPI } from "@testing-library/react-native";
 import axios, { AxiosResponse } from "axios";
 import { useNearbyPlaces } from "../../src/hooks/useNearbyPlaces";
-import { PlaceWithAccesibilityData } from "../../src/util/placeTypes";
-import { PlaceDetailsResponseData } from "@googlemaps/google-maps-services-js";
+import {
+	PlaceDetailsWithAccesibilityData,
+	PlaceWithAccesibilityData,
+} from "../../src/util/placeTypes";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import MainScreen from "../../src/screens/MainScreen";
 
@@ -27,10 +29,10 @@ jest.mock("axios");
 const mockGet = axios.get as jest.MockedFunction<typeof axios.get>;
 
 const mockResponseData: Partial<
-	AxiosResponse<{ placeDetails: Partial<PlaceDetailsResponseData> }>
+	AxiosResponse<{ placeDetails: Partial<PlaceDetailsWithAccesibilityData> }>
 > = {
 	data: {
-		placeDetails: { result: { name: mockNameString, formatted_address: mockAddressString } },
+		placeDetails: { name: mockNameString, formatted_address: mockAddressString },
 	},
 };
 

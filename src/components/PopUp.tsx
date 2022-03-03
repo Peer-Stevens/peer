@@ -28,6 +28,7 @@ export const PopUp: React.FC<PopUpProps> = ({
 	children,
 }) => {
 	const [modalVisible, setModalVisible] = useState(false);
+
 	return (
 		<View
 			accessibilityLabel={modalAccessibilityLabel}

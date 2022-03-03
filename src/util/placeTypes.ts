@@ -134,8 +134,8 @@ export type PlaceWithAccesibilityData = Place & {
 	};
 };
 
-export type PlaceDetailsWithAccesibilityData = {
-	result: Place;
+// we're changing this just to get rid of it but whatevs
+export type PlaceDetailsWithAccesibilityData = Place & {
 	accessibilityData?: {
 		_id: string;
 		guideDogAvg: number;
