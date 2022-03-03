@@ -16,9 +16,10 @@ import {
 	S_STAIRS_REQUIRED,
 	getIncrementRatingButtonLabel,
 	getPopUpProps,
+	ratingStringsMap,
 } from "../util/strings";
 import Screen from "../util/screens";
-import { Rating } from "../util/ratingTypes";
+import { Rating, RatingValue, ratingValuesMap } from "../util/ratingTypes";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Place as GooglePlace } from "@googlemaps/google-maps-services-js";
@@ -45,10 +46,10 @@ export type fieldInfo = {
 
 // Constants
 
-export const DEFAULT_INTERIM_RATING = 3;
+export const DEFAULT_INTERIM_RATING = RatingValue.NOT_ASSESSED;
 const DEFAULT_YES_NO_RATING = 0;
-const MAX_COUNT = 5;
-const MIN_COUNT = 0;
+const MAX_COUNT = RatingValue.FIVE;
+const MIN_COUNT = RatingValue.ONE;
 const INCREMENT_VAL = 0.5;
 
 export const fieldInfos: fieldInfo[] = [
@@ -132,26 +133,25 @@ const submitRating = async (
 };
 
 const handleSubmitButton = async (
-	counter: { [attribute: string]: number },
+	counter: { [attribute: string]: RatingValue },
 	yesNoCounter: { [attribute: string]: YesNoRating },
 	placeID: string | undefined
 ) => {
 	const email = await AsyncStorage.getItem("@email");
 	const token = await AsyncStorage.getItem("@auth_token");
-	// TODO: change "0" to user input
 	const ratingToSubmit: Parameters<typeof submitRating>[0] = {
 		email: email,
 		token: token,
 		placeID: placeID,
-		guideDogFriendly: counter.guideDogFriendly,
+		guideDogFriendly: ratingValuesMap[counter.guideDogFriendly],
 		isMenuAccessible: yesNoCounter.isMenuAccessible,
-		noiseLevel: counter.noiseLevel,
+		noiseLevel: ratingValuesMap[counter.noiseLevel],
 		isStaffHelpful: yesNoCounter.isStaffHelpful,
 		isBathroomOnEntranceFloor: yesNoCounter.isBathroomOnEntranceFloor,
 		isContactlessPaymentOffered: yesNoCounter.isContactlessPaymentOffered,
-		lighting: counter.lighting,
+		lighting: ratingValuesMap[counter.lighting],
 		isStairsRequired: yesNoCounter.isStairsRequired,
-		spacing: counter.spacing,
+		spacing: ratingValuesMap[counter.spacing],
 	};
 	await submitRating(ratingToSubmit);
 };
@@ -161,11 +161,11 @@ const handleSubmitButton = async (
 const RatingCounter: React.FC<{
 	field: fieldInfo;
 	counter: {
-		[attribute: string]: number;
+		[attribute: string]: RatingValue;
 	};
 	setCounter: React.Dispatch<
 		React.SetStateAction<{
-			[attribute: string]: number;
+			[attribute: string]: RatingValue;
 		}>
 	>;
 	yesNoCounter: {
@@ -202,14 +202,13 @@ const RatingCounter: React.FC<{
 				/>
 				<View style={{ flexDirection: "column" }}>
 					<Text style={styles.textStyle}>{field.renderText}</Text>
-					<Text style={styles.textStyle}>{count}</Text>
+					<Text style={styles.textStyle}>{ratingStringsMap[count]}</Text>
 					<PopUp
 						style={styles.popUp}
 						accessibilityLabel={getPopUpProps(
 							field.renderText,
 							"buttonAccessibilityLabel"
 						)}
-						//text={getPopUpProps(field.renderText, "text")}
 						text={"Help"}
 						modalAccessibilityLabel={getPopUpProps(
 							field.fieldName,
@@ -297,10 +296,10 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 	previousRating,
 }: SubmitRatingScreenProps) => {
 	const [counter, setCounter] = useState(
-		fieldInfos.reduce<{ [attribute: string]: number }>(function (countersMap, field) {
+		fieldInfos.reduce<{ [attribute: string]: RatingValue }>(function (countersMap, field) {
 			if (field.ratingType === "numeric") {
 				if (previousRating && previousRating[field.fieldName]) {
-					countersMap[field.fieldName] = previousRating[field.fieldName] as number;
+					countersMap[field.fieldName] = previousRating[field.fieldName] as RatingValue;
 				} else {
 					countersMap[field.fieldName] = DEFAULT_INTERIM_RATING;
 				}

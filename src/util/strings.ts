@@ -5,6 +5,8 @@
  * String constants have the S_ prefix.
  */
 
+import { RatingValue } from "./ratingTypes";
+
 // Constants
 
 /**
@@ -95,4 +97,17 @@ export const getPopUpProps = (
 
 export const getMapAnchorA11yLabel = (destination: string) => {
 	return `Tap to navigate to ${destination}`;
+};
+
+export const ratingStringsMap: Record<RatingValue, string> = {
+	1: "1",
+	1.5: "1.5",
+	2: "2",
+	2.5: "2.5",
+	3: "N/A",
+	3.5: "3",
+	4: "3.5",
+	4.5: "4",
+	5: "4.5",
+	5.5: "5",
 };
