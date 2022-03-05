@@ -200,7 +200,7 @@ const RatingCounter: React.FC<{
 						});
 					}}
 				/>
-				<View>
+				<View style={{}}>
 					<Text style={styles.textStyle}>{field.renderText}</Text>
 					<Text style={styles.textStyle}>{count}</Text>
 					<PopUp
@@ -246,7 +246,7 @@ const RatingCounter: React.FC<{
 
 		return (
 			<View style={styles.yesNoRatingOptions}>
-				<View style={{ flex: 5 }}>
+				<View style={{ flex: 5, alignSelf: "center" }}>
 					<Text style={{ fontSize: 25 }}>{field.renderText}</Text>
 					<PopUp
 						accessibilityLabel={getPopUpProps(
@@ -346,33 +346,43 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 					placeName={placeName}
 				/>
 			))}
-			<Button
-				text={S_SUBMIT}
-				accessibilityLabel={S_SUBMIT}
-				onPress={() => void handleSubmitButton(counter, yesNoCounter, placeID)}
-			/>
+			<View
+				style={{
+					alignSelf: "center",
+					marginTop: 10,
+					marginBottom: 30,
+					width: Dimensions.get("window").width * 0.9,
+				}}
+			>
+				<Button
+					text={S_SUBMIT}
+					accessibilityLabel={S_SUBMIT}
+					onPress={() => void handleSubmitButton(counter, yesNoCounter, placeID)}
+				/>
+			</View>
 		</ScrollView>
 	);
 };
 
 const styles = StyleSheet.create({
 	numericalRatingOptions: {
+		alignSelf: "center",
 		flexDirection: "row",
-		width: Dimensions.get("window").width,
+		width: Dimensions.get("window").width * 0.9,
 		marginTop: 5,
 		marginBottom: 5,
-		justifyContent: "space-evenly",
+		justifyContent: "space-between",
 	},
 	yesNoRatingOptions: {
 		flexDirection: "row",
 		width: Dimensions.get("window").width,
-		marginTop: 5,
-		marginBottom: 5,
+		marginTop: 10,
+		marginBottom: 10,
 	},
 	popUp: {
 		width: Dimensions.get("window").width * 0.5,
 		height: Dimensions.get("window").height * 0.1,
-		alignSelf: "flex-end",
+		//alignSelf: "flex-end",
 	},
 	textStyle: {
 		alignSelf: "center",
