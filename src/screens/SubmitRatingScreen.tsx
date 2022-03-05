@@ -200,7 +200,7 @@ const RatingCounter: React.FC<{
 						});
 					}}
 				/>
-				<View style={{}}>
+				<View style={{ alignItems: "center" }}>
 					<Text style={styles.textStyle}>{field.renderText}</Text>
 					<Text style={styles.textStyle}>{count}</Text>
 					<PopUp
@@ -246,9 +246,10 @@ const RatingCounter: React.FC<{
 
 		return (
 			<View style={styles.yesNoRatingOptions}>
-				<View style={{ flex: 5, alignSelf: "center" }}>
-					<Text style={{ fontSize: 25 }}>{field.renderText}</Text>
+				<View style={{ flex: 5, alignSelf: "center", marginTop: 5 }}>
+					<Text style={{ fontSize: 20 }}>{field.renderText}</Text>
 					<PopUp
+						style={{ width: 150, marginTop: 10 }}
 						accessibilityLabel={getPopUpProps(
 							field.renderText,
 							"buttonAccessibilityLabel"
@@ -267,7 +268,7 @@ const RatingCounter: React.FC<{
 					</PopUp>
 				</View>
 				<CheckBox
-					style={{ flex: 2 }}
+					style={{ flex: 1, alignItems: "center", alignSelf: "center" }}
 					onClick={() => {
 						if (yesNoCounter[field.fieldName] === 0) {
 							setYesNoCounter({
@@ -375,9 +376,13 @@ const styles = StyleSheet.create({
 	},
 	yesNoRatingOptions: {
 		flexDirection: "row",
-		width: Dimensions.get("window").width,
+		width: Dimensions.get("window").width * 0.9,
 		marginTop: 10,
 		marginBottom: 10,
+		justifyContent: "center",
+		alignSelf: "center",
+		borderTopColor: "black",
+		borderTopWidth: 3,
 	},
 	popUp: {
 		width: Dimensions.get("window").width * 0.5,
