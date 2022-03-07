@@ -8,12 +8,12 @@ export const getAverageA11yRating = (place: PlaceWithA11yData): number => {
 		Number(place.accessibilityData.guideDogAvg) +
 		Number(place.accessibilityData.lightingAvg) +
 		Number(place.accessibilityData.noiseLevelAvg) +
-		Number(place.accessibilityData.isStaffHelpfulAvg) +
-		Number(place.accessibilityData.isMenuAccessibleAvg) +
-		Number(place.accessibilityData.isStairsRequiredAvg) +
-		Number(place.accessibilityData.isBathroomOnEntranceFloorAvg) +
-		Number(place.accessibilityData.isContactlessPaymentOfferedAvg);
-	const count = 5;
+		Number(place.accessibilityData.isStaffHelpfulAvg) * 5+
+		Number(place.accessibilityData.isMenuAccessibleAvg) * 5+
+		Number(place.accessibilityData.isStairsRequiredAvg) * 5+
+		Number(place.accessibilityData.isBathroomOnEntranceFloorAvg) * 5+
+		Number(place.accessibilityData.isContactlessPaymentOfferedAvg) * 5;
+	const count = 9;
 	return total / count;
 };
 
