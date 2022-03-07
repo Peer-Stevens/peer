@@ -128,8 +128,10 @@ const submitRating = async (
 
 	if (previousRating) {
 		await axios.post(`${SERVER_BASE_URL}/editRating`, request_body);
-	} /* else no previous rating has been made on this place by this user */
-	await axios.post(`${SERVER_BASE_URL}/addRatingtoPlace`, request_body);
+	} else {
+		/* else, no previous rating has been made on this place by this user */
+		await axios.post(`${SERVER_BASE_URL}/addRatingtoPlace`, request_body);
+	}
 };
 
 const handleSubmitButton = async (
