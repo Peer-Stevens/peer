@@ -2,10 +2,7 @@ import React from "react";
 import { cleanup, render, fireEvent, RenderAPI } from "@testing-library/react-native";
 import axios, { AxiosResponse } from "axios";
 import { useNearbyPlaces } from "../../src/hooks/useNearbyPlaces";
-import {
-	PlaceDetailsWithAccesibilityData,
-	PlaceWithAccesibilityData,
-} from "../../src/util/placeTypes";
+import { PlaceWithA11yData } from "peer-types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import MainScreen from "../../src/screens/MainScreen";
 
@@ -17,7 +14,7 @@ jest.mock("../../src/util/sendLog");
 jest.mock("../../src/hooks/useNearbyPlaces");
 const mockNearbyPlaces = useNearbyPlaces as jest.MockedFunction<typeof useNearbyPlaces>;
 
-const mockPlaces: PlaceWithAccesibilityData[] = [
+const mockPlaces: PlaceWithA11yData[] = [
 	{
 		place_id: "oiluj",
 		name: mockNameString,
@@ -28,9 +25,7 @@ jest.mock("axios");
 // eslint-disable-next-line @typescript-eslint/unbound-method
 const mockGet = axios.get as jest.MockedFunction<typeof axios.get>;
 
-const mockResponseData: Partial<
-	AxiosResponse<{ placeDetails: Partial<PlaceDetailsWithAccesibilityData> }>
-> = {
+const mockResponseData: Partial<AxiosResponse<{ placeDetails: Partial<PlaceWithA11yData> }>> = {
 	data: {
 		placeDetails: { name: mockNameString, formatted_address: mockAddressString },
 	},
