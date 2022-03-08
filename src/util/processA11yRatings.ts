@@ -4,12 +4,20 @@ export const getAverageA11yRating = (place: PlaceWithAccesibilityData): number =
 	if (!place.accessibilityData) return -1;
 	// add each of the average field values together
 	const total =
-		Number(place.accessibilityData.avgBraille) +
-		Number(place.accessibilityData.avgFontReadability) +
-		Number(place.accessibilityData.avgGuideDogFriendly) +
-		Number(place.accessibilityData.avgNavigability) +
-		Number(place.accessibilityData.avgStaffHelpfulness);
-	const count = 5;
+		Number(place.accessibilityData.spacingAvg) +
+		Number(place.accessibilityData.guideDogAvg) +
+		Number(place.accessibilityData.lightingAvg) +
+		Number(place.accessibilityData.noiseLevelAvg) +
+		Number(place.accessibilityData.isStaffHelpfulAvg) * 5 +
+		Number(place.accessibilityData.isMenuAccessibleAvg) * 5 +
+		Number(place.accessibilityData.isStairsRequiredAvg) * 5 +
+		Number(place.accessibilityData.isBathroomOnEntranceFloorAvg) * 5 +
+		Number(place.accessibilityData.isContactlessPaymentOfferedAvg) * 5;
+
+	const count = Object.entries(place.accessibilityData).filter(
+		([key, value]) => typeof value === "number" && value >= 0
+	).length;
+
 	return total / count;
 };
 

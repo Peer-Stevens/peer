@@ -34,6 +34,8 @@ const PlaceList = ({ goToDetails, setPlaceID, selectedFilter }: PlaceListProps):
 						? Math.round(getAverageA11yRating(place) * 2) / 2
 						: undefined
 				}
+				isPromoted={place.isPromoted}
+				spendAmount={place.spendAmount}
 			/>
 		);
 	});
