@@ -15,7 +15,7 @@ export const getAverageA11yRating = (place: PlaceWithA11yData): number => {
 		Number(place.accessibilityData.isContactlessPaymentOfferedAvg) * 5;
 
 	const count = Object.entries(place.accessibilityData).filter(
-		([key, value]) => typeof value === "number" && value >= 0
+		([, value]) => typeof value === "number" && value >= 0
 	).length;
 
 	return total / count;

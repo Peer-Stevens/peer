@@ -21,7 +21,6 @@ const PlaceList = ({ goToDetails, setPlaceID, selectedFilter }: PlaceListProps):
 			<PlaceCard
 				key={index}
 				placeName={place.name}
-				address={place.formatted_address}
 				photoref={photo}
 				location={location}
 				latitude={place.geometry?.location.lat}
@@ -35,7 +34,7 @@ const PlaceList = ({ goToDetails, setPlaceID, selectedFilter }: PlaceListProps):
 						: undefined
 				}
 				isPromoted={place.isPromoted}
-				spendAmount={place.spendAmount}
+				spendAmount={place.spend_amount}
 			/>
 		);
 	});
