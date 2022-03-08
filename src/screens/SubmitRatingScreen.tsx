@@ -3,7 +3,6 @@ import { ScrollView, View, Text, StyleSheet, Dimensions } from "react-native";
 import { PlaceImage } from "../components/PlaceImage";
 import { Button } from "../components/Button";
 import {
-	S_CANCEL,
 	S_SUBMIT,
 	S_GUIDE_DOG_FRIENDLINESS,
 	S_NOISE_LEVEL,
@@ -16,6 +15,7 @@ import {
 	S_STAIRS_REQUIRED,
 	getIncrementRatingButtonLabel,
 	getPopUpProps,
+	S_GOBACK,
 } from "../util/strings";
 import Screen from "../util/screens";
 import { Rating } from "../util/ratingTypes";
@@ -48,7 +48,7 @@ export type fieldInfo = {
 export const DEFAULT_INTERIM_RATING = 3;
 const DEFAULT_YES_NO_RATING = 0;
 const MAX_COUNT = 5;
-const MIN_COUNT = 0;
+const MIN_COUNT = 1;
 const INCREMENT_VAL = 0.5;
 
 export const fieldInfos: fieldInfo[] = [
@@ -186,7 +186,7 @@ const RatingCounter: React.FC<{
 					style={{ height: "100%" }}
 					iconName={"minus"}
 					accessibilityLabel={getIncrementRatingButtonLabel(
-						true,
+						false,
 						count,
 						field.renderText,
 						placeName
@@ -227,7 +227,7 @@ const RatingCounter: React.FC<{
 					style={{ height: "100%" }}
 					iconName={"plus"}
 					accessibilityLabel={getIncrementRatingButtonLabel(
-						false,
+						true,
 						count,
 						field.renderText,
 						placeName
@@ -344,8 +344,8 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 				</View>
 				<View>
 					<Button
-						text={S_CANCEL}
-						accessibilityLabel={S_CANCEL}
+						text={S_GOBACK}
+						accessibilityLabel={S_GOBACK}
 						onPress={() => {
 							setPage(Screen.Details);
 						}}
