@@ -11979,10 +11979,10 @@ pbkdf2@^3.0.3:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-peer-types@1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/peer-types/-/peer-types-1.0.4.tgz#54013e0bce11ab57810422717250fce8880ce8a3"
-  integrity sha512-eTaHj0BlSMi9ELgjrlgqlIvQLblYGeI84QsV7t3bch5Y6TB0uPq/+22uYYGoW1OvVMJC5NQS6Wjwz4qwDSnuqQ==
+peer-types@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/peer-types/-/peer-types-1.0.5.tgz#d72b7019813f94d63c9fa2f06251ba11badaf9dc"
+  integrity sha512-kUsRnAfB0ecdnjZdNlJ7nnLkUU/fsIpO8YwEqJVzyPEKsIXC3eP4XHCTmo+BjSG4Wo5I6lhgCvKC3QzU5RYWbQ==
 
 picocolors@^0.2.1:
   version "0.2.1"
@@ -15244,8 +15244,10 @@ watchpack@^1.6.1:
   resolved "https://registry.yarnpkg.com/watchpack/-/watchpack-1.7.5.tgz#1267e6c55e0b9b5be44c2023aed5437a2c26c453"
   integrity sha512-9P3MWk6SrKjHsGkLT2KHXdQ/9SNkyoJbabxnKOoJepsvJjJG8uYTR3yTPxPQvNDI3w4Nz1xnE0TLHK4RIVe/MQ==
   dependencies:
+    chokidar "^3.4.1"
     graceful-fs "^4.1.2"
     neo-async "^2.5.0"
+    watchpack-chokidar2 "^2.0.1"
   optionalDependencies:
     chokidar "^3.4.1"
     watchpack-chokidar2 "^2.0.1"

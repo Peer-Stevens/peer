@@ -5,10 +5,7 @@ import { useLocation } from "../../src/hooks/useLocation";
 import { useNearbyPlaces, BusinessStatus } from "../../src/hooks/useNearbyPlaces";
 import { RelativeDirectionOutput, useCompass } from "../../src/hooks/useCompass";
 import { computeDistanceFeet } from "../../src/util/distance";
-import {
-	PlaceDetailsWithAccesibilityData,
-	PlaceWithAccesibilityData,
-} from "../../src/util/placeTypes";
+import { PlaceWithA11yData } from "peer-types";
 import { useFetchPlace } from "../../src/hooks/useFetchPlace";
 import MainScreen from "../../src/screens/MainScreen";
 
@@ -47,7 +44,7 @@ const mockDistance = 5.58;
 // mock nearby places to prevent calls to remote server
 jest.mock("../../src/hooks/useNearbyPlaces");
 const mockNearbyPlaces = useNearbyPlaces as jest.MockedFunction<typeof useNearbyPlaces>;
-const mockPlaces: Partial<PlaceWithAccesibilityData>[] = [
+const mockPlaces: Partial<PlaceWithA11yData>[] = [
 	{
 		name: "The Absolute Best Place in the Whole Wide World",
 		business_status: BusinessStatus.OPERATIONAL,
@@ -65,10 +62,8 @@ const mockPlaces: Partial<PlaceWithAccesibilityData>[] = [
 jest.mock("../../src/hooks/useFetchPlace");
 const mockUseFetchPlace = useFetchPlace as jest.MockedFunction<typeof useFetchPlace>;
 
-const mockPlaceDetails: PlaceDetailsWithAccesibilityData = {
-	result: {
-		place_id: "oiluj",
-	},
+const mockPlaceDetails: PlaceWithA11yData = {
+	place_id: "oiluj",
 };
 
 mockUseFetchPlace.mockReturnValue({
