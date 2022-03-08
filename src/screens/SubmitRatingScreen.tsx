@@ -183,6 +183,7 @@ const RatingCounter: React.FC<{
 		return (
 			<View style={styles.numericalRatingOptions}>
 				<Button
+					style={{ height: "100%" }}
 					iconName={"minus"}
 					accessibilityLabel={getIncrementRatingButtonLabel(
 						true,
@@ -200,8 +201,10 @@ const RatingCounter: React.FC<{
 						});
 					}}
 				/>
-				<View style={{ alignItems: "center" }}>
-					<Text style={styles.numericalRatingsText}>{field.renderText}</Text>
+				<View style={{ alignItems: "center", width: "50%" }}>
+					<Text numberOfLines={2} style={styles.numericalRatingsText}>
+						{field.renderText}
+					</Text>
 					<Text style={styles.numericalRatingsText}>{count}</Text>
 					<PopUp
 						style={styles.popUp}
@@ -221,6 +224,7 @@ const RatingCounter: React.FC<{
 					</PopUp>
 				</View>
 				<Button
+					style={{ height: "100%" }}
 					iconName={"plus"}
 					accessibilityLabel={getIncrementRatingButtonLabel(
 						false,
@@ -381,13 +385,13 @@ const styles = StyleSheet.create({
 	numericalRatingOptions: {
 		alignSelf: "center",
 		flexDirection: "row",
-		width: Dimensions.get("window").width * 0.9,
+		width: "90%",
 		marginVertical: 12,
 		justifyContent: "space-between",
 	},
 	yesNoRatingOptions: {
 		flexDirection: "row",
-		width: Dimensions.get("window").width * 0.9,
+		width: "90%",
 		marginTop: 10,
 		marginBottom: 10,
 		alignSelf: "center",
@@ -395,8 +399,8 @@ const styles = StyleSheet.create({
 		borderTopWidth: 3,
 	},
 	popUp: {
-		width: Dimensions.get("window").width * 0.45,
-		height: Dimensions.get("window").height * 0.075,
+		width: "85%",
+		height: 75,
 	},
 	numericalRatingsText: {
 		fontFamily: "APHontBold",
@@ -408,11 +412,12 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 		marginHorizontal: 20,
 		justifyContent: "space-between",
+		alignItems: "center",
 	},
 	placeName: {
 		fontSize: 30,
-		fontWeight: "bold",
-		width: Dimensions.get("window").width * 0.5,
+		width: "100%",
+		fontFamily: "APHontBold",
 	},
 });
 
