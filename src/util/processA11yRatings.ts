@@ -1,6 +1,6 @@
-import { PlaceWithAccesibilityData } from "./placeTypes";
+import { PlaceWithA11yData } from "peer-types";
 
-export const getAverageA11yRating = (place: PlaceWithAccesibilityData): number => {
+export const getAverageA11yRating = (place: PlaceWithA11yData): number => {
 	if (!place.accessibilityData) return -1;
 	// add each of the average field values together
 	const total =
@@ -30,5 +30,5 @@ export const accessibilityRatingToString = (rating: number): string => {
 	else return "no";
 };
 
-export const getPlaceRatingString = (place: PlaceWithAccesibilityData): string =>
+export const getPlaceRatingString = (place: PlaceWithA11yData): string =>
 	accessibilityRatingToString(getAverageA11yRating(place));
