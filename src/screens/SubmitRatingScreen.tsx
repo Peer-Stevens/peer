@@ -201,15 +201,14 @@ const RatingCounter: React.FC<{
 					}}
 				/>
 				<View style={{ alignItems: "center" }}>
-					<Text style={styles.textStyle}>{field.renderText}</Text>
-					<Text style={styles.textStyle}>{count}</Text>
+					<Text style={styles.numericalRatingsText}>{field.renderText}</Text>
+					<Text style={styles.numericalRatingsText}>{count}</Text>
 					<PopUp
 						style={styles.popUp}
 						accessibilityLabel={getPopUpProps(
 							field.renderText,
 							"buttonAccessibilityLabel"
 						)}
-						//text={getPopUpProps(field.renderText, "text")}
 						text={"Help"}
 						modalAccessibilityLabel={getPopUpProps(
 							field.fieldName,
@@ -246,7 +245,7 @@ const RatingCounter: React.FC<{
 
 		return (
 			<View style={styles.yesNoRatingOptions}>
-				<View style={{ flex: 5, alignSelf: "center", marginTop: 5 }}>
+				<View style={{ flex: 5, marginTop: 5 }}>
 					<Text style={{ fontSize: 20 }}>{field.renderText}</Text>
 					<PopUp
 						style={{ width: 150, marginTop: 10 }}
@@ -325,16 +324,29 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 
 	return (
 		<ScrollView>
-			<PlaceImage photoref={photo_reference} placeName={placeName} />
+			<PlaceImage
+				photoref={photo_reference}
+				placeName={placeName}
+				style={{
+					width: "100%",
+					height: Dimensions.get("window").height * 0.4,
+				}}
+			/>
 			<View style={styles.nameAndCancel}>
-				<Text style={styles.placeName}>{placeName}</Text>
-				<Button
-					text={S_CANCEL}
-					accessibilityLabel={S_CANCEL}
-					onPress={() => {
-						setPage(Screen.Details);
-					}}
-				/>
+				<View>
+					<Text adjustsFontSizeToFit={true} numberOfLines={2} style={styles.placeName}>
+						{placeName}
+					</Text>
+				</View>
+				<View>
+					<Button
+						text={S_CANCEL}
+						accessibilityLabel={S_CANCEL}
+						onPress={() => {
+							setPage(Screen.Details);
+						}}
+					/>
+				</View>
 			</View>
 			{fieldInfos.map((field, index) => (
 				<RatingCounter
@@ -370,8 +382,7 @@ const styles = StyleSheet.create({
 		alignSelf: "center",
 		flexDirection: "row",
 		width: Dimensions.get("window").width * 0.9,
-		marginTop: 5,
-		marginBottom: 5,
+		marginVertical: 12,
 		justifyContent: "space-between",
 	},
 	yesNoRatingOptions: {
@@ -379,30 +390,29 @@ const styles = StyleSheet.create({
 		width: Dimensions.get("window").width * 0.9,
 		marginTop: 10,
 		marginBottom: 10,
-		justifyContent: "center",
 		alignSelf: "center",
 		borderTopColor: "black",
 		borderTopWidth: 3,
 	},
 	popUp: {
-		width: Dimensions.get("window").width * 0.5,
-		height: Dimensions.get("window").height * 0.1,
-		//alignSelf: "flex-end",
+		width: Dimensions.get("window").width * 0.45,
+		height: Dimensions.get("window").height * 0.075,
 	},
-	textStyle: {
-		alignSelf: "center",
+	numericalRatingsText: {
 		fontFamily: "APHontBold",
 		fontSize: 20,
 	},
 	nameAndCancel: {
 		flexDirection: "row",
 		marginTop: 5,
-		marginBottom: 5,
-		justifyContent: "space-around",
+		marginBottom: 10,
+		marginHorizontal: 20,
+		justifyContent: "space-between",
 	},
 	placeName: {
 		fontSize: 30,
 		fontWeight: "bold",
+		width: Dimensions.get("window").width * 0.5,
 	},
 });
 
