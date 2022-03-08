@@ -13,7 +13,11 @@ export const getAverageA11yRating = (place: PlaceWithA11yData): number => {
 		Number(place.accessibilityData.isStairsRequiredAvg) * 5 +
 		Number(place.accessibilityData.isBathroomOnEntranceFloorAvg) * 5 +
 		Number(place.accessibilityData.isContactlessPaymentOfferedAvg) * 5;
-	const count = 9;
+
+	const count = Object.entries(place.accessibilityData).filter(
+		([, value]) => typeof value === "number" && value >= 0
+	).length;
+
 	return total / count;
 };
 

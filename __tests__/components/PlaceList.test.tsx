@@ -116,17 +116,6 @@ describe("Place list tests", () => {
 		}
 	});
 
-	it("renders the place address", () => {
-		// Arrange
-		const { getByText } = render(<MainScreen />);
-
-		// Assert
-		for (const mockPlace of mockPlaces) {
-			if (!mockPlace.formatted_address) continue; // should never happen
-			expect(getByText(mockPlace.formatted_address)).toBeDefined();
-		}
-	});
-
 	it("renders the place rating", () => {
 		// Arrange
 		const { getByText } = render(<MainScreen />);
