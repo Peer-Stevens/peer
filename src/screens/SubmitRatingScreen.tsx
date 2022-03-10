@@ -183,7 +183,7 @@ const RatingCounter: React.FC<{
 		return (
 			<View style={styles.numericalRatingOptions}>
 				<Button
-					style={{ height: "100%" }}
+					style={{ height: 150 }}
 					iconName={"minus"}
 					accessibilityLabel={getIncrementRatingButtonLabel(
 						false,
@@ -201,12 +201,13 @@ const RatingCounter: React.FC<{
 						});
 					}}
 				/>
-				<View style={{ alignItems: "center", width: "50%" }}>
+				<View style={{ alignItems: "center", width: "50%", justifyContent: "center" }}>
 					<Text numberOfLines={2} style={styles.numericalRatingsText}>
 						{field.renderText}
 					</Text>
 					<Text style={styles.numericalRatingsText}>{count}</Text>
 					<PopUp
+						fontSize={15}
 						style={styles.popUp}
 						accessibilityLabel={getPopUpProps(
 							field.renderText,
@@ -224,7 +225,7 @@ const RatingCounter: React.FC<{
 					</PopUp>
 				</View>
 				<Button
-					style={{ height: "100%" }}
+					style={{ height: 150 }}
 					iconName={"plus"}
 					accessibilityLabel={getIncrementRatingButtonLabel(
 						true,
@@ -252,7 +253,8 @@ const RatingCounter: React.FC<{
 				<View style={{ flex: 5, marginTop: 5 }}>
 					<Text style={{ fontSize: 20 }}>{field.renderText}</Text>
 					<PopUp
-						style={{ width: 150, marginTop: 10 }}
+						fontSize={15}
+						style={{ width: "35%", marginTop: 10 }}
 						accessibilityLabel={getPopUpProps(
 							field.renderText,
 							"buttonAccessibilityLabel"
@@ -337,7 +339,7 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 				}}
 			/>
 			<View style={styles.nameAndCancel}>
-				<View>
+				<View style={{ width: "50%" }}>
 					<Text adjustsFontSizeToFit={true} numberOfLines={2} style={styles.placeName}>
 						{placeName}
 					</Text>
@@ -399,12 +401,12 @@ const styles = StyleSheet.create({
 		borderTopWidth: 3,
 	},
 	popUp: {
-		width: "85%",
-		height: 75,
+		width: "60%",
+		height: 40,
 	},
 	numericalRatingsText: {
 		fontFamily: "APHontBold",
-		fontSize: 20,
+		fontSize: 30,
 	},
 	nameAndCancel: {
 		flexDirection: "row",
@@ -413,6 +415,9 @@ const styles = StyleSheet.create({
 		marginHorizontal: 20,
 		justifyContent: "space-between",
 		alignItems: "center",
+		width: "90%",
+		// borderColor: "black",
+		// borderWidth: 3
 	},
 	placeName: {
 		fontSize: 30,

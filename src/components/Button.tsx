@@ -12,6 +12,7 @@ export interface ButtonProps {
 	accessibilityHint?: string;
 	onPress: VoidFunction;
 	style?: StyleProp<ViewStyle>;
+	fontSize?: number;
 }
 
 /**
@@ -24,6 +25,7 @@ export const Button: React.FC<ButtonProps> = ({
 	accessibilityHint,
 	onPress,
 	style,
+	fontSize,
 	children,
 }) => {
 	const [color, setColor] = useState<string>(PRIMARY_COLOR);
@@ -46,17 +48,31 @@ export const Button: React.FC<ButtonProps> = ({
 	let display: React.ReactNode;
 
 	if (text) {
-		display = (
-			<Text
-				style={{
-					color: textColor,
-					fontSize: 30,
-					fontFamily: "APHontBold",
-				}}
-			>
-				{text}
-			</Text>
-		);
+		if (fontSize) {
+			display = (
+				<Text
+					style={{
+						color: textColor,
+						fontSize: fontSize,
+						fontFamily: "APHontBold",
+					}}
+				>
+					{text}
+				</Text>
+			);
+		} else {
+			display = (
+				<Text
+					style={{
+						color: textColor,
+						fontSize: 30,
+						fontFamily: "APHontBold",
+					}}
+				>
+					{text}
+				</Text>
+			);
+		}
 	} else if (image) {
 		display = <Icon name={image} color={textColor} size={30} />;
 	} else if (children) {
