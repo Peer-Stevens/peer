@@ -1,6 +1,6 @@
 import React from "react";
 import { cleanup, render, RenderAPI } from "@testing-library/react-native";
-import { S_CANCEL, S_SUBMIT, getIncrementRatingButtonLabel } from "../../src/util/strings";
+import { S_GOBACK, S_SUBMIT, getIncrementRatingButtonLabel } from "../../src/util/strings";
 import SubmitRatingScreen, { DEFAULT_INTERIM_RATING } from "../../src/screens/SubmitRatingScreen";
 import { fieldInfos } from "../../src/screens/SubmitRatingScreen";
 
@@ -51,7 +51,7 @@ describe("Submit rating screen tests", () => {
 	});
 
 	it("renders a cancel button", () => {
-		expect(tr.queryByText(S_CANCEL)).not.toBeNull();
+		expect(tr.queryByText(S_GOBACK)).not.toBeNull();
 	});
 
 	it("renders a submit button", () => {

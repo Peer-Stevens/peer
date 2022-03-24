@@ -3,7 +3,6 @@ import { ScrollView, View, Text, StyleSheet, Dimensions } from "react-native";
 import { PlaceImage } from "../components/PlaceImage";
 import { Button } from "../components/Button";
 import {
-	S_CANCEL,
 	S_SUBMIT,
 	S_GUIDE_DOG_FRIENDLINESS,
 	S_NOISE_LEVEL,
@@ -16,6 +15,7 @@ import {
 	S_STAIRS_REQUIRED,
 	getIncrementRatingButtonLabel,
 	getPopUpProps,
+	S_GOBACK,
 } from "../util/strings";
 import Screen from "../util/screens";
 import { Rating } from "../util/ratingTypes";
@@ -48,7 +48,7 @@ export type fieldInfo = {
 export const DEFAULT_INTERIM_RATING = 3;
 const DEFAULT_YES_NO_RATING = 0;
 const MAX_COUNT = 5;
-const MIN_COUNT = 0;
+const MIN_COUNT = 1;
 const INCREMENT_VAL = 0.5;
 
 export const fieldInfos: fieldInfo[] = [
@@ -183,9 +183,10 @@ const RatingCounter: React.FC<{
 		return (
 			<View style={styles.numericalRatingOptions}>
 				<Button
+					style={{ height: 150 }}
 					iconName={"minus"}
 					accessibilityLabel={getIncrementRatingButtonLabel(
-						true,
+						false,
 						count,
 						field.renderText,
 						placeName
@@ -200,16 +201,18 @@ const RatingCounter: React.FC<{
 						});
 					}}
 				/>
-				<View style={{ flexDirection: "column" }}>
-					<Text style={styles.textStyle}>{field.renderText}</Text>
-					<Text style={styles.textStyle}>{count}</Text>
+				<View style={{ alignItems: "center", width: "50%", justifyContent: "center" }}>
+					<Text numberOfLines={2} style={styles.numericalRatingsText}>
+						{field.renderText}
+					</Text>
+					<Text style={styles.numericalRatingsText}>{count}</Text>
 					<PopUp
+						fontSize={15}
 						style={styles.popUp}
 						accessibilityLabel={getPopUpProps(
 							field.renderText,
 							"buttonAccessibilityLabel"
 						)}
-						//text={getPopUpProps(field.renderText, "text")}
 						text={"Help"}
 						modalAccessibilityLabel={getPopUpProps(
 							field.fieldName,
@@ -222,9 +225,10 @@ const RatingCounter: React.FC<{
 					</PopUp>
 				</View>
 				<Button
+					style={{ height: 150 }}
 					iconName={"plus"}
 					accessibilityLabel={getIncrementRatingButtonLabel(
-						false,
+						true,
 						count,
 						field.renderText,
 						placeName
@@ -246,9 +250,11 @@ const RatingCounter: React.FC<{
 
 		return (
 			<View style={styles.yesNoRatingOptions}>
-				<View style={{ flex: 5 }}>
-					<Text style={{ fontSize: 25 }}>{field.renderText}</Text>
+				<View style={{ flex: 5, marginTop: 5 }}>
+					<Text style={{ fontSize: 20 }}>{field.renderText}</Text>
 					<PopUp
+						fontSize={15}
+						style={{ width: "35%", marginTop: 10 }}
 						accessibilityLabel={getPopUpProps(
 							field.renderText,
 							"buttonAccessibilityLabel"
@@ -267,7 +273,7 @@ const RatingCounter: React.FC<{
 					</PopUp>
 				</View>
 				<CheckBox
-					style={{ flex: 2 }}
+					style={{ flex: 1, alignItems: "center", alignSelf: "center" }}
 					onClick={() => {
 						if (yesNoCounter[field.fieldName] === 0) {
 							setYesNoCounter({
@@ -324,16 +330,29 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 
 	return (
 		<ScrollView>
-			<PlaceImage photoref={photo_reference} placeName={placeName} />
+			<PlaceImage
+				photoref={photo_reference}
+				placeName={placeName}
+				style={{
+					width: "100%",
+					height: Dimensions.get("window").height * 0.4,
+				}}
+			/>
 			<View style={styles.nameAndCancel}>
-				<Text style={styles.placeName}>{placeName}</Text>
-				<Button
-					text={S_CANCEL}
-					accessibilityLabel={S_CANCEL}
-					onPress={() => {
-						setPage(Screen.Details);
-					}}
-				/>
+				<View style={{ width: "50%" }}>
+					<Text adjustsFontSizeToFit={true} numberOfLines={2} style={styles.placeName}>
+						{placeName}
+					</Text>
+				</View>
+				<View>
+					<Button
+						text={S_GOBACK}
+						accessibilityLabel={S_GOBACK}
+						onPress={() => {
+							setPage(Screen.Details);
+						}}
+					/>
+				</View>
 			</View>
 			{fieldInfos.map((field, index) => (
 				<RatingCounter
@@ -346,48 +365,64 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 					placeName={placeName}
 				/>
 			))}
-			<Button
-				text={S_SUBMIT}
-				accessibilityLabel={S_SUBMIT}
-				onPress={() => void handleSubmitButton(counter, yesNoCounter, placeID)}
-			/>
+			<View
+				style={{
+					alignSelf: "center",
+					marginTop: 10,
+					marginBottom: 30,
+					width: Dimensions.get("window").width * 0.9,
+				}}
+			>
+				<Button
+					text={S_SUBMIT}
+					accessibilityLabel={S_SUBMIT}
+					onPress={() => void handleSubmitButton(counter, yesNoCounter, placeID)}
+				/>
+			</View>
 		</ScrollView>
 	);
 };
 
 const styles = StyleSheet.create({
 	numericalRatingOptions: {
+		alignSelf: "center",
 		flexDirection: "row",
-		width: Dimensions.get("window").width,
-		marginTop: 5,
-		marginBottom: 5,
-		justifyContent: "space-evenly",
+		width: "90%",
+		marginVertical: 12,
+		justifyContent: "space-between",
 	},
 	yesNoRatingOptions: {
 		flexDirection: "row",
-		width: Dimensions.get("window").width,
-		marginTop: 5,
-		marginBottom: 5,
+		width: "90%",
+		marginTop: 10,
+		marginBottom: 10,
+		alignSelf: "center",
+		borderTopColor: "black",
+		borderTopWidth: 3,
 	},
 	popUp: {
-		width: Dimensions.get("window").width * 0.5,
-		height: Dimensions.get("window").height * 0.1,
-		alignSelf: "flex-end",
+		width: "60%",
+		height: 40,
 	},
-	textStyle: {
-		alignSelf: "center",
+	numericalRatingsText: {
 		fontFamily: "APHontBold",
-		fontSize: 20,
+		fontSize: 30,
 	},
 	nameAndCancel: {
 		flexDirection: "row",
 		marginTop: 5,
-		marginBottom: 5,
-		justifyContent: "space-around",
+		marginBottom: 10,
+		marginHorizontal: 20,
+		justifyContent: "space-between",
+		alignItems: "center",
+		width: "90%",
+		// borderColor: "black",
+		// borderWidth: 3
 	},
 	placeName: {
 		fontSize: 30,
-		fontWeight: "bold",
+		width: "100%",
+		fontFamily: "APHontBold",
 	},
 });
 
