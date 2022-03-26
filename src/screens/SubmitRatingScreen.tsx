@@ -36,7 +36,8 @@ export interface SubmitRatingScreenProps {
 	previousRating?: Rating | null;
 }
 
-export type fieldInfo = {
+export type FieldInfo = {
+	avgFieldName: string;
 	fieldName: string;
 	ratingType: "numeric" | "yes/no";
 	renderText: string;
@@ -51,49 +52,58 @@ const MAX_COUNT = 5;
 const MIN_COUNT = 1;
 const INCREMENT_VAL = 0.5;
 
-export const fieldInfos: fieldInfo[] = [
+export const fieldInfos: FieldInfo[] = [
 	{
+		avgFieldName: "guideDogAvg",
 		fieldName: "guideDogFriendly",
 		ratingType: "numeric",
 		...S_GUIDE_DOG_FRIENDLINESS,
 	},
 	{
+		avgFieldName: "noiseLevelAvg",
 		fieldName: "noiseLevel",
 		ratingType: "numeric",
 		...S_NOISE_LEVEL,
 	},
 	{
+		avgFieldName: "lightingAvg",
 		fieldName: "lighting",
 		ratingType: "numeric",
 		...S_LIGHTING,
 	},
 	{
+		avgFieldName: "spacingAvg",
 		fieldName: "spacing",
 		ratingType: "numeric",
 		...S_SPACING,
 	},
 	{
+		avgFieldName: "isMenuAccessibleAvg",
 		fieldName: "isMenuAccessible",
 		ratingType: "yes/no",
 		...S_MENU_ACCESSIBLE,
 	},
 	{
+		avgFieldName: "isStaffHelpfulAvg",
 		fieldName: "isStaffHelpful",
 		ratingType: "yes/no",
 		...S_STAFF_HELPFULNESS,
 	},
 	{
+		avgFieldName: "isBathroomOnEntranceFloorAvg",
 		fieldName: "isBathroomOnEntranceFloor",
 		ratingType: "yes/no",
 		...S_BATHROOM_ENTRANCE_FLOOR,
 	},
 
 	{
+		avgFieldName: "isContactlessPaymentOfferedAvg",
 		fieldName: "isContactlessPaymentOffered",
 		ratingType: "yes/no",
 		...S_CONTACTLESS_PAYMENT,
 	},
 	{
+		avgFieldName: "isStairsRequiredAvg",
 		fieldName: "isStairsRequired",
 		ratingType: "yes/no",
 		...S_STAIRS_REQUIRED,
@@ -159,7 +169,7 @@ const handleSubmitButton = async (
 // Components
 
 const RatingCounter: React.FC<{
-	field: fieldInfo;
+	field: FieldInfo;
 	counter: {
 		[attribute: string]: number;
 	};

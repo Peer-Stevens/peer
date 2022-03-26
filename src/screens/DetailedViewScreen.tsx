@@ -11,7 +11,10 @@ import Screen from "../util/screens";
 import MapAnchor from "../components/MapAnchor";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { START_WALKING } from "../util/strings";
-import { namesToFieldsMap } from "peer-types";
+import { fieldsToNamesMap, namesToFieldsMap } from "peer-types";
+import { FieldInfo, fieldInfos } from "./SubmitRatingScreen";
+import { getPopUpProps } from "../util/strings";
+import { PopUp } from "../components/PopUp";
 
 export interface PlaceProps {
 	placeID: string;
@@ -22,8 +25,8 @@ const BodyText = (props: TextProps) => (
 	<Text
 		style={{
 			fontFamily: "APHont",
-			fontSize: 30,
-			lineHeight: 35,
+			fontSize: 20,
+			lineHeight: 20,
 			marginBottom: 15,
 		}}
 		{...props}
@@ -105,18 +108,12 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 							style={{
 								fontFamily: "APHontBold",
 								fontSize: 35,
+								marginTop: 15,
 							}}
 						>
 							{placeDetails.name}
 						</Text>
-						<MapAnchor
-							destination={placeDetails.name}
-							destination_place_id={placeID}
-							formatted_address={placeDetails.formatted_address}
-						>
-							<BodyText>{START_WALKING}</BodyText>
-							<Icon name="arrow-circle-right" size={100} />
-						</MapAnchor>
+
 						<BodyText ellipsizeMode="tail" numberOfLines={2}>
 							{placeDetails.formatted_address}
 						</BodyText>
@@ -125,17 +122,91 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 						>
 							{distanceInMi ? `${distanceInMi} mi away` : ""}
 						</BodyText>
-						{Object.entries(namesToFieldsMap).map(([attrName, rating], index) => {
-							const attribute = attrName;
-							const score = avgRatingLookup(rating);
-
-							return (
-								<View key={`rating${index}`}>
-									<Text>{attribute}</Text>
-									<Text>{score ?? "N/A"}</Text>
+						<MapAnchor
+							destination={placeDetails.name}
+							destination_place_id={placeID}
+							formatted_address={placeDetails.formatted_address}
+						>
+							<Button
+								style={{ ...styles.button, display: "flex" }}
+								onPress={() => {
+									return;
+								}}
+								accessibilityLabel="Submit an accessibility rating"
+							>
+								<View style={{ display: "flex", flexDirection: "row" }}>
+									<Icon name="map-marker" size={45} />
+									<Text
+										style={{
+											fontSize: 30,
+											lineHeight: 45,
+											marginLeft: 10,
+											marginTop: 5,
+											fontFamily: "APHontBold",
+										}}
+									>
+										{START_WALKING}
+									</Text>
 								</View>
-							);
-						})}
+							</Button>
+						</MapAnchor>
+						{Object.entries(placeDetails.accessibilityData ?? {}).map(
+							([attrName, rating], index) => {
+								const fieldInfo = fieldInfos.find(
+									fieldInfo => fieldInfo.avgFieldName === attrName
+								) as FieldInfo;
+								const isNumeric = fieldInfo?.ratingType === "numeric";
+								if (attrName === "guideDogAvg") attrName = "avgGuideDogFriendly";
+								if (["promotion", "_id"].includes(attrName)) return null;
+								let attribute = fieldsToNamesMap[attrName];
+								const score = rating;
+
+								// These are here to make some of the text more friendly for this view
+								if (attribute === "Menu Accessibility")
+									attribute = "Accessible Menu Offered";
+								if (attribute === "Staff Helpfulness") attribute = "Helpful Staff";
+
+								return (
+									<View
+										key={`rating${index}`}
+										style={{
+											display: "flex",
+											flexDirection: "row",
+											justifyContent: "space-between",
+											paddingVertical: 8,
+											borderBottomColor: "black",
+											borderBottomWidth: 1,
+										}}
+									>
+										<View style={{ width: "50%" }}>
+											<BodyText>{attribute}</BodyText>
+										</View>
+										<BodyText>
+											{isNumeric
+												? score ?? "No ratings"
+												: ["Yes", "No"][Math.round(score as number)]}
+										</BodyText>
+										<PopUp
+											fontSize={15}
+											style={styles.popUp}
+											accessibilityLabel={getPopUpProps(
+												fieldInfo.renderText,
+												"buttonAccessibilityLabel"
+											)}
+											text={"Help"}
+											modalAccessibilityLabel={getPopUpProps(
+												fieldInfo.fieldName,
+												"modalAccessibilityLabel"
+											)}
+											closeButtonAccessibilityLabel={"Close this pop up."}
+											closeButtonText={"Close"}
+										>
+											<Text>{fieldInfo.helpText}</Text>
+										</PopUp>
+									</View>
+								);
+							}
+						)}
 					</ScrollView>
 					<Button
 						style={styles.button}
@@ -173,6 +244,10 @@ const styles = StyleSheet.create({
 	button: {
 		width: "100%",
 		marginBottom: 10,
+	},
+	popUp: {
+		width: "20%",
+		height: 40,
 	},
 });
 

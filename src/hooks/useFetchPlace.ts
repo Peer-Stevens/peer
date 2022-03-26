@@ -3,6 +3,9 @@ import axios from "axios";
 import { SERVER_BASE_URL } from "../util/env";
 import { PlaceWithA11yData } from "peer-types";
 
+// in-memory cache to prevent a loading spinner when the user clicks on a place they've already checked
+const cachedPlaces: Record<string, PlaceWithA11yData> = {};
+
 export const useFetchPlace = ({
 	placeID,
 	includeRatings = true,
@@ -14,7 +17,11 @@ export const useFetchPlace = ({
 	isLoading: boolean;
 } => {
 	const [isLoading, setIsLoading] = useState(false);
-	const [placeDetails, setPlaceDetails] = useState<PlaceWithA11yData>();
+	const [placeDetails, setPlaceDetails] = useState<PlaceWithA11yData | undefined>(() => {
+		if (placeID) {
+			return cachedPlaces[placeID];
+		}
+	});
 
 	const getPlaceDetails = async (placeID: string) => {
 		const result = await axios.get<{ placeDetails: PlaceWithA11yData }>(
@@ -22,6 +29,8 @@ export const useFetchPlace = ({
 				includeRatings ? `includeRatings=true` : ``
 			}`
 		);
+		// cache the result (or update the cache if it's already cached)
+		cachedPlaces[placeID] = result.data.placeDetails;
 		setPlaceDetails(result.data.placeDetails);
 	};
 
