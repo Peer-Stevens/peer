@@ -12,7 +12,7 @@ import MapAnchor from "../components/MapAnchor";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { START_WALKING } from "../util/strings";
 import { fieldsToNamesMap, namesToFieldsMap } from "peer-types";
-import { FieldInfo, fieldInfos } from "./SubmitRatingScreen";
+import { FieldInfo, fieldInfos } from "./SubmitRatingScreen/SubmitRatingScreen";
 import { getPopUpProps } from "../util/strings";
 import { PopUp } from "../components/PopUp";
 

@@ -6,10 +6,10 @@ import { Button } from "../../components/Button";
 import { PopUp } from "../../components/PopUp";
 import BoundedDial from "../../util/boundedDial";
 import { getIncrementRatingButtonLabel, getPopUpProps } from "../../util/strings";
-import { fieldInfo } from "./SubmitRatingScreen";
+import { FieldInfo } from "./SubmitRatingScreen";
 
 const RatingCounter: React.FC<{
-	field: fieldInfo;
+	field: FieldInfo;
 	counter: {
 		[attribute: string]: BoundedDial<{
 			value: number | null;
