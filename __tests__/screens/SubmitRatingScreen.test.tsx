@@ -1,8 +1,9 @@
 import React from "react";
 import { cleanup, render, RenderAPI } from "@testing-library/react-native";
 import { S_GOBACK, S_SUBMIT, getIncrementRatingButtonLabel } from "../../src/util/strings";
-import SubmitRatingScreen, { DEFAULT_INTERIM_RATING } from "../../src/screens/SubmitRatingScreen";
-import { fieldInfos } from "../../src/screens/SubmitRatingScreen";
+import SubmitRatingScreen, {
+	fieldInfos,
+} from "../../src/screens/SubmitRatingScreen/SubmitRatingScreen";
 
 const mockNameString = "Julio's OneDrive Installation Services";
 const mockPlaceID = "oiluj";
@@ -29,19 +30,14 @@ describe("Submit rating screen tests", () => {
 		for (const fieldInfo of fieldInfos) {
 			expect(
 				tr.queryAllByLabelText(
-					getIncrementRatingButtonLabel(
-						true,
-						DEFAULT_INTERIM_RATING,
-						fieldInfo.renderText,
-						mockNameString
-					)
+					getIncrementRatingButtonLabel("N/A", "3", fieldInfo.renderText, mockNameString)
 				)
 			).not.toBeNull();
 			expect(
 				tr.queryAllByLabelText(
 					getIncrementRatingButtonLabel(
-						false,
-						DEFAULT_INTERIM_RATING,
+						"N/A",
+						"2.5",
 						fieldInfo.renderText,
 						mockNameString
 					)
@@ -65,20 +61,12 @@ describe("Submit rating screen tests", () => {
 		for (const fieldInfo of fieldInfos) {
 			expect(
 				tr.queryAllByLabelText(
-					getIncrementRatingButtonLabel(
-						true,
-						DEFAULT_INTERIM_RATING,
-						fieldInfo.renderText
-					)
+					getIncrementRatingButtonLabel("N/A", "3", fieldInfo.renderText)
 				)
 			).not.toBeNull();
 			expect(
 				tr.queryAllByLabelText(
-					getIncrementRatingButtonLabel(
-						false,
-						DEFAULT_INTERIM_RATING,
-						fieldInfo.renderText
-					)
+					getIncrementRatingButtonLabel("N/A", "2.5", fieldInfo.renderText)
 				)
 			).not.toBeNull();
 		}

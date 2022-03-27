@@ -75,16 +75,14 @@ export const MAP_ANCHOR_A11Y = "Tap to navigate to this place.";
  * @returns an a11y label
  */
 export const getIncrementRatingButtonLabel = (
-	increment: boolean,
-	interimRating: number,
+	interimRating: string,
+	newRating: string,
 	attribute: string,
 	placeName?: string
 ): string => {
-	const nextRatingAbove = interimRating + 0.5;
-	const nextRatingBelow = interimRating - 0.5;
-	return `${increment ? "Increase" : "Decrease"} your evaluation of ${
+	return `Change your evaluation of ${
 		placeName ? placeName : "this place"
-	}'s ${attribute} from ${interimRating} to ${increment ? nextRatingAbove : nextRatingBelow}`;
+	}'s ${attribute} from ${interimRating} to ${newRating}`;
 };
 
 /**
