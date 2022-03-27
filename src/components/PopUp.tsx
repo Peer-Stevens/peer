@@ -14,6 +14,7 @@ export interface PopUpProps {
 	closeButtonAccessibilityLabel: string;
 	closeButtonText: string;
 	style?: StyleProp<ViewStyle>;
+	fontSize?: number;
 }
 
 export const PopUp: React.FC<PopUpProps> = ({
@@ -25,9 +26,30 @@ export const PopUp: React.FC<PopUpProps> = ({
 	closeButtonText,
 	closeButtonAccessibilityLabel,
 	style,
+	fontSize,
 	children,
 }) => {
 	const [modalVisible, setModalVisible] = useState(false);
+
+	let button: React.ReactNode;
+	fontSize
+		? (button = (
+				<Button
+					onPress={() => setModalVisible(true)}
+					accessibilityLabel={accessibilityLabel}
+					accessibilityHint={accessibilityHint}
+					text={text}
+					fontSize={fontSize}
+				/>
+		  ))
+		: (button = (
+				<Button
+					onPress={() => setModalVisible(true)}
+					accessibilityLabel={accessibilityLabel}
+					accessibilityHint={accessibilityHint}
+					text={text}
+				/>
+		  ));
 
 	return (
 		<View
@@ -51,12 +73,7 @@ export const PopUp: React.FC<PopUpProps> = ({
 					/>
 				</View>
 			</Modal>
-			<Button
-				onPress={() => setModalVisible(true)}
-				accessibilityLabel={accessibilityLabel}
-				accessibilityHint={accessibilityHint}
-				text={text}
-			/>
+			{button}
 		</View>
 	);
 };

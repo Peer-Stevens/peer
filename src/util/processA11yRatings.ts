@@ -1,15 +1,23 @@
-import { PlaceWithAccesibilityData } from "./placeTypes";
+import { PlaceWithA11yData } from "peer-types";
 
-export const getAverageA11yRating = (place: PlaceWithAccesibilityData): number => {
+export const getAverageA11yRating = (place: PlaceWithA11yData): number => {
 	if (!place.accessibilityData) return -1;
 	// add each of the average field values together
 	const total =
-		Number(place.accessibilityData.avgBraille) +
-		Number(place.accessibilityData.avgFontReadability) +
-		Number(place.accessibilityData.avgGuideDogFriendly) +
-		Number(place.accessibilityData.avgNavigability) +
-		Number(place.accessibilityData.avgStaffHelpfulness);
-	const count = 5;
+		Number(place.accessibilityData.spacingAvg) +
+		Number(place.accessibilityData.guideDogAvg) +
+		Number(place.accessibilityData.lightingAvg) +
+		Number(place.accessibilityData.noiseLevelAvg) +
+		Number(place.accessibilityData.isStaffHelpfulAvg) * 5 +
+		Number(place.accessibilityData.isMenuAccessibleAvg) * 5 +
+		Number(place.accessibilityData.isStairsRequiredAvg) * 5 +
+		Number(place.accessibilityData.isBathroomOnEntranceFloorAvg) * 5 +
+		Number(place.accessibilityData.isContactlessPaymentOfferedAvg) * 5;
+
+	const count = Object.entries(place.accessibilityData).filter(
+		([, value]) => typeof value === "number" && value >= 0
+	).length;
+
 	return total / count;
 };
 
@@ -22,5 +30,5 @@ export const accessibilityRatingToString = (rating: number): string => {
 	else return "no";
 };
 
-export const getPlaceRatingString = (place: PlaceWithAccesibilityData): string =>
+export const getPlaceRatingString = (place: PlaceWithA11yData): string =>
 	accessibilityRatingToString(getAverageA11yRating(place));

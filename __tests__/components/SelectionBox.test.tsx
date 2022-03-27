@@ -2,31 +2,26 @@ import React from "react";
 import { cleanup, render, fireEvent, waitFor, RenderAPI } from "@testing-library/react-native";
 import { enabledFiltersMap } from "../../src/components/SelectionBox";
 import { useNearbyPlaces } from "../../src/hooks/useNearbyPlaces";
-import {
-	PlaceDetailsWithAccesibilityData,
-	PlaceWithAccesibilityData,
-} from "../../src/util/placeTypes";
+import { PlaceWithA11yData } from "peer-types";
 import { useFetchPlace } from "../../src/hooks/useFetchPlace";
 import MainScreen from "../../src/screens/MainScreen";
 
 jest.mock("../../src/hooks/useNearbyPlaces");
 const mockUseNearbyPlaces = useNearbyPlaces as jest.MockedFunction<typeof useNearbyPlaces>;
 mockUseNearbyPlaces.mockImplementation(
-	(placeType?): { nearbyPlaces: PlaceWithAccesibilityData[] | undefined } => {
+	(placeType?): { nearbyPlaces: PlaceWithA11yData[] | undefined } => {
 		if (placeType === "") {
-			return { nearbyPlaces: [{ name: "Could be anywhere" } as PlaceWithAccesibilityData] };
+			return { nearbyPlaces: [{ name: "Could be anywhere" } as PlaceWithA11yData] };
 		}
-		return { nearbyPlaces: [{ name: "Gotta be a place to eat" } as PlaceWithAccesibilityData] };
+		return { nearbyPlaces: [{ name: "Gotta be a place to eat" } as PlaceWithA11yData] };
 	}
 );
 
 jest.mock("../../src/hooks/useFetchPlace");
 const mockUseFetchPlace = useFetchPlace as jest.MockedFunction<typeof useFetchPlace>;
 
-const mockPlaceDetails: PlaceDetailsWithAccesibilityData = {
-	result: {
-		place_id: "oiluj",
-	},
+const mockPlaceDetails: PlaceWithA11yData = {
+	place_id: "oiluj",
 };
 
 mockUseFetchPlace.mockReturnValue({

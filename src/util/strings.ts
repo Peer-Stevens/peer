@@ -40,6 +40,7 @@ export const S_STAIRS_REQUIRED = {
 
 export const S_SUBMIT = "Submit";
 export const S_CANCEL = "Cancel";
+export const S_GOBACK = "Go Back";
 export const START_WALKING = "Start walking here";
 export const MAP_ANCHOR_A11Y = "Tap to navigate to this place.";
 

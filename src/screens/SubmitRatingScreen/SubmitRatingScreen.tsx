@@ -3,7 +3,6 @@ import { ScrollView, View, Text, StyleSheet } from "react-native";
 import { PlaceImage } from "../../components/PlaceImage";
 import { Button } from "../../components/Button";
 import {
-	S_CANCEL,
 	S_SUBMIT,
 	S_GUIDE_DOG_FRIENDLINESS,
 	S_NOISE_LEVEL,
@@ -14,6 +13,7 @@ import {
 	S_CONTACTLESS_PAYMENT,
 	S_BATHROOM_ENTRANCE_FLOOR,
 	S_STAIRS_REQUIRED,
+	S_GOBACK,
 } from "../../util/strings";
 import Screen from "../../util/screens";
 import { buildRatingValuesDial, Rating, ratingToIndex } from "../../util/ratingTypes";
@@ -193,16 +193,29 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 
 	return (
 		<ScrollView>
-			<PlaceImage photoref={photo_reference} placeName={placeName} />
+			<PlaceImage
+				photoref={photo_reference}
+				placeName={placeName}
+				style={{
+					width: "100%",
+					height: "40%",
+				}}
+			/>
 			<View style={styles.nameAndCancel}>
-				<Text style={styles.placeName}>{placeName}</Text>
-				<Button
-					text={S_CANCEL}
-					accessibilityLabel={S_CANCEL}
-					onPress={() => {
-						setPage(Screen.Details);
-					}}
-				/>
+				<View style={{ width: "50%" }}>
+					<Text adjustsFontSizeToFit={true} numberOfLines={2} style={styles.placeName}>
+						{placeName}
+					</Text>
+				</View>
+				<View>
+					<Button
+						text={S_GOBACK}
+						accessibilityLabel={S_GOBACK}
+						onPress={() => {
+							setPage(Screen.Details);
+						}}
+					/>
+				</View>
 			</View>
 			{fieldInfos.map((field, index) => (
 				<RatingCounter
@@ -215,11 +228,20 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 					placeName={placeName}
 				/>
 			))}
-			<Button
-				text={S_SUBMIT}
-				accessibilityLabel={S_SUBMIT}
-				onPress={() => void handleSubmitButton(counter, yesNoCounter, placeID)}
-			/>
+			<View
+				style={{
+					alignSelf: "center",
+					marginTop: 10,
+					marginBottom: 30,
+					width: "90%",
+				}}
+			>
+				<Button
+					text={S_SUBMIT}
+					accessibilityLabel={S_SUBMIT}
+					onPress={() => void handleSubmitButton(counter, yesNoCounter, placeID)}
+				/>
+			</View>
 		</ScrollView>
 	);
 };
@@ -228,12 +250,16 @@ const styles = StyleSheet.create({
 	nameAndCancel: {
 		flexDirection: "row",
 		marginTop: 5,
-		marginBottom: 5,
-		justifyContent: "space-around",
+		marginBottom: 10,
+		marginHorizontal: 20,
+		justifyContent: "space-between",
+		alignItems: "center",
+		width: "90%",
 	},
 	placeName: {
 		fontSize: 30,
-		fontWeight: "bold",
+		width: "100%",
+		fontFamily: "APHontBold",
 	},
 });
 

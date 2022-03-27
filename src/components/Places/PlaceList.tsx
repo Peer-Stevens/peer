@@ -21,7 +21,6 @@ const PlaceList = ({ goToDetails, setPlaceID, selectedFilter }: PlaceListProps):
 			<PlaceCard
 				key={index}
 				placeName={place.name}
-				address={place.formatted_address}
 				photoref={photo}
 				location={location}
 				latitude={place.geometry?.location.lat}
@@ -34,6 +33,8 @@ const PlaceList = ({ goToDetails, setPlaceID, selectedFilter }: PlaceListProps):
 						? Math.round(getAverageA11yRating(place) * 2) / 2
 						: undefined
 				}
+				isPromoted={place.isPromoted}
+				spendAmount={place.spend_amount}
 			/>
 		);
 	});

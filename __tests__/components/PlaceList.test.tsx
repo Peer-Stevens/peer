@@ -3,10 +3,7 @@ import { cleanup, render } from "@testing-library/react-native";
 import { useNearbyPlaces } from "../../src/hooks/useNearbyPlaces";
 import { PlacePhoto } from "@googlemaps/google-maps-services-js";
 import { computeDistanceMi } from "../../src/util/distance";
-import {
-	PlaceDetailsWithAccesibilityData,
-	PlaceWithAccesibilityData,
-} from "../../src/util/placeTypes";
+import { PlaceWithA11yData } from "peer-types";
 import { useFetchPlace } from "../../src/hooks/useFetchPlace";
 import MainScreen from "../../src/screens/MainScreen";
 
@@ -28,18 +25,26 @@ const mockPhotosField: PlacePhoto[] = [
 		html_attributions: [],
 	},
 ];
-const mockPlaces: PlaceWithAccesibilityData[] = [
+const mockPlaces: PlaceWithA11yData[] = [
 	{
 		name: "The Absolute Best Place in the Whole Wide World",
 		formatted_address: "312 Jones Pl",
 		photos: mockPhotosField,
 		accessibilityData: {
 			_id: "andhous",
-			avgBraille: 5,
-			avgFontReadability: 5,
-			avgGuideDogFriendly: 5,
-			avgNavigability: 5,
-			avgStaffHelpfulness: 5,
+			spacingAvg: 5,
+			guideDogAvg: 5,
+			lightingAvg: 5,
+			noiseLevelAvg: 5,
+			isStaffHelpfulAvg: 1.0,
+			isMenuAccessibleAvg: 1.0,
+			isBathroomOnEntranceFloorAvg: 1.0,
+			isContactlessPaymentOfferedAvg: 1.0,
+			isStairsRequiredAvg: 1.0,
+			promotion: {
+				monthly_budget: 0,
+				max_cpc: 0,
+			},
 		},
 	},
 	{
@@ -48,11 +53,19 @@ const mockPlaces: PlaceWithAccesibilityData[] = [
 		photos: mockPhotosField,
 		accessibilityData: {
 			_id: "microsoft",
-			avgBraille: 0,
-			avgFontReadability: 0,
-			avgGuideDogFriendly: 0,
-			avgNavigability: 0,
-			avgStaffHelpfulness: 0,
+			spacingAvg: 0,
+			guideDogAvg: 0,
+			lightingAvg: 0,
+			noiseLevelAvg: 0,
+			isStaffHelpfulAvg: 0,
+			isMenuAccessibleAvg: 0,
+			isBathroomOnEntranceFloorAvg: 0,
+			isContactlessPaymentOfferedAvg: 0,
+			isStairsRequiredAvg: 0,
+			promotion: {
+				monthly_budget: 0,
+				max_cpc: 0,
+			},
 		},
 	},
 	{
@@ -61,11 +74,19 @@ const mockPlaces: PlaceWithAccesibilityData[] = [
 		photos: undefined,
 		accessibilityData: {
 			_id: "margs",
-			avgBraille: 3.5,
-			avgFontReadability: 3.5,
-			avgGuideDogFriendly: 3.5,
-			avgNavigability: 3.5,
-			avgStaffHelpfulness: 3.5,
+			spacingAvg: 3.5,
+			guideDogAvg: 3.5,
+			lightingAvg: 3.5,
+			noiseLevelAvg: 3.5,
+			isStaffHelpfulAvg: 0.8,
+			isMenuAccessibleAvg: 0.7,
+			isBathroomOnEntranceFloorAvg: 0.9,
+			isContactlessPaymentOfferedAvg: 0.2,
+			isStairsRequiredAvg: 1.0,
+			promotion: {
+				monthly_budget: 0,
+				max_cpc: 0,
+			},
 		},
 	},
 ];
@@ -74,10 +95,8 @@ mockNearbyPlaces.mockReturnValue({ nearbyPlaces: mockPlaces });
 jest.mock("../../src/hooks/useFetchPlace");
 const mockUseFetchPlace = useFetchPlace as jest.MockedFunction<typeof useFetchPlace>;
 
-const mockPlaceDetails: PlaceDetailsWithAccesibilityData = {
-	result: {
-		place_id: "oiluj",
-	},
+const mockPlaceDetails: PlaceWithA11yData = {
+	place_id: "oiluj",
 };
 
 mockUseFetchPlace.mockReturnValue({
@@ -94,17 +113,6 @@ describe("Place list tests", () => {
 		for (const mockPlace of mockPlaces) {
 			if (!mockPlace.name) continue; // should never happen
 			expect(getByText(mockPlace.name)).toBeDefined();
-		}
-	});
-
-	it("renders the place address", () => {
-		// Arrange
-		const { getByText } = render(<MainScreen />);
-
-		// Assert
-		for (const mockPlace of mockPlaces) {
-			if (!mockPlace.formatted_address) continue; // should never happen
-			expect(getByText(mockPlace.formatted_address)).toBeDefined();
 		}
 	});
 
