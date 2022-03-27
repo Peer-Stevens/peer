@@ -48,31 +48,17 @@ export const Button: React.FC<ButtonProps> = ({
 	let display: React.ReactNode;
 
 	if (text) {
-		if (fontSize) {
-			display = (
-				<Text
-					style={{
-						color: textColor,
-						fontSize: fontSize,
-						fontFamily: "APHontBold",
-					}}
-				>
-					{text}
-				</Text>
-			);
-		} else {
-			display = (
-				<Text
-					style={{
-						color: textColor,
-						fontSize: 30,
-						fontFamily: "APHontBold",
-					}}
-				>
-					{text}
-				</Text>
-			);
-		}
+		display = (
+			<Text
+				style={{
+					color: textColor,
+					fontSize: fontSize || 30,
+					fontFamily: "APHontBold",
+				}}
+			>
+				{text}
+			</Text>
+		);
 	} else if (image) {
 		display = <Icon name={image} color={textColor} size={30} />;
 	} else if (children) {

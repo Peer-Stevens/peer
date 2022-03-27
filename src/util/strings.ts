@@ -12,36 +12,55 @@
  */
 
 // TODO: fill in helpText when the new rating metrics are added in https://github.com/Peer-Stevens/peer/issues/256
-export const S_NOISE_LEVEL = { renderText: "Noise Level", helpText: "TODO" };
-export const S_LIGHTING = { renderText: "Lighting", helpText: "TODO" };
-export const S_SPACING = { renderText: "Spacing", helpText: "TODO" };
-export const S_GUIDE_DOG_FRIENDLINESS = { renderText: "Guide Dog Friendliness", helpText: "TODO" };
+export const S_NOISE_LEVEL = {
+	renderText: "Noise Level",
+	helpText:
+		"A lower rating may indicate that the restaurant is loud enough to be disorienting, distracting, or too noisy to communicate. Higher ratings indicate that users felt comfortable with the noise level in the restaurant.",
+};
+export const S_LIGHTING = {
+	renderText: "Lighting",
+	helpText:
+		"For users who have sensitivity to light, a lower rating may indicate a restaurant which is too bright or too dark. Higher ratings indicate that light-sensitive users felt comfortable with the lighting in the restaurant.",
+};
+export const S_SPACING = {
+	renderText: "Spacing",
+	helpText:
+		"Higher ratings indicate that the restaurant's layout is open and spaced out enough for customer to navigate without feeling cramped or overwhelmed.",
+};
+export const S_GUIDE_DOG_FRIENDLINESS = {
+	renderText: "Guide Dog Friendliness",
+	helpText:
+		"Higher ratings indicate that the staff are accepting of guide dogs, and the restaurant environment is not distracting to guide dogs.",
+};
 export const S_STAFF_HELPFULNESS = {
-	renderText:
-		"Were the staff helpful and polite when you made request regarding your accomodations?",
-	helpText: "TODO",
+	renderText: "Staff helpfulness and politness, especially regarding customer accomodations.",
+	helpText:
+		"Lower ratings can indicate bad experiences with staff or mistreatment of customers. Higher ratings indicate that the staff are helpful to customers and are respectful of their needs.",
 };
 export const S_MENU_ACCESSIBLE = {
-	renderText: "Could you easily find an accessible menu? (Braille or screen-reader compatible)",
-	helpText: "TODO",
+	renderText: "Menu Accessibility",
+	helpText:
+		"Does the restaurant have a menu that was accessible to you? Some examples include a screen-reader-compatible website menu, or a braille menu.",
 };
 export const S_BATHROOM_ENTRANCE_FLOOR = {
-	renderText: "Is the bathroom on the first floor?",
-	helpText: "TODO",
+	renderText: "First Floor Bathroom",
+	helpText: "Does the restaurant have an accessible bathroom on the first floor?",
 };
 export const S_CONTACTLESS_PAYMENT = {
-	renderText: "Could you pay using contactless payment? (Apple Pay, etc.)",
-	helpText: "TODO",
+	renderText: "Contactless Payment",
+	helpText:
+		"Could you pay for your meal using contactless payment? Examples include Apple Pay or Android Pay.",
 };
 export const S_STAIRS_REQUIRED = {
-	renderText: "Did you have to walk up stairs to receive service?",
-	helpText: "TODO",
+	renderText: "Stairs",
+	helpText:
+		"Were there stairs required for you to get into the restaurant? Or, is there a way to get into the restaurant without stairs?",
 };
 
 export const S_SUBMIT = "Submit";
 export const S_CANCEL = "Cancel";
 export const S_GOBACK = "Go Back";
-export const START_WALKING = "Start walking here";
+export const START_WALKING = "Open in Maps";
 export const MAP_ANCHOR_A11Y = "Tap to navigate to this place.";
 
 // Functions
@@ -80,7 +99,7 @@ export const getPopUpProps = (
 
 	switch (propsType) {
 		case "buttonAccessibilityLabel":
-			displayString = `Press this button to find out more about the ${attribute} rating.`;
+			displayString = `Press this button to find out more about the rating for ${attribute}.`;
 			break;
 		case "modalAccessibilityLabel":
 			displayString = `A pop up that explains ${attribute}.`;
