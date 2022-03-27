@@ -65,26 +65,6 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 		};
 		const distanceInMi = computeDistanceMi(userCoords, placeCoord)?.toPrecision(2);
 
-		/**
-		 * Function that dynamically finds the avg rating on a place using the namesToFieldsMap object and placeDetails
-		 * @param key
-		 * @returns Object containing the attribute name as the key and the avg rating as the value
-		 */
-		const avgRatingLookup = (key: string): number => {
-			const avgs: { [attribute: string]: number } = {};
-			for (const [key, value] of Object.entries(namesToFieldsMap)) {
-				let avgRating!: number;
-
-				// _id is a number and a key in this object, so this check makes TS happy
-				if (typeof value !== "string" && placeDetails.accessibilityData) {
-					avgRating = placeDetails.accessibilityData[value];
-				}
-
-				avgs[key] = avgRating;
-			}
-			return avgs[key];
-		};
-
 		return (
 			<View style={{ flex: 1 }}>
 				<PlaceImage
