@@ -5,8 +5,6 @@
  * String constants have the S_ prefix.
  */
 
-import { RatingValue } from "./ratingTypes";
-
 // Constants
 
 /**
@@ -57,16 +55,14 @@ export const MAP_ANCHOR_A11Y = "Tap to navigate to this place.";
  * @returns an a11y label
  */
 export const getIncrementRatingButtonLabel = (
-	increment: boolean,
-	interimRating: number,
+	interimRating: string,
+	newRating: string,
 	attribute: string,
 	placeName?: string
 ): string => {
-	const nextRatingAbove = interimRating + 0.5;
-	const nextRatingBelow = interimRating - 0.5;
-	return `${increment ? "Increase" : "Decrease"} your evaluation of ${
+	return `Change your evaluation of ${
 		placeName ? placeName : "this place"
-	}'s ${attribute} from ${interimRating} to ${increment ? nextRatingAbove : nextRatingBelow}`;
+	}'s ${attribute} from ${interimRating} to ${newRating}`;
 };
 
 /**
@@ -97,17 +93,4 @@ export const getPopUpProps = (
 
 export const getMapAnchorA11yLabel = (destination: string) => {
 	return `Tap to navigate to ${destination}`;
-};
-
-export const ratingStringsMap: Record<RatingValue, string> = {
-	1: "1",
-	1.5: "1.5",
-	2: "2",
-	2.5: "2.5",
-	3: "N/A",
-	3.5: "3",
-	4: "3.5",
-	4.5: "4",
-	5: "4.5",
-	5.5: "5",
 };

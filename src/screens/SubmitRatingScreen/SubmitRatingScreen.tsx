@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { ScrollView, View, Text, StyleSheet, Dimensions } from "react-native";
-import { PlaceImage } from "../components/PlaceImage";
-import { Button } from "../components/Button";
+import { ScrollView, View, Text, StyleSheet } from "react-native";
+import { PlaceImage } from "../../components/PlaceImage";
+import { Button } from "../../components/Button";
 import {
 	S_CANCEL,
 	S_SUBMIT,
@@ -14,19 +14,16 @@ import {
 	S_CONTACTLESS_PAYMENT,
 	S_BATHROOM_ENTRANCE_FLOOR,
 	S_STAIRS_REQUIRED,
-	getIncrementRatingButtonLabel,
-	getPopUpProps,
-	ratingStringsMap,
-} from "../util/strings";
-import Screen from "../util/screens";
-import { Rating, RatingValue, ratingValuesMap } from "../util/ratingTypes";
+} from "../../util/strings";
+import Screen from "../../util/screens";
+import { buildRatingValuesDial, Rating, ratingToIndex } from "../../util/ratingTypes";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Place as GooglePlace } from "@googlemaps/google-maps-services-js";
-import { SERVER_BASE_URL } from "../util/env";
-import { PopUp } from "../components/PopUp";
-import CheckBox from "react-native-check-box";
+import { SERVER_BASE_URL } from "../../util/env";
 import { YesNoRating } from "peer-types";
+import RatingCounter from "./RatingCounter";
+import BoundedDial from "../../util/boundedDial";
 
 // Types
 export interface SubmitRatingScreenProps {
@@ -46,11 +43,8 @@ export type fieldInfo = {
 
 // Constants
 
-export const DEFAULT_INTERIM_RATING = RatingValue.NOT_ASSESSED;
+export const DEFAULT_INTERIM_RATING = null;
 const DEFAULT_YES_NO_RATING = 0;
-const MAX_COUNT = RatingValue.FIVE;
-const MIN_COUNT = RatingValue.ONE;
-const INCREMENT_VAL = 0.5;
 
 export const fieldInfos: fieldInfo[] = [
 	{
@@ -122,7 +116,7 @@ const submitRating = async (
 ) => {
 	if (!request_body.email || !request_body.token) {
 		// there is some sort of invalid state here, not sure if
-		// throw error is appropritate though
+		// throwing an error is appropriate though
 		return;
 	}
 
@@ -135,7 +129,7 @@ const submitRating = async (
 };
 
 const handleSubmitButton = async (
-	counter: { [attribute: string]: RatingValue },
+	counter: { [attribute: string]: BoundedDial<{ value: number | null; text: string }> },
 	yesNoCounter: { [attribute: string]: YesNoRating },
 	placeID: string | undefined
 ) => {
@@ -145,149 +139,17 @@ const handleSubmitButton = async (
 		email: email,
 		token: token,
 		placeID: placeID,
-		guideDogFriendly: ratingValuesMap[counter.guideDogFriendly],
+		guideDogFriendly: counter.guideDogFriendly.current().value,
 		isMenuAccessible: yesNoCounter.isMenuAccessible,
-		noiseLevel: ratingValuesMap[counter.noiseLevel],
+		noiseLevel: counter.noiseLevel.current().value,
 		isStaffHelpful: yesNoCounter.isStaffHelpful,
 		isBathroomOnEntranceFloor: yesNoCounter.isBathroomOnEntranceFloor,
 		isContactlessPaymentOffered: yesNoCounter.isContactlessPaymentOffered,
-		lighting: ratingValuesMap[counter.lighting],
+		lighting: counter.lighting.current().value,
 		isStairsRequired: yesNoCounter.isStairsRequired,
-		spacing: ratingValuesMap[counter.spacing],
+		spacing: counter.spacing.current().value,
 	};
 	await submitRating(ratingToSubmit);
-};
-
-// Components
-
-const RatingCounter: React.FC<{
-	field: fieldInfo;
-	counter: {
-		[attribute: string]: RatingValue;
-	};
-	setCounter: React.Dispatch<
-		React.SetStateAction<{
-			[attribute: string]: RatingValue;
-		}>
-	>;
-	yesNoCounter: {
-		[attribute: string]: YesNoRating;
-	};
-	setYesNoCounter: React.Dispatch<
-		React.SetStateAction<{
-			[attribute: string]: YesNoRating;
-		}>
-	>;
-	placeName?: string;
-}> = ({ field, counter, setCounter, yesNoCounter, setYesNoCounter, placeName }) => {
-	if (field.ratingType === "numeric") {
-		const count = counter[field.fieldName];
-		return (
-			<View style={styles.numericalRatingOptions}>
-				<Button
-					iconName={"minus"}
-					accessibilityLabel={getIncrementRatingButtonLabel(
-						true,
-						count,
-						field.renderText,
-						placeName
-					)}
-					onPress={() => {
-						if (count === MIN_COUNT) {
-							return;
-						}
-						setCounter({
-							...counter,
-							[field.fieldName]: count - INCREMENT_VAL,
-						});
-					}}
-				/>
-				<View style={{ flexDirection: "column" }}>
-					<Text style={styles.textStyle}>{field.renderText}</Text>
-					<Text style={styles.textStyle}>{ratingStringsMap[count]}</Text>
-					<PopUp
-						style={styles.popUp}
-						accessibilityLabel={getPopUpProps(
-							field.renderText,
-							"buttonAccessibilityLabel"
-						)}
-						text={"Help"}
-						modalAccessibilityLabel={getPopUpProps(
-							field.fieldName,
-							"modalAccessibilityLabel"
-						)}
-						closeButtonAccessibilityLabel={"Close this pop up."}
-						closeButtonText={"Close"}
-					>
-						<Text>{field.helpText}</Text>
-					</PopUp>
-				</View>
-				<Button
-					iconName={"plus"}
-					accessibilityLabel={getIncrementRatingButtonLabel(
-						false,
-						count,
-						field.renderText,
-						placeName
-					)}
-					onPress={() => {
-						if (count === MAX_COUNT) {
-							return;
-						}
-						setCounter({
-							...counter,
-							[field.fieldName]: count + INCREMENT_VAL,
-						});
-					}}
-				/>
-			</View>
-		);
-	} else {
-		// thus, field.ratingType === "yes/no"
-
-		return (
-			<View style={styles.yesNoRatingOptions}>
-				<View style={{ flex: 5 }}>
-					<Text style={{ fontSize: 25 }}>{field.renderText}</Text>
-					<PopUp
-						accessibilityLabel={getPopUpProps(
-							field.renderText,
-							"buttonAccessibilityLabel"
-						)}
-						text={"Help"}
-						modalAccessibilityLabel={getPopUpProps(
-							field.fieldName,
-							"modalAccessibilityLabel"
-						)}
-						closeButtonAccessibilityLabel={"Close this pop up."}
-						closeButtonText={"Close"}
-					>
-						<Text ellipsizeMode="tail" numberOfLines={1}>
-							{field.helpText}
-						</Text>
-					</PopUp>
-				</View>
-				<CheckBox
-					style={{ flex: 2 }}
-					onClick={() => {
-						if (yesNoCounter[field.fieldName] === 0) {
-							setYesNoCounter({
-								...yesNoCounter,
-								[field.fieldName]: 1,
-							});
-						} else {
-							// thus, yesNoCounter[field.fieldName]  === 1
-							setYesNoCounter({
-								...yesNoCounter,
-								[field.fieldName]: 0,
-							});
-						}
-					}}
-					isChecked={counter[field.fieldName] === 1}
-				/>
-			</View>
-		);
-	}
 };
 
 const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
@@ -298,12 +160,18 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 	previousRating,
 }: SubmitRatingScreenProps) => {
 	const [counter, setCounter] = useState(
-		fieldInfos.reduce<{ [attribute: string]: RatingValue }>(function (countersMap, field) {
+		fieldInfos.reduce<{
+			[attribute: string]: BoundedDial<{ value: number | null; text: string }>;
+		}>(function (countersMap, field) {
 			if (field.ratingType === "numeric") {
 				if (previousRating && previousRating[field.fieldName]) {
-					countersMap[field.fieldName] = previousRating[field.fieldName] as RatingValue;
+					countersMap[field.fieldName] = buildRatingValuesDial(
+						ratingToIndex(previousRating[field.fieldName] as number)
+					);
 				} else {
-					countersMap[field.fieldName] = DEFAULT_INTERIM_RATING;
+					countersMap[field.fieldName] = buildRatingValuesDial(
+						ratingToIndex(DEFAULT_INTERIM_RATING)
+					);
 				}
 			}
 			return countersMap;
@@ -357,29 +225,6 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 };
 
 const styles = StyleSheet.create({
-	numericalRatingOptions: {
-		flexDirection: "row",
-		width: Dimensions.get("window").width,
-		marginTop: 5,
-		marginBottom: 5,
-		justifyContent: "space-evenly",
-	},
-	yesNoRatingOptions: {
-		flexDirection: "row",
-		width: Dimensions.get("window").width,
-		marginTop: 5,
-		marginBottom: 5,
-	},
-	popUp: {
-		width: Dimensions.get("window").width * 0.5,
-		height: Dimensions.get("window").height * 0.1,
-		alignSelf: "flex-end",
-	},
-	textStyle: {
-		alignSelf: "center",
-		fontFamily: "APHontBold",
-		fontSize: 20,
-	},
 	nameAndCancel: {
 		flexDirection: "row",
 		marginTop: 5,

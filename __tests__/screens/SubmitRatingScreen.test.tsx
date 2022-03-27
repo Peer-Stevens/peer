@@ -1,8 +1,10 @@
 import React from "react";
 import { cleanup, render, RenderAPI } from "@testing-library/react-native";
 import { S_CANCEL, S_SUBMIT, getIncrementRatingButtonLabel } from "../../src/util/strings";
-import SubmitRatingScreen, { DEFAULT_INTERIM_RATING } from "../../src/screens/SubmitRatingScreen";
-import { fieldInfos } from "../../src/screens/SubmitRatingScreen";
+import SubmitRatingScreen, {
+	DEFAULT_INTERIM_RATING,
+} from "../../src/screens/SubmitRatingScreen/SubmitRatingScreen";
+import { fieldInfos } from "../../src/screens/SubmitRatingScreen/SubmitRatingScreen";
 
 const mockNameString = "Julio's OneDrive Installation Services";
 const mockPlaceID = "oiluj";

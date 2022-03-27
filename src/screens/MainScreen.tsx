@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import StrollScreen from "./StrollScreen";
 import MapScreen from "./MapScreen";
 import DetailedViewScreen from "./DetailedViewScreen";
-import SubmitRatingScreen from "./SubmitRatingScreen";
+import SubmitRatingScreen from "./SubmitRatingScreen/SubmitRatingScreen";
 import { useFetchPlace } from "../hooks/useFetchPlace";
 import LogInScreen from "./LoginScreen";
 import CreateAccountScreen from "./CreateAccountScreen";
