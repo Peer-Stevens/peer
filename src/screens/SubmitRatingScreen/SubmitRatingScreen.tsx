@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ScrollView, View, Text, StyleSheet } from "react-native";
+import { ScrollView, View, Text, StyleSheet, Dimensions } from "react-native";
 import { PlaceImage } from "../../components/PlaceImage";
 import { Button } from "../../components/Button";
 import {
@@ -208,7 +208,7 @@ const SubmitRatingScreen: React.FC<SubmitRatingScreenProps> = ({
 				placeName={placeName}
 				style={{
 					width: "100%",
-					height: "40%",
+					height: 0.4 * Dimensions.get("window").height,
 				}}
 			/>
 			<View style={styles.nameAndCancel}>

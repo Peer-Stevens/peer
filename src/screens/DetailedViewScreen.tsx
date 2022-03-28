@@ -36,6 +36,8 @@ const BodyText = (props: TextProps) => (
 const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlaceProps) => {
 	const [tokenExists, setTokenExists] = useState(false);
 
+	const [isOpenInMapsTapped, setIsOpenInMapsTapped] = useState<boolean>(false);
+
 	useEffect(() => {
 		const checkForToken = async () => {
 			const key = await AsyncStorage.getItem("@auth_token");
@@ -106,16 +108,29 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 							destination={placeDetails.name}
 							destination_place_id={placeID}
 							formatted_address={placeDetails.formatted_address}
+							callback={setIsOpenInMapsTapped}
 						>
-							<Button
-								style={{ ...styles.button, display: "flex" }}
-								onPress={() => {
-									return;
+							<View
+								style={{
+									...styles.button,
+									display: "flex",
+									flexDirection: "row",
+									alignItems: "center",
+									justifyContent: "center",
+									paddingHorizontal: 15,
+									paddingVertical: 10,
+									backgroundColor: isOpenInMapsTapped ? "black" : "white",
+									borderWidth: 3,
+									borderColor: "black",
 								}}
 								accessibilityLabel="Submit an accessibility rating"
 							>
 								<View style={{ display: "flex", flexDirection: "row" }}>
-									<Icon name="map-marker" size={45} />
+									<Icon
+										name="map-marker"
+										size={45}
+										color={isOpenInMapsTapped ? "white" : "black"}
+									/>
 									<Text
 										style={{
 											fontSize: 30,
@@ -123,12 +138,13 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 											marginLeft: 10,
 											marginTop: 5,
 											fontFamily: "APHontBold",
+											color: isOpenInMapsTapped ? "white" : "black",
 										}}
 									>
 										{START_WALKING}
 									</Text>
 								</View>
-							</Button>
+							</View>
 						</MapAnchor>
 						{Object.entries(placeDetails.accessibilityData ?? {}).map(
 							([attrName, rating], index) => {
