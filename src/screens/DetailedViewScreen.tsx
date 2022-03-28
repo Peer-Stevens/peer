@@ -181,7 +181,9 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 											closeButtonAccessibilityLabel={"Close this pop up."}
 											closeButtonText={"Close"}
 										>
-											<Text>{fieldInfo.helpText}</Text>
+											<Text style={{ fontSize: 40 }}>
+												{fieldInfo.helpText}
+											</Text>
 										</PopUp>
 									</View>
 								);
