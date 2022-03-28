@@ -11,7 +11,8 @@ import Screen from "../util/screens";
 import MapAnchor from "../components/MapAnchor";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { START_WALKING } from "../util/strings";
-import { fieldsToNamesMap, namesToFieldsMap } from "peer-types";
+import { fieldsToNamesMap } from "peer-types";
+import { PRIMARY_COLOR, TEXT_COLOR } from "../util/colors";
 import { FieldInfo, fieldInfos } from "./SubmitRatingScreen/SubmitRatingScreen";
 import { getPopUpProps } from "../util/strings";
 import { PopUp } from "../components/PopUp";
@@ -119,7 +120,9 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 									justifyContent: "center",
 									paddingHorizontal: 15,
 									paddingVertical: 10,
-									backgroundColor: isOpenInMapsTapped ? "black" : "white",
+									backgroundColor: isOpenInMapsTapped
+										? TEXT_COLOR
+										: PRIMARY_COLOR,
 									borderWidth: 3,
 									borderColor: "black",
 								}}
@@ -129,7 +132,7 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 									<Icon
 										name="map-marker"
 										size={45}
-										color={isOpenInMapsTapped ? "white" : "black"}
+										color={isOpenInMapsTapped ? PRIMARY_COLOR : TEXT_COLOR}
 									/>
 									<Text
 										style={{
@@ -138,7 +141,7 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 											marginLeft: 10,
 											marginTop: 5,
 											fontFamily: "APHontBold",
-											color: isOpenInMapsTapped ? "white" : "black",
+											color: isOpenInMapsTapped ? PRIMARY_COLOR : TEXT_COLOR,
 										}}
 									>
 										{START_WALKING}
