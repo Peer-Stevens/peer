@@ -11,7 +11,8 @@ import Screen from "../util/screens";
 import MapAnchor from "../components/MapAnchor";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { START_WALKING } from "../util/strings";
-import { fieldsToNamesMap, namesToFieldsMap } from "peer-types";
+import { fieldsToNamesMap } from "peer-types";
+import { PRIMARY_COLOR, TEXT_COLOR } from "../util/colors";
 import { FieldInfo, fieldInfos } from "./SubmitRatingScreen/SubmitRatingScreen";
 import { getPopUpProps } from "../util/strings";
 import { PopUp } from "../components/PopUp";
@@ -35,6 +36,8 @@ const BodyText = (props: TextProps) => (
 
 const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlaceProps) => {
 	const [tokenExists, setTokenExists] = useState(false);
+
+	const [isOpenInMapsTapped, setIsOpenInMapsTapped] = useState<boolean>(false);
 
 	useEffect(() => {
 		const checkForToken = async () => {
@@ -106,16 +109,31 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 							destination={placeDetails.name}
 							destination_place_id={placeID}
 							formatted_address={placeDetails.formatted_address}
+							callback={setIsOpenInMapsTapped}
 						>
-							<Button
-								style={{ ...styles.button, display: "flex" }}
-								onPress={() => {
-									return;
+							<View
+								style={{
+									...styles.button,
+									display: "flex",
+									flexDirection: "row",
+									alignItems: "center",
+									justifyContent: "center",
+									paddingHorizontal: 15,
+									paddingVertical: 10,
+									backgroundColor: isOpenInMapsTapped
+										? TEXT_COLOR
+										: PRIMARY_COLOR,
+									borderWidth: 3,
+									borderColor: "black",
 								}}
 								accessibilityLabel="Submit an accessibility rating"
 							>
 								<View style={{ display: "flex", flexDirection: "row" }}>
-									<Icon name="map-marker" size={45} />
+									<Icon
+										name="map-marker"
+										size={45}
+										color={isOpenInMapsTapped ? PRIMARY_COLOR : TEXT_COLOR}
+									/>
 									<Text
 										style={{
 											fontSize: 30,
@@ -123,12 +141,13 @@ const DetailedViewScreen: React.FC<PlaceProps> = ({ setPage, placeID }: PlacePro
 											marginLeft: 10,
 											marginTop: 5,
 											fontFamily: "APHontBold",
+											color: isOpenInMapsTapped ? PRIMARY_COLOR : TEXT_COLOR,
 										}}
 									>
 										{START_WALKING}
 									</Text>
 								</View>
-							</Button>
+							</View>
 						</MapAnchor>
 						{Object.entries(placeDetails.accessibilityData ?? {}).map(
 							([attrName, rating], index) => {

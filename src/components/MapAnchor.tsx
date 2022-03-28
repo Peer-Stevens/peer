@@ -98,6 +98,7 @@ type MapAnchorProps = {
 	destination_place_id: string;
 	destination?: string;
 	formatted_address?: string;
+	callback: (isPressed: boolean) => void;
 };
 
 const MapAnchor: React.FC<MapAnchorProps> = ({
@@ -105,6 +106,7 @@ const MapAnchor: React.FC<MapAnchorProps> = ({
 	destination_place_id,
 	formatted_address,
 	children,
+	callback,
 }: React.PropsWithChildren<MapAnchorProps>) => {
 	const MAPS_HREF = buildMapsHref({
 		travelmode: TravelMode.Walking,
@@ -125,6 +127,8 @@ const MapAnchor: React.FC<MapAnchorProps> = ({
 			onPress={() => {
 				void handlePress(MAPS_HREF);
 			}}
+			onPressIn={() => callback(true)}
+			onPressOut={() => callback(false)}
 			accessibilityLabel={a11yLabel}
 		>
 			{children}
