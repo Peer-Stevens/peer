@@ -20,6 +20,6 @@ jobs:
       - name: Run all test suites
         run: |
           yarn jest --coverage --forceExit
-      - uses: codecov/codecov-action@v2
+      - uses: codecov/codecov-action@v3
         with:
           token: ${{secrets.CODECOV_TOKEN}}
